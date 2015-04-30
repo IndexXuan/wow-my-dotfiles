@@ -26,7 +26,7 @@
 "
 "  4. Functions
 "
-"  5. Map Settings
+"  5. KeyMap Settings
 "
 "  6. Temp Area 
 "
@@ -50,72 +50,68 @@ call vundle#begin()
 " -------------------- Plugins Manager --------------------
 Plugin 'gmarik/Vundle.vim'
 
-" -------------------- Making Vim look good --------------------
+" -------------------- Making Vim looks good --------------------
 " Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
 
-
-" -------------------- Vim as a programmer's text editor --------------------
+" -------------------- Vim Base Functions Improved --------------------
+"autosave for vim --> https://github.com/907th/vim-auto-save
+Plugin 'vim-scripts/vim-auto-save'
 " Make Vim persist editing state without fuss
 " --> https://github.com/kopischke/vim-stay
 Plugin 'kopischke/vim-stay'
-" Yet another JavaScript Syntax for Vim --> https://github.com/othree/yajs.vim
-Plugin 'othree/yajs.vim'
 " Open URL with your favorite browser from you favorite editor
 " --> https://github.com/vim-scripts/open-browser.vim
 " because of China you know, switch default search_engine to baidu in
-" source code of Plugin 20150422, a great plugin
+" source code of Plugin 20150422, a great plugin, <C-g>
 Plugin 'tyru/open-browser.vim'
-" vim interface to Web API --> https://github.com/mattn/webapi-vim
-Plugin 'mattn/webapi-vim'
-" Commenton Github straight from within Vim.
-" --> https://github.com/mmozuras/vim-github-comment
-"Plugin 'mmozuras/vim-github-comment'
+" Open file under cursor when pressing gf(if the text is a path)
+Plugin 'amix/open_file_under_cursor.vim'
+
+" -------------------- Vim as a programmer's text editor --------------------
 " a tree explorer plugin for vim
 Plugin 'scrooloose/nerdtree'
 " NERDTree and tabs together in vim, painlessly
 Plugin 'jistr/vim-nerdtree-tabs'
 " syntax checker for vim and you need a specific checker for real use
 Plugin 'scrooloose/syntastic'
-" auto load vim scripts
+" auto load vim scripts ??
 Plugin 'xolox/vim-misc'
 " automated tag file generation and syntax highlighting of tags in vim
 Plugin 'xolox/vim-easytags'
 " Vim Plugin that displays tags in a window, ordered by scope
 Plugin 'majutsushi/tagbar'
-" You Know !!!
+" You Know !!! Great in C-family
 Plugin 'Valloric/YouCompleteMe'
 " go to anything like sublime
 Plugin 'kien/ctrlp.vim'
 " improve ctrlP, like goto functions
 Plugin 'tacahiroy/ctrlp-funky'
-" Open a new SSH connection via ctrlp.vim interface
-"Plugin 'vim-scripts/ctrlp-ssh'
+" Open a new SSH connection via ctrlp.vim interface, no need temp for now...
+" Plugin 'vim-scripts/ctrlp-ssh'
 " sublime-like multiple line edit tool
 Plugin 'terryma/vim-multiple-cursors'
 " switch between source files and header files quickly
 Plugin 'vim-scripts/a.vim'
 " intensely orgasmic commenting <leader>cc, <leader>ci to toggle
 Plugin 'scrooloose/nerdcommenter'
-"autosave for vim --> https://github.com/907th/vim-auto-save
-Plugin 'vim-scripts/vim-auto-save'
 " a Vim alignment plugin
 Plugin 'junegunn/vim-easy-align'
-" Open file under cursor when pressing gf(if the text is a path)
-Plugin 'amix/open_file_under_cursor.vim'
+" UtilSnips
+Plugin 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them.
+Plugin 'honza/vim-snippets'
+" UtilSnips-css. En, I have emmit, need it ???
+Plugin 'rstacruz/vim-ultisnips-css'
+" show color in html, css, scss file, like sublime plugin, very useful !
+Plugin 'gorodinskiy/vim-coloresque'
+
 " snippets
 " Plugin 'Shougo/neocomplcache.vim'
 " vim-move, a Plugin to move lines and selections up and down -->
 " https://github.com/matze/vim-move
 " Plugin 'matze/vim-move'
-" UtilSnips
-Plugin 'SirVer/ultisnips'
-" Snippets are separated from the engine. Add this if you want them.
-Plugin 'honza/vim-snippets'
-" UtilSnips-css
-Plugin 'rstacruz/vim-ultisnips-css'
-
 
 " -------------------- Working with Git --------------------
 " show git diff in the file
@@ -138,21 +134,13 @@ Plugin 'christoomey/vim-tmux-navigator'
 
 
 " -------------------- Syntax plugins --------------------
-" vim syntax highlighting for C0 ???
-" Plugin 'jez/vim-c0'
-" vim syntax highlighting for ISPC ???
-" Plugin 'jez/vim-ispc'
-" vim syntax highlighting for coffee-script
-" Plugin 'kchmck/vim-coffee-script'
 " helps editing xmd(xhtml,...) files
 Plugin 'othree/xml.vim'
 " HTML5 omnicomplete and syntax --> https://github.com/othree/html5.vim
 Plugin 'othree/html5.vim'
 " HTML5 syntax file for vim
 Plugin 'othree/html5-syntax.vim'
-" show color in html, css, scss file, like sublime plugin
-Plugin 'gorodinskiy/vim-coloresque'
-" for javascript
+" for javascript, an engine
 Plugin 'marijnh/tern_for_vim'
 " for markdown
 Plugin 'hallison/vim-markdown'
@@ -160,41 +148,56 @@ Plugin 'hallison/vim-markdown'
 Plugin 'nono/jquery.vim'
 " for scss
 Plugin 'cakebaker/scss-syntax.vim'
+" Yet another JavaScript Syntax for Vim --> https://github.com/othree/yajs.vim
+Plugin 'othree/yajs.vim'
 " Enhanced javascript syntax file for Vim -->
 " https://github.com/jelera/vim-javascript-syntax
 Plugin 'jelera/vim-javascript-syntax'
 " for javascript --> https://github.com/pangloss/vim-javascript
 Plugin 'pangloss/vim-javascript'
+
+" vim syntax highlighting for C0 ???
+" Plugin 'jez/vim-c0'
+" vim syntax highlighting for ISPC ???
+" Plugin 'jez/vim-ispc'
+" vim syntax highlighting for coffee-script
+" Plugin 'kchmck/vim-coffee-script'
+
+
+" -------------------- Extras/Advanced plugins --------------------
 " Generate JsDoc to your JavaScript code.
 "-->  https://github.com/heavenshell/vim-jsdoc.
 "usage: cursur in function and <C-l> or :JsDoc
 Plugin 'heavenshell/vim-jsdoc'
 " Grunt wrapper for vim, -->  https://github.com/mklabs/grunt.vim
 Plugin 'mklabs/grunt.vim'
-
-
-" -------------------- Extras/Advanced plugins --------------------
-" Highlight and strip trailing whitespace,
-" it's great, but too sensitive to use, drop in 20150427
-"Plugin 'ntpeters/vim-better-whitespace'
-" Easily surround chunks of text
-" Plugin 'tpope/vim-surround'
-" Align CSV files at commas, align Markdown tables, and more
-" Plugin 'godlygeek/tabular'
+" vim interface to Web API --> https://github.com/mattn/webapi-vim
+Plugin 'mattn/webapi-vim'
 " Automaticall insert the closing HTML tag
 Plugin 'HTML-AutoCloseTag'
-" Make tmux look like vim-airline (read README for extra instructions)
-" Plugin 'edkolev/tmuxline.vim'
-" All the other syntax plugins I use
-" Plugin 'ekalinin/Dockerfile.vim'
-" Plugin 'digitaltoad/vim-jade'
-" Plugin 'tpope/vim-liquid'
 " HTML Tag match-highlighter
 Plugin 'MatchTag'
 " js-html-css-beautify
 Plugin 'maksimr/vim-jsbeautify'
 " emmet
 Plugin 'mattn/emmet-vim'
+
+" Commenton Github straight from within Vim.
+" --> https://github.com/mmozuras/vim-github-comment
+" Plugin 'mmozuras/vim-github-comment'
+" Highlight and strip trailing whitespace,
+" it's great, but too sensitive to use, drop in 20150427
+" Plugin 'ntpeters/vim-better-whitespace'
+" Easily surround chunks of text
+" Plugin 'tpope/vim-surround'
+" Align CSV files at commas, align Markdown tables, and more
+" Plugin 'godlygeek/tabular'
+" Make tmux look like vim-airline (read README for extra instructions)
+" Plugin 'edkolev/tmuxline.vim'
+" All the other syntax plugins I use
+" Plugin 'ekalinin/Dockerfile.vim'
+" Plugin 'digitaltoad/vim-jade'
+" Plugin 'tpope/vim-liquid'
 
 " Vundle end...
 call vundle#end()
@@ -218,7 +221,7 @@ set ruler
 " 在状态栏显示正在输入的命令
 set showcmd
 " 左下角显示当前vim模式
-"set showmode
+" set showmode
 
 " 文内智能搜索提示 settings
 " 高亮search命中的文本。
@@ -226,7 +229,7 @@ set hlsearch
 " 打开增量搜索模式,随着键入即时搜索
 set incsearch
 " after search, press leader + / or space to cancel highlight of search results, very useful.
-"nmap <silent> <leader>/ :nohlsearch<CR>
+" nmap <silent> <leader>/ :nohlsearch<CR>
 nmap <silent> <Space> :nohlsearch<CR>
 " 搜索时忽略大小写
 set ignorecase
@@ -235,7 +238,7 @@ set ignorecase
 " case-sensitive otherwise
 set smartcase
 
-" highlight current line, a great set.
+" highlight current line, a great set if you have great theme...
 set cursorline
 
 " backspace in Visual mode deletes selection
@@ -245,7 +248,8 @@ syntax on
 
 " no wrap line
 set nowrap
-"can use mouse
+
+" can use mouse
 set mouse=a
 "set bs=2                    "在insert模式下用退格键删除
 
@@ -262,18 +266,22 @@ set smarttab
 " with '<' and '>']
 set shiftround
 
-set autoread                "文件在Vim之外修改过，自动重新读入
+"文件在Vim之外修改过，自动重新读入
+set autoread 
 
-set helplang=cn             "帮助系统设置为中文
+"帮助系统设置为中文
+set helplang=cn             
 
+" 去掉错误提示音
 set noeb
 
-set confirm
+" 在处理未保存或只读文件时弹出确认
+" set confirm
 
 " 缩进配置
 set smartindent   " Smart indent
 set autoindent    " 打开自动缩进
-"set cindent
+" set cindent
 
 " 括号配对情况,跳转并高亮一下匹配的括号
 set showmatch
@@ -291,7 +299,7 @@ set laststatus=2
 set scrolloff=5
 
 " 代码折叠 make large file slow ???
-"set foldenable
+" set foldenable
 " 折叠方法
 " manual    手工折叠
 " indent    使用缩进表示折叠
@@ -299,8 +307,8 @@ set scrolloff=5
 " syntax    使用语法定义折叠
 " diff      对没有更改的文本进行折叠
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-"set foldlevel=99
-"set foldmethod=manual
+" set foldlevel=99
+" set foldmethod=manual
 "  可组合 {} () <> []使用
 " zc 关闭当前打开的折叠
 " zo 打开当前的折叠
@@ -317,8 +325,7 @@ set scrolloff=5
 
 " load when other editor change it
 set autoread
-"set clipboard=unnamed " share clipboard
-"set clipboard=unnamedplus
+
 " ref --> http://www.cnblogs.com/jianyungsun/archive/2012/07/31/2616671.html
 set clipboard=unnamed,unnamedplus
 
@@ -326,13 +333,14 @@ set clipboard=unnamed,unnamedplus
 set nobackup
 set noswapfile
 
-set autowrite " save itsekf
+" save itself
+set autowrite 
 
 " -------------------- Theme settings, very important and useful -------------------
 set background=dark
 " Set the colorscheme
 colorscheme monokai
-" set this to make airline show well
+" set this to make airline and others show well
 set t_Co=256
 
 " ------------------------- 2. General Settings End -------------------------
@@ -342,13 +350,12 @@ set t_Co=256
 "
 " ----- emmet settings, great to use Tab -----
 let g:user_emmet_mode='i'
-let g:user_emmet_install_global = 0
-autocmd FileType html,css,scss EmmetInstall
-
 " let g:user_emmet_mode='a'
 " it works, very luck and same with sublime, aha~,
 " before set -> let g:user_emmet_leader_key='<C-Z>' work doesn't well...
 let g:user_emmet_expandabbr_key = '<Tab>'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,scss EmmetInstall
 
 
 " ----- bling/vim-airline settings -----
@@ -384,9 +391,9 @@ let g:airline#extensions#tabline#enabled = 1
 
 
 " ----- jistr/vim-nerdtree-tabs -----
-" Open/close NERDTree Tabs with \t
+" Open/close NERDTree Tabs with ;t
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
-" To have NERDTree always open on startup
+" To have NERDTree always open on startup, set to no
 let g:nerdtree_tabs_open_on_console_startup = 0
 
 " ----- scrooloose/syntastic settings -----
@@ -410,7 +417,7 @@ let g:easytags_suppress_ctags_warning = 1
 
 
 " ----- majutsushi/tagbar settings -----
-" Open/close tagbar with \b
+" Open/close tagbar with ;b
 nmap <silent> <leader>b :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
@@ -442,7 +449,7 @@ nnoremap <leader>go :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed' " mixed mode is more useful and smart
 let g:ctrlp_working_path_mode = 'ra'
-"let g:ctrlp_extensions = ['funky', 'ssh']
+" let g:ctrlp_extensions = ['funky', 'ssh']
 let g:ctrlp_extensions = ['funky']
 
 " ----- sublime-like htmlcssjs-beautify settings -----
@@ -486,9 +493,6 @@ let g:auto_save_silent = 1  " do not display the auto-save notification"
 " if it looks like URI, Open URI under cursor.
 " Otherwise, Search word under cursor.
 nmap <C-g> <Plug>(openbrowser-smart-search)
-" If it looks like URI, Open selected URI.
-" Otherwise, Search selected word.
-vmap <C-g> <Plug>(openbrowser-smart-search)
 
 
 " ----- vim-javascript and vim-javascript-syntax settings ------
@@ -496,6 +500,24 @@ let g:javascript_enable_domhtmlcss = 1
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
+
+" ----- EasyAlign settings -----
+"  可以选中多行;不选中默认操作当前行
+"  ;a= 对齐等号表达
+"  ;a: 对齐冒号表达式(json/map等)
+"  ;a<space>  首个空格对齐
+"  ;a2<space> 第二个空格对齐
+"  ;a*<space> 所有空格依次对齐
+vmap <Leader>a <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
+if !exists('g:easy_align_delimiters')
+	let g:easy_align_delimiters = {}
+endif
+let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
+
+
+" ----- vim-jquery settings -----
+au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 
 " ------------------------- 3. Plugins-Specific Settings End -------------------------
 
@@ -578,12 +600,13 @@ function! JumpToCSS()
 	endif
 endfunction
 
-nnoremap <leader>gocss :call JumpToCSS()<CR>
+" do not have a good name...
+nnoremap <leader>s :call JumpToCSS()<CR>
 
 " ------------------------- 4. functions End -------------------------
 
 
-" ------------------------- 5. Map Settings Start -------------------------
+" ------------------------- 5. keyMap Settings Start -------------------------
 
 " jj as Esc, very useful setting, great, great, great!!!
 inoremap jj <Esc>
@@ -631,7 +654,17 @@ inoremap <C-c>  <Esc>:tabclose<CR>i
 " write to file which is not permitted
 cmap w!! w !sudo tee % >/dev/null
 
-" ------------------------- 5. Map Settings End -------------------------
+" 命令行模式增强，ctrl - a到行首， -e 到行尾
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+" Change Working Directory to that of the current file
+cmap cwd lcd %:p:h
+cmap cd lcd %:p:h
+
+" ------------------------- 5. keyMap Settings End -------------------------
 
 
 
@@ -655,11 +688,6 @@ endif
 " but make color scheme ugly... so, disabled it...
 "hi Normal ctermbg=none ctermfg=none
 
-" Shortcuts
-" Change Working Directory to that of the current file
-cmap cwd lcd %:p:h
-cmap cd lcd %:p:h
-
 " Quickfix open,
 " if qc, will make <leader>q(to quit) very slow... you know, will wait
 " for input done and then to quit...
@@ -668,13 +696,7 @@ nnoremap <leader>Q :copen<CR>
 " Quickfix close, QQ is also done, so comment this
 "nnoremap <leader>Qc :ccl<CR>
 
-" 命令行模式增强，ctrl - a到行首， -e 到行尾
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-
-"" for error highlight，防止错误整行标红导致看不清
+" for error highlight，防止错误整行标红导致看不清
 highlight clear SpellBad
 highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
 highlight clear SpellCap
@@ -697,43 +719,11 @@ set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc,*.class
 
-" ----- EasyAlign settings -----
-"  可以选中多行;不选中默认操作当前行
-"  ;a= 对齐等号表达
-"  ;a: 对齐冒号表达式(json/map等)
-"  ;a<space>  首个空格对齐
-"  ;a2<space> 第二个空格对齐
-"  ;a*<space> 所有空格依次对齐
-vmap <Leader>a <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
-if !exists('g:easy_align_delimiters')
-	let g:easy_align_delimiters = {}
-endif
-let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
-
 " select and it will selected, new to know in 20150425
 behave mswin
 
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 
-"imap <C-v> <Esc>"*pa
-"imap <C-a> <Esc>^
-"imap <C-e> <Esc>$
-"vmap <C-c> "+y
-
-"set mousemodel=popup
-
-"au FileType php setlocal dict+=~/.vim/dict/php_funclist.dict
-"au FileType css setlocal dict+=~/.vim/dict/css.dict
-"au FileType c setlocal dict+=~/.vim/dict/c.dict
-"au FileType cpp setlocal dict+=~/.vim/dict/cpp.dict
-"au FileType scale setlocal dict+=~/.vim/dict/scale.dict
-"au FileType javascript setlocal dict+=~/.vim/dict/javascript.dict
-"au FileType html setlocal dict+=~/.vim/dict/javascript.dict
-"au FileType html setlocal dict+=~/.vim/dict/css.dict
-
-" ----- vim-jquert settings -----
-au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 
 " ----- UltiSnippets settings -----
 " Trigger configuration. Do not use <tab> if you use
