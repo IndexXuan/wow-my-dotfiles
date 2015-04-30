@@ -24,15 +24,16 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" -------------------- Plugins Manager --------------------
 Plugin 'gmarik/Vundle.vim'
 
-" ----- Making Vim look good ------------------------------------------
-Plugin 'altercation/vim-colors-solarized'
+" -------------------- Making Vim look good --------------------
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
 
-" ----- Vim as a programmer's text editor -----------------------------
-"
+
+" -------------------- Vim as a programmer's text editor --------------------
 " Make Vim persist editing state without fuss
 " --> https://github.com/kopischke/vim-stay
 Plugin 'kopischke/vim-stay'
@@ -92,24 +93,28 @@ Plugin 'honza/vim-snippets'
 " UtilSnips-css
 Plugin 'rstacruz/vim-ultisnips-css'
 
-" ----- Working with Git ----------------------------------------------
+
+" -------------------- Working with Git --------------------
 " show git diff in the file
 Plugin 'airblade/vim-gitgutter'
 " git wrapper
 Plugin 'tpope/vim-fugitive'
 
-" ----- Other text editing features -----------------------------------
+
+" -------------------- Other text editing features --------------------
 " vim  auto-completion for quotes,parens,brackets, etc.
 Plugin 'Raimondi/delimitMate'
 
-" ----- man pages, tmux -----------------------------------------------
+
+" -------------------- man pages, tmux --------------------
 " vim-plugin for bash man command ??
 Plugin 'jez/vim-superman'
 " navigation between tmux panes and vim splits, e.g.<c-h> move to left panel
 " ctrl + j/k/h/l   进行上下左右窗口跳转,不需要ctrl+w+jkhl
 Plugin 'christoomey/vim-tmux-navigator'
 
-" ----- Syntax plugins ------------------------------------------------
+
+" -------------------- Syntax plugins --------------------
 " vim syntax highlighting for C0 ???
 " Plugin 'jez/vim-c0'
 " vim syntax highlighting for ISPC ???
@@ -145,7 +150,6 @@ Plugin 'heavenshell/vim-jsdoc'
 Plugin 'mklabs/grunt.vim'
 
 
-
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace,
 " too sensitive to use, drop in 20150427
@@ -162,7 +166,6 @@ Plugin 'HTML-AutoCloseTag'
 " Plugin 'ekalinin/Dockerfile.vim'
 " Plugin 'digitaltoad/vim-jade'
 " Plugin 'tpope/vim-liquid'
-
 " HTML Tag match-highlighter
 Plugin 'MatchTag'
 " js-html-css-beautify
@@ -170,17 +173,17 @@ Plugin 'maksimr/vim-jsbeautify'
 " emmet
 Plugin 'mattn/emmet-vim'
 
+" Vundle end...
 call vundle#end()
 
 filetype plugin indent on
 
-" --- leader key settings, great to use ';' ---
+" -------------------- leader key settings, great to use ';' --------------------
 let mapleader = ";"
 let g:mapleader = ";"
 
-" --- General settings ---
+" -------------------- General settings --------------------
 
-" ...
 set backspace=indent,eol,start
 " show line number
 set number
@@ -473,10 +476,6 @@ map <leader>a :call CompileRun()<CR>
 function CompileRun()
 	exec "w"
 	exec "!clear"
-	"exec "!gcc % -o -%:r"
-	"exec "!time ./%<"
-	"exec "!./%<"
-
 	exec "!gcc % -o %<"
 	exec "! ./%<"
 	exec "!time ./%<:"
@@ -551,7 +550,7 @@ endfunction
 
 nnoremap <leader>gocss :call JumpToCSS()<CR>
 
-" ------------------- map settings --------------------
+" -------------------- map settings --------------------
 
 " jj as Esc, very useful setting, great, great, great!!!
 inoremap jj <Esc>
@@ -708,4 +707,3 @@ au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 let g:UltiSnipsExpandTrigger="ii"
 let g:UltiSnipsJumpForwardTrigger="II"
 let g:UltiSnipsJumpBackwardTrigger="OO""
-
