@@ -198,7 +198,7 @@ Plugin 'mattn/emmet-vim'
 " Plugin 'ekalinin/Dockerfile.vim'
 " Plugin 'digitaltoad/vim-jade'
 " Plugin 'tpope/vim-liquid'
-
+Plugin 'ervandew/supertab'
 " Vundle end...
 call vundle#end()
 
@@ -455,19 +455,20 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = ['funky']
 
 " ----- sublime-like htmlcssjs-beautify settings -----
-" ----- however, C-S-h is same like C-h due to keycode in vim ------
-map <C-S-h> :call JsBeautify()<CR>
-autocmd FileType javascript noremap <buffer> <C-S-h> :call JsBeautify()<CR>
+" ----- however, C-S-b is same like C-b due to keycode in vim ------
+" ----- 20150524, change: <C-S-b> as hot key, due to conflict... -----
+map <C-S-b> :call JsBeautify()<CR>
+autocmd FileType javascript noremap <buffer> <C-S-b> :call JsBeautify()<CR>
 " for html
-autocmd FileType html noremap <buffer> <C-S-h> :call HtmlBeautify() <CR>
+autocmd FileType html noremap <buffer> <C-S-b> :call HtmlBeautify() <CR>
 " for css
-autocmd FileType css noremap <buffer> <C-S-h> :call CSSBeautify<CR>
+autocmd FileType css noremap <buffer> <C-S-b> :call CSSBeautify<CR>
 
 " want beautify only selected lines
-autocmd FileType javascript vnoremap <buffer> <C-S-h> :call RangeJsBeautify()<CR>
-autocmd FileType html vnoremap <buffer> <C-S-h> :call RangeHtmlBeautify()<CR>
-autocmd FileType css vnoremap <buffer> <C-S-h> :call RangeCSSBeautify()<CR>
-autocmd FileType scss vnoremap <buffer> <C-S-h> :call RangeCSSBeautify()<CR>
+autocmd FileType javascript vnoremap <buffer> <C-S-b> :call RangeJsBeautify()<CR>
+autocmd FileType html vnoremap <buffer> <C-S-b> :call RangeHtmlBeautify()<CR>
+autocmd FileType css vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
+autocmd FileType scss vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
 
 
 " ----- CtrlPFunky settings -----
@@ -493,7 +494,7 @@ let g:auto_save_silent = 1  " do not display the auto-save notification"
 
 " ----- open-browser settings -----
 " if it looks like URI, Open URI under cursor.
-" Otherwise, Search word under cursor. same with my sublime, 'S' is useless
+" Otherwise, Search word under cursor. 
 nmap <C-S-g> <Plug>(openbrowser-smart-search)
 
 
@@ -561,7 +562,7 @@ endfunc
 autocmd BufNewFile *.cpp,*.c,*.sh,*.java,*.css,*.js,*.scss exec ":call SetTitle()"
 func SetTitle()
 	if &filetype == 'sh'
-		call setline(1,"\#################################################)
+		call setline(1,"\#################################################")
 		call append(line("."),   "\# File Name: ".expand("%"))
 		call append(line(".")+1, "\# Author: IndexXuan")
 		call append(line(".")+2, "\# mail: indexxuan@gmail.com")
@@ -747,4 +748,9 @@ inoremap <c-f> <Right>
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
 
+" jsdoc remap hot key and make tmuxnav can use --- 20150524
+nmap <silent> <C-d> <Plug>(jsdoc)
+"nnoremap <C-l> call:TmuxNavigateRight<CR>
+" useful: delete to end
+nmap D d$
 
