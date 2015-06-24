@@ -106,6 +106,8 @@ Plugin 'honza/vim-snippets'
 Plugin 'rstacruz/vim-ultisnips-css'
 " show color in html, css, scss file, like sublime plugin, very useful !
 Plugin 'gorodinskiy/vim-coloresque'
+"" expand region to select and do all thing you want
+"Plugin 'terryma/vim-expand-region'
 
 " snippets
 " Plugin 'Shougo/neocomplcache.vim'
@@ -155,6 +157,13 @@ Plugin 'othree/yajs.vim'
 Plugin 'jelera/vim-javascript-syntax'
 " for javascript --> https://github.com/pangloss/vim-javascript
 Plugin 'pangloss/vim-javascript'
+"" js libs support
+"Plugin 'othree/javascript-libraries-syntax.vim'
+"" angularjs snippets
+"Plugin 'matthewsimo/angular-vim-snippets'
+"" for angularjs dev
+"Plugin 'burnettk/vim-angular'
+
 
 " vim syntax highlighting for C0 ???
 " Plugin 'jez/vim-c0'
@@ -198,7 +207,7 @@ Plugin 'mattn/emmet-vim'
 " Plugin 'ekalinin/Dockerfile.vim'
 " Plugin 'digitaltoad/vim-jade'
 " Plugin 'tpope/vim-liquid'
-Plugin 'ervandew/supertab'
+"Plugin 'ervandew/supertab'
 " Vundle end...
 call vundle#end()
 
@@ -500,6 +509,15 @@ nmap <C-S-g> <Plug>(openbrowser-smart-search)
 
 " ----- vim-javascript and vim-javascript-syntax settings ------
 let g:javascript_enable_domhtmlcss = 1
+"let g:javascript_conceal_function   = "ƒ"
+"let g:javascript_conceal_null       = "ø"
+"let g:javascript_conceal_this       = "@"
+"let g:javascript_conceal_return     = "⇚"
+"let g:javascript_conceal_undefined  = "¿"
+"let g:javascript_conceal_NaN        = "ℕ"
+"let g:javascript_conceal_prototype  = "¶"
+"let g:javascript_conceal_static     = "•"
+"let g:javascript_conceal_super      = "Ω"
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -522,6 +540,21 @@ let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String']
 " ----- vim-jquery settings -----
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 
+" 20150624 add
+" javascript_libs settings
+let g:used_javascript_libs = 'jquery,angularjs,angularui,jasmine,chai,react,requirejs'
+"let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/bundle/vim-ultisnips-css/UltiSnips']; // new version need it?
+" expand_region settings
+map K <Plug>(expand_region_expand)
+map J <Plug>(expand_region_shrink)
+
+" ----- UltiSnippets settings -----
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="ii"
+let g:UltiSnipsJumpForwardTrigger="II"
+let g:UltiSnipsJumpBackwardTrigger="OO"
+
 " ------------------------- 3. Plugins-Specific Settings End -------------------------
 
 
@@ -536,8 +569,8 @@ function CompileRun()
 	exec "!time ./%<:"
 endfunction
 
-map <F12> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
+map <F12> :call Run()<CR>
+func! Run()
 	exec "w"
 	if &filetype == 'c'
 		exec "!gcc % -o %<"
@@ -553,6 +586,9 @@ func! CompileRunGcc()
 		exec "!chromium-browser % &"
 		exec "!clear"
 	elseif &filetype == 'xml'
+		exec "!chromium-browser % &"
+		exec "!clear"
+	elseif &filetype == 'javascript'
 		exec "!chromium-browser % &"
 		exec "!clear"
 	endif
@@ -670,6 +706,42 @@ cnoremap <C-e> <End>
 cmap cwd lcd %:p:h
 cmap cd lcd %:p:h
 
+" Quickfix open,
+" if qc, will make <leader>q(to quit) very slow... you know, will wait
+" for input done and then to quit...
+nnoremap qf :copen<CR>
+
+" 20150509, add some feature for fast and easy move
+nmap b ^
+nmap f $
+
+" emacs-like move
+inoremap <C-b> <Left>
+inoremap <c-f> <Right>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+" emacs-like move2, 20150621
+" not very common use and not easy to press these two keys at the same time
+"imap <C-a> <Home> 
+imap <C-e> <End>
+imap <C-d> <Del>
+imap <C-h> <BS>
+
+" jsdoc remap hot key and make tmuxnav can use --- 20150524
+nmap <silent> <C-d> <Plug>(jsdoc)
+"nnoremap <C-l> call:TmuxNavigateRight<CR>
+" useful: delete to end
+nmap D d$
+
+" 20150611, fast the jump, shift key is hard to press
+nnoremap [ {
+nnoremap ] }
+
+" great, paste and auto in the bottom of the paste content
+vnoremap <silent> y y`]
+nnoremap <slient> p p`]
+nnoremap <silent> p p`]
+
 " ------------------------- 5. keyMap Settings End -------------------------
 
 
@@ -677,10 +749,6 @@ cmap cd lcd %:p:h
 
 
 " ------------------------- 6.Temp Area: something just in test for use -------------------------
-
-" if use well, will move to place it should be...
-"let g:github_user ='IndexXuan'
-"let g:github_comment_open_browser = 1
 
 set omnifunc=syntaxcomplete#Complete
 if has("autocmd") && exists("+omnifunc")
@@ -693,11 +761,6 @@ endif
 " to along with the terminal's transparent, should set ctermbg to none...
 " but make color scheme ugly... so, disabled it...
 hi Normal ctermbg=none ctermfg=255
-
-" Quickfix open,
-" if qc, will make <leader>q(to quit) very slow... you know, will wait
-" for input done and then to quit...
-nnoremap <leader>Q :copen<CR>
 
 " Quickfix close, QQ is also done, so comment this
 "nnoremap <leader>Qc :ccl<CR>
@@ -731,26 +794,14 @@ set wildignore=*.o,*~,*.pyc,*.class
 
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 
+" ------------ notes and easy to forget area, create in 20150611 ---------------
 
-" ----- UltiSnippets settings -----
-" Trigger configuration. Do not use <tab> if you use
-" https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="ii"
-let g:UltiSnipsJumpForwardTrigger="II"
-let g:UltiSnipsJumpBackwardTrigger="OO""
+" something maybe not use often but powful when you need it
+" <C-D> jsdoc
+" qf to open quickfix panel
 
-" 20150509, add some feature for fast and easy move
-nmap b ^
-nmap f $
-" emacs-like move
-inoremap <C-b> <Left>
-inoremap <c-f> <Right>
-inoremap <C-n> <Down>
-inoremap <C-p> <Up>
-
-" jsdoc remap hot key and make tmuxnav can use --- 20150524
-nmap <silent> <C-d> <Plug>(jsdoc)
-"nnoremap <C-l> call:TmuxNavigateRight<CR>
-" useful: delete to end
-nmap D d$
+" 20150616, fuck the GTW...
+" as the reason we all know, google is always block and some google's
+" ip can make us to use google painless, though failure with time goes on
+" so, link the openbrowser.vim to dir ~/.vim and make change easily.
 
