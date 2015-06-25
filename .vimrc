@@ -107,7 +107,7 @@ Plugin 'rstacruz/vim-ultisnips-css'
 " show color in html, css, scss file, like sublime plugin, very useful !
 Plugin 'gorodinskiy/vim-coloresque'
 "" expand region to select and do all thing you want
-"Plugin 'terryma/vim-expand-region'
+Plugin 'terryma/vim-expand-region'
 
 " snippets
 " Plugin 'Shougo/neocomplcache.vim'
@@ -157,12 +157,12 @@ Plugin 'othree/yajs.vim'
 Plugin 'jelera/vim-javascript-syntax'
 " for javascript --> https://github.com/pangloss/vim-javascript
 Plugin 'pangloss/vim-javascript'
-"" js libs support
-"Plugin 'othree/javascript-libraries-syntax.vim'
-"" angularjs snippets
-"Plugin 'matthewsimo/angular-vim-snippets'
-"" for angularjs dev
-"Plugin 'burnettk/vim-angular'
+" js libs support
+Plugin 'othree/javascript-libraries-syntax.vim'
+" angularjs snippets
+Plugin 'matthewsimo/angular-vim-snippets'
+" for angularjs dev
+Plugin 'burnettk/vim-angular'
 
 
 " vim syntax highlighting for C0 ???
@@ -207,6 +207,7 @@ Plugin 'mattn/emmet-vim'
 " Plugin 'ekalinin/Dockerfile.vim'
 " Plugin 'digitaltoad/vim-jade'
 " Plugin 'tpope/vim-liquid'
+" temp remove, make emmet failed... 20150624
 "Plugin 'ervandew/supertab'
 " Vundle end...
 call vundle#end()
@@ -799,6 +800,7 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 " something maybe not use often but powful when you need it
 " <C-D> jsdoc
 " qf to open quickfix panel
+" gf go to an exist file and ctrl + o can back,  very magic and useful
 
 " 20150616, fuck the GTW...
 " as the reason we all know, google is always block and some google's
