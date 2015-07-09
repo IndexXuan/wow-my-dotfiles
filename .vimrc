@@ -155,10 +155,10 @@ Plugin 'othree/yajs.vim'
 " Enhanced javascript syntax file for Vim -->
 " https://github.com/jelera/vim-javascript-syntax
 Plugin 'jelera/vim-javascript-syntax'
-" for javascript --> https://github.com/pangloss/vim-javascript
-Plugin 'pangloss/vim-javascript'
 " js libs support
 Plugin 'othree/javascript-libraries-syntax.vim'
+" for javascript --> https://github.com/pangloss/vim-javascript
+Plugin 'pangloss/vim-javascript'
 " angularjs snippets
 Plugin 'matthewsimo/angular-vim-snippets'
 " for angularjs dev
@@ -176,7 +176,7 @@ Plugin 'burnettk/vim-angular'
 " -------------------- Extras/Advanced plugins --------------------
 " Generate JsDoc to your JavaScript code.
 "-->  https://github.com/heavenshell/vim-jsdoc.
-"usage: cursur in function and <C-l> or :JsDoc
+"usage: cursur in function and <C-d> or :JsDoc
 Plugin 'heavenshell/vim-jsdoc'
 " Grunt wrapper for vim, -->  https://github.com/mklabs/grunt.vim
 Plugin 'mklabs/grunt.vim'
@@ -331,7 +331,7 @@ set scrolloff=5
 " zj 移动至下一个折叠
 " zk 移动至上一个折叠
 " zn 禁用折叠
-" zN 启用折叠}
+" zN 启用折叠
 
 " load when other editor change it
 set autoread
@@ -524,12 +524,12 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 " ----- EasyAlign settings -----
-"  可以选中多行;不选中默认操作当前行
-"  ;a= 对齐等号表达
-"  ;a: 对齐冒号表达式(json/map等)
-"  ;a<space>  首个空格对齐
-"  ;a2<space> 第二个空格对齐
-"  ;a*<space> 所有空格依次对齐
+" 可以选中多行;不选中默认操作当前行
+" ;a= 对齐等号表达
+" ;a: 对齐冒号表达式(json/map等)
+" ;a<space>  首个空格对齐
+" ;a2<space> 第二个空格对齐
+" ;a*<space> 所有空格依次对齐
 vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 if !exists('g:easy_align_delimiters')
@@ -543,7 +543,7 @@ au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 
 " 20150624 add
 " javascript_libs settings
-let g:used_javascript_libs = 'jquery,angularjs,angularui,jasmine,chai,react,requirejs'
+let g:used_javascript_libs = 'jquery,angularjs,angularui,jasmine,chai,underscore,react,requirejs'
 "let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/bundle/vim-ultisnips-css/UltiSnips']; // new version need it?
 " expand_region settings
 map K <Plug>(expand_region_expand)
@@ -654,8 +654,11 @@ nnoremap <leader>gocss :call JumpToCSS()<CR>
 " jj as Esc, very useful setting, great, great, great!!!
 inoremap jj <Esc>
 
+" toggle paste mode in vim, very useful. 20150709
+set pastetoggle=<F5>
+
 " indent global
-nnoremap = ggVG=
+nnoremap = gg=G
 
 " find, very natural
 map <C-f> /
@@ -680,8 +683,8 @@ nnoremap <C-r>  :redo<CR>
 inoremap <C-r>  <Esc>:redo<CR>
 
 nmap <leader>w :w!<CR>
-nmap <leader>x :x<CR>
-nmap <leader>q :wq!<CR>
+"nmap <leader>x :x<CR>
+nmap <leader>q :x<CR>
 nmap QQ :q!<CR>
 nmap <leader>s :shell<CR>
 map <leader>f :find<CR>
@@ -806,4 +809,5 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 " as the reason we all know, google is always block and some google's
 " ip can make us to use google painless, though failure with time goes on
 " so, link the openbrowser.vim to dir ~/.vim and make change easily.
+
 
