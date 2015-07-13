@@ -454,6 +454,7 @@ augroup END
 
 
 " ----- YouCompleteMe settings -----
+" not this setting will not so powful
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 nnoremap <leader>go :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -505,7 +506,7 @@ let g:auto_save_silent = 1  " do not display the auto-save notification"
 " ----- open-browser settings -----
 " if it looks like URI, Open URI under cursor.
 " Otherwise, Search word under cursor. 
-nmap <C-S-g> <Plug>(openbrowser-smart-search)
+nmap <C-g> <Plug>(openbrowser-smart-search)
 
 
 " ----- vim-javascript and vim-javascript-syntax settings ------
@@ -724,7 +725,8 @@ inoremap <C-b> <Left>
 inoremap <c-f> <Right>
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
-" emacs-like move2, 20150621
+
+" shell-like
 " not very common use and not easy to press these two keys at the same time
 "imap <C-a> <Home> 
 imap <C-e> <End>
@@ -762,8 +764,7 @@ if has("autocmd") && exists("+omnifunc")
 				\   endif
 endif
 
-" to along with the terminal's transparent, should set ctermbg to none...
-" but make color scheme ugly... so, disabled it...
+" to along with the terminal's transparent, while ctermfg 256 is not ok
 hi Normal ctermbg=none ctermfg=255
 
 " Quickfix close, QQ is also done, so comment this
@@ -804,10 +805,13 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 " <C-D> jsdoc
 " qf to open quickfix panel
 " gf go to an exist file and ctrl + o can back,  very magic and useful
+" Tern usage:
+" :TernDef
+" :TernRef
+" TernType
 
 " 20150616, fuck the GTW...
 " as the reason we all know, google is always block and some google's
 " ip can make us to use google painless, though failure with time goes on
 " so, link the openbrowser.vim to dir ~/.vim and make change easily.
-
 
