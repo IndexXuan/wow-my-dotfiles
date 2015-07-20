@@ -41,7 +41,6 @@ set nocompatible
 
 filetype off
 
-
 " ------------------------- 1. Vundle and Plugins List Start -------------------------
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -178,7 +177,7 @@ Plugin 'pangloss/vim-javascript'
 " Plugin 'kchmck/vim-coffee-script'
 
 
-" -------------------- Extras/Advanced plugins --------------------
+" -------------------- Extras/Advanced web DEV plugins --------------------
 " Generate JsDoc to your JavaScript code.
 "-->  https://github.com/heavenshell/vim-jsdoc.
 "usage: cursur in function and <C-d> or :JsDoc
@@ -268,20 +267,23 @@ set nowrap
 set mouse=a
 "set bs=2                    "在insert模式下用退格键删除
 
-" tab相关变更
+" tab相关变更 20150722 update
 set tabstop=4     " 设置Tab键的宽度        [等同的空格个数]
 set shiftwidth=4  " 每一次缩进对应的空格数
 set softtabstop=4 " 按退格键时可以一次删掉 4 个空格
+set expandtab " control whether change tab to space, add in 20150722
+
+set smarttab  " usage and intro as below
+" break the set of below, tab not change to space, so comment it
 " insert tabs on the start of a line according to
 " shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
-set smarttab
 " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用
 " Ctrl+V + Tab]
 " 缩进时，取整 use multiple of shiftwidth when indenting
 " with '<' and '>']
 set shiftround
 
-"文件在Vim之外修改过，自动重新读入
+"文件在vim之外修改过，自动重新读入
 set autoread 
 
 "帮助系统设置为中文
@@ -820,6 +822,7 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 " ------------ notes and easy to forget area, create in 20150611 ---------------
 
 " something maybe not use often but powerful when you need it
+" :retab! change global tab to your set, faster and powful, 20150722
 " <C-D> jsdoc
 " qf to open quickfix panel
 " gf go to an exist file and ctrl + o can back,  very magic and useful
