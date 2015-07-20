@@ -106,8 +106,13 @@ Plugin 'honza/vim-snippets'
 Plugin 'rstacruz/vim-ultisnips-css'
 " show color in html, css, scss file, like sublime plugin, very useful !
 Plugin 'gorodinskiy/vim-coloresque'
-"" expand region to select and do all thing you want
+" expand region to select and do all thing you want
 Plugin 'terryma/vim-expand-region'
+
+" rename the current file in the vim buffer + retain relative path, 20150714
+" Plugin 'danro/rename.vim'
+" vim sugar for the UNIX shell commands, rename, move, mkdir inner vim
+Plugin 'tpope/vim-eunuch'
 
 " snippets
 " Plugin 'Shougo/neocomplcache.vim'
@@ -160,9 +165,9 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 " for javascript --> https://github.com/pangloss/vim-javascript
 Plugin 'pangloss/vim-javascript'
 " angularjs snippets
-Plugin 'matthewsimo/angular-vim-snippets'
+"Plugin 'matthewsimo/angular-vim-snippets'
 " for angularjs dev
-Plugin 'burnettk/vim-angular'
+"Plugin 'burnettk/vim-angular'
 
 
 " vim syntax highlighting for C0 ???
@@ -187,7 +192,7 @@ Plugin 'HTML-AutoCloseTag'
 " HTML Tag match-highlighter
 Plugin 'MatchTag'
 " js-html-css-beautify
-Plugin 'maksimr/vim-jsbeautify'
+"Plugin 'maksimr/vim-jsbeautify'
 " emmet
 Plugin 'mattn/emmet-vim'
 
@@ -352,6 +357,10 @@ set autowrite
 set background=dark
 " Set the colorscheme
 colorscheme monokai
+"colorscheme desertink 
+"colorscheme late_evening
+"colorscheme triplejelly
+
 " set this to make airline and others show well
 set t_Co=256
 
@@ -454,7 +463,7 @@ augroup END
 
 
 " ----- YouCompleteMe settings -----
-" not this setting will not so powful
+" not this setting will not so powerful
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 nnoremap <leader>go :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -468,18 +477,18 @@ let g:ctrlp_extensions = ['funky']
 " ----- sublime-like htmlcssjs-beautify settings -----
 " ----- however, C-S-b is same like C-b due to keycode in vim ------
 " ----- 20150524, change: <C-S-b> as hot key, due to conflict... -----
-map <C-S-b> :call JsBeautify()<CR>
-autocmd FileType javascript noremap <buffer> <C-S-b> :call JsBeautify()<CR>
-" for html
-autocmd FileType html noremap <buffer> <C-S-b> :call HtmlBeautify() <CR>
-" for css
-autocmd FileType css noremap <buffer> <C-S-b> :call CSSBeautify<CR>
+"map <C-S-b> :call JsBeautify()<CR>
+"autocmd FileType javascript noremap <buffer> <C-S-b> :call JsBeautify()<CR>
+"" for html
+"autocmd FileType html noremap <buffer> <C-S-b> :call HtmlBeautify() <CR>
+"" for css
+"autocmd FileType css noremap <buffer> <C-S-b> :call CSSBeautify<CR>
 
-" want beautify only selected lines
-autocmd FileType javascript vnoremap <buffer> <C-S-b> :call RangeJsBeautify()<CR>
-autocmd FileType html vnoremap <buffer> <C-S-b> :call RangeHtmlBeautify()<CR>
-autocmd FileType css vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
-autocmd FileType scss vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
+"" want beautify only selected lines
+"autocmd FileType javascript vnoremap <buffer> <C-S-b> :call RangeJsBeautify()<CR>
+"autocmd FileType html vnoremap <buffer> <C-S-b> :call RangeHtmlBeautify()<CR>
+"autocmd FileType css vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
+"autocmd FileType scss vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
 
 
 " ----- CtrlPFunky settings -----
@@ -665,12 +674,12 @@ nnoremap = gg=G
 map <C-f> /
 
 " CTRL-A is Select all
-noremap <C-A> gggH<C-O>G
-inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
-cnoremap <C-A> <C-C>gggH<C-O>G
-onoremap <C-A> <C-C>gggH<C-O>G
-snoremap <C-A> <C-C>gggH<C-O>G
-xnoremap <C-A> <C-C>ggVG
+"noremap <C-A> gggH<C-O>G
+"inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
+"cnoremap <C-A> <C-C>gggH<C-O>G
+"onoremap <C-A> <C-C>gggH<C-O>G
+"snoremap <C-A> <C-C>gggH<C-O>G
+"xnoremap <C-A> <C-C>ggVG
 
 " Cut, Paste, Copy
 vmap <C-x> d
@@ -691,8 +700,12 @@ nmap <leader>s :shell<CR>
 map <leader>f :find<CR>
 
 " use 'y' because in keyboard, y is after 't', so mean next tab ~
+" mutil file edit is very often, 
+" so tabnext is very important, so map to tt 20150714
 nnoremap <C-y>  :tabnext<CR>
+nnoremap tt     :tabnext<CR>
 inoremap <C-y>  <Esc>:tabnext<CR>i
+"inoremap tt     <Esc>:tabnext<CR>i
 nnoremap <C-t>  :tabnew<CR>
 inoremap <C-t>  <Esc>:tabnew<CR>i
 nnoremap <C-c>  :tabclose<CR>
@@ -707,9 +720,9 @@ cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
-" Change Working Directory to that of the current file
-cmap cwd lcd %:p:h
-cmap cd lcd %:p:h
+" Change Working Directory to that of the current file, do not know usage
+"cmap cwd :lcd %:p:h
+"cmap cd :lcd %:p:h
 
 " Quickfix open,
 " if qc, will make <leader>q(to quit) very slow... you know, will wait
@@ -727,21 +740,26 @@ inoremap <C-n> <Down>
 inoremap <C-p> <Up>
 
 " shell-like
-" not very common use and not easy to press these two keys at the same time
-"imap <C-a> <Home> 
+imap <C-a> <Home> 
 imap <C-e> <End>
 imap <C-d> <Del>
 imap <C-h> <BS>
+inoremap <C-u> <Esc>d0cl
+inoremap <C-w> <Esc>dbcl
 
 " jsdoc remap hot key and make tmuxnav can use --- 20150524
 nmap <silent> <C-d> <Plug>(jsdoc)
 "nnoremap <C-l> call:TmuxNavigateRight<CR>
 " useful: delete to end
-nmap D d$
+"nmap D d$
+nnoremap Y y$
 
 " 20150611, fast the jump, shift key is hard to press
 nnoremap [ {
 nnoremap ] }
+nnoremap 9 (
+nnoremap 0 )
+nnoremap 5 %
 
 " great, paste and auto in the bottom of the paste content
 vnoremap <silent> y y`]
@@ -801,17 +819,42 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 " ------------ notes and easy to forget area, create in 20150611 ---------------
 
-" something maybe not use often but powful when you need it
+" something maybe not use often but powerful when you need it
 " <C-D> jsdoc
 " qf to open quickfix panel
 " gf go to an exist file and ctrl + o can back,  very magic and useful
+"
 " Tern usage:
-" :TernDef
-" :TernRef
-" TernType
+": TernDef: Jump to the definition of the thing under the cursor.
+": TernDoc: Look up the documentation of something.
+": TernType: Find the type of the thing under the cursor.
+": TernRefs: Show all references to the variable or property under the cursor.
+": TernRename: Rename the variable under the cursor.
+
+" Vim sugar for the UNIX shell commands. Features include:
+": Remove: Delete a buffer and the file on disk simultaneously.
+": Unlink: Like :Remove, but keeps the now empty buffer.
+": Move: Rename a buffer and the file on disk simultaneously.
+": Rename: Like :Move, but relative to the current file's containing directory.
+": Chmod: Change the permissions of the current file.
+": Mkdir: Create a directory, defaulting to the parent of the current file.
+": Find: Run find and load the results into the quickfix list.
+": Locate: Run locate and load the results into the quickfix list.
+": Wall: Write every open window. Handy for kicking off tools like guard.
+": SudoWrite: Write a privileged file with sudo.
+": SudoEdit: Edit a privileged file with sudo.
+"File type detection for sudo -e is based on original file name.
+"New files created with a shebang line are automatically made executable.
+"New init scripts are automatically prepopulated with /etc/init.d/skeleton.j
 
 " 20150616, fuck the GTW...
 " as the reason we all know, google is always block and some google's
 " ip can make us to use google painless, though failure with time goes on
 " so, link the openbrowser.vim to dir ~/.vim and make change easily.
+
+" very useful and powerful, 20150716
+cmap <space>n TernRename<CR> 
+cmap <space>r TernRefs<CR>
+cmap <space>t TernType<CR>
+cmap <space>d TernDef<CR>
 
