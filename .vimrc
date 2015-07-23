@@ -281,6 +281,14 @@ set smarttab  " usage and intro as below
 " Ctrl+V + Tab]
 " 缩进时，取整 use multiple of shiftwidth when indenting
 " with '<' and '>']
+" retab! map
+nnoremap -- :retab!<CR>
+
+" 缩进配置
+set smartindent   " Smart indent
+set autoindent    " 打开自动缩进
+" set cindent
+
 set shiftround
 
 "文件在vim之外修改过，自动重新读入
@@ -294,11 +302,6 @@ set noeb
 
 " 在处理未保存或只读文件时弹出确认
 " set confirm
-
-" 缩进配置
-set smartindent   " Smart indent
-set autoindent    " 打开自动缩进
-" set cindent
 
 " 括号配对情况,跳转并高亮一下匹配的括号
 set showmatch
@@ -370,7 +373,7 @@ set t_Co=256
 
 
 " ------------------------- 3. Plugins-Specific Settings Start -------------------------
-"
+
 " ----- emmet settings, great to use Tab -----
 let g:user_emmet_mode='i'
 " let g:user_emmet_mode='a'
@@ -384,7 +387,7 @@ autocmd FileType html,css,scss EmmetInstall
 " ----- bling/vim-airline settings -----
 let g:airline_theme='badwolf'
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 let g:airline_exclude_filename = []
@@ -423,8 +426,8 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = "▲"
 augroup Syntastic
-	au!
-	au FileType tex let b:syntastic_mode = "passive"
+    au!
+    au FileType tex let b:syntastic_mode = "passive"
 augroup END
 
 
@@ -456,11 +459,11 @@ let g:airline#extensions#hunks#non_zero_only = 1
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
 augroup mydelimitMate
-	au!
-	au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-	au FileType tex let b:delimitMate_quotes = ""
-	au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-	au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+    au!
+    au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+    au FileType tex let b:delimitMate_quotes = ""
+    au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+    au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
 
@@ -545,7 +548,7 @@ let g:html_indent_style1 = "inc"
 vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 if !exists('g:easy_align_delimiters')
-	let g:easy_align_delimiters = {}
+    let g:easy_align_delimiters = {}
 endif
 let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
 
@@ -575,88 +578,88 @@ let g:UltiSnipsJumpBackwardTrigger="OO"
 
 map <leader>a :call CompileRun()<CR>
 function CompileRun()
-	exec "w"
-	exec "!clear"
-	exec "!gcc % -o %<"
-	exec "! ./%<"
-	exec "!time ./%<:"
+    exec "w"
+    exec "!clear"
+    exec "!gcc % -o %<"
+    exec "! ./%<"
+    exec "!time ./%<:"
 endfunction
 
 map <F12> :call Run()<CR>
 func! Run()
-	exec "w"
-	if &filetype == 'c'
-		exec "!gcc % -o %<"
-		exec "! ./%<"
-		exec "!time ./%<:"
-	elseif &filetype == 'cpp'
-		exec "!g++ % -o %<:"
-		exec "!time ./%<"
-	elseif &filetype == 'java'
-		exec "!javac %"
-		exec "!time java -cp %:p:h %:t:r"
-	elseif &filetype == 'html'
-		exec "!chromium-browser % &"
-		exec "!clear"
-	elseif &filetype == 'xml'
-		exec "!chromium-browser % &"
-		exec "!clear"
-	elseif &filetype == 'javascript'
-		exec "!chromium-browser % &"
-		exec "!clear"
-	endif
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o %<"
+        exec "! ./%<"
+        exec "!time ./%<:"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<:"
+        exec "!time ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!time java -cp %:p:h %:t:r"
+    elseif &filetype == 'html'
+        exec "!chromium-browser % &"
+        exec "!clear"
+    elseif &filetype == 'xml'
+        exec "!chromium-browser % &"
+        exec "!clear"
+    elseif &filetype == 'javascript'
+        exec "!chromium-browser % &"
+        exec "!clear"
+    endif
 endfunc
 
 " ----- auto-SetTitle when create file in target fileType -----
 autocmd BufNewFile *.cpp,*.c,*.sh,*.java,*.css,*.js,*.scss exec ":call SetTitle()"
 func SetTitle()
-	if &filetype == 'sh'
-		call setline(1,"\#################################################")
-		call append(line("."),   "\# File Name: ".expand("%"))
-		call append(line(".")+1, "\# Author: IndexXuan")
-		call append(line(".")+2, "\# mail: indexxuan@gmail.com")
-		call append(line(".")+3, "\# Created Time: ".strftime("%c"))
-		call append(line(".")+4, "\#################################################")
-		call append(line(".")+5, "\#!/bin/bash")
-		call append(line(".")+6, "")
-	else 
-		call setline(1, "/*******************************************************")
-		call append(line("."), "    > File Name: ".expand("%"))
-		call append(line(".")+1, "    > Author: IndexXuan")
-		call append(line(".")+2, "    > Mail: indexxuan@gmail.com")
-		call append(line(".")+3, "    > Created Time: ".strftime("%c"))
-		call append(line(".")+4, " ******************************************************/")
-		call append(line(".")+5, "")
-	endif
+    if &filetype == 'sh'
+        call setline(1,"\#################################################")
+        call append(line("."),   "\# File Name: ".expand("%"))
+        call append(line(".")+1, "\# Author: IndexXuan")
+        call append(line(".")+2, "\# mail: indexxuan@gmail.com")
+        call append(line(".")+3, "\# Created Time: ".strftime("%c"))
+        call append(line(".")+4, "\#################################################")
+        call append(line(".")+5, "\#!/bin/bash")
+        call append(line(".")+6, "")
+    else 
+        call setline(1, "/*******************************************************")
+        call append(line("."), "    > File Name: ".expand("%"))
+        call append(line(".")+1, "    > Author: IndexXuan")
+        call append(line(".")+2, "    > Mail: indexxuan@gmail.com")
+        call append(line(".")+3, "    > Created Time: ".strftime("%c"))
+        call append(line(".")+4, " ******************************************************/")
+        call append(line(".")+5, "")
+    endif
 
-	if &filetype == 'c'
-		call append(line(".") + 6, "#include <stdio.h>")
-		call append(line(".") + 7, "")
-	elseif &filetype =='cpp'
-		call append(line(".") + 6, "#include <iostream>")
-		call append(line(".") + 7, "using namespace std;")
-		call append(line(".") + 8, "")
-	endif
-	" to the end of the file when file created
-	autocmd BufNewFile * normal G
+    if &filetype == 'c'
+        call append(line(".") + 6, "#include <stdio.h>")
+        call append(line(".") + 7, "")
+    elseif &filetype =='cpp'
+        call append(line(".") + 6, "#include <iostream>")
+        call append(line(".") + 7, "using namespace std;")
+        call append(line(".") + 8, "")
+    endif
+    " to the end of the file when file created
+    autocmd BufNewFile * normal G
 endfunc
 
 
 function! JumpToCSS()
-	let id_pos = searchpos("id", "nb", line('.'))[1]
-	let class_pos = searchpos("class", "nb", line('.'))[1]
+    let id_pos = searchpos("id", "nb", line('.'))[1]
+    let class_pos = searchpos("class", "nb", line('.'))[1]
 
-	if class_pos > 0 || id_pos > 0
-		if class_pos < id_pos
-			execute ":vim '#".expand('<cword>')."' **/*.css"
-		elseif class_pos > id_pos
-			execute ":vim '.".expand('<cword>')."' **/*.css"
-		endif
-	endif
+    if class_pos > 0 || id_pos > 0
+        if class_pos < id_pos
+            execute ":vim '#".expand('<cword>')."' **/*.css"
+        elseif class_pos > id_pos
+            execute ":vim '.".expand('<cword>')."' **/*.css"
+        endif
+    endif
 endfunction
 
 " do not have a good name...
-nnoremap <leader>gocss :call JumpToCSS()<CR>
+nnoremap <leader>jc :call JumpToCSS()<CR>
 
 " ------------------------- 4. functions End -------------------------
 
@@ -684,15 +687,15 @@ map <C-f> /
 "xnoremap <C-A> <C-C>ggVG
 
 " Cut, Paste, Copy
-vmap <C-x> d
-vmap <C-v> p
-vmap <C-c> y
+" vmap <C-x> d
+" vmap <C-v> p
+" vmap <C-c> y
 
 " Undo, Redo (broken)
-nnoremap <C-z>  :undo<CR>
-inoremap <C-z>  <Esc>:undo<CR>
-nnoremap <C-r>  :redo<CR>
-inoremap <C-r>  <Esc>:redo<CR>
+" nnoremap <C-z>  :undo<CR>
+" inoremap <C-z>  <Esc>:undo<CR>
+" nnoremap <C-r>  :redo<CR>
+" inoremap <C-r>  <Esc>:redo<CR>
 
 nmap <leader>w :w!<CR>
 "nmap <leader>x :x<CR>
@@ -727,7 +730,7 @@ cnoremap <C-e> <End>
 "cmap cd :lcd %:p:h
 
 " Quickfix open,
-" if qc, will make <leader>q(to quit) very slow... you know, will wait
+" if <leader>qf, will make <leader>q(to quit) very slow... you know, will wait
 " for input done and then to quit...
 nnoremap qf :copen<CR>
 
@@ -735,13 +738,11 @@ nnoremap qf :copen<CR>
 nmap b ^
 nmap f $
 
-" emacs-like move
+" shell-like move
 inoremap <C-b> <Left>
 inoremap <c-f> <Right>
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
-
-" shell-like
 imap <C-a> <Home> 
 imap <C-e> <End>
 imap <C-d> <Del>
@@ -754,6 +755,7 @@ nmap <silent> <C-d> <Plug>(jsdoc)
 "nnoremap <C-l> call:TmuxNavigateRight<CR>
 " useful: delete to end
 "nmap D d$
+" Y need remap for useful
 nnoremap Y y$
 
 " 20150611, fast the jump, shift key is hard to press
@@ -763,7 +765,7 @@ nnoremap 9 (
 nnoremap 0 )
 nnoremap 5 %
 
-" great, paste and auto in the bottom of the paste content
+" great, paste and auto in the bottom of the paste content, very useful!
 vnoremap <silent> y y`]
 nnoremap <slient> p p`]
 nnoremap <silent> p p`]
@@ -778,10 +780,10 @@ nnoremap <silent> p p`]
 
 set omnifunc=syntaxcomplete#Complete
 if has("autocmd") && exists("+omnifunc")
-	autocmd Filetype *
-				\   if &omnifunc == "" |
-				\       setlocal omnifunc=syntaxcomplete#Complete |
-				\   endif
+    autocmd Filetype *
+                \   if &omnifunc == "" |
+                \       setlocal omnifunc=syntaxcomplete#Complete |
+                \   endif
 endif
 
 " to along with the terminal's transparent, while ctermfg 256 is not ok
@@ -860,4 +862,7 @@ cmap <space>n TernRename<CR>
 cmap <space>r TernRefs<CR>
 cmap <space>t TernType<CR>
 cmap <space>d TernDef<CR>
+
+" 20150723, 通过修改源码的方式将左对齐批量注释快捷键映射为 <leader>cc,
+" 并将源码链接到.vim/目录下，便于修改！！！
 
