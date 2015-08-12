@@ -57,6 +57,10 @@ Plugin 'bling/vim-airline'
 " -------------------- Vim Base Functions Improved --------------------
 "autosave for vim --> https://github.com/907th/vim-auto-save
 Plugin 'vim-scripts/vim-auto-save'
+" ag
+Plugin 'ggreer/the_silver_searcher'
+" ctrlsf
+Plugin 'dyng/ctrlsf.vim'
 " Make Vim persist editing state without fuss
 " --> https://github.com/kopischke/vim-stay
 Plugin 'kopischke/vim-stay'
@@ -107,6 +111,8 @@ Plugin 'rstacruz/vim-ultisnips-css'
 Plugin 'gorodinskiy/vim-coloresque'
 " expand region to select and do all thing you want
 Plugin 'terryma/vim-expand-region'
+" jshint2.vim  20150808
+Plugin 'Shutnik/jshint2.vim'
 
 " rename the current file in the vim buffer + retain relative path, 20150714
 " Plugin 'danro/rename.vim'
@@ -710,7 +716,11 @@ map <leader>f :find<CR>
 nnoremap <C-y>  :tabnext<CR>
 nnoremap tt     :tabnext<CR>
 inoremap <C-y>  <Esc>:tabnext<CR>i
-"inoremap tt     <Esc>:tabnext<CR>i
+
+" add in 20150806, tab use often now
+nnoremap rr     :tabprevious<CR> 
+"inoremap <C-y>  <Esc>:tabpreviews<CR>i
+
 nnoremap <C-t>  :tabnew<CR>
 inoremap <C-t>  <Esc>:tabnew<CR>i
 nnoremap <C-c>  :tabclose<CR>
@@ -858,10 +868,14 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 " so, link the openbrowser.vim to dir ~/.vim and make change easily.
 
 " very useful and powerful, 20150716
-cmap <space>n TernRename<CR> 
-cmap <space>r TernRefs<CR>
-cmap <space>t TernType<CR>
-cmap <space>d TernDef<CR>
+cmap trename TernRename<CR> 
+cmap trefs TernRefs<CR>
+cmap ttype TernType<CR>
+cmap tdef TernDef<CR>
+
+nnoremap <leader>sp :CtrlSF
+" 20150811
+nnoremap <leader>ht :JSHint<CR>
 
 " 20150723, 通过修改源码的方式将左对齐批量注释快捷键映射为 <leader>cc,
 " 并将源码链接到.vim/目录下，便于修改！！！
