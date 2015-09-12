@@ -169,6 +169,8 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/javascript-libraries-syntax.vim'
 " for javascript --> https://github.com/pangloss/vim-javascript
 Plugin 'pangloss/vim-javascript'
+" jsx support
+Plugin 'mxw/vim-jsx'
 " angularjs snippets
 "Plugin 'matthewsimo/angular-vim-snippets'
 " for angularjs dev
@@ -248,8 +250,7 @@ set showcmd
 set hlsearch
 " 打开增量搜索模式,随着键入即时搜索
 set incsearch
-" after search, press leader + / or space to cancel highlight of search results, very useful.
-" nmap <silent> <leader>/ :nohlsearch<CR>
+" after search, press  space to cancel highlight of search results, very useful.
 nmap <silent> <Space> :nohlsearch<CR>
 " 搜索时忽略大小写
 set ignorecase
@@ -367,6 +368,7 @@ set autowrite
 " -------------------- Theme settings, very important and useful -------------------
 set background=dark
 " Set the colorscheme
+"colorscheme monokai
 colorscheme monokai
 "colorscheme desertink 
 "colorscheme late_evening
@@ -545,12 +547,6 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 " ----- EasyAlign settings -----
-" 可以选中多行;不选中默认操作当前行
-" ;a= 对齐等号表达
-" ;a: 对齐冒号表达式(json/map等)
-" ;a<space>  首个空格对齐
-" ;a2<space> 第二个空格对齐
-" ;a*<space> 所有空格依次对齐
 vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 if !exists('g:easy_align_delimiters')
@@ -582,14 +578,14 @@ let g:UltiSnipsJumpBackwardTrigger="OO"
 
 " ------------------------- 4. Functions Start -------------------------
 
-map <leader>a :call CompileRun()<CR>
-function CompileRun()
-    exec "w"
-    exec "!clear"
-    exec "!gcc % -o %<"
-    exec "! ./%<"
-    exec "!time ./%<:"
-endfunction
+"map <leader>a :call CompileRun()<CR>
+"function CompileRun()
+"    exec "w"
+"    exec "!clear"
+"    exec "!gcc % -o %<"
+"    exec "! ./%<"
+"    exec "!time ./%<:"
+"endfunction
 
 map <F12> :call Run()<CR>
 func! Run()
@@ -761,7 +757,7 @@ inoremap <C-u> <Esc>d0cl
 inoremap <C-w> <Esc>dbcl
 
 " jsdoc remap hot key and make tmuxnav can use --- 20150524
-nmap <silent> <C-d> <Plug>(jsdoc)
+nmap <silent> <leader>d <Plug>(jsdoc)
 "nnoremap <C-l> call:TmuxNavigateRight<CR>
 " useful: delete to end
 "nmap D d$
@@ -876,6 +872,16 @@ cmap tdef TernDef<CR>
 nnoremap <leader>sp :CtrlSF
 " 20150811
 nnoremap <leader>ht :JSHint<CR>
+
+" .js file can still use jsx syntax
+"let g:jsx_ext_required = 0
+" 20150819 note here
+" 可以选中多行;不选中默认操作当前行
+" ;a= 对齐等号表达
+" ;a: 对齐冒号表达式(json/map等)
+" ;a<space>  首个空格对齐
+" ;a2<space> 第二个空格对齐
+" ;a*<space> 所有空格依次对齐
 
 " 20150723, 通过修改源码的方式将左对齐批量注释快捷键映射为 <leader>cc,
 " 并将源码链接到.vim/目录下，便于修改！！！
