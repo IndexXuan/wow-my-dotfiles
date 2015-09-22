@@ -51,7 +51,6 @@ Plugin 'gmarik/Vundle.vim'
 
 " -------------------- Making Vim looks good --------------------
 " Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
 
 " -------------------- Vim Base Functions Improved --------------------
@@ -78,7 +77,8 @@ Plugin 'scrooloose/nerdtree'
 " NERDTree and tabs together in vim, painlessly
 Plugin 'jistr/vim-nerdtree-tabs'
 " syntax checker for vim and you need a specific checker for real use
-Plugin 'scrooloose/syntastic'
+" make vim very slow in javascript file, temp rm in 20150922 mark!!
+"Plugin 'scrooloose/syntastic'
 " auto load vim scripts ??
 Plugin 'xolox/vim-misc'
 " automated tag file generation and syntax highlighting of tags in vim
@@ -123,7 +123,7 @@ Plugin 'tpope/vim-eunuch'
 " Plugin 'Shougo/neocomplcache.vim'
 " vim-move, a Plugin to move lines and selections up and down -->
 " https://github.com/matze/vim-move
-" Plugin 'matze/vim-move'
+ "Plugin 'matze/vim-move'
 
 " -------------------- Working with Git --------------------
 " show git diff in the file
@@ -173,6 +173,10 @@ Plugin 'pangloss/vim-javascript'
 "Plugin 'matthewsimo/angular-vim-snippets'
 " for angularjs dev
 "Plugin 'burnettk/vim-angular'
+" jsx
+Plugin 'mxw/vim-jsx'
+" es6
+Plugin 'isRuslan/vim-es6'
 
 
 " vim syntax highlighting for C0 ???
@@ -186,7 +190,7 @@ Plugin 'pangloss/vim-javascript'
 " -------------------- Extras/Advanced web DEV plugins --------------------
 " Generate JsDoc to your JavaScript code.
 "-->  https://github.com/heavenshell/vim-jsdoc.
-"usage: cursur in function and <C-d> or :JsDoc
+"usage: cursur in function and <leader>d(remaped) or :JsDoc
 Plugin 'heavenshell/vim-jsdoc'
 " Grunt wrapper for vim, -->  https://github.com/mklabs/grunt.vim
 Plugin 'mklabs/grunt.vim'
@@ -367,7 +371,8 @@ set autowrite
 " -------------------- Theme settings, very important and useful -------------------
 set background=dark
 " Set the colorscheme
-colorscheme monokai
+"colorscheme monokai
+colorscheme molokai
 "colorscheme desertink 
 "colorscheme late_evening
 "colorscheme triplejelly
@@ -760,8 +765,8 @@ imap <C-h> <BS>
 inoremap <C-u> <Esc>d0cl
 inoremap <C-w> <Esc>dbcl
 
-" jsdoc remap hot key and make tmuxnav can use --- 20150524
-nmap <silent> <C-d> <Plug>(jsdoc)
+" jsdoc remap hot key and make tmuxnav can use --- 20150524 remap in 20150915
+nmap <silent> <leader>d <Plug>(jsdoc)
 "nnoremap <C-l> call:TmuxNavigateRight<CR>
 " useful: delete to end
 "nmap D d$
@@ -835,7 +840,7 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 " something maybe not use often but powerful when you need it
 " :retab! change global tab to your set, faster and powful, 20150722
-" <C-D> jsdoc
+" <leader>d jsdoc
 " qf to open quickfix panel
 " gf go to an exist file and ctrl + o can back,  very magic and useful
 "
@@ -868,10 +873,10 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 " so, link the openbrowser.vim to dir ~/.vim and make change easily.
 
 " very useful and powerful, 20150716
-cmap trename TernRename<CR> 
-cmap trefs TernRefs<CR>
-cmap ttype TernType<CR>
-cmap tdef TernDef<CR>
+"cmap trename TernRename<CR> 
+"cmap trefs TernRefs<CR>
+"cmap ttype TernType<CR>
+"cmap tdef TernDef<CR>
 
 nnoremap <leader>sp :CtrlSF
 " 20150811
@@ -879,4 +884,9 @@ nnoremap <leader>ht :JSHint<CR>
 
 " 20150723, 通过修改源码的方式将左对齐批量注释快捷键映射为 <leader>cc,
 " 并将源码链接到.vim/目录下，便于修改！！！
+
+" add react & jsx, 20150912
+" Allow JSX in normal JS files
+let g:jsx_ext_required = 1 
+let g:syntastic_javascript_checkers = ['eslint']
 
