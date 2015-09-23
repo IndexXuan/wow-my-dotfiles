@@ -78,7 +78,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 " syntax checker for vim and you need a specific checker for real use
 " make vim very slow in javascript file, temp rm in 20150922 mark!!
-"Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 " auto load vim scripts ??
 Plugin 'xolox/vim-misc'
 " automated tag file generation and syntax highlighting of tags in vim
@@ -889,4 +889,14 @@ nnoremap <leader>ht :JSHint<CR>
 " Allow JSX in normal JS files
 let g:jsx_ext_required = 1 
 let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_checkers = ['jshint']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
