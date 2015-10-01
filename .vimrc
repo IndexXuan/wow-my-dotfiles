@@ -888,9 +888,12 @@ nnoremap <leader>ht :JSHint<CR>
 " add react & jsx, 20150912
 " Allow JSX in normal JS files
 let g:jsx_ext_required = 1 
-let g:syntastic_javascript_checkers = ['eslint']
-"let g:syntastic_javascript_checkers = ['jshint']
+" for react & jsx 
+"let g:syntastic_javascript_checkers = ['eslint']
+" for others project
+let g:syntastic_javascript_checkers = ['jshint']
 
+" ui in status bar
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -899,4 +902,9 @@ set statusline+=%*
 "let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" since syntastic plugin in js files was too slow, make vim not vim 
+" so always we need to disabled the checker in js files
+" the plugin itself and checkers(jshint & eslint) was great for coding, 
+" woops,  wish a better experience, 201509251750
+cmap vi :SyntasticToggleMode 
 
