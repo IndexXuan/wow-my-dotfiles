@@ -177,7 +177,8 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 " es6
 Plugin 'isRuslan/vim-es6'
-
+" basic highlight for vuejs-component in vim
+Plugin 'darthmall/vim-vue'
 
 " vim syntax highlighting for C0 ???
 " Plugin 'jez/vim-c0'
@@ -590,10 +591,17 @@ let g:UltiSnipsJumpBackwardTrigger="OO"
 map <leader>a :call CompileRun()<CR>
 function CompileRun()
     exec "w"
-    exec "!clear"
-    exec "!gcc % -o %<"
-    exec "! ./%<"
-    exec "!time ./%<:"
+    if &filetype == 'c'
+        exec "!gcc % -o %<"
+        exec "! ./%<"
+        exec "!time ./%<:"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'javascript'
+        exec "!node %"
+        exec "!clear"
+    endif
 endfunction
 
 map <F12> :call Run()<CR>
@@ -604,7 +612,7 @@ func! Run()
         exec "! ./%<"
         exec "!time ./%<:"
     elseif &filetype == 'cpp'
-        exec "!g++ % -o %<:"
+        exec "!g++ % -o %<"
         exec "!time ./%<"
     elseif &filetype == 'java'
         exec "!javac %"
@@ -768,10 +776,13 @@ inoremap <C-w> <Esc>dbcl
 " jsdoc remap hot key and make tmuxnav can use --- 20150524 remap in 20150915
 nmap <silent> <leader>d <Plug>(jsdoc)
 "nnoremap <C-l> call:TmuxNavigateRight<CR>
-" useful: delete to end
-"nmap D d$
 " Y need remap for useful
 nnoremap Y y$
+
+" useful: delete to end
+"nmap D d$
+" delete to the line start
+nnoremap DD d^
 
 " 20150611, fast the jump, shift key is hard to press
 nnoremap [ {
@@ -889,9 +900,9 @@ nnoremap <leader>ht :JSHint<CR>
 " Allow JSX in normal JS files
 let g:jsx_ext_required = 1 
 " for react & jsx 
-"let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 " for others project
-let g:syntastic_javascript_checkers = ['jshint']
+"let g:syntastic_javascript_checkers = ['jshint']
 
 " ui in status bar
 set statusline+=%#warningmsg#
@@ -906,5 +917,11 @@ let g:syntastic_check_on_wq = 0
 " so always we need to disabled the checker in js files
 " the plugin itself and checkers(jshint & eslint) was great for coding, 
 " woops,  wish a better experience, 201509251750
-cmap vi :SyntasticToggleMode 
+cmap vv :SyntasticToggleMode 
+
+" temp passive the js file, manual check with jshint(or eslint)
+let g:syntastic_mode_map = {
+ \ "mode": "active",
+ \"active_filetypes": [],
+ \"passive_filetypes": ["javascript"] }
 
