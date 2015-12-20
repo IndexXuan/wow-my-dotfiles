@@ -111,8 +111,10 @@ Plugin 'rstacruz/vim-ultisnips-css'
 Plugin 'gorodinskiy/vim-coloresque'
 " expand region to select and do all thing you want
 Plugin 'terryma/vim-expand-region'
-" jshint2.vim  20150808
-Plugin 'Shutnik/jshint2.vim'
+" jshint2.vim  20150808, replace with eslint in 201512202100
+"Plugin 'Shutnik/jshint2.vim'
+" vim-eslint, wrap eslint.d to speed up the lint time within 160ms from 700ms+
+Plugin 'ruanyl/vim-eslint'
 
 " rename the current file in the vim buffer + retain relative path, 20150714
 " Plugin 'danro/rename.vim'
@@ -279,15 +281,16 @@ set mouse=a
 "set bs=2                    "在insert模式下用退格键删除
 
 " tab相关变更 20150722 update
-set tabstop=4     " 设置Tab键的宽度        [等同的空格个数]
-set shiftwidth=4  " 每一次缩进对应的空格数
-set softtabstop=4 " 按退格键时可以一次删掉 4 个空格
+" tab相关变更改为2个空格,　顺应新形式
+set tabstop=2     " 设置Tab键的宽度        [等同的空格个数]
+set shiftwidth=2  " 每一次缩进对应的空格数
+set softtabstop=2 " 按退格键时可以一次删掉2个空格
 set expandtab " control whether change tab to space, add in 20150722
 
 set smarttab  " usage and intro as below
 " break the set of below, tab not change to space, so comment it
 " insert tabs on the start of a line according to
-" shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
+" shiftwidth, not tabstop 按退格键时可以一次删掉多个空格
 " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用
 " Ctrl+V + Tab]
 " 缩进时，取整 use multiple of shiftwidth when indenting
@@ -618,13 +621,13 @@ func! Run()
         exec "!javac %"
         exec "!time java -cp %:p:h %:t:r"
     elseif &filetype == 'html'
-        exec "!chromium-browser % &"
+        exec "!gogle-chrome % &"
         exec "!clear"
     elseif &filetype == 'xml'
-        exec "!chromium-browser % &"
+        exec "!google-chrome % &"
         exec "!clear"
     elseif &filetype == 'javascript'
-        exec "!chromium-browser % &"
+        exec "!google-chrome % &"
         exec "!clear"
     endif
 endfunc
@@ -890,8 +893,8 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 "cmap tdef TernDef<CR>
 
 nnoremap <leader>sp :CtrlSF
-" 20150811
-nnoremap <leader>ht :JSHint<CR>
+" 20150811, replace with eslint in 201512202100
+"nnoremap <leader>ht :JSHint<CR>
 
 " 20150723, 通过修改源码的方式将左对齐批量注释快捷键映射为 <leader>cc,
 " 并将源码链接到.vim/目录下，便于修改！！！
@@ -901,7 +904,7 @@ nnoremap <leader>ht :JSHint<CR>
 let g:jsx_ext_required = 1 
 " for react & jsx 
 let g:syntastic_javascript_checkers = ['eslint']
-" for others project
+" for others project, replace with eslint in 201512202100
 "let g:syntastic_javascript_checkers = ['jshint']
 
 " ui in status bar
@@ -918,10 +921,4 @@ let g:syntastic_check_on_wq = 0
 " the plugin itself and checkers(jshint & eslint) was great for coding, 
 " woops,  wish a better experience, 201509251750
 cmap vv :SyntasticToggleMode 
-
-" temp passive the js file, manual check with jshint(or eslint)
-let g:syntastic_mode_map = {
- \ "mode": "active",
- \"active_filetypes": [],
- \"passive_filetypes": ["javascript"] }
 
