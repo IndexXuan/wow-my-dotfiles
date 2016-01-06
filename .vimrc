@@ -405,6 +405,8 @@ set noswapfile
 set autowrite 
 
 " -------------------- Theme settings, very important and useful -------------------
+" no code-line bar
+set nonu
 set background=dark
 " Set the colorscheme
 "colorscheme monokai
@@ -536,7 +538,8 @@ let g:syntastic_check_on_wq = 0
 
 " ----- xolox/vim-easytags settings -----
 " Where to look for tags files
-set tags=./tags;,~/.vimtags
+"set tags=./tags.tag;,~/.vimtags
+set tags=~/.vim/.vimtags
 " Sensible defaults
 let g:easytags_events = ['BufReadPost', 'BufWritePost']
 let g:easytags_async = 1
@@ -939,3 +942,4 @@ nmap <silent> <leader>d <Plug>(jsdoc)
 " replace jshint with eslint
 " 20151230 nerdcomment, 为注释添加空格，改了源文件，按后缀名搜索修改即可
 
+"let g:easytags_file = '~/.vim/tags'
