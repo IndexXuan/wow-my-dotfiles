@@ -1,149 +1,198 @@
-" ------------------------- 1. Vundle and Plugins List Start -------------------------
+" ----------------------------------------------------------------------------
+"
+"                           Plugins and Settings
+"                           v1.0 with 32 plugins
+"
+" ----------------------------------------------------------------------------
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" -------------------- Plugins Manager --------------------
-
+" ----------------------------------------------------------------------------
+"  https://github.com/gmarik/Vundle.vim
+"  :BundleInstall     install
+"  :BundleUpdate      update
+"  :BundleClean       remove plugin not in list
+" ----------------------------------------------------------------------------
 Plugin 'gmarik/Vundle.vim'
 
-" -------------------- Making Vim looks good --------------------
 
+" -------------------------- Making Vim looks good ---------------------------
+
+" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
 
-" -------------------- Vim Base Functions Improved --------------------
+" ----------------------- Vim Base Functions Improved ------------------------
 
+" https://github.com/scrooloose/nerdtree
 " a tree explorer plugin for vim
 Plugin 'scrooloose/nerdtree'
 
+" https://github.com/jistr/vim-nerdtree-tabs
 " NERDTree and tabs together in vim, painlessly
 Plugin 'jistr/vim-nerdtree-tabs'
 
+" https://github.com/christoomey/vim-tmux-navigator
 " navigation between tmux panes and vim splits, e.g.<c-h> move to left panel
-" ctrl + j/k/h/l   进行上下左右窗口跳转,不需要ctrl+w+jkhl
 Plugin 'christoomey/vim-tmux-navigator'
 
-"autosave for vim --> https://github.com/907th/vim-auto-save
+" https://github.com/907th/vim-auto-save
+" autosave for vim
 Plugin 'vim-scripts/vim-auto-save'
 
+" https://github.com/kopischke/vim-stay
 " Make Vim persist editing state without fuss
-" --> https://github.com/kopischke/vim-stay
 Plugin 'kopischke/vim-stay'
 
-" Open URL with your favorite browser from you favorite editor
-" --> https://github.com/vim-scripts/open-browser.vim
+" https://github.com/vim-scripts/open-browser.vim
 " because of China you know, switch default search_engine to baidu in
 " source code of Plugin 20150422, a great plugin, <C-g>
 Plugin 'tyru/open-browser.vim'
-
+   
+" https://github.com/gorodinskiy/vim-coloresque
 " show color in html, css, scss file, like sublime plugin, very useful !
 Plugin 'gorodinskiy/vim-coloresque'
+
+" https://github.com/ggVGc/vim-fuzzysearch
+Plugin 'ggVGc/vim-fuzzysearch'
 
 " Open file under cursor when pressing gf(if the text is a path)
 " !!!Plugin 'amix/open_file_under_cursor.vim'
 
-" -------------------- Vim as a programmer's text editor --------------------
+" https://github.com/editorconfig/editorconfig-vim
+" !Plugin 'editorconfig/editorconfig-vim'
 
+" https://github.com/easymotion/vim-easymotion
+" !Plugin 'easymotion/vim-easymotion'
+
+" ----------------- Vim as a programmer's text editor -----------------------
+
+" https://github.com/Raimondi/delimitMate
 " vim  auto-completion for quotes,parens,brackets, etc.
 Plugin 'Raimondi/delimitMate'
 
+" https://github.com/scrooloose/nerdcommenter
 " intensely orgasmic commenting <leader>cc, <leader>ci to toggle
 Plugin 'scrooloose/nerdcommenter'
 
+" https://github.com/junegunn/vim-easy-align
 " a Vim alignment plugin
 Plugin 'junegunn/vim-easy-align'
 
+" https://github.com/scrooloose/syntastic
 " syntax checker for vim and you need a specific checker for real use
 Plugin 'scrooloose/syntastic'
 
+" https://github.com/ruanyl/vim-eslint
 " vim-eslint, wrap eslint.d to speed up the lint time within 160ms from 700ms+
 Plugin 'ruanyl/vim-eslint'
 
+" https://github.com/
 " jshint2.vim  20150808, replace with eslint in 201512202100
 "Plugin 'Shutnik/jshint2.vim'
 
-" You Know !!! Great in C-family
+" https://github.com/Valloric/YouCompleteMe
+" The last completer you need, support for javascript now
 Plugin 'Valloric/YouCompleteMe'
 
+" https://github.com/marijnh/tern_for_vim
 " for javascript, an engine, need into plugin package and npm install
 Plugin 'marijnh/tern_for_vim'
 
-" UtilSnips
+" https://github.com/SirVer/ultisnips
+" UtilSnips, it is really powful
 Plugin 'SirVer/ultisnips'
 
+" https://github.com/honza/vim-snippets
 " Snippets are separated from the engine. Add this if you want them.
 Plugin 'honza/vim-snippets'
 
+" https://github.com/rstacruz/vim-ultisnips-css
 " UtilSnips-css. useful, more snippets than emmet
 Plugin 'rstacruz/vim-ultisnips-css'
 
+" https://github.com/majutsushi/tagbar
 " Vim Plugin that displays tags in a window, ordered by scope
 Plugin 'majutsushi/tagbar'
 
+" https://github.com/ctrlpvim/ctrlp.vim
 " go to anything like sublime
 Plugin 'ctrlpvim/ctrlp.vim'
 
+" https://github.com/tacahiroy/ctrlp-funky
 " improve ctrlP, like goto functions
 Plugin 'tacahiroy/ctrlp-funky'
 
+" https://github.com/dyng/ctrlsf.vim
 " ctrlsf
 Plugin 'dyng/ctrlsf.vim'
 
-" auto load vim scripts, know its function in 20160118, requirement for vim-easytags
-" xxxPlugin 'xolox/vim-misc'
-
-" automated tag file generation and syntax highlighting of tags in vim
-" xxxPlugin 'xolox/vim-easytags'
-
+" https://github.com/terryma/vim-multiple-cursors
 " sublime-like multiple line edit tool
 Plugin 'terryma/vim-multiple-cursors'
+
+" auto load vim scripts, know its function in 20160118, requirement for vim-easytags
+" xPlugin 'xolox/vim-misc'
+
+" automated tag file generation and syntax highlighting of tags in vim
+" xPlugin 'xolox/vim-easytags'
 
 " switch between source files and header files quickly
 " xPlugin 'vim-scripts/a.vim'
 
 " expand region to select and do all thing you want
-" xxPlugin 'terryma/vim-expand-region'
+" xPlugin 'terryma/vim-expand-region'
 
 " rename the current file in the vim buffer + retain relative path, 20150714
 " Plugin 'danro/rename.vim'
+
 " vim sugar for the UNIX shell commands, rename, move, mkdir inner vim
-" xxPlugin 'tpope/vim-eunuch'
+" xPlugin 'tpope/vim-eunuch'
 
-" vim-move, a Plugin to move lines and selections up and down -->
-" https://github.com/matze/vim-move
- "Plugin 'matze/vim-move'
+" -------------------------- Working with Git --------------------------------
 
-" -------------------- Working with Git --------------------
-
+" https://github.com/airblade/vim-gitgutter
 " show git diff in the file
 Plugin 'airblade/vim-gitgutter'
 
 " git wrapper, not really use
 " xPlugin 'tpope/vim-fugitive'
 
-" -------------------- Syntax plugins --------------------
+" --------------------------- Syntax plugins ---------------------------------
 
-" HTML5 omnicomplete and syntax --> https://github.com/othree/html5.vim
+" https://github.com/othree/html5.vim
+" HTML5 omnicomplete and syntax
 Plugin 'othree/html5.vim'
 
-" for scss
+" https://github.com/othree/cakebaker/scss-syntax.vim
+" for scss, seems not that required
 Plugin 'cakebaker/scss-syntax.vim'
 
-" for javascript --> https://github.com/pangloss/vim-javascript
-Plugin 'pangloss/vim-javascript'
+" https://github.com/othree/hail2u/vim-css3-syntax
+" for css3, maybe conflict with scss-syntax, rm package's scss.vim will done
+Plugin 'hail2u/vim-css3-syntax'
 
+" https://github.com/pangloss/vim-javascript
+" even worse highlight than raw vim
+" xPlugin 'pangloss/vim-javascript'
+
+" https://github.com/mxw/vim-jsx
 " jsx
 Plugin 'mxw/vim-jsx'
 
+" https://github.com/isRuslan/vim-es6
 " es6
 Plugin 'isRuslan/vim-es6'
 
+" https://github.com/mxw/darthmall/vim-vue
 " basic highlight for vuejs-component in vim
 Plugin 'darthmall/vim-vue'
 
+" https://github.com/hallison/vim-markdown
 " for markdown
 Plugin 'hallison/vim-markdown'
 
+" https://github.com/othree/javascript-libraries-syntax.vim
 " js libs support
 Plugin 'othree/javascript-libraries-syntax.vim'
 
@@ -164,62 +213,62 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 "Plugin 'burnettk/vim-angular'
 
 " vim syntax highlighting for C0 ???
-" Plugin 'jez/vim-c0'
+"Plugin 'jez/vim-c0'
 " vim syntax highlighting for ISPC ???
-" Plugin 'jez/vim-ispc'
+"Plugin 'jez/vim-ispc'
 " vim syntax highlighting for coffee-script
-" Plugin 'kchmck/vim-coffee-script'
+"Plugin 'kchmck/vim-coffee-script'
 
-" -------------------- Extras/Advanced web DEV plugins --------------------
-
+" --------------------- Extras/Advanced web DEV plugins ----------------------
+ 
+" https://github.com/mattn/emmet-vim
 " emmet
 Plugin 'mattn/emmet-vim'
 
-" Generate JsDoc to your JavaScript code.
-"-->  https://github.com/heavenshell/vim-jsdoc.
-"usage: cursur in function and <leader>d(remaped) or :JsDoc
+" https://github.com/heavenshell/vim-jsdoc.
+" usage: cursur in function and <leader>d(remaped) or :JsDoc
 Plugin 'heavenshell/vim-jsdoc'
 
-" vim interface to Web API --> https://github.com/mattn/webapi-vim
+" https://github.com/mattn/webapi-vim
+" vim interface to Web API
 Plugin 'mattn/webapi-vim'
 
+" https://github.com/vim-scripts/HTML-AutoCloseTag
 " Automaticall insert the closing HTML tag
 Plugin 'HTML-AutoCloseTag'
 
+" https://github.com/gregsexton/MatchTag
 " HTML Tag match-highlighter
 Plugin 'MatchTag'
 
 " js-html-css-beautify
-"Plugin 'maksimr/vim-jsbeautify'
+" xPlugin 'maksimr/vim-jsbeautify'
 
 " Grunt wrapper for vim, -->  https://github.com/mklabs/grunt.vim
 "Plugin 'mklabs/grunt.vim'
 
-" Commenton Github straight from within Vim.
-" --> https://github.com/mmozuras/vim-github-comment
-" Plugin 'mmozuras/vim-github-comment'
+" https://github.com/mmozuras/vim-github-comment
+"Plugin 'mmozuras/vim-github-comment'
 " Highlight and strip trailing whitespace,
 " it's great, but too sensitive to use, drop in 20150427
-" Plugin 'ntpeters/vim-better-whitespace'
+"Plugin 'ntpeters/vim-better-whitespace'
 " Easily surround chunks of text
-" Plugin 'tpope/vim-surround'
+"Plugin 'tpope/vim-surround'
 " Align CSV files at commas, align Markdown tables, and more
-" Plugin 'godlygeek/tabular'
+"Plugin 'godlygeek/tabular'
 " Make tmux look like vim-airline (read README for extra instructions)
-" Plugin 'edkolev/tmuxline.vim'
+"Plugin 'edkolev/tmuxline.vim'
 " All the other syntax plugins I use
-" Plugin 'ekalinin/Dockerfile.vim'
-" Plugin 'digitaltoad/vim-jade'
-" Plugin 'tpope/vim-liquid'
+"Plugin 'ekalinin/Dockerfile.vim'
+"Plugin 'digitaltoad/vim-jade'
+"Plugin 'tpope/vim-liquid'
 
 " Vundle end...
 call vundle#end()
 filetype plugin indent on
 
-" ------------------------- 1. Vundle and Plugins Lists End -------------------------
 
-
-" ------------------------- 2. Plugins-Specific Settings Start -------------------------
+" -------------------------  Plugins-Specific Settings Start -------------------------
 
 " ----- emmet settings, great to use Tab -----
 let g:user_emmet_mode='i'
@@ -391,7 +440,7 @@ let g:auto_save_silent = 1  " do not display the auto-save notification"
 
 " ----- vim-jsx -----
 " Allow JSX in normal JS files
-let g:jsx_ext_required = 1 
+let g:jsx_ext_required = 0
 
 
 " ----- open-browser settings -----
