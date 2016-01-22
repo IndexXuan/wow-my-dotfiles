@@ -39,6 +39,7 @@
 " plugins on
 let g:noplugins = 0
 
+" Must be first line
 set nocompatible
 filetype off
 
@@ -48,9 +49,9 @@ let g:mapleader = ";"
 " --------------------------------------------------------------------
 " -------------------------     Plugins    ---------------------------
 " --------------------------------------------------------------------
-if filereadable(expand("~/.vim/vimrc.plugins"))
-  if noplugins==0
-    source ~/.vim/vimrc.plugins
+if filereadable(expand("~/.vim/.vimrc.plugins"))
+  if noplugins == 0
+    source ~/.vim/.vimrc.plugins
   endif
 endif
 
@@ -70,8 +71,13 @@ set backspace=indent,eol,start
 " not show line number
 set nonu 
 " 在状态栏显示正在输入的命令
+
 " set showcmd
 " 左下角显示当前vim模式
+
+" 退出vim后在终端留下文件内容，可以理解为残影
+"set t_ti= t_te=
+
 
 " 高亮search命中的文本。
 set hlsearch
@@ -126,6 +132,7 @@ set termencoding=utf-8
 set fileformats=unix
 set encoding=utf-8
 
+" for statusline(like airline) always display
 set laststatus=2
 
 set scrolloff=5
@@ -165,9 +172,6 @@ set autoread
 " nobackup
 set nobackup
 set noswapfile
-
-" save itself
-set autowrite 
 
 " -------------------- Theme and UI -------------------
 
@@ -324,8 +328,12 @@ nnoremap <leader>jc :call JumpToCSS()<CR>
 " jj as Esc, very useful setting, great, great, great!!!
 inoremap jj <Esc>
 
+" Treat long lines as break lines, useful when moving around in them
+nnoremap j gj
+nnoremap k gk
+
 " shell-like move, very very very powerful, the key in insert mode
-inoremap <C-b> <Left>
+inoremap <C-b> <left>
 inoremap <c-f> <Right>
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
@@ -336,14 +344,6 @@ imap <C-h> <BS>
 inoremap <C-u> <Esc>d0cl
 inoremap <C-w> <Esc>dbcl
 
-" Vmap for maintain Visual Mode after shifting > and <
-vnoremap < <gv
-vnoremap > >gv
-
-" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
 nmap <leader>q :x<CR>
 nmap QQ :q!<CR>
 
@@ -351,6 +351,17 @@ nmap <leader>w :w!<CR>
 
 " write to file which is not permitted
 cmap w!! w !sudo tee % >/dev/null
+
+" Vmap for maintain Visual Mode after shifting > and <
+vnoremap < <gv
+vnoremap > >gv
+
+" goto older/newer position in change list
+nnoremap <silent> O g;
+nnoremap <silent> N g,
+
+" remap U to <C-r> for easier redo
+nnoremap U <C-r>
 
 nmap <leader>s :shell<CR>
 map <leader>f :find<CR>
@@ -523,20 +534,7 @@ cmap ttype :TernType<CR>
 "
 
 " fuzzy search, 模糊搜索
-nnoremap <leader>r :%s///g<left><left>
+nnoremap <leader>r :%s//g<left><left>
 " 全局精准批量替换
 nnoremap <leader><leader>f :FuzzySearch<CR>
-" 退出vim后在终端留下文件内容，可以理解为残影
-"set t_ti= t_te=
-
-" goto older/newer position in change list
-nnoremap <silent> O g;
-nnoremap <silent> N g,
-
-" Treat long lines as break lines, useful when moving around in them
-nnoremap j gj
-nnoremap k gk
-
-" remap U to <C-r> for easier redo
-nnoremap U <C-r>
 

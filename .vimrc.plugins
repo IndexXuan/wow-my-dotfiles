@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings
-"                           v1.0 with 32 plugins
+"                           v1.0 with 40 plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -156,7 +156,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'airblade/vim-gitgutter'
 
 " git wrapper, not really use
-" xPlugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
 " --------------------------- Syntax plugins ---------------------------------
 
@@ -304,6 +304,7 @@ set fillchars+=stl:\ ,stlnc:\
 let g:airline_detect_paste=1
 " Show airline for tabs too
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#branch#enabled=1
 
 
 " ----- jistr/vim-nerdtree-tabs -----
@@ -336,7 +337,8 @@ let g:syntastic_javascript_checkers = ['eslint']
 " for others project, replace with eslint in 201512202100
 "let g:syntastic_javascript_checkers = ['jshint']
 
-" ui in airline status bar
+
+" ui in airline statusline
 set statusline+=%#warningmsg#
 if exists(":SyntasticCheck")
   set statusline+=%{SyntasticStatuslineFlag()}
@@ -386,7 +388,7 @@ augroup END
 
 
 " ----- YouCompleteMe settings -----
-" not this setting will not so powerful
+"  required
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 " ----- CtrlP settings, open anything plugin like sublime -----
@@ -405,9 +407,6 @@ let g:ctrlp_funky_syntax_highlight = 1
 
 " ----- ctrlSF -----
 nnoremap <leader>sp :CtrlSF
-
-" ----- TmuxNavigate -----
-"nnoremap <C-l> call:TmuxNavigateRight<CR>
 
 " ----- sublime-like htmlcssjs-beautify settings -----
 " ----- however, C-S-b is same like C-b due to keycode in vim ------
@@ -450,19 +449,19 @@ nmap <C-g> <Plug>(openbrowser-smart-search)
 
 
 " ----- vim-javascript and vim-javascript-syntax settings ------
-let g:javascript_enable_domhtmlcss = 1
-let g:javascript_conceal_function   = "ƒ"
-let g:javascript_conceal_null       = "ø"
-let g:javascript_conceal_this       = "@"
-let g:javascript_conceal_return     = "⇚"
-let g:javascript_conceal_undefined  = "¿"
-let g:javascript_conceal_NaN        = "ℕ"
-let g:javascript_conceal_prototype  = "¶"
-let g:javascript_conceal_static     = "•"
-let g:javascript_conceal_super      = "Ω"
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
+"let g:javascript_enable_domhtmlcss = 1
+"let g:javascript_conceal_function   = "ƒ"
+"let g:javascript_conceal_null       = "ø"
+"let g:javascript_conceal_this       = "@"
+"let g:javascript_conceal_return     = "⇚"
+"let g:javascript_conceal_undefined  = "¿"
+"let g:javascript_conceal_NaN        = "ℕ"
+"let g:javascript_conceal_prototype  = "¶"
+"let g:javascript_conceal_static     = "•"
+"let g:javascript_conceal_super      = "Ω"
+"let g:html_indent_inctags = "html,body,head,tbody"
+"let g:html_indent_script1 = "inc"
+"let g:html_indent_style1 = "inc"
 
 
 " ----- EasyAlign settings -----
@@ -479,26 +478,13 @@ if !exists('g:easy_align_delimiters')
 endif
 let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
 
-
-" ----- vim-jquery settings -----
-" au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-
 " 20150624 add
 " javascript_libs settings
 let g:used_javascript_libs = 'jquery,jasmine,chai,underscore,Lo-Dash,react'
-"let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/bundle/vim-ultisnips-css/UltiSnips']; // new version need it?
-
-
-" expand_region settings
-" map K <Plug>(expand_region_expand)
-" map J <Plug>(expand_region_shrink)
-
 
 " ----- UltiSnippets settings -----
-" Trigger configuration. Do not use <tab> if you use
-" https://github.com/Valloric/YouCompleteMe.
+" Trigger configuration. Do not use <tab> if you use YCM
 let g:UltiSnipsExpandTrigger="ii"
 let g:UltiSnipsJumpForwardTrigger="II"
 let g:UltiSnipsJumpBackwardTrigger="OO"
 
-" ------------------------- 3. Plugins-Specific Settings End -------------------------
