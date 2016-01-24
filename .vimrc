@@ -329,8 +329,8 @@ nnoremap <leader>jc :call JumpToCSS()<CR>
 inoremap jj <Esc>
 
 " Treat long lines as break lines, useful when moving around in them
-nnoremap j gj
-nnoremap k gk
+"nnoremap j gj
+"nnoremap k gk
 
 " shell-like move, very very very powerful, the key in insert mode
 inoremap <C-b> <left>
@@ -351,6 +351,9 @@ nmap <leader>w :w!<CR>
 
 " write to file which is not permitted
 cmap w!! w !sudo tee % >/dev/null
+
+" !!!超级好用!!! 全局精准批量替换, 输入单词， 然后换成目标单词
+nnoremap <leader>r :%s/\<\>//g<left><left><left><left><left>
 
 " Vmap for maintain Visual Mode after shifting > and <
 vnoremap < <gv
@@ -531,10 +534,12 @@ cmap ttype :TernType<CR>
 " 调研scss-syntax.vim, vim-css3-syntax的冲突，提了issue,发现scss插件几乎没用
 " 分拆的vimrc也加入git管理
 " 彻底整理好配置文件，暂存,tag v1.0-beta
-"
 
-" fuzzy search, 模糊搜索
-nnoremap <leader>r :%s//g<left><left>
-" 全局精准批量替换
-nnoremap <leader><leader>f :FuzzySearch<CR>
+" 20160122 共40个插件
+" 修复vim-airline不显示git分支的问题，不小心删除了依赖
+" CtrlP插件添加应该忽略的文件夹和文件,大幅减少查找时间，提高性能
+" 增加了全局精准批量替换的keymap <leader>r, 增加了模糊匹配插件vim-fuzzysearch
+" 基本完成v1.0的整理配置，准备尝试新的支持lazyLoad插件的包管理器：vim Plug-in
+
+
 

@@ -334,9 +334,9 @@ augroup Syntastic
 augroup END
 
 let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_checkers = ['']
 " for others project, replace with eslint in 201512202100
 "let g:syntastic_javascript_checkers = ['jshint']
-
 
 " ui in airline statusline
 set statusline+=%#warningmsg#
@@ -345,6 +345,10 @@ if exists(":SyntasticCheck")
   set statusline+=%*
 endif
 
+
+" ----- ggVGc/vim-fuzzysearch -----
+" fuzzy search, 模糊搜索
+nnoremap <leader><leader>f :FuzzySearch<CR>
 
 " ----- heavenshell/vim-jsdoc -----
 " jsdoc remap hot key and make tmuxnav can use --- 20150524 remap in 20150915
@@ -393,10 +397,19 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/
 
 " ----- CtrlP settings, open anything plugin like sublime -----
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed' " mixed mode is more useful and smart
+" mixed mode is more useful and smart
+let g:ctrlp_cmd = 'CtrlPMixed'
+" 性能起见，只开启MRU模式, 大范围的文件夹跳转用autojump
+"let g:ctrlp_cmd = 'CtrlPMRU'
 let g:ctrlp_working_path_mode = 'ra'
 " let g:ctrlp_extensions = ['funky', 'ssh']
 let g:ctrlp_extensions = ['funky']
+
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/](node_modules|target|dist)|\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+    \ }
+let g:ctrlp_follow_symlinks=1
 
 " ----- CtrlPFunky settings -----
 nnoremap <leader>fu :CtrlPFunky<CR>
