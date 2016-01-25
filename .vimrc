@@ -37,12 +37,20 @@
 " ====================================================================
  
 " plugins on
-let g:noplugins = 0
+" basic mode for vimruntime without plugins
+let g:basicmode = 0
+
+" plugin manager
+let g:manager = 'Plug'
+"let g:manager = 'Vundle'
+
+" whether developing react-jsx
+let g:reactdev = 0
 
 " Must be first line
 set nocompatible
-filetype off
 
+" leader
 let mapleader = ";"
 let g:mapleader = ";"
 
@@ -50,8 +58,13 @@ let g:mapleader = ";"
 " -------------------------     Plugins    ---------------------------
 " --------------------------------------------------------------------
 if filereadable(expand("~/.vim/.vimrc.plugins"))
-  if noplugins == 0
-    source ~/.vim/.vimrc.plugins
+  if basicmode == 0
+    if manager == 'Plug'
+      source ~/.vim/.vimrc.plugins
+    endif
+    if manager == 'Vundle'
+      source ~/.vim/.vimrc.bundles
+    endif
   endif
 endif
 
@@ -344,6 +357,12 @@ imap <C-h> <BS>
 inoremap <C-u> <Esc>d0cl
 inoremap <C-w> <Esc>dbcl
 
+" Smart way to move between windows, no need to use vim-tmux-navigator plugin
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
+
 nmap <leader>q :x<CR>
 nmap QQ :q!<CR>
 
@@ -476,11 +495,6 @@ nnoremap qf :copen<CR>
 " ip can make us to use google painless, though failure with time goes on
 " so, link the openbrowser.vim to dir ~/.vim and make change easily.
 
-" very useful and powerful, 20150716
-cmap tdef :TernDef<CR>
-cmap trename :TernRename<CR> 
-cmap trefs :TernRefs<CR>
-cmap ttype :TernType<CR>
 
 " 20150811, replace with eslint in 201512202100
 "nnoremap <leader>ht :JSHint<CR>
@@ -498,19 +512,29 @@ cmap ttype :TernType<CR>
 " -------------------------    Changelog   ---------------------------
 " --------------------------------------------------------------------
 
-" 20150722 
+" 20150611 !!
+" 增加备忘录区
+
+" 20150722 ! 
 " 全局缩进变更为2个空格,　顺应新形式
 
-" 20150912
+" 20150723
+" 通过修改源码的方式将左对齐批量注释快捷键映射为 <leader>cc,
+" 并将源码链接到.vim/目录下，便于修改！！！
+
+" 20150811 !
+" 加入jshint, 用的vim-jshint2插件，很好，性能正好满足，几乎不卡
+
+" 20150912 !
 " add react & jsx 
 
-" 20151220
+" 20151220 !
 " replace jshint with eslint
 
-" 20151230 
+" 20151230 !!
 " nerdcomment, 为注释添加空格，改了源文件，按后缀名搜索修改即可
 
-" 20160119
+" 20160119 !!!
 " 重装vim，重新编译、审视、整理插件
 " 去除vim-easytags，貌似不需要它的自动生成并更新能力...
 " jsctags是个很好的插件，生成的tags好的感人，而且无需配置，无奈性能堪忧
@@ -520,7 +544,7 @@ cmap ttype :TernType<CR>
 " UtilSnip配合ycm，vim-snippets有了很方便的代码生成能力
 " 调研插件
 
-" 20160120
+" 20160120 !!
 " 调研插件，学习ruanyl(vim-eslint作者)的bigvim(https://github.com/ruanyl/bigvim)
 " 整理插件及配置代码
 " 将vimrc拆分，模块化，格式化代码，去除无用代码，清理注释
@@ -528,18 +552,28 @@ cmap ttype :TernType<CR>
 " 大幅改善vim启动速度，关闭了syntastic插件的文件启动自检查
 " 配置快捷键来打开错误面板，定位eslint检查的错误，并能快速跳转
 
-" 20160121
+" 20160121 !!
 " 加入了插件开关,以后不需要vim_basic了
 " 确定了vim-javascript的无用，vim-jsx不依赖它也可用
 " 调研scss-syntax.vim, vim-css3-syntax的冲突，提了issue,发现scss插件几乎没用
 " 分拆的vimrc也加入git管理
 " 彻底整理好配置文件，暂存,tag v1.0-beta
 
-" 20160122 共40个插件
+" 20160122 共40个插件 !!
 " 修复vim-airline不显示git分支的问题，不小心删除了依赖
 " CtrlP插件添加应该忽略的文件夹和文件,大幅减少查找时间，提高性能
 " 增加了全局精准批量替换的keymap <leader>r, 增加了模糊匹配插件vim-fuzzysearch
 " 基本完成v1.0的整理配置，准备尝试新的支持lazyLoad插件的包管理器：vim Plug-in
 
 
+" 20160124 !!
+" 尝试新的包管理器，vim-Plug，更好用，支持懒加载，解决我vim启动时间过慢问题
+" 去除重复以及无用插件, 整理，整合优化
+
+" 20160125 !!!
+" 研究打开光标所在文件插件，还是解决不好无后缀匹配和存在"./"的话识别错误问题
+" 懒加载几乎全部插件，启动时间减少一半，大约500ms左右，共40个插件,优化具体文件类型
+" 恢复vim内部常用文件操作插件vim-eunuch，替换了标签匹配插件
+" 增加了react等snip插件，去除其分号...深入了解了Ultisnips相关模板格式,格式有坑!(每行开头不是普通空格)
+" 优化整理,包管理器随意切换，纳入git控制
 

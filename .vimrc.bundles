@@ -1,163 +1,135 @@
 " ----------------------------------------------------------------------------
 "
-"                           Plugins and Settings v 1.0
-"                              Plug with 40 plugins
+"                          Plugins and Settings v 1.0
+"                            Vundle with 40 plugins
 "
 " ----------------------------------------------------------------------------
 
-" Install vim-Plug if we don't arlready have it
-if empty(glob("~/.vim/autoload/plug.vim"))
-    " Ensure all needed directories exist  (Thanks @kapadiamush)
-    execute 'mkdir -p ~/.vim/autoload'
-    " Download the actual plugin manager
-    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-endif
-
-call plug#begin('~/.vim/bundle')
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " ----------------------------------------------------------------------------
-"  https://github.com/junegunn/vim-plug
-"  :PlugInstall
-"  :PlugUpdate
-"  :PlugClean remove plugin not in list
-"  :PlugStatus show the status of all the plugins
+"  https://github.com/gmarik/Vundle.vim
+"  :BundleInstall     install
+"  :BundleUpdate      update
+"  :BundleClean       remove plugin not in list
 " ----------------------------------------------------------------------------
+Plugin 'gmarik/Vundle.vim'
 
-" 靠这和Vundle拉开了差距，不过也有弊端...初次进入insert模式使用时有可能还没加载好
-augroup lazyload_UI
-  autocmd!
-  autocmd vimEnter * call plug#load('vim-airline', 'vim-fugitive', 'vim-gitgutter', 'tagbar', 'ctrlp.vim', 'vim-jsdoc')
-                     \| autocmd! lazyload_UI
-augroup END
-
-augroup lazyload_ycm_and_tern
-  autocmd!
-  autocmd InsertEnter * call plug#load('YouCompleteMe', 'tern_for_vim')
-                     \| call youcompleteme#Enable() | autocmd! lazyload_ycm_and_tern
-augroup END
-
-augroup lazyload_syntastic_and_others
-  autocmd!
-  autocmd InsertEnter * call plug#load('syntastic', 'vim-eslint', 'ultisnips', 'vim-snippets', 'vim-ultisnips-react', 'vim-ultisnips-css', 'vim-jsdoc', 'vim-easy-align', 'ctrlp-funky')
-                     \| autocmd! lazyload_syntastic_and_others
-augroup END
 
 " -------------------------- Making Vim looks good ---------------------------
 
 " https://github.com/bling/vim-airline
-Plug 'bling/vim-airline', { 'on' : [] }
+Plugin 'bling/vim-airline'
 
 " ----------------------- Vim Base Functions Improved ------------------------
 
 " https://github.com/scrooloose/nerdtree
 " a tree explorer plugin for vim
-Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
-
-" https://github.com/jistr/vim-nerdtree-tabs
-" my fault,it's useless... part of below plugin
-"Plug 'jistr/vim-nerdtree-tabs', { 'on' : 'NERDTreeTabsToggle' }
+Plugin 'scrooloose/nerdtree'
 
 " https://github.com/907th/vim-auto-save
 " autosave for vim
-Plug 'vim-scripts/vim-auto-save'
+Plugin 'vim-scripts/vim-auto-save'
 
 " https://github.com/kopischke/vim-stay
 " Make Vim persist editing state without fuss
-Plug 'kopischke/vim-stay'
+Plugin 'kopischke/vim-stay'
 
 " https://github.com/vim-scripts/open-browser.vim
 " because of China you know, switch default search_engine to baidu in
-" source code of Plug 20150422, a great plugin, <C-g>
-Plug 'tyru/open-browser.vim'
-   
+" source code of Plugin 20150422, a great plugin, <C-g>
+Plugin 'tyru/open-browser.vim'
+
 " https://github.com/amix/open_file_under_cursor.vim
 " Open file under cursor when pressing gf(if the text is a path)
-Plug 'amix/open_file_under_cursor.vim'
-
+Plugin 'amix/open_file_under_cursor.vim'
+   
 " https://github.com/gorodinskiy/vim-coloresque
 " show color in html, css, scss file, like sublime plugin, very useful !
-Plug 'gorodinskiy/vim-coloresque', { 'for' : ['html', 'css', 'scss', 'javascript','javascript.jsx', 'jsx', 'vue'] }
+Plugin 'gorodinskiy/vim-coloresque'
 
 " https://github.com/ggVGc/vim-fuzzysearch
-Plug 'ggVGc/vim-fuzzysearch'
+Plugin 'ggVGc/vim-fuzzysearch'
+
+" Open file under cursor when pressing gf(if the text is a path)
+" !!!Plugin 'amix/open_file_under_cursor.vim'
 
 " https://github.com/editorconfig/editorconfig-vim
-" !Plug 'editorconfig/editorconfig-vim'
+" !Plugin 'editorconfig/editorconfig-vim'
 
 " https://github.com/easymotion/vim-easymotion
-" !Plug 'easymotion/vim-easymotion'
+" !Plugin 'easymotion/vim-easymotion'
 
 " ----------------- Vim as a programmer's text editor -----------------------
 
 " https://github.com/Raimondi/delimitMate
 " vim  auto-completion for quotes,parens,brackets, etc.
-Plug 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 
 " https://github.com/scrooloose/nerdcommenter
 " intensely orgasmic commenting <leader>cc, <leader>ci to toggle
-Plug 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 
 " https://github.com/junegunn/vim-easy-align
 " a Vim alignment plugin
-Plug 'junegunn/vim-easy-align', { 'on' : [] }
+Plugin 'junegunn/vim-easy-align'
 
 " https://github.com/scrooloose/syntastic
 " syntax checker for vim and you need a specific checker for real use
-Plug 'scrooloose/syntastic', { 'on' : [] }
+Plugin 'scrooloose/syntastic'
 
 " https://github.com/ruanyl/vim-eslint
 " vim-eslint, wrap eslint.d to speed up the lint time within 160ms from 700ms+
-Plug 'ruanyl/vim-eslint', { 'on' : [] }
+Plugin 'ruanyl/vim-eslint'
 
 " https://github.com/
 " jshint2.vim  20150808, replace with eslint in 201512202100
-"Plug 'Shutnik/jshint2.vim'
-
-
-" https://github.com/SirVer/ultisnips
-" UtilSnips, it is really powful
-Plug 'SirVer/ultisnips', { 'on' : [] }
-
-" https://github.com/honza/vim-snippets
-" Snippets are separated from the engine. Add this if you want them.
-Plug 'honza/vim-snippets', { 'on' : [] }
-
-" https://github.com/alexbyk/vim-ultisnips-react
-Plug 'alexbyk/vim-ultisnips-react', { 'on' : [] }
-
-" https://github.com/rstacruz/vim-ultisnips-css
-" UtilSnips-css. useful, more snippets than emmet
-Plug 'rstacruz/vim-ultisnips-css', { 'on' : [] }
+"Plugin 'Shutnik/jshint2.vim'
 
 " https://github.com/Valloric/YouCompleteMe
-" The last completer you need, support for javascript now, 201601
-"Plug 'Valloric/YouCompleteMe', { 'on' : [], 'for' : ['c', 'cpp', 'javascript', 'jsx'], 'do' : './install.py --clang-completer --tern-completer' }
-" install ycm manually in its own bundle package with install.py and arguments
-Plug 'Valloric/YouCompleteMe', { 'on' : [] }
+" The last completer you need, support for javascript now
+Plugin 'Valloric/YouCompleteMe'
 
 " https://github.com/marijnh/tern_for_vim
 " for javascript, an engine, need into plugin package and npm install
-Plug 'marijnh/tern_for_vim', { 'on' : [] }
+Plugin 'marijnh/tern_for_vim'
+
+" https://github.com/SirVer/ultisnips
+" UtilSnips, it is really powful
+Plugin 'SirVer/ultisnips'
+
+" https://github.com/alexbyk/vim-ultisnips-react
+Plugin 'alexbyk/vim-ultisnips-react'
+
+" https://github.com/honza/vim-snippets
+" Snippets are separated from the engine. Add this if you want them.
+Plugin 'honza/vim-snippets'
+
+" https://github.com/rstacruz/vim-ultisnips-css
+" UtilSnips-css. useful, more snippets than emmet
+Plugin 'rstacruz/vim-ultisnips-css'
 
 " https://github.com/majutsushi/tagbar
-" Vim Plug that displays tags in a window, ordered by scope
-Plug 'majutsushi/tagbar', { 'on' : [] }
+" Vim Plugin that displays tags in a window, ordered by scope
+Plugin 'majutsushi/tagbar'
 
 " https://github.com/ctrlpvim/ctrlp.vim
 " go to anything like sublime
-Plug 'ctrlpvim/ctrlp.vim', { 'on' : [] }
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " https://github.com/tacahiroy/ctrlp-funky
 " improve ctrlP, like goto functions
-Plug 'tacahiroy/ctrlp-funky', { 'on' : [] }
+Plugin 'tacahiroy/ctrlp-funky'
 
 " https://github.com/dyng/ctrlsf.vim
 " ctrlsf
-Plug 'dyng/ctrlsf.vim', { 'on' : '<Plug>CtrlSFVwordExec' }
+Plugin 'dyng/ctrlsf.vim'
 
 " https://github.com/terryma/vim-multiple-cursors
 " sublime-like multiple line edit tool
-Plug 'terryma/vim-multiple-cursors'
+Plugin 'terryma/vim-multiple-cursors'
 
 " auto load vim scripts, know its function in 20160118, requirement for vim-easytags
 " xPlugin 'xolox/vim-misc'
@@ -172,59 +144,57 @@ Plug 'terryma/vim-multiple-cursors'
 " xPlugin 'terryma/vim-expand-region'
 
 " rename the current file in the vim buffer + retain relative path, 20150714
-" Plug 'danro/rename.vim'
+" Plugin 'danro/rename.vim'
 
 " vim sugar for the UNIX shell commands, rename, move, mkdir inner vim
-Plug 'tpope/vim-eunuch'
+" xPlugin 'tpope/vim-eunuch'
 
 " -------------------------- Working with Git --------------------------------
 
 " https://github.com/airblade/vim-gitgutter
 " show git diff in the file
-Plug 'airblade/vim-gitgutter', { 'on' : [] }
+Plugin 'airblade/vim-gitgutter'
 
 " git wrapper, not really use
-Plug 'tpope/vim-fugitive', { 'on' : [] }
+Plugin 'tpope/vim-fugitive'
 
 " --------------------------- Syntax plugins ---------------------------------
-"  no need to use Plug-in's for syntax for different filetype
 
 " https://github.com/othree/html5.vim
 " HTML5 omnicomplete and syntax
-Plug 'othree/html5.vim', { 'for' : ['html', 'vue'] }
+Plugin 'othree/html5.vim'
 
 " https://github.com/othree/cakebaker/scss-syntax.vim
 " for scss, seems not that required
-Plug 'cakebaker/scss-syntax.vim'
+Plugin 'cakebaker/scss-syntax.vim'
 
 " https://github.com/othree/hail2u/vim-css3-syntax
 " for css3, maybe conflict with scss-syntax, rm package's scss.vim will done
-Plug 'hail2u/vim-css3-syntax'
+Plugin 'hail2u/vim-css3-syntax'
 
 " https://github.com/pangloss/vim-javascript
 " even worse highlight than raw vim
 " xPlugin 'pangloss/vim-javascript'
 
+" https://github.com/mxw/vim-jsx
+" jsx
+Plugin 'mxw/vim-jsx'
+
 " https://github.com/isRuslan/vim-es6
 " es6
-Plug 'isRuslan/vim-es6'
-
-" https://github.com/mxw/vim-jsx
-" if config allow jsx in javascript, the plugin will auto make ext 'js' to
-" 'javascript.jsx' which made people confused but no better way
-Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'jsx', 'javascript.jsx'] }
+Plugin 'isRuslan/vim-es6'
 
 " https://github.com/mxw/darthmall/vim-vue
 " basic highlight for vuejs-component in vim
-Plug 'darthmall/vim-vue', { 'for' : ['vue'] }
+Plugin 'darthmall/vim-vue'
 
 " https://github.com/hallison/vim-markdown
 " for markdown
-Plug 'hallison/vim-markdown', { 'for' : ['markdown', 'md'] }
+Plugin 'hallison/vim-markdown'
 
 " https://github.com/othree/javascript-libraries-syntax.vim
 " js libs support
-Plug 'othree/javascript-libraries-syntax.vim'
+Plugin 'othree/javascript-libraries-syntax.vim'
 
 " for jquery
 " xPlugin 'nono/jquery.vim'
@@ -237,68 +207,69 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " xPlugin 'jelera/vim-javascript-syntax'
 
 " angularjs snippets
-"Plug 'matthewsimo/angular-vim-snippets'
+"Plugin 'matthewsimo/angular-vim-snippets'
 
 " for angularjs dev
-"Plug 'burnettk/vim-angular'
+"Plugin 'burnettk/vim-angular'
 
 " vim syntax highlighting for C0 ???
-"Plug 'jez/vim-c0'
+"Plugin 'jez/vim-c0'
 " vim syntax highlighting for ISPC ???
-"Plug 'jez/vim-ispc'
+"Plugin 'jez/vim-ispc'
 " vim syntax highlighting for coffee-script
-"Plug 'kchmck/vim-coffee-script'
+"Plugin 'kchmck/vim-coffee-script'
 
 " --------------------- Extras/Advanced web DEV plugins ----------------------
  
 " https://github.com/mattn/emmet-vim
 " emmet
-Plug 'mattn/emmet-vim', { 'for' : ['html', 'vue', 'css', 'scss'] }
+Plugin 'mattn/emmet-vim'
 
 " https://github.com/heavenshell/vim-jsdoc.
 " usage: cursur in function and <leader>d(remaped) or :JsDoc
-Plug 'heavenshell/vim-jsdoc', { 'on' : [] }
+Plugin 'heavenshell/vim-jsdoc'
 
 " https://github.com/mattn/webapi-vim
 " vim interface to Web API
-Plug 'mattn/webapi-vim'
+Plugin 'mattn/webapi-vim'
 
 " https://github.com/vim-scripts/HTML-AutoCloseTag
 " Automaticall insert the closing HTML tag
-Plug 'HTML-AutoCloseTag', { 'for' : ['html', 'vue'] }
+Plugin 'HTML-AutoCloseTag'
 
 " https://github.com/gregsexton/MatchTag
 " HTML Tag match-highlighter
-" xPlug 'MatchTag', { 'for' : ['html', 'vue'] }
+" xPlugin 'MatchTag'
 
 " https://github.com/Valloric/MatchTagAlways
 " better and configurable 
-Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
+Plugin 'Valloric/MatchTagAlways'
 
 " js-html-css-beautify
 " xPlugin 'maksimr/vim-jsbeautify'
 
 " Grunt wrapper for vim, -->  https://github.com/mklabs/grunt.vim
-"Plug 'mklabs/grunt.vim'
+"Plugin 'mklabs/grunt.vim'
 
 " https://github.com/mmozuras/vim-github-comment
-"Plug 'mmozuras/vim-github-comment'
+"Plugin 'mmozuras/vim-github-comment'
 " Highlight and strip trailing whitespace,
 " it's great, but too sensitive to use, drop in 20150427
-"Plug 'ntpeters/vim-better-whitespace'
+"Plugin 'ntpeters/vim-better-whitespace'
 " Easily surround chunks of text
-"Plug 'tpope/vim-surround'
+"Plugin 'tpope/vim-surround'
 " Align CSV files at commas, align Markdown tables, and more
-"Plug 'godlygeek/tabular'
+"Plugin 'godlygeek/tabular'
 " Make tmux look like vim-airline (read README for extra instructions)
-"Plug 'edkolev/tmuxline.vim'
+"Plugin 'edkolev/tmuxline.vim'
 " All the other syntax plugins I use
-"Plug 'ekalinin/Dockerfile.vim'
-"Plug 'digitaltoad/vim-jade'
-"Plug 'tpope/vim-liquid'
+"Plugin 'ekalinin/Dockerfile.vim'
+"Plugin 'digitaltoad/vim-jade'
+"Plugin 'tpope/vim-liquid'
 
-" Add plugins to &runtimepath
-call plug#end()
+" Vundle end...
+call vundle#end()
+filetype plugin indent on
 
 
 " -------------------------  Plugins-Specific Settings Start -------------------------
@@ -310,17 +281,8 @@ let g:user_emmet_mode='i'
 " before set -> let g:user_emmet_leader_key='<C-Z>' work doesn't well...
 let g:user_emmet_expandabbr_key = '<Tab>'
 let g:user_emmet_install_global = 0
-autocmd FileType html,vue,css,scss EmmetInstall
+autocmd FileType html,css,scss EmmetInstall
 
-" ----- Valloric/MatchTagAlways settings -----
-let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'jsx' : 1,
-    \ 'javascript.jsx' : 1,
-    \ 'vue' : 1,
-    \}
 
 " ----- bling/vim-airline settings -----
 let g:airline_theme='badwolf'
@@ -349,7 +311,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled=1
 
 
-" ----- vim-nerdtree settings -----
+" ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with ;t
 nmap <silent> <leader>t :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
@@ -378,8 +340,8 @@ augroup Syntastic
     au FileType tex let b:syntastic_mode = "passive"
 augroup END
 
-"let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_checkers = ['']
+let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_checkers = ['']
 " for others project, replace with eslint in 201512202100
 "let g:syntastic_javascript_checkers = ['jshint']
 
@@ -395,11 +357,9 @@ endif
 " fuzzy search, 模糊搜索
 nnoremap <leader><leader>f :FuzzySearch<CR>
 
-
 " ----- heavenshell/vim-jsdoc -----
 " jsdoc remap hot key and make tmuxnav can use --- 20150524 remap in 20150915
 nmap <silent> <leader>d <Plug>(jsdoc)
-
 
 " ----- xolox/vim-easytags settings -----
 " Where to look for tags files
@@ -415,15 +375,9 @@ nmap <silent> <leader>d <Plug>(jsdoc)
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with ;b
-" require ctags, jsctags
-" npm install -g git+https://github.com/ramitos/jsctags.git
-" ----------------------------------------------------------------------------
 nmap <silent> <leader>b :TagbarToggle<CR>
-" let g:tagbar_type_javascript = {
-"    \ 'ctagsbin' : 'jsctags'
-"    \ }
-let g:tagbar_autofocus = 1
-let g:tagbar_width = 50
+" Uncomment to open tagbar automatically whenever possible
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 
 " ----- airblade/vim-gitgutter settings -----
@@ -432,14 +386,6 @@ hi clear SignColumn
 " In vim-airline, only display "hunks" if the diff is non-zero
 let g:airline#extensions#hunks#non_zero_only = 1
 
-
-" ----- tern_for_vim  -----
-" very useful and powerful, 20150716
-cmap tdef TernDef<CR>
-cmap trename TernRename<CR> 
-cmap tref TernRefs<CR>
-cmap trefs TernRefs<CR>
-cmap ttype TernType<CR>
 
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
@@ -455,14 +401,6 @@ augroup END
 " ----- YouCompleteMe settings -----
 "  required
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-cnoremap ydoc :YcmCompleter GetDoc
-cnoremap ytype :YcmCompleter GetType
-cnoremap ygoto :YcmCompleter GoTo
-cnoremap ydef :YcmCompleter GoToDefinition
-cnoremap yrefs :YcmCompleter GoToReferences
-cnoremap yref :YcmCompleter GoToReferences
-
-
 
 " ----- CtrlP settings, open anything plugin like sublime -----
 let g:ctrlp_map = '<c-p>'
@@ -480,7 +418,6 @@ let g:ctrlp_custom_ignore = {
     \ }
 let g:ctrlp_follow_symlinks=1
 
-
 " ----- CtrlPFunky settings -----
 nnoremap <leader>fu :CtrlPFunky<CR>
 " narrow the list down with a word under cursor
@@ -488,10 +425,8 @@ nnoremap <leader>fU :execute 'CtrlPFunky' . expend('<cword>')<CR>
 let g:ctrlp_funky_matchtype = 'path'
 let g:ctrlp_funky_syntax_highlight = 1
 
-
 " ----- ctrlSF -----
 nnoremap <leader>sp :CtrlSF
-
 
 " ----- sublime-like htmlcssjs-beautify settings -----
 " ----- however, C-S-b is same like C-b due to keycode in vim ------
@@ -509,25 +444,20 @@ nnoremap <leader>sp :CtrlSF
 "autocmd FileType css vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
 "autocmd FileType scss vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
 
-
 " ----- vim-stay settings -----
-" for vim-stay Plug recommend set
+" for vim-stay Plugin recommend set
 set viewoptions=cursor,folds,slash,unix
 
 
 " ----- vim-autosave settings -----
-" enable AutoSave on Vim startup"
-let g:auto_save = 1  
-" do not change the 'updatetime' option"
-let g:auto_save_no_updatetime = 1  
-" do not save while in insert mode"
-let g:auto_save_in_insert_mode = 0  
-" do not display the auto-save notification"
-let g:auto_save_silent = 1  
+let g:auto_save = 1  " enable AutoSave on Vim startup"
+let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option"
+let g:auto_save_in_insert_mode = 0  " do not save while in insert mode"
+let g:auto_save_silent = 1  " do not display the auto-save notification"
 "let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
 
-" ----- vim-jsx settings -----
+" ----- vim-jsx -----
 " Allow JSX in normal JS files
 let g:jsx_ext_required = 0
 
@@ -536,33 +466,6 @@ let g:jsx_ext_required = 0
 " if it looks like URI, Open URI under cursor.
 " Otherwise, Search word under cursor. 
 nmap <C-g> <Plug>(openbrowser-smart-search)
-
-
-" ----- EasyAlign settings -----
-" 可以选中多行;不选中默认操作当前行
-" ;a= 对齐等号表达
-" ;a: 对齐冒号表达式(json/map等)
-" ;a<space>  首个空格对齐
-" ;a2<space> 第二个空格对齐
-" ;a*<space> 所有空格依次对齐
-vmap <Leader>a <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
-if !exists('g:easy_align_delimiters')
-    let g:easy_align_delimiters = {}
-endif
-let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
-
-
-" ----- javascript_libs settings -----
-" 20150624 add
-let g:used_javascript_libs = 'jquery,jasmine,chai,underscore,Lo-Dash,react'
-
-
-" ----- UltiSnippets settings -----
-" Trigger configuration. Do not use <tab> if you use YCM
-let g:UltiSnipsExpandTrigger="ii"
-let g:UltiSnipsJumpForwardTrigger="II"
-let g:UltiSnipsJumpBackwardTrigger="OO"
 
 
 " ----- vim-javascript and vim-javascript-syntax settings ------
@@ -579,4 +482,29 @@ let g:UltiSnipsJumpBackwardTrigger="OO"
 "let g:html_indent_inctags = "html,body,head,tbody"
 "let g:html_indent_script1 = "inc"
 "let g:html_indent_style1 = "inc"
+
+
+" ----- EasyAlign settings -----
+" 可以选中多行;不选中默认操作当前行
+" ;a= 对齐等号表达
+" ;a: 对齐冒号表达式(json/map等)
+" ;a<space>  首个空格对齐
+" ;a2<space> 第二个空格对齐
+" ;a*<space> 所有空格依次对齐
+vmap <Leader>a <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
+if !exists('g:easy_align_delimiters')
+    let g:easy_align_delimiters = {}
+endif
+let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
+
+" 20150624 add
+" javascript_libs settings
+let g:used_javascript_libs = 'jquery,jasmine,chai,underscore,Lo-Dash,react'
+
+" ----- UltiSnippets settings -----
+" Trigger configuration. Do not use <tab> if you use YCM
+let g:UltiSnipsExpandTrigger="ii"
+let g:UltiSnipsJumpForwardTrigger="II"
+let g:UltiSnipsJumpBackwardTrigger="OO"
 

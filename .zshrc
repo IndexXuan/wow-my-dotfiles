@@ -82,6 +82,8 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 alias ll="ls -al"
+# avoid easy typing error
+alias lll=ll
 
 alias v="vim"
 #alias vi="vim"
