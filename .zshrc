@@ -80,10 +80,13 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
+
+alias c="clear"
+
 alias ll="ls -al"
+alias l="ls -al" 
 # avoid easy typing error
-alias lll=ll
+alias lll="ls -al"
 
 alias v="vim"
 #alias vi="vim"
@@ -93,11 +96,22 @@ alias vim-debug="vim --startuptime ~/.vim/debug/startupProfile.txt"
 alias chrome="google chrome"
 
 alias howmuch="sudo du -h --max-depth=1"
+alias t="tree -L 2 ./"
+alias tt="tree -L 3 ./"
+
+# code count
+alias htmlcode="find . -name '*.html' | xargs cat | grep -v ^$ | wc -l"
+alias scsscode="find . -name '*.scss' | xargs cat | grep -v ^$ | wc -l"
+alias jscode="find . -name '*.js' | xargs cat | grep -v ^$ | wc -l"
+alias vuecode="find . -name '*.vue' | xargs cat | grep -v ^$ | wc -l"
 
 alias shici="fortune-zh"
+alias sc="fortune-zh"
 alias mingju="fortune"
+alias mj="fortune"
 
 alias zhuangbi="cmatrix"
+alias zb="cmatrix"
 
 alias can="caniuse"
 

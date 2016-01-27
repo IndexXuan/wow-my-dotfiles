@@ -1,6 +1,10 @@
-# wow-my-vimrc
-my vimrc with lots of help and love to it ~
+<h1 align="center">wow-my-dotfiles</h1>
 
-#傲娇的不写任何说明。。。  
-越发的好用，嘿嘿！
+## 备份自己的vim配置文件  
+  0. Plug版插件配置
+  1. Vundle版插件配置
+  2. openbrowser.vim修改了搜索引擎配置
+  3. NERD_commenter.vim修改了注释风格，注释开始和结束应该有空格...
+
+## zsh配置文件
 

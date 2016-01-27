@@ -44,9 +44,6 @@ let g:basicmode = 0
 let g:manager = 'Plug'
 "let g:manager = 'Vundle'
 
-" whether developing react-jsx
-let g:reactdev = 0
-
 " Must be first line
 set nocompatible
 
@@ -371,6 +368,9 @@ nmap <leader>w :w!<CR>
 " write to file which is not permitted
 cmap w!! w !sudo tee % >/dev/null
 
+" !!!超级好用!!! 全局批量替换
+nnoremap <leader>s ggVG:s//g<left><left>
+
 " !!!超级好用!!! 全局精准批量替换, 输入单词， 然后换成目标单词
 nnoremap <leader>r :%s/\<\>//g<left><left><left><left><left>
 
@@ -378,14 +378,14 @@ nnoremap <leader>r :%s/\<\>//g<left><left><left><left><left>
 vnoremap < <gv
 vnoremap > >gv
 
-" goto older/newer position in change list
-nnoremap <silent> O g;
-nnoremap <silent> N g,
+" goto older/newer position in change list, very powerful
+nnoremap <silent> ) g;
+nnoremap <silent> ( g,
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
-nmap <leader>s :shell<CR>
+" nmap <leader>s :shell<CR>
 map <leader>f :find<CR>
 
 " 20150509, add some feature for fast and easy move
@@ -495,7 +495,6 @@ nnoremap qf :copen<CR>
 " ip can make us to use google painless, though failure with time goes on
 " so, link the openbrowser.vim to dir ~/.vim and make change easily.
 
-
 " 20150811, replace with eslint in 201512202100
 "nnoremap <leader>ht :JSHint<CR>
 
@@ -575,5 +574,6 @@ nnoremap qf :copen<CR>
 " 懒加载几乎全部插件，启动时间减少一半，大约500ms左右，共40个插件,优化具体文件类型
 " 恢复vim内部常用文件操作插件vim-eunuch，替换了标签匹配插件
 " 增加了react等snip插件，去除其分号...深入了解了Ultisnips相关模板格式,格式有坑!(每行开头不是普通空格)
+" changelist的游走映射为 "(" 和 ")" 一对儿，非常有用的快捷键
 " 优化整理,包管理器随意切换，纳入git控制
 

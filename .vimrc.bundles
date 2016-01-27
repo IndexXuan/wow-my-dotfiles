@@ -233,10 +233,6 @@ Plugin 'heavenshell/vim-jsdoc'
 " vim interface to Web API
 Plugin 'mattn/webapi-vim'
 
-" https://github.com/vim-scripts/HTML-AutoCloseTag
-" Automaticall insert the closing HTML tag
-Plugin 'HTML-AutoCloseTag'
-
 " https://github.com/gregsexton/MatchTag
 " HTML Tag match-highlighter
 " xPlugin 'MatchTag'

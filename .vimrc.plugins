@@ -5,7 +5,7 @@
 "
 " ----------------------------------------------------------------------------
 
-" Install vim-Plug if we don't arlready have it
+" Install vim-Plug if we don't already have it
 if empty(glob("~/.vim/autoload/plug.vim"))
     " Ensure all needed directories exist  (Thanks @kapadiamush)
     execute 'mkdir -p ~/.vim/autoload'
@@ -16,11 +16,40 @@ endif
 call plug#begin('~/.vim/bundle')
 
 " ----------------------------------------------------------------------------
+"
+"  vim-Plug --- Minimalist Vim Plugin Manager
+"
+"  command:
+"  :PlugInstall[name ...]
+"    install plugins
+"  :PlugUpdate[name ...]
+"    install or update plugins
+"  :PlugClean[!] 
+"    remove plugin not in list(bang version will clean without prompt)
+"  :PlugStatus
+"    check the status of plugins(e.g. load or not)
+"  :PlugUpgrade
+"    upgrade vim-plug itself
+"  :PlugDiff
+"    examine changes from the previous update and the pending changes
+"  :PlugSnapshot[!] [output path]
+"    generate script for restoring the current snapshot of the plugins
+"
+"  options:
+"  branch / tag / commit => 插件git仓库选择
+"  rtp                   => vim插件包含在子文件夹
+"  dir                   => 插件自定义文件夹
+"  do                    => 定义插件安装钩子，传入字符串命令或者函数名
+"  on                    => 满足条件懒加载
+"  for                   => 文件类型懒加载
+"  frozen                => 不随着更新除非具体表明
+"
+"  keybindings
+"  in :PlugStatus state, press L to load plugin in cursor
+"
+"  more docs in github homepage
 "  https://github.com/junegunn/vim-plug
-"  :PlugInstall
-"  :PlugUpdate
-"  :PlugClean remove plugin not in list
-"  :PlugStatus show the status of all the plugins
+"
 " ----------------------------------------------------------------------------
 
 " 靠这和Vundle拉开了差距，不过也有弊端...初次进入insert模式使用时有可能还没加载好
@@ -41,6 +70,9 @@ augroup lazyload_syntastic_and_others
   autocmd InsertEnter * call plug#load('syntastic', 'vim-eslint', 'ultisnips', 'vim-snippets', 'vim-ultisnips-react', 'vim-ultisnips-css', 'vim-jsdoc', 'vim-easy-align', 'ctrlp-funky')
                      \| autocmd! lazyload_syntastic_and_others
 augroup END
+
+" Vundle backup, and do not load forever in Plug
+Plug 'VundleVim/Vundle.vim', { 'on' : [] }
 
 " -------------------------- Making Vim looks good ---------------------------
 
@@ -76,7 +108,8 @@ Plug 'amix/open_file_under_cursor.vim'
 
 " https://github.com/gorodinskiy/vim-coloresque
 " show color in html, css, scss file, like sublime plugin, very useful !
-Plug 'gorodinskiy/vim-coloresque', { 'for' : ['html', 'css', 'scss', 'javascript','javascript.jsx', 'jsx', 'vue'] }
+"Plug 'gorodinskiy/vim-coloresque', { 'for' : ['html', 'css', 'scss', 'javascript','javascript.jsx', 'jsx', 'vue'] }
+Plug 'gorodinskiy/vim-coloresque', { 'for' : ['html', 'css', 'scss', 'javascript', 'vue'] }
 
 " https://github.com/ggVGc/vim-fuzzysearch
 Plug 'ggVGc/vim-fuzzysearch'
@@ -217,6 +250,8 @@ Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'jsx', 'javascript.jsx'] }
 " https://github.com/mxw/darthmall/vim-vue
 " basic highlight for vuejs-component in vim
 Plug 'darthmall/vim-vue', { 'for' : ['vue'] }
+" open with error, not as well as darthmall's vim-vue
+" xxxPlug 'posva/vim-vue', { 'for' : ['vue'] }
 
 " https://github.com/hallison/vim-markdown
 " for markdown
@@ -263,17 +298,13 @@ Plug 'heavenshell/vim-jsdoc', { 'on' : [] }
 " vim interface to Web API
 Plug 'mattn/webapi-vim'
 
-" https://github.com/vim-scripts/HTML-AutoCloseTag
-" Automaticall insert the closing HTML tag
-Plug 'HTML-AutoCloseTag', { 'for' : ['html', 'vue'] }
-
 " https://github.com/gregsexton/MatchTag
 " HTML Tag match-highlighter
 " xPlug 'MatchTag', { 'for' : ['html', 'vue'] }
 
 " https://github.com/Valloric/MatchTagAlways
 " better and configurable 
-Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
+Plug 'Valloric/MatchTagAlways', { 'for' : ['html'] }
 
 " js-html-css-beautify
 " xPlugin 'maksimr/vim-jsbeautify'
@@ -354,6 +385,8 @@ let g:airline#extensions#branch#enabled=1
 nmap <silent> <leader>t :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeQuitOnOpen=1
+" show hidden files, add in 20160125
+let g:NERDTreeShowHidden=1
 let NERDTreeIgnore=[ '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
 "close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
@@ -378,8 +411,8 @@ augroup Syntastic
     au FileType tex let b:syntastic_mode = "passive"
 augroup END
 
-"let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_checkers = ['']
+let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_checkers = ['']
 " for others project, replace with eslint in 201512202100
 "let g:syntastic_javascript_checkers = ['jshint']
 
