@@ -249,9 +249,10 @@ Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'jsx', 'javascript.jsx'] }
 
 " https://github.com/mxw/darthmall/vim-vue
 " basic highlight for vuejs-component in vim
-Plug 'darthmall/vim-vue', { 'for' : ['vue'] }
-" open with error, not as well as darthmall's vim-vue
-" xxxPlug 'posva/vim-vue', { 'for' : ['vue'] }
+" xPlug 'darthmall/vim-vue', { 'for' : ['vue'] }
+
+" https://github.com/posva/vim-vue, deal more condition
+Plug 'posva/vim-vue', { 'for' : ['vue'] }
 
 " https://github.com/hallison/vim-markdown
 " for markdown
