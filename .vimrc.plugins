@@ -232,6 +232,7 @@ Plug 'cakebaker/scss-syntax.vim'
 
 " https://github.com/othree/hail2u/vim-css3-syntax
 " for css3, maybe conflict with scss-syntax, rm package's scss.vim will done
+" don't forget to mv scss.vim to scss-bak.vim to avoid nested error highlight
 Plug 'hail2u/vim-css3-syntax'
 
 " https://github.com/pangloss/vim-javascript
@@ -412,8 +413,8 @@ augroup Syntastic
     au FileType tex let b:syntastic_mode = "passive"
 augroup END
 
-let g:syntastic_javascript_checkers = ['eslint']
-"let g:syntastic_javascript_checkers = ['']
+"let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['']
 " for others project, replace with eslint in 201512202100
 "let g:syntastic_javascript_checkers = ['jshint']
 

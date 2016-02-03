@@ -302,17 +302,45 @@ func SetTitle()
     endif
 
     if &filetype == 'c'
-        call append(line(".") + 6, "#include <stdio.h>")
-        call append(line(".") + 7, "")
+        call append(line(".")+6, "#include <stdio.h>")
+        call append(line(".")+7, "")
     elseif &filetype =='cpp'
-        call append(line(".") + 6, "#include <iostream>")
-        call append(line(".") + 7, "using namespace std;")
-        call append(line(".") + 8, "")
+        call append(line(".")+6, "#include <iostream>")
+        call append(line(".")+7, "using namespace std;")
+        call append(line(".")+8, "")
     endif
     " to the end of the file when file created
     autocmd BufNewFile * normal G
 endfunc
 
+" ----- auto-generate vue component when create vue file -----
+autocmd BufNewFile *.vue exec ":call GenerateVue()"
+func GenerateVue()
+    if &filetype == 'vue'
+        call setline(1,           "<template>")
+        call append(line("."),    "  ")
+        call append(line(".")+1,  "</template>")
+        call append(line(".")+2,  "")
+        call append(line(".")+3,  "<style lang=\"sass\">")
+        call append(line(".")+4,  "  ")
+        call append(line(".")+5,  "</style>")
+        call append(line(".")+6,  "")
+        call append(line(".")+7,  "<script>")
+        call append(line(".")+8,  "")
+        call append(line(".")+9,  "  export default {")
+        call append(line(".")+10, "    data() {")
+        call append(line(".")+11, "      return {") 
+        call append(line(".")+12, "         ")
+        call append(line(".")+13, "      }")
+        call append(line(".")+14, "    }")
+        call append(line(".")+15, "  }")
+        call append(line(".")+16, "")
+        call append(line(".")+17, "</script>")
+    endif
+
+    " to the end of the file when file created
+    autocmd BufNewFile * exe "normal G"
+endfunc
 
 function! JumpToCSS()
     let id_pos = searchpos("id", "nb", line('.'))[1]
@@ -579,4 +607,8 @@ nnoremap qf :copen<CR>
 
 " 20160130 !
 " 替换vue插件,让vue文件有更好的编程体验，找到了处理更多情况的替换插件，但是需要修改源码，避免报错
+
+" 20160203
+" 暂时去除vim内eslint,有外部工具实时lint并提示
+" 增加了vue文件的自动生成骨架
 

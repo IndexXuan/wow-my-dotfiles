@@ -97,7 +97,10 @@ alias chrome="google chrome"
 
 alias howmuch="sudo du -h --max-depth=1"
 alias t="tree -L 2 ./"
+alias tree="tree -L 2 ./"
+alias t2="tree -L 2 ./"
 alias tt="tree -L 3 ./"
+alias t3="tree -L 3 ./"
 
 # code count
 alias htmlcode="find . -name '*.html' | xargs cat | grep -v ^$ | wc -l"
