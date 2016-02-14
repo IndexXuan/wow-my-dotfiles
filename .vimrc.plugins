@@ -79,6 +79,9 @@ Plug 'VundleVim/Vundle.vim', { 'on' : [] }
 " https://github.com/bling/vim-airline
 Plug 'bling/vim-airline', { 'on' : [] }
 
+" https://github.com/wakatime/vim-wakatime
+Plug 'wakatime/vim-wakatime'
+
 " ----------------------- Vim Base Functions Improved ------------------------
 
 " https://github.com/scrooloose/nerdtree

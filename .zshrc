@@ -81,21 +81,24 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
+# ----- shortcut ----- #
 alias c="clear"
 
-alias ll="ls -al"
 alias l="ls -al" 
-# avoid easy typing error
+alias ll="ls -al"
 alias lll="ls -al"
 
 alias v="vim"
-#alias vi="vim"
 alias vv="vim --noplugins"
 alias vim-debug="vim --startuptime ~/.vim/debug/startupProfile.txt"
 
-alias chrome="google chrome"
+# npm
+alias i="npm install --save-dev"
+alias ig="npm install -g"
 
+# 磁盘空间统计
 alias howmuch="sudo du -h --max-depth=1"
+
 alias t="tree -L 2 ./"
 alias tree="tree -L 2 ./"
 alias t2="tree -L 2 ./"
@@ -108,8 +111,12 @@ alias scsscode="find . -name '*.scss' | xargs cat | grep -v ^$ | wc -l"
 alias jscode="find . -name '*.js' | xargs cat | grep -v ^$ | wc -l"
 alias vuecode="find . -name '*.vue' | xargs cat | grep -v ^$ | wc -l"
 
+# ----- Apps ----- #
+alias chrome="google chrome"
+
 alias shici="fortune-zh"
 alias sc="fortune-zh"
+
 alias mingju="fortune"
 alias mj="fortune"
 

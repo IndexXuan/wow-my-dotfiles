@@ -284,30 +284,30 @@ autocmd BufNewFile *.cpp,*.c,*.sh,*.java,*.css,*.js,*.scss exec ":call SetTitle(
 func SetTitle()
     if &filetype == 'sh'
         call setline(1,"\#################################################")
-        call append(line("."),   "\# File   : ".expand("%"))
-        call append(line(".")+1, "\# Author : IndexXuan(https://github.com/IndexXuan)")
-        call append(line(".")+2, "\# Mail   : indexxuan@gmail.com")
-        call append(line(".")+3, "\# Date   : ".strftime("%c"))
-        call append(line(".")+4, "\#################################################")
-        call append(line(".")+5, "\#!/bin/bash")
-        call append(line(".")+6, "")
-    else 
-        call setline(1, "/**")
-        call append(line("."),   "\  File   : ".expand("%"))
-        call append(line(".")+1, "\  Author : IndexXuan(https://github.com/IndexXuan)")
-        call append(line(".")+2, "\  Mail   : indexxuan@gmail.com")
-        call append(line(".")+3, "\  Date   : ".strftime("%c"))
-        call append(line(".")+4, "*/")
+        call append(line("."), "\# Author : IndexXuan(https://github.com/IndexXuan)")
+        call append(line(".")+1, "\# Mail   : indexxuan@gmail.com")
+        call append(line(".")+2, "\# Date   : ".strftime("%c"))
+        call append(line(".")+3, "\#################################################")
+        call append(line(".")+4, "\#!/bin/bash")
         call append(line(".")+5, "")
+    else 
+        call setline(1,         "/**")
+        call append(line("."),   " *  TODO: file intro...")
+        call append(line(".")+1, " *  ---------------------------------------------")
+        call append(line(".")+2, " *  Author : IndexXuan(https://github.com/IndexXuan)")
+        call append(line(".")+3, " *  Mail   : indexxuan@gmail.com")
+        call append(line(".")+4, " *  Date   : ".strftime("%c"))
+        call append(line(".")+5, " */")
+        call append(line(".")+6, "")
     endif
 
     if &filetype == 'c'
-        call append(line(".")+6, "#include <stdio.h>")
-        call append(line(".")+7, "")
+        call append(line(".")+5, "#include <stdio.h>")
+        call append(line(".")+6, "")
     elseif &filetype =='cpp'
-        call append(line(".")+6, "#include <iostream>")
-        call append(line(".")+7, "using namespace std;")
-        call append(line(".")+8, "")
+        call append(line(".")+5, "#include <iostream>")
+        call append(line(".")+6, "using namespace std;")
+        call append(line(".")+7, "")
     endif
     " to the end of the file when file created
     autocmd BufNewFile * normal G
@@ -328,14 +328,16 @@ func GenerateVue()
         call append(line(".")+7,  "<script>")
         call append(line(".")+8,  "")
         call append(line(".")+9,  "  export default {")
-        call append(line(".")+10, "    data() {")
-        call append(line(".")+11, "      return {") 
-        call append(line(".")+12, "         ")
-        call append(line(".")+13, "      }")
-        call append(line(".")+14, "    }")
-        call append(line(".")+15, "  }")
+        call append(line(".")+10, "")
+        call append(line(".")+11, "    data() {")
+        call append(line(".")+12, "      return {") 
+        call append(line(".")+13, "         ")
+        call append(line(".")+14, "      }")
+        call append(line(".")+15, "    }")
         call append(line(".")+16, "")
-        call append(line(".")+17, "</script>")
+        call append(line(".")+17, "  }")
+        call append(line(".")+18, "")
+        call append(line(".")+19, "</script>")
     endif
 
     " to the end of the file when file created
@@ -611,4 +613,12 @@ nnoremap qf :copen<CR>
 " 20160203
 " 暂时去除vim内eslint,有外部工具实时lint并提示
 " 增加了vue文件的自动生成骨架
+
+" 20160205
+" 调研vim-orgmode,vimwiki,vimoutline，都放弃了，vim只作为代码编辑器
+
+" 20160213 解决一个疑惑同时也是忘记了的操作,vim中真正tab缩进,而且能产生normal模式下不可到达的空格
+" snippets的制作需要用到真正的tab缩进(makefile文件也是)，使用ctrl-v-i组合来打出
+
+" 
 
