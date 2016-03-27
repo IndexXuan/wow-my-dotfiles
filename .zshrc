@@ -91,6 +91,7 @@ alias lll="ls -al"
 alias v="vim"
 alias vv="vim --noplugins"
 alias vim-debug="vim --startuptime ~/.vim/debug/startupProfile.txt"
+alias github-remove-last-commit="git push -f origin HEAD^:master"
 
 # npm
 alias i="npm install --save-dev"

@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
-"                           Plugins and Settings v 1.0
-"                              Plug with 40 plugins
+"                           Plugins and Settings v 1.0.1
+"                              Plug with 42 plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " 靠这和Vundle拉开了差距，不过也有弊端...初次进入insert模式使用时有可能还没加载好
 augroup lazyload_UI
   autocmd!
-  autocmd vimEnter * call plug#load('vim-airline', 'vim-fugitive', 'vim-gitgutter', 'tagbar', 'ctrlp.vim', 'vim-jsdoc')
+  autocmd vimEnter * call plug#load('vim-airline', 'vim-airline-themes', 'vim-fugitive', 'vim-gitgutter', 'tagbar', 'ctrlp.vim', 'vim-jsdoc')
                      \| autocmd! lazyload_UI
 augroup END
 
@@ -77,7 +77,9 @@ Plug 'VundleVim/Vundle.vim', { 'on' : [] }
 " -------------------------- Making Vim looks good ---------------------------
 
 " https://github.com/bling/vim-airline
-Plug 'bling/vim-airline', { 'on' : [] }
+Plug 'vim-airline/vim-airline', { 'on' : [] }
+
+Plug 'vim-airline/vim-airline-themes', { 'on' : [] }
 
 " https://github.com/wakatime/vim-wakatime
 Plug 'wakatime/vim-wakatime'

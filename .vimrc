@@ -18,11 +18,11 @@
 "  
 "  1. General Settings
 "
-"  2. Vundle and Plugins 
+"  2. Plugins
 "  
 "  3. Functions
 "
-"  4. KeyMap Settings
+"  4. KeyMap 
 "
 "  5. Temp Area
 "
@@ -326,18 +326,14 @@ func GenerateVue()
         call append(line(".")+5,  "</style>")
         call append(line(".")+6,  "")
         call append(line(".")+7,  "<script>")
-        call append(line(".")+8,  "")
-        call append(line(".")+9,  "  export default {")
-        call append(line(".")+10, "")
-        call append(line(".")+11, "    data() {")
-        call append(line(".")+12, "      return {") 
-        call append(line(".")+13, "         ")
-        call append(line(".")+14, "      }")
-        call append(line(".")+15, "    }")
-        call append(line(".")+16, "")
-        call append(line(".")+17, "  }")
-        call append(line(".")+18, "")
-        call append(line(".")+19, "</script>")
+        call append(line(".")+8,  "  export default {")
+        call append(line(".")+9, "    data() {")
+        call append(line(".")+10, "      return {") 
+        call append(line(".")+11, "         ")
+        call append(line(".")+12, "      }")
+        call append(line(".")+13, "    }")
+        call append(line(".")+14, "  }")
+        call append(line(".")+15, "</script>")
     endif
 
     " to the end of the file when file created
