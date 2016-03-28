@@ -112,6 +112,11 @@ alias scsscode="find . -name '*.scss' | xargs cat | grep -v ^$ | wc -l"
 alias jscode="find . -name '*.js' | xargs cat | grep -v ^$ | wc -l"
 alias vuecode="find . -name '*.vue' | xargs cat | grep -v ^$ | wc -l"
 
+# normalize dir & file
+alias chmoddir="find ./ -type d -exec chmod 755 {} \;"
+alias chmodfile="find ./ -type f -exec chmod 644 {} \;"
+alias chmodall="chmoddir&&chmodfile"
+
 # ----- Apps ----- #
 alias chrome="google chrome"
 
