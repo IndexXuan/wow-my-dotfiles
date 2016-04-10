@@ -616,5 +616,6 @@ nnoremap qf :copen<CR>
 " 20160213 解决一个疑惑同时也是忘记了的操作,vim中真正tab缩进,而且能产生normal模式下不可到达的空格
 " snippets的制作需要用到真正的tab缩进(makefile文件也是)，使用ctrl-v-i组合来打出
 
-" 
+" 20160327 
+" change vue file tpl, add less-plugin
 

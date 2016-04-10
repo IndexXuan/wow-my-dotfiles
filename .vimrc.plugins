@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v 1.0.1
-"                              Plug with 42 plugins
+"                              Plug with 43 plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -76,9 +76,10 @@ Plug 'VundleVim/Vundle.vim', { 'on' : [] }
 
 " -------------------------- Making Vim looks good ---------------------------
 
-" https://github.com/bling/vim-airline
+" https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline', { 'on' : [] }
 
+" https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes', { 'on' : [] }
 
 " https://github.com/wakatime/vim-wakatime
@@ -234,6 +235,9 @@ Plug 'othree/html5.vim', { 'for' : ['html', 'vue'] }
 " https://github.com/othree/cakebaker/scss-syntax.vim
 " for scss, seems not that required
 Plug 'cakebaker/scss-syntax.vim'
+
+" https://github.com/groenewege/vim-less
+Plug 'groenewege/vim-less'
 
 " https://github.com/othree/hail2u/vim-css3-syntax
 " for css3, maybe conflict with scss-syntax, rm package's scss.vim will done
