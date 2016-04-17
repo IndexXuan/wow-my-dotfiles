@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v 1.0.1
-"                              Plug with 43 plugins
+"                              Plug with 44 plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -249,7 +249,6 @@ Plug 'hail2u/vim-css3-syntax'
 " xPlugin 'pangloss/vim-javascript'
 
 " https://github.com/isRuslan/vim-es6
-" es6
 Plug 'isRuslan/vim-es6'
 
 " https://github.com/mxw/vim-jsx
@@ -275,8 +274,11 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " for jquery
 " xPlugin 'nono/jquery.vim'
 
-" Yet another JavaScript Syntax for Vim --> https://github.com/othree/yajs.vim
-" xPlugin 'othree/yajs.vim'
+" Yet another JavaScript Syntax for Vim 
+" https://github.com/othree/yajs.vim
+"Plug 'othree/yajs.vim'
+
+Plug 'othree/es.next.syntax.vim'
 
 " Enhanced javascript syntax file for Vim -->
 " https://github.com/jelera/vim-javascript-syntax

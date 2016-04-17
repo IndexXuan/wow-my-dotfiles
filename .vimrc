@@ -112,9 +112,9 @@ set nowrap
 " can use mouse
 set mouse=a
 
-set tabstop=2     " 设置Tab键的宽度        [等同的空格个数]
-set shiftwidth=2  " 每一次缩进对应的空格数
-set softtabstop=2 " 按退格键时可以一次删掉2个空格
+set tabstop=4     " 设置Tab键的宽度        [等同的空格个数]
+set shiftwidth=4  " 每一次缩进对应的空格数
+set softtabstop=4 " 按退格键时可以一次删掉的空格数
 set expandtab " control whether change tab to space, add in 20150722
 set smarttab  
 
@@ -618,4 +618,8 @@ nnoremap qf :copen<CR>
 
 " 20160327 
 " change vue file tpl, add less-plugin
+
+" 20160417
+" 加入es.next.syntax插件，获取更多es6/7高亮支持,更新README,加入更多注意点
+ 
 
