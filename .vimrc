@@ -276,11 +276,14 @@ func! Run()
     elseif &filetype == 'javascript'
         exec "!google-chrome % &"
         exec "!clear"
+    elseif &filetype == 'javascript.jsx'
+        exec "!google-chrome % &"
+        exec "!clear"
     endif
 endfunc
 
 " ----- auto-setTitle when create file in target fileType -----
-autocmd BufNewFile *.cpp,*.c,*.sh,*.java,*.css,*.js,*.scss exec ":call SetTitle()"
+autocmd BufNewFile *.cpp,*.c,*.sh,*.java,*.css,*.js,*.scss, *.less exec ":call SetTitle()"
 func SetTitle()
     if &filetype == 'sh'
         call setline(1,"\#################################################")
@@ -480,6 +483,9 @@ cnoremap <C-e> <End>
 " for input done and then to quit...
 nnoremap qf :copen<CR>
 
+" always useful
+au BufReadPost *.tmpl set syntax=html
+au BufReadPost *.tpl set syntax=html
 
 " --------------------------------------------------------------------
 " -------------------------    Temp Area   ---------------------------
