@@ -276,6 +276,9 @@ func! Run()
     elseif &filetype == 'javascript'
         exec "!google-chrome % &"
         exec "!clear"
+    elseif &filetype == 'javascript.jsx'
+        exec "!google-chrome % &"
+        exec "!clear"
     endif
 endfunc
 
