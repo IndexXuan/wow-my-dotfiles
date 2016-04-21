@@ -280,7 +280,7 @@ func! Run()
 endfunc
 
 " ----- auto-setTitle when create file in target fileType -----
-autocmd BufNewFile *.cpp,*.c,*.sh,*.java,*.css,*.js,*.scss exec ":call SetTitle()"
+autocmd BufNewFile *.cpp,*.c,*.sh,*.java,*.css,*.js,*.scss,*.less exec ":call SetTitle()"
 func SetTitle()
     if &filetype == 'sh'
         call setline(1,"\#################################################")
@@ -480,6 +480,9 @@ cnoremap <C-e> <End>
 " for input done and then to quit...
 nnoremap qf :copen<CR>
 
+" treat tpl, tmpl as html, add in 20160314 
+autocmd BufNewFile,BufRead *tpl set filetype=html
+autocmd BufNewFile,BufRead *tmpl set filetype=html
 
 " --------------------------------------------------------------------
 " -------------------------    Temp Area   ---------------------------
