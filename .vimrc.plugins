@@ -246,7 +246,7 @@ Plug 'hail2u/vim-css3-syntax'
 
 " https://github.com/pangloss/vim-javascript
 " even worse highlight than raw vim
-" xPlugin 'pangloss/vim-javascript'
+"Plug 'pangloss/vim-javascript'
 
 " https://github.com/isRuslan/vim-es6
 Plug 'isRuslan/vim-es6'

@@ -418,7 +418,7 @@ nnoremap U <C-r>
 map <leader>f :find<CR>
 
 " 20150509, add some feature for fast and easy move
-nmap b ^
+nmap e ^
 nmap f $
 
 " 20150611, fast the jump, shift key is hard to press
@@ -627,5 +627,8 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 
 " 20160417
 " 加入es.next.syntax插件，获取更多es6/7高亮支持,更新README,加入更多注意点
+
+" 20160424
+" map e insteadof b to line end
  
 
