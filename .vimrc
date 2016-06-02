@@ -627,5 +627,9 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 
 " 20160417
 " 加入es.next.syntax插件，获取更多es6/7高亮支持,更新README,加入更多注意点
+
+" 20160523
+" 貌似vue-cli的配置改变，sass变为严格模式，因此语法和高亮都需要做相应改变
+" vim-vue的sass语法匹配改为scss, 且模板里也同样修改为<style lang="scss"></style>, 其实更符合sass,scss区别!
  
 
