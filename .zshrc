@@ -91,11 +91,16 @@ alias lll="ls -al"
 alias v="vim"
 alias vv="vim --noplugins"
 alias vim-debug="vim --startuptime ~/.vim/debug/startupProfile.txt"
-alias github-remove-last-commit="git push -f origin HEAD^:master"
+
+alias gitlog="git log --graph --oneline --all --decorate --color"
+alias git-soft-remove-last-commit="git reset --soft HEAD^"
+alias github-remove-last-commit-master="git push -f origin HEAD^:master && git reset --soft HEAD^"
+alias github-remove-last-commit-gh-pages="git push -f origin HEAD^:gh-pages && git reset --soft HEAD^"
+alias gcg="git checkout gh-pages"
 
 # npm
 alias i="npm install --save-dev"
-alias ig="npm install -g"
+alias ig="sudo npm install -g"
 
 # 磁盘空间统计
 alias howmuch="sudo du -h --max-depth=1"
