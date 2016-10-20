@@ -94,8 +94,7 @@ alias vim-debug="vim --startuptime ~/.vim/debug/startupProfile.txt"
 
 alias gitlog="git log --graph --oneline --all --decorate --color"
 alias git-soft-remove-last-commit="git reset --soft HEAD^"
-alias github-remove-last-commit-master="git push -f origin HEAD^:master && git reset --soft HEAD^"
-alias github-remove-last-commit-gh-pages="git push -f origin HEAD^:gh-pages && git reset --soft HEAD^"
+alias github-remove-last-commit="git push -f origin HEAD^:master && git reset --soft HEAD^"
 alias gcg="git checkout gh-pages"
 
 # npm
@@ -120,7 +119,7 @@ alias vuecode="find . -name '*.vue' | xargs cat | grep -v ^$ | wc -l"
 # normalize dir & file
 alias chmoddir="find ./ -type d -exec chmod 755 {} \;"
 alias chmodfile="find ./ -type f -exec chmod 644 {} \;"
-alias chmodall="chmoddir&&chmodfile"
+alias chmodall="chmoddir && chmodfile"
 
 # ----- Apps ----- #
 alias chrome="google chrome"
