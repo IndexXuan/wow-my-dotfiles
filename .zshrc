@@ -92,8 +92,8 @@ alias l="ls -al"
 alias ll="ls -al"
 alias lll="ls -al"
 
-alias v="vim"
-alias vv="vim --noplugins"
+alias v="vim --noplugin"
+alias vv="vim"
 alias vim-debug="vim --startuptime ~/.vim/debug/startupProfile.txt"
 
 alias gitlog="git log --graph --oneline --all --decorate --color"

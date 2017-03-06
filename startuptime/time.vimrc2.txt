@@ -1,0 +1,108 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.005  000.005: --- VIM STARTING ---
+000.143  000.138: Allocated generic buffers
+000.302  000.159: locale set
+000.312  000.010: window checked
+000.893  000.581: inits 1
+000.941  000.048: parsing arguments
+000.943  000.002: expanding arguments
+000.954  000.011: shell init
+001.329  000.375: Termcap init
+001.350  000.021: inits 2
+001.463  000.113: init highlight
+001.745  000.183  000.183: sourcing /usr/share/vim/vim74/debian.vim
+002.108  000.189  000.189: sourcing /usr/share/vim/vim74/syntax/syncolor.vim
+002.229  000.363  000.174: sourcing /usr/share/vim/vim74/syntax/synload.vim
+065.918  063.631  063.631: sourcing /usr/share/vim/vim74/filetype.vim
+066.100  064.290  000.296: sourcing /usr/share/vim/vim74/syntax/syntax.vim
+066.189  064.674  000.201: sourcing $VIM/vimrc
+069.024  002.287  002.287: sourcing /home/indexxuan/.vim/autoload/plug.vim
+085.594  007.072  007.072: sourcing /usr/share/vim/vim74/ftoff.vim
+090.920  000.069  000.069: sourcing /home/indexxuan/.vim/bundle/scss-syntax.vim/ftdetect/scss.vim
+091.850  000.049  000.049: sourcing /home/indexxuan/.vim/bundle/vim-less/ftdetect/less.vim
+093.794  000.035  000.035: sourcing /home/indexxuan/.vim/bundle/vim-es6/ftdetect/es6.vim
+094.273  000.068  000.068: sourcing /home/indexxuan/.vim/bundle/vim-jsx/ftdetect/javascript.vim
+094.778  000.019  000.019: sourcing /home/indexxuan/.vim/bundle/vim-vue/ftdetect/vue.vim
+095.074  000.020  000.020: sourcing /home/indexxuan/.vim/bundle/vim-markdown/ftdetect/markdown.vim
+132.554  034.213  034.213: sourcing /usr/share/vim/vim74/filetype.vim
+132.759  000.045  000.045: sourcing /usr/share/vim/vim74/ftplugin.vim
+132.923  000.041  000.041: sourcing /usr/share/vim/vim74/indent.vim
+133.566  066.920  023.002: sourcing /home/indexxuan/.vim/.vimrc.plugins
+133.959  000.286  000.286: sourcing /usr/share/vim/vim74/syntax/nosyntax.vim
+134.398  000.189  000.189: sourcing /usr/share/vim/vim74/syntax/syncolor.vim
+134.523  000.432  000.243: sourcing /usr/share/vim/vim74/syntax/synload.vim
+134.562  000.929  000.211: sourcing /usr/share/vim/vim74/syntax/syntax.vim
+134.987  000.166  000.166: sourcing /usr/share/vim/vim74/syntax/syncolor.vim
+135.451  000.183  000.183: sourcing /usr/share/vim/vim74/syntax/syncolor.vim
+135.794  000.157  000.157: sourcing /usr/share/vim/vim74/syntax/syncolor.vim
+136.113  001.498  000.992: sourcing /home/indexxuan/.vim/colors/molokai.vim
+136.542  000.184  000.184: sourcing /usr/share/vim/vim74/syntax/syncolor.vim
+136.978  000.158  000.158: sourcing /usr/share/vim/vim74/syntax/syncolor.vim
+137.320  000.159  000.159: sourcing /usr/share/vim/vim74/syntax/syncolor.vim
+137.894  001.741  001.240: sourcing /home/indexxuan/.vim/colors/molokai.vim
+141.800  075.455  004.367: sourcing $HOME/.vimrc
+141.858  000.266: sourcing vimrc file(s)
+164.700  000.873  000.873: sourcing /home/indexxuan/.vim/bundle/vim-wakatime/plugin/wakatime.vim
+165.672  000.760  000.760: sourcing /home/indexxuan/.vim/bundle/vim-auto-save/plugin/AutoSave.vim
+169.698  000.391  000.391: sourcing /home/indexxuan/.vim/bundle/vim-stay/autoload/stay/shim.vim
+171.396  000.466  000.466: sourcing /home/indexxuan/.vim/bundle/vim-stay/autoload/stay/integrate/fastfold.vim
+171.634  004.978  004.121: sourcing /home/indexxuan/.vim/bundle/vim-stay/plugin/stay.vim
+172.939  001.047  001.047: sourcing /home/indexxuan/.vim/bundle/open-browser.vim/plugin/openbrowser.vim
+173.324  000.157  000.157: sourcing /home/indexxuan/.vim/bundle/open_file_under_cursor.vim/plugin/open_file_under_cursor.vim
+174.110  000.544  000.544: sourcing /home/indexxuan/.vim/bundle/vim-fuzzysearch/plugin/fuzzysearch.vim
+176.801  000.918  000.918: sourcing /home/indexxuan/.vim/bundle/delimitMate/autoload/delimitMate.vim
+182.179  007.919  007.001: sourcing /home/indexxuan/.vim/bundle/delimitMate/plugin/delimitMate.vim
+193.529  010.984  010.984: sourcing /home/indexxuan/.vim/bundle/nerdcommenter/plugin/NERD_commenter.vim
+194.558  000.677  000.677: sourcing /home/indexxuan/.vim/bundle/vim-multiple-cursors/plugin/multiple_cursors.vim
+196.310  001.346  001.346: sourcing /home/indexxuan/.vim/bundle/vim-eunuch/plugin/eunuch.vim
+199.113  000.856  000.856: sourcing /usr/share/vim/vim74/plugin/getscriptPlugin.vim
+203.336  003.513  003.513: sourcing /usr/share/vim/vim74/plugin/gzip.vim
+204.287  000.507  000.507: sourcing /usr/share/vim/vim74/plugin/matchparen.vim
+205.644  001.141  001.141: sourcing /usr/share/vim/vim74/plugin/netrwPlugin.vim
+205.772  000.017  000.017: sourcing /usr/share/vim/vim74/plugin/rrhelper.vim
+205.888  000.038  000.038: sourcing /usr/share/vim/vim74/plugin/spellfile.vim
+206.291  000.336  000.336: sourcing /usr/share/vim/vim74/plugin/tarPlugin.vim
+206.507  000.115  000.115: sourcing /usr/share/vim/vim74/plugin/tohtml.vim
+206.755  000.170  000.170: sourcing /usr/share/vim/vim74/plugin/vimballPlugin.vim
+207.180  000.351  000.351: sourcing /usr/share/vim/vim74/plugin/zipPlugin.vim
+207.245  029.058: loading plugins
+207.251  000.006: inits 3
+207.496  000.245: reading viminfo
+207.589  000.093: setting raw mode
+207.618  000.029: start termcap
+207.704  000.086: clearing screen
+212.307  001.561  001.561: sourcing /usr/share/vim/vim74/scripts.vim
+215.699  001.224  001.224: sourcing /usr/share/vim/vim74/ftplugin/vim.vim
+218.805  000.774  000.774: sourcing /usr/share/vim/vim74/indent/vim.vim
+237.475  001.662  001.662: sourcing /usr/share/vim/vim74/syntax/pod.vim
+244.613  009.326  007.664: sourcing /usr/share/vim/vim74/syntax/perl.vim
+246.873  001.658  001.658: sourcing /usr/share/vim/vim74/syntax/python.vim
+248.225  028.363  017.379: sourcing /usr/share/vim/vim74/syntax/vim.vim
+260.965  000.206  000.206: sourcing /home/indexxuan/.vim/bundle/vim-stay/autoload/stay.vim
+262.933  000.622  000.622: sourcing /home/indexxuan/.vim/bundle/vim-stay/autoload/stay/view.vim
+264.167  000.294  000.294: sourcing /home/indexxuan/.vim/view/~=+wow-my-dotfiles=+.vimrc.plugins=
+264.337  023.589: opening buffers
+278.050  013.713: BufEnter autocommands
+278.065  000.015: editing files in windows
+280.785  000.281  000.281: sourcing /home/indexxuan/.vim/bundle/vim-airline/autoload/airline.vim
+281.240  000.158  000.158: sourcing /home/indexxuan/.vim/bundle/vim-airline/autoload/airline/init.vim
+286.122  000.231  000.231: sourcing /home/indexxuan/.vim/bundle/vim-airline/autoload/airline/parts.vim
+289.323  009.157  008.487: sourcing /home/indexxuan/.vim/bundle/vim-airline/plugin/airline.vim
+292.192  000.046  000.046: sourcing /home/indexxuan/.vim/bundle/vim-airline-themes/plugin/airline-themes.vim
+299.129  000.485  000.485: sourcing /home/indexxuan/.vim/bundle/vim-gitgutter/autoload/gitgutter/highlight.vim
+305.192  009.162  008.677: sourcing /home/indexxuan/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim
+309.539  002.099  002.099: sourcing /home/indexxuan/.vim/bundle/tagbar/plugin/tagbar.vim
+314.432  000.443  000.443: sourcing /home/indexxuan/.vim/bundle/ctrlp.vim/autoload/ctrlp/mrufiles.vim
+315.127  002.088  001.645: sourcing /home/indexxuan/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim
+320.161  000.524  000.524: sourcing /home/indexxuan/.vim/bundle/ctrlsf.vim/autoload/ctrlsf/backend.vim
+321.262  002.107  001.583: sourcing /home/indexxuan/.vim/bundle/ctrlsf.vim/plugin/ctrlsf.vim
+322.029  000.144  000.144: sourcing /home/indexxuan/.vim/bundle/ctrlsf.vim/after/plugin/ctrlsf.vim
+346.728  043.860: VimEnter autocommands
+346.736  000.008: before starting main loop
+404.887  058.151: first screen update
+404.893  000.006: --- VIM STARTED ---
