@@ -106,15 +106,18 @@ set cursorline
 " backspace in Visual mode deletes selection
 vnoremap <BS> d
 
+" 按视口换行显示
+"set wrap
+
 " no wrap line
 set nowrap
 
 " can use mouse
 set mouse=a
 
-set tabstop=4     " 设置Tab键的宽度        [等同的空格个数]
-set shiftwidth=4  " 每一次缩进对应的空格数
-set softtabstop=4 " 按退格键时可以一次删掉的空格数
+set tabstop=2     " 设置Tab键的宽度        [等同的空格个数]
+set shiftwidth=2  " 每一次缩进对应的空格数
+set softtabstop=2 " 按退格键时可以一次删掉的空格数
 set expandtab " control whether change tab to space, add in 20150722
 set smarttab  
 
@@ -148,7 +151,7 @@ set laststatus=2
 set scrolloff=5
 
 " 代码折叠 make large file slow ???
-" set foldenable
+ set foldenable
 " 折叠方法
 " manual    手工折叠
 " indent    使用缩进表示折叠
@@ -156,9 +159,10 @@ set scrolloff=5
 " syntax    使用语法定义折叠
 " diff      对没有更改的文本进行折叠
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-" set foldlevel=99
-" set foldmethod=manual
+ set foldlevel=99
+ set foldmethod=manual
 "  可组合 {} () <> []使用
+" zf 手动折叠
 " zc 关闭当前打开的折叠
 " zo 打开当前的折叠
 " zm 关闭所有折叠
@@ -283,7 +287,7 @@ func! Run()
 endfunc
 
 " ----- auto-setTitle when create file in target fileType -----
-autocmd BufNewFile *.cpp,*.c,*.sh,*.java,*.css,*.js,*.scss,*.less exec ":call SetTitle()"
+autocmd BufNewFile *.sh,*.cpp,*.c,*.java,*.css,*.js,*.jsx,*.scss,*.less exec ":call SetTitle()"
 func SetTitle()
     if &filetype == 'sh'
         call setline(1,"\#################################################")
@@ -324,19 +328,18 @@ func GenerateVue()
         call append(line("."),    "  ")
         call append(line(".")+1,  "</template>")
         call append(line(".")+2,  "")
-        call append(line(".")+3,  "<style lang=\"sass\">")
+        call append(line(".")+3,  "<style>")
         call append(line(".")+4,  "  ")
         call append(line(".")+5,  "</style>")
         call append(line(".")+6,  "")
         call append(line(".")+7,  "<script>")
         call append(line(".")+8,  "  export default {")
-        call append(line(".")+9, "    data() {")
+        call append(line(".")+9, "    data () {")
         call append(line(".")+10, "      return {") 
-        call append(line(".")+11, "         ")
-        call append(line(".")+12, "      }")
-        call append(line(".")+13, "    }")
-        call append(line(".")+14, "  }")
-        call append(line(".")+15, "</script>")
+        call append(line(".")+11, "      }")
+        call append(line(".")+12, "    }")
+        call append(line(".")+13, "  }")
+        call append(line(".")+14, "</script>")
     endif
 
     " to the end of the file when file created
@@ -368,8 +371,8 @@ nnoremap <leader>jc :call JumpToCSS()<CR>
 inoremap jj <Esc>
 
 " Treat long lines as break lines, useful when moving around in them
-"nnoremap j gj
-"nnoremap k gk
+nnoremap j gj
+nnoremap k gk
 
 " shell-like move, very very very powerful, the key in insert mode
 inoremap <C-b> <left>
@@ -418,8 +421,8 @@ nnoremap U <C-r>
 map <leader>f :find<CR>
 
 " 20150509, add some feature for fast and easy move
-nmap e ^
-nmap f $
+nmap f ^
+nmap e $
 
 " 20150611, fast the jump, shift key is hard to press
 nnoremap [ {
@@ -483,9 +486,15 @@ cnoremap <C-e> <End>
 " for input done and then to quit...
 nnoremap qf :copen<CR>
 
+nnoremap <leader><leader>d :TernDef<CR>
+
 " treat tpl, tmpl as html, add in 20160314 
+autocmd BufNewFile,BufRead *es6 set filetype=javascript
 autocmd BufNewFile,BufRead *tpl set filetype=html
 autocmd BufNewFile,BufRead *tmpl set filetype=html
+" update in 20161101
+"autocmd BufNewFile,BufRead *ts set filetype=javascript
+"autocmd BufNewFile,BufRead *tsx set filetype=javascript
 
 " --------------------------------------------------------------------
 " -------------------------    Temp Area   ---------------------------
@@ -628,10 +637,17 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 " 20160417
 " 加入es.next.syntax插件，获取更多es6/7高亮支持,更新README,加入更多注意点
 
-" 20160424
-" map e insteadof b to line end
- 
 " 20160523
-" 貌似vue-cli的配置改变，sass变为严格模式，因此语法和高亮都需要做相应改变
+" 貌似vue-cli的配置改变，sass变为严格模式(sass)，因此语法和高亮都需要做相应改变
 " vim-vue的sass语法匹配改为scss, 且模板里也同样修改为<style lang="scss"></style>, 其实更符合sass,scss区别!
+"
+" 20161101
+" 增加了 `typescript`　支持，包含静态语法高亮和语言服务（补全和语法检查）
+" 为了性能考虑，不再加载syntastic插件（本身是很好的插件，原本是设置了静默并置空相应检查引擎）
+" 同样为了性能考虑，暂不开启typescript语法服务插件（关闭了syntastic插件依旧会检查...　性能暂时不可接受）
+" 最后仅保留了typescript.vim这一个简单的语法高亮插件，其他都有问题
+
+" 20170303
+" 对vim-jsdoc改造，支持无 `function` 关键字函数（函数生命和函数表达式）
+ 
 
