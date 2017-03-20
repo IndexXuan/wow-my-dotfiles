@@ -86,17 +86,17 @@ hi Normal ctermbg=none ctermfg=255
 "highlight clear SpellLocal
 "highlight SpellLocal term=underline cterm=underline
 
-"" 设置标记一列的背景颜色和数字一行颜色一致
+ "设置标记一列的背景颜色和数字一行颜色一致
 "hi! link SignColumn   LineNr
 "hi! link ShowMarksHLl DiffAdd
 "hi! link ShowMarksHLu DiffChange
 
 "set omnifunc=syntaxcomplete#Complete
 "if has("autocmd") && exists("+omnifunc")
-"    autocmd Filetype *
-"                \   if &omnifunc == "" |
-"                \       setlocal omnifunc=syntaxcomplete#Complete |
-"                \   endif
+    "autocmd Filetype *
+                "\   if &omnifunc == "" |
+                "\       setlocal omnifunc=syntaxcomplete#Complete |
+                "\   endif
 "endif
 
 " {{{ Misc
@@ -352,7 +352,8 @@ inoremap <C-b> <left>
 inoremap <c-f> <Right>
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
-imap <C-a> <Home> 
+"imap <C-a> <Home> " 有奇怪的表现，改成了下方这样设置 20170313 
+imap <C-a> <Esc>fi
 imap <C-e> <End>
 imap <C-d> <Del>
 imap <C-h> <BS>
@@ -372,7 +373,8 @@ noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 
 " find, very natural
-map <C-f> /
+" 20170307, use more powerful fuzzy search instead
+"map <C-f> /
 
 " 20150509, add some feature for fast and easy move
 nmap f ^
@@ -585,6 +587,12 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 " 最后仅保留了typescript.vim这一个简单的语法高亮插件，其他都有问题
 
 " 20170303
-" 对vim-jsdoc改造，支持无 `function` 关键字函数（函数生命和函数表达式）
+" 对vim-jsdoc改造，支持无 `function` 关键字函数（函数声明和函数表达式）
+
+" 20170306 - 20170307
+" 对 `vimrc` 进行了重构，精简插件，优化启动速度
+" 启用fuzzy search, ag版ctrlsf
  
+" 20170309
+" 使用 `es2015 & react snips`，删除 `vim-es6` 里的snips
 

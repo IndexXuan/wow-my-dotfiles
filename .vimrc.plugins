@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v2.0.0
-"                              Plug with 41 plugins
+"                              Plug with 40 plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -55,38 +55,31 @@ call plug#begin('~/.vim/bundle')
 " lazy load to rush ~~~
 augroup lazyload_UI
   autocmd!
-  autocmd vimEnter * call plug#load('vim-airline', 'vim-airline-themes', 'vim-gitgutter', 'tagbar', 'ctrlp.vim', 'ctrlsf.vim')
+  autocmd vimEnter * call plug#load('vim-gitgutter', 'tagbar', 'ctrlp.vim', 'ctrlsf.vim')
                      \| autocmd! lazyload_UI
 augroup END
 
 augroup lazyload_autocomplete
   autocmd!
-  autocmd InsertEnter * call plug#load('YouCompleteMe', 'tern_for_vim')
+  autocmd InsertEnter * call plug#load('YouCompleteMe', 'tern_for_vim', 'ultisnips', 'vim-snippets')
                      \| call youcompleteme#Enable() | autocmd! lazyload_autocomplete
 augroup END
 
-"augroup lazyload_syntastic_check
+"augroup lazyload_syntastic
   "autocmd!
-  "autocmd InsertEnter * call plug#load('syntastic', 'vim-eslint', 'vim-easy-align')
-                     "\| autocmd! lazyload_syntastic_check
+  "autocmd InsertEnter * call plug#load('syntastic', 'vim-eslint')
+                     "\| autocmd! lazyload_syntastic
 "augroup END
-
-augroup lazyload_snippets
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
-                     \| autocmd! lazyload_snippets
-augroup END
 
 " Vundle backup, and do not load forever in Plug
 "Plug 'VundleVim/Vundle.vim', { 'on' : [] }
 
 " -------------------------- UI Layout ---------------------------
+" https://github.com/vim-airline/vim-airline
+Plug 'vim-airline/vim-airline'
 
 " https://github.com/vim-airline/vim-airline
-Plug 'vim-airline/vim-airline', { 'on' : [] }
-
-" https://github.com/vim-airline/vim-airline
-Plug 'vim-airline/vim-airline-themes', { 'on' : [] }
+Plug 'vim-airline/vim-airline-themes'
 
 " ----------------------- Vim Base Functions Improved ------------------------
 
@@ -135,10 +128,6 @@ Plug 'Raimondi/delimitMate'
 " intensely orgasmic commenting <leader>cc, <leader>ci to toggle
 Plug 'scrooloose/nerdcommenter'
 
-" https://github.com/junegunn/vim-easy-align
-" a Vim alignment plugin
-Plug 'junegunn/vim-easy-align', { 'on' : [] }
-
 " https://github.com/scrooloose/syntastic
 " syntax checker for vim and you need a specific checker for real use
 Plug 'scrooloose/syntastic', { 'on' : [] }
@@ -147,8 +136,13 @@ Plug 'scrooloose/syntastic', { 'on' : [] }
 " vim-eslint, wrap eslint.d to speed up the lint time within 160ms from 700ms+
 Plug 'ruanyl/vim-eslint', { 'on' : [] }
 
+" ES2015 code snippets (Optional)
+Plug 'epilande/vim-es2015-snippets', { 'for': ['javascript', 'javascript.jsx', 'vue', 'html', 'tpl', 'tmpl'] }
+
+" " React code snippets
+Plug 'epilande/vim-react-snippets', { 'for': ['javascript', 'javascript.jsx', 'vue', 'html', 'tpl', 'tmpl'] }
+
 " https://github.com/SirVer/ultisnips
-" UtilSnips, it is really powful
 Plug 'SirVer/ultisnips', { 'on' : [] }
 
 " https://github.com/honza/vim-snippets
@@ -156,7 +150,7 @@ Plug 'SirVer/ultisnips', { 'on' : [] }
 Plug 'honza/vim-snippets', { 'on' : [] }
 
 " https://github.com/alexbyk/vim-ultisnips-react
-Plug 'alexbyk/vim-ultisnips-react', { 'on' : [], 'for': ['javascript', 'javascript.jsx'] }
+"Plug 'alexbyk/vim-ultisnips-react', { 'on' : [], 'for': ['javascript', 'javascript.jsx'] }
 
 " https://github.com/rstacruz/vim-ultisnips-css
 " UtilSnips-css. useful, more snippets than emmet
@@ -234,7 +228,7 @@ Plug 'hail2u/vim-css3-syntax', { 'for': ['html', 'vue'] }
 
 " https://github.com/othree/javascript-libraries-syntax.vim
 " js libs support
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'vue', 'javascript', 'javascript.jsx'] }
+"Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'vue', 'javascript', 'javascript.jsx'] }
 
 " Enhanced javascript syntax file for Vim -->
 " https://github.com/jelera/vim-javascript-syntax
@@ -329,7 +323,7 @@ let g:mta_filetypes = {
     \}
 
 " ----- bling/vim-airline settings -----
-let g:airline_theme='badwolf'
+let g:airline_theme = 'badwolf'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -397,7 +391,7 @@ endif
 
 " ----- ggVGc/vim-fuzzysearch -----
 " fuzzy search, 模糊搜索
-nnoremap <leader><leader>f :FuzzySearch<CR>
+nnoremap <C-f> :FuzzySearch<CR>
 
 
 " ----- heavenshell/vim-jsdoc -----
@@ -466,6 +460,19 @@ cnoremap ydef :YcmCompleter GoToDefinition
 cnoremap yrefs :YcmCompleter GoToReferences
 cnoremap yref :YcmCompleter GoToReferences
 
+" ----- vim-multiple-cursors settings -----
+" Called once right before you start selecting multiple cursors
+function! Multiple_cursors_before()
+    call youcompleteme#DisableCursorMovedAutocommands()
+    let s:old_ycm_whitelist = g:ycm_filetype_whitelist
+    let g:ycm_filetype_whitelist = {}
+endfunction
+
+" Called once only when the multiple selection is canceled (default <Esc>)
+function! Multiple_cursors_after()
+    call youcompleteme#EnableCursorMovedAutocommands()
+    let g:ycm_filetype_whitelist = s:old_ycm_whitelist
+endfunction
 
 " ----- CtrlP settings, open anything plugin like sublime -----
 let g:ctrlp_map = '<c-p>'
@@ -562,14 +569,14 @@ let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String']
 
 " ----- javascript-libraries-syntax.vim -----
 " 20150624 add
-let g:used_javascript_libs = 'jquery,jasmine,chai,underscore,Lo-Dash,react'
+"let g:used_javascript_libs = 'jquery,jasmine,chai,underscore,Lo-Dash,react'
 
 
 " ----- UltiSnippets settings -----
 " Trigger configuration. Do not use <tab> if you use YCM
-let g:UltiSnipsExpandTrigger="ii"
-let g:UltiSnipsJumpForwardTrigger="II"
-let g:UltiSnipsJumpBackwardTrigger="OO"
+let g:UltiSnipsExpandTrigger="<leader>i"
+let g:UltiSnipsJumpForwardTrigger="F"
+let g:UltiSnipsJumpBackwardTrigger="B"
 
 
 " ----- vim-javascript and vim-javascript-syntax settings ------
