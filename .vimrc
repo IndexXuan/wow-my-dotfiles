@@ -70,6 +70,7 @@ set showcmd
 "set background=dark
 " Set the colorscheme
 colorscheme molokai
+hi CursorLine term=bold cterm=bold
 " make ternimal beautiful and airline show well
 set t_Co=256
 " key to make ternimal transparent, 256 is not ok
