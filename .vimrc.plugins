@@ -175,7 +175,7 @@ Plug 'dyng/ctrlsf.vim', { 'on' : '<Plug>CtrlSFVwordExec' }
 
 " https://github.com/terryma/vim-multiple-cursors
 " sublime-like multiple line edit tool
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 
 " vim sugar for the UNIX shell commands, rename, move, mkdir inner vim
 Plug 'tpope/vim-eunuch'
@@ -242,6 +242,12 @@ Plug 'othree/es.next.syntax.vim',  { 'for': ['javascript', 'javascript.jsx', 'vu
 
 " https://github.com/isRuslan/vim-es6
 Plug 'isRuslan/vim-es6', { 'for': ['javascript', 'javascript.jsx', 'vue', 'html'] }
+
+" https://github.com/leafgarland/typescript-vim
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
+
+" https://github.com/Quramy/tsuquyomi
+Plug 'Quramy/tsuquyomi', { 'for': ['typescript', 'tsx'] }
 
 " https://github.com/mxw/vim-jsx
 " if config allow jsx in javascript, the plugin will auto make ext 'js' to
@@ -459,6 +465,16 @@ cnoremap ygoto :YcmCompleter GoTo
 cnoremap ydef :YcmCompleter GoToDefinition
 cnoremap yrefs :YcmCompleter GoToReferences
 cnoremap yref :YcmCompleter GoToReferences
+
+" ----- Tsuquyomi  settings -----
+let g:tsuquyomi_disable_default_mappings = 1
+let g:tsuquyomi_disable_quickfix = 1
+autocmd FileType typescript nmap <buffer> <Leader>h : <C-u>echo tsuquyomi#hint()<CR>
+nmap <leader>d :TsuDefinition<CR>
+vmap <leader>d :TsuDefinition<CR>
+nmap <leader>dt :TsuTypeDefinition<CR>
+vmap <leader>dt :TsuTypeDefinition<CR>
+
 
 " ----- vim-multiple-cursors settings -----
 " Called once right before you start selecting multiple cursors
