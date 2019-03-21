@@ -61,7 +61,7 @@ augroup END
 
 augroup lazyload_autocomplete
   autocmd!
-  autocmd InsertEnter * call plug#load('YouCompleteMe', 'tern_for_vim', 'ultisnips', 'vim-snippets')
+  autocmd InsertEnter * call plug#load('YouCompleteMe', 'ultisnips', 'vim-snippets')
                      \| call youcompleteme#Enable() | autocmd! lazyload_autocomplete
 augroup END
 
@@ -82,6 +82,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " ----------------------- Vim Base Functions Improved ------------------------
+
+" https://github.com/roxma/vim-paste-easy
+" 不是很好用
+" Plug 'roxma/vim-paste-easy'
 
 " https://github.com/wakatime/vim-wakatime
 " daily record
@@ -119,6 +123,12 @@ Plug 'ggVGc/vim-fuzzysearch'
 " !Plug 'easymotion/vim-easymotion'
 
 " ----------------- Vim as a programmer's text editor -----------------------
+Plug 'prettier/vim-prettier', {
+ \ 'do': 'yarn install',
+ \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+
+" https://github.com/editorconfig/editorconfig-vim
+Plug 'editorconfig/editorconfig-vim'
 
 " https://github.com/Raimondi/delimitMate
 " vim  auto-completion for quotes,parens,brackets, etc.
@@ -130,17 +140,17 @@ Plug 'scrooloose/nerdcommenter'
 
 " https://github.com/scrooloose/syntastic
 " syntax checker for vim and you need a specific checker for real use
-Plug 'scrooloose/syntastic', { 'on' : [] }
+" Plug 'scrooloose/syntastic', { 'on' : [] }
 
 " https://github.com/ruanyl/vim-eslint
 " vim-eslint, wrap eslint.d to speed up the lint time within 160ms from 700ms+
 Plug 'ruanyl/vim-eslint', { 'on' : [] }
 
 " ES2015 code snippets (Optional)
-Plug 'epilande/vim-es2015-snippets', { 'for': ['javascript', 'javascript.jsx', 'vue', 'html', 'tpl', 'tmpl'] }
+Plug 'epilande/vim-es2015-snippets', { 'for': ['typescript', 'javascript', 'javascript.jsx', 'vue', 'html', 'tpl', 'tmpl'] }
 
 " " React code snippets
-Plug 'epilande/vim-react-snippets', { 'for': ['javascript', 'javascript.jsx', 'vue', 'html', 'tpl', 'tmpl'] }
+Plug 'epilande/vim-react-snippets', { 'for': ['typescript', 'javascript', 'javascript.jsx', 'vue', 'html', 'tpl', 'tmpl'] }
 
 " https://github.com/SirVer/ultisnips
 Plug 'SirVer/ultisnips', { 'on' : [] }
@@ -164,7 +174,8 @@ Plug 'Valloric/YouCompleteMe', { 'on' : [] }
 
 " https://github.com/marijnh/tern_for_vim
 " for javascript, an engine, need into plugin package and npm install
-Plug 'marijnh/tern_for_vim', { 'on' : [] }
+" 20180812 use TSServer instead
+"Plug 'marijnh/tern_for_vim', { 'on' : [] }
 
 " https://github.com/ctrlpvim/ctrlp.vim
 " go to anything like sublime
@@ -175,7 +186,7 @@ Plug 'dyng/ctrlsf.vim', { 'on' : '<Plug>CtrlSFVwordExec' }
 
 " https://github.com/terryma/vim-multiple-cursors
 " sublime-like multiple line edit tool
-" Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 " vim sugar for the UNIX shell commands, rename, move, mkdir inner vim
 Plug 'tpope/vim-eunuch'
@@ -202,9 +213,12 @@ Plug 'tpope/vim-eunuch'
 Plug 'airblade/vim-gitgutter', { 'on' : [] }
 
 " git wrapper, not really use
-"Plug 'tpope/vim-fugitive', { 'on' : [] }
+Plug 'tpope/vim-fugitive'
 
 " --------------------------- Language plugins ---------------------------------
+
+" https://github.com/othree/javascript-libraries-syntax.vim
+Plug 'othree/javascript-libraries-syntax.vim'
 
 " https://github.com/othree/html5.vim
 " HTML5 omnicomplete and syntax
@@ -265,7 +279,7 @@ Plug 'hallison/vim-markdown', { 'for' : ['markdown', 'md'] }
  
 " https://github.com/gorodinskiy/vim-coloresque
 " show color in html, css, scss file, like sublime plugin, very useful !
-Plug 'gorodinskiy/vim-coloresque', { 'for' : ['html', 'css', 'scss', 'javascript', 'javascript.jsx', 'jsx', 'vue'] }
+Plug 'gorodinskiy/vim-coloresque', { 'for' : ['html', 'css', 'scss', 'typescript', 'javascript', 'javascript.jsx', 'jsx', 'vue'] }
 
 " https://github.com/Valloric/MatchTagAlways
 " better and configurable 
@@ -277,16 +291,12 @@ Plug 'mattn/emmet-vim', { 'for' : ['html', 'vue', 'css', 'scss'] }
 
 " https://github.com/heavenshell/vim-jsdoc.
 " usage: cursur in function and <leader>d(remaped) or :JsDoc
-Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'javascript.jsx'] }
+Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'javascript.jsx', 'typescript'] }
 
 " https://github.com/mattn/webapi-vim
 " vim interface to Web API
 Plug 'mattn/webapi-vim'
 
-" js-html-css-beautify
-" xPlug 'maksimr/vim-jsbeautify'
-" Grunt wrapper for vim, -->  https://github.com/mklabs/grunt.vim
-"Plug 'mklabs/grunt.vim'
 " https://github.com/mmozuras/vim-github-comment
 "Plug 'mmozuras/vim-github-comment'
 " Highlight and strip trailing whitespace,
@@ -318,6 +328,7 @@ let g:user_emmet_expandabbr_key = '<Tab>'
 let g:user_emmet_install_global = 0
 autocmd FileType html,vue,css,scss EmmetInstall
 
+
 " ----- Valloric/MatchTagAlways settings -----
 let g:mta_filetypes = {
     \ 'html' : 1,
@@ -325,8 +336,11 @@ let g:mta_filetypes = {
     \ 'xml' : 1,
     \ 'jsx' : 1,
     \ 'javascript.jsx' : 1,
+    \ 'javascript' : 1,
+    \ 'typescript' : 1,
     \ 'vue' : 1,
     \}
+
 
 " ----- bling/vim-airline settings -----
 let g:airline_theme = 'badwolf'
@@ -366,27 +380,6 @@ let NERDTreeIgnore=[ '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
 "close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 
-
-" ----- scrooloose/syntastic settings -----
-" 打开文件是否检查， vim启动速度的性能杀手
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-" auto show error-list with panel
-"let g:syntastic_auto_loc_list = 1
-let g:syntastic_always_populate_loc_list = 1
-
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = "▲"
-augroup Syntastic
-    au!
-    au FileType tex let b:syntastic_mode = "passive"
-augroup END
-
-" off
-let g:syntastic_javascript_checkers = ['']
-" for others project, replace with eslint in 201512202100
-"let g:syntastic_javascript_checkers = ['eslint']
-
 " ui in airline statusline
 set statusline+=%#warningmsg#
 if exists(":SyntasticCheck")
@@ -394,6 +387,9 @@ if exists(":SyntasticCheck")
   set statusline+=%*
 endif
 
+
+" ---- othree/javascript-libraries-syntax.vim settings -----
+let g:used_javascript_libs = 'underscore,react,ramda,vue'
 
 " ----- ggVGc/vim-fuzzysearch -----
 " fuzzy search, 模糊搜索
@@ -405,17 +401,30 @@ nnoremap <C-f> :FuzzySearch<CR>
 nmap <silent> <leader>d <Plug>(jsdoc)
 
 
-" ----- xolox/vim-easytags settings -----
-" Where to look for tags files
-"set tags=./tags.tag;,~/.vimtags
-"set tags=~/.vim/.vimtags
-" Sensible defaults
-"let g:easytags_events = ['BufReadPost', 'BufWritePost']
-"let g:easytags_async = 1
-"let g:easytags_dynamic_files = 2
-"let g:easytags_resolve_links = 1
-"let g:easytags_suppress_ctags_warning = 1
+"----- scrooloose/nerdcommenter settings -----
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
 
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with ;b
@@ -429,6 +438,26 @@ nmap <silent> <leader>b :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_width = 50
 
+let g:ft = ''
+function! NERDCommenter_before()
+  if &ft == 'vue'
+    let g:ft = 'vue'
+    let stack = synstack(line('.'), col('.'))
+    if len(stack) > 0
+      let syn = synIDattr((stack)[0], 'name')
+      if len(syn) > 0
+        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+      endif
+    endif
+  endif
+endfunction
+function! NERDCommenter_after()
+  if g:ft == 'vue'
+    setf vue
+    let g:ft = ''
+  endif
+endfunction
+
 
 " ----- airblade/vim-gitgutter settings -----
 " Required after having changed the colorscheme
@@ -436,14 +465,6 @@ hi clear SignColumn
 " In vim-airline, only display "hunks" if the diff is non-zero
 let g:airline#extensions#hunks#non_zero_only = 1
 
-
-" ----- tern_for_vim  -----
-" very useful and powerful, 20150716
-cmap tdef TernDef<CR>
-cmap trename TernRename<CR> 
-cmap tref TernRefs<CR>
-cmap trefs TernRefs<CR>
-cmap ttype TernType<CR>
 
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
@@ -459,6 +480,7 @@ augroup END
 " ----- YouCompleteMe settings -----
 "  required
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_min_num_identifier_candidate_chars = 2
 cnoremap ydoc :YcmCompleter GetDoc
 cnoremap ytype :YcmCompleter GetType
 cnoremap ygoto :YcmCompleter GoTo
@@ -475,6 +497,8 @@ vmap <leader>d :TsuDefinition<CR>
 nmap <leader>dt :TsuTypeDefinition<CR>
 vmap <leader>dt :TsuTypeDefinition<CR>
 
+" ----- vim-perttier settings -----
+let g:prettier#exec_cmd_async = 1
 
 " ----- vim-multiple-cursors settings -----
 " Called once right before you start selecting multiple cursors
@@ -489,6 +513,7 @@ function! Multiple_cursors_after()
     call youcompleteme#EnableCursorMovedAutocommands()
     let g:ycm_filetype_whitelist = s:old_ycm_whitelist
 endfunction
+
 
 " ----- CtrlP settings, open anything plugin like sublime -----
 let g:ctrlp_map = '<c-p>'
@@ -523,22 +548,6 @@ nmap     <leader>fn <Plug>CtrlSFCwordPath
 nmap     <leader>fp <Plug>CtrlSFPwordPath 
 nnoremap <leader>fo :CtrlSFOpen<CR> 
 
-" ----- sublime-like htmlcssjs-beautify settings -----
-" ----- however, C-S-b is same like C-b due to keycode in vim ------
-" ----- 20150524, change: <C-S-b> as hot key, due to conflict... -----
-"map <C-S-b> :call JsBeautify()<CR>
-"autocmd FileType javascript noremap <buffer> <C-S-b> :call JsBeautify()<CR>
-" for html
-"autocmd FileType html noremap <buffer> <C-S-b> :call HtmlBeautify() <CR>
-" for css
-"autocmd FileType css noremap <buffer> <C-S-b> :call CSSBeautify<CR>
-
-"" want beautify only selected lines
-"autocmd FileType javascript vnoremap <buffer> <C-S-b> :call RangeJsBeautify()<CR>
-"autocmd FileType html vnoremap <buffer> <C-S-b> :call RangeHtmlBeautify()<CR>
-"autocmd FileType css vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
-"autocmd FileType scss vnoremap <buffer> <C-S-b> :call RangeCSSBeautify()<CR>
-
 
 " ----- vim-stay settings -----
 " for vim-stay Plug recommend set
@@ -561,11 +570,20 @@ let g:auto_save_silent = 1
 " Allow JSX in normal JS files
 let g:jsx_ext_required = 0
 
+" ----- vim-vue settings -----
+let g:vue_disable_pre_processors=1
 
 " ----- open-browser settings -----
 " if it looks like URI, Open URI under cursor.
 " Otherwise, Search word under cursor. 
 nmap <C-g> <Plug>(openbrowser-smart-search)
+
+
+" ----- UltiSnippets settings -----
+" Trigger configuration. Do not use <tab> if you use YCM
+let g:UltiSnipsExpandTrigger="<leader>i"
+let g:UltiSnipsJumpForwardTrigger="F"
+let g:UltiSnipsJumpBackwardTrigger="B"
 
 
 " ----- EasyAlign settings -----
@@ -575,24 +593,12 @@ nmap <C-g> <Plug>(openbrowser-smart-search)
 " ;a<space>  首个空格对齐
 " ;a2<space> 第二个空格对齐
 " ;a*<space> 所有空格依次对齐
-vmap <Leader>a <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
-if !exists('g:easy_align_delimiters')
-    let g:easy_align_delimiters = {}
-endif
-let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
-
-
-" ----- javascript-libraries-syntax.vim -----
-" 20150624 add
-"let g:used_javascript_libs = 'jquery,jasmine,chai,underscore,Lo-Dash,react'
-
-
-" ----- UltiSnippets settings -----
-" Trigger configuration. Do not use <tab> if you use YCM
-let g:UltiSnipsExpandTrigger="<leader>i"
-let g:UltiSnipsJumpForwardTrigger="F"
-let g:UltiSnipsJumpBackwardTrigger="B"
+" vmap <Leader>a <Plug>(EasyAlign)
+" nmap <Leader>a <Plug>(EasyAlign)
+" if !exists('g:easy_align_delimiters')
+    " let g:easy_align_delimiters = {}
+" endif
+" let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
 
 
 " ----- vim-javascript and vim-javascript-syntax settings ------

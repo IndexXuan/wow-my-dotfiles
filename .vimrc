@@ -66,6 +66,9 @@ syntax on
 set cursorline
 " show the current typing command
 set showcmd 
+" undo
+set undofile
+set undodir=$HOME/.vim/undo
 " no split line bar, focus on code only
 "set background=dark
 " Set the colorscheme
@@ -257,7 +260,7 @@ func SetTitle()
         call append(line(".")+1, "\# Mail   : indexxuan@gmail.com")
         call append(line(".")+2, "\# Date   : ".strftime("%c"))
         call append(line(".")+3, "\#################################################")
-        call append(line(".")+4, "\#!/bin/bash")
+        call append(line(".")+4, "\#!/usr/bin/env bash")
         call append(line(".")+5, "")
     else 
         call setline(1,         "/**")
@@ -596,4 +599,7 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
  
 " 20170309
 " 使用 `es2015 & react snips`，删除 `vim-es6` 里的snips
+
+" 20190321
+" 备份，本周末准备试试 coc.nvim 新系统代替 YCM
 
