@@ -1,0 +1,534 @@
+" ----------------------------------------------------------------------------
+"
+"                           Plugins and Settings v3.0.0
+"                              Plug with 27 Plugins
+"
+" ----------------------------------------------------------------------------
+
+" Install vim-Plug if we don't already have it
+if empty(glob("~/.vim/autoload/plug.vim"))
+    " Ensure all needed directories exist  (Thanks @kapadiamush)
+    execute 'mkdir -p ~/.vim/autoload'
+    " Download the actual plugin manager
+    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
+
+call plug#begin('~/.vim/bundle')
+
+" ----------------------------------------------------------------------------
+"
+"  Vim-Plug --- Minimalist Vim Plugin Manager
+"
+"  command:
+"  :PlugInstall[name ...]
+"    install plugins
+"  :PlugUpdate[name ...]
+"    install or update plugins
+"  :PlugClean[!] 
+"    remove plugin not in list(bang version will clean without prompt)
+"  :PlugStatus
+"    check the status of plugins(e.g. load or not)
+"  :PlugUpgrade
+"    upgrade vim-plug itself
+"  :PlugDiff
+"    examine changes from the previous update and the pending changes
+"  :PlugSnapshot[!] [output path]
+"    generate script for restoring the current snapshot of the plugins
+"
+"  options:
+"  branch / tag / commit => 插件git仓库选择
+"  rtp                   => vim 插件包含在子文件夹
+"  dir                   => 插件自定义文件夹
+"  do                    => 定义插件安装钩子，传入字符串命令或者函数名
+"  on                    => 满足条件懒加载
+"  for                   => 文件类型懒加载
+"  frozen                => 不随着更新除非具体表明
+"
+"  keybindings
+"  in :PlugStatus state, press L to load plugin in cursor
+"
+"  more docs in github homepage
+"  https://github.com/junegunn/vim-plug
+"
+" ----------------------------------------------------------------------------
+
+" lazy load to rush ~~~
+augroup lazyload
+  autocmd!
+  autocmd vimEnter * call plug#load('vim-gitgutter', 'ctrlp.vim', 'ctrlsf.vim')
+                     \| autocmd! lazyload
+augroup END
+
+" -------------------------- Wakatime ---------------------------
+
+" https://github.com/wakatime/vim-wakatime
+" Vim plugin for automatic time tracking and metrics generated from your programming activity
+Plug 'wakatime/vim-wakatime'
+
+" -------------------------- UI Layout ---------------------------
+
+" https://github.com/vim-airline/vim-airline
+" lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline'
+
+" https://github.com/vim-airline/vim-airline-themes
+" A collection of themes for vim-airline
+Plug 'vim-airline/vim-airline-themes'
+
+" https://github.com/scrooloose/nerdtree
+" a tree explorer plugin for vim
+Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+
+" ----------------------- Base Functions Improved ------------------------
+
+" https://github.com/neoclide/coc.nvim
+" Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
+Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
+
+" https://github.com/kopischke/vim-stay
+" Make Vim persist editing state without fuss
+Plug 'kopischke/vim-stay'
+
+" https://github.com/907th/vim-auto-save
+" Automatically save changes to disk in Vim
+Plug 'vim-scripts/vim-auto-save'
+
+" https://github.com/vim-scripts/open-browser.vim
+" Open URI with your favorite browser from your favorite editor
+Plug 'tyru/open-browser.vim'
+   
+" https://github.com/amix/open_file_under_cursor.vim
+" Open file under cursor when pressing gf(if the text is a path)
+Plug 'amix/open_file_under_cursor.vim'
+
+" https://github.com/ggVGc/vim-fuzzysearch
+" Fuzzy pattern building, in any buffer
+Plug 'ggVGc/vim-fuzzysearch'
+
+" ----------------- As Programmer's text editor -----------------------
+
+" https://github.com/editorconfig/editorconfig-vim
+" EditorConfig plugin for Vim
+Plug 'editorconfig/editorconfig-vim'
+
+" https://github.com/scrooloose/nerdcommenter
+" Vim plugin for intensely orgasmic commenting
+Plug 'scrooloose/nerdcommenter'
+
+" https://github.com/ctrlpvim/ctrlp.vim
+" Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
+Plug 'ctrlpvim/ctrlp.vim', { 'on' : [] }
+
+" https://github.com/dyng/ctrlsf.vim
+" An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
+Plug 'dyng/ctrlsf.vim', { 'on': [] }
+
+" https://github.com/terryma/vim-multiple-cursors
+" sublime-like multiple line edit tool
+Plug 'terryma/vim-multiple-cursors'
+
+" -------------------------- Working with Git --------------------------------
+
+" https://github.com/airblade/vim-gitgutter
+" A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
+Plug 'airblade/vim-gitgutter', { 'on' : [] }
+
+" https://github.com/tpope/vim-fugitive
+" fugitive.vim: A Git wrapper so awesome, it should be illegal
+Plug 'tpope/vim-fugitive'
+
+" --------------------------- Language plugins ---------------------------------
+
+" https://github.com/leafgarland/typescript-vim
+" Typescript syntax files for Vim
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
+
+" https://github.com/posva/vim-vue
+" Syntax Highlight for Vue.js components
+Plug 'posva/vim-vue', { 'for' : ['vue'] }
+
+" https://github.com/jparise/vim-graphql
+" Vim plugin that provides GraphQL file detection, syntax highlighting, and indentation.
+" Plug 'jparise/vim-graphql'
+
+" https://github.com/hallison/vim-markdown
+" Markdown syntax highlight for Vim editor with snippets support
+Plug 'hallison/vim-markdown', { 'for' : ['markdown', 'md'] }
+
+" https://github.com/othree/javascript-libraries-syntax.vim
+" Syntax for JavaScript libraries
+Plug 'othree/javascript-libraries-syntax.vim'
+
+" https://github.com/Quramy/vim-js-pretty-template
+" highlights JavaScript's Template Strings in other FileType syntax rule
+Plug 'Quramy/vim-js-pretty-template'
+
+" https://github.com/maxmellon/vim-jsx-pretty
+Plug 'maxmellon/vim-jsx-pretty'
+
+" --------------------- Extras / Advanced ----------------------
+
+" https://github.com/honza/vim-snippets
+Plug 'honza/vim-snippets'
+
+" https://github.com/Valloric/MatchTagAlways
+" A Vim plugin that always highlights the enclosing html / xml tags
+Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
+
+" https://github.com/heavenshell/vim-jsdoc.
+" Generate JSDoc to your JavaScript code.
+Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'typescript'] }
+
+" https://github.com/chemzqm/vim-run
+" Run file with command in vim and watch result side by side
+Plug 'chemzqm/vim-run', { 'for': ['javascript', 'typescript'] }
+
+" Add plugins to &runtimepath
+call plug#end()
+
+" leafgarland/typescript-vim {{
+  " fix filetype settings
+  autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+" }}
+
+" -------------------------  Plugins-Specific Settings Start -------------------------
+
+" bling/vim-airline settings {{
+  let g:airline_theme = 'badwolf'
+  if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+  endif
+  let g:airline_symbols.space = "\ua0"
+  let g:airline_exclude_filename = []
+  let g:Powerline_symbols='fancy'
+  let g:airline_powerline_fonts=0
+  let Powerline_symbols='fancy'
+  let g:bufferline_echo=0
+
+  let g:airline_left_sep = '▶'
+  let g:airline_left_alt_sep = '❯'
+  let g:airline_right_sep = '◀'
+  let g:airline_right_alt_sep = '❮'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.branch = '⎇'
+  set fillchars+=stl:\ ,stlnc:\
+
+  " Show PASTE if in paste mode
+  let g:airline_detect_paste=1
+  " Show airline for tabs too
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#branch#enabled=1
+" }}
+
+
+" {{ vim-nerdtree settings
+  nmap <silent> <leader>t :NERDTreeToggle<CR>
+  let NERDTreeHighlightCursorline=1
+  let NERDTreeQuitOnOpen=1
+  " show hidden files, add in 20160125
+  let g:NERDTreeShowHidden=1
+  let NERDTreeIgnore=[ '\.obj$', '\.o$', '\.so$', '\.egg$' ]
+  "close vim if the only window left open is a NERDTree
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+
+  " ui in airline statusline
+  set statusline+=%#warningmsg#
+" }}
+
+
+" neoclide/coc.nvim settings {{
+  " Use tab for trigger completion with characters ahead and navigate.
+  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " keymap
+  nmap <silent> <leader>d <Plug>(coc-definition)
+  nmap <silent> <leader>f <Plug>(coc-codeaction)
+  nmap <silent> <leader>rn <Plug>(coc-rename)
+  nmap <silent> <leader>tt <Plug>(coc-type-definition)
+  nmap <silent> <leader>ii <Plug>(coc-implementation)
+  nmap <silent> <leader>rr <Plug>(coc-references)
+  nnoremap <silent> <leader>h :call <SID>show_documentation()<CR>
+
+  function! s:show_documentation()
+    if &filetype == 'vim'
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+
+  function! SetupCommandAbbrs(from, to)
+    exec 'cnoreabbrev <expr> '.a:from
+          \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+          \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+  endfunction
+
+  command! -nargs=? EditVimrc :call s:EditVimrc()
+  function! s:EditVimrc()
+    let p = $HOME.'/wow-my-dotfiles/.vimrc'
+    if getcwd() == $HOME.'/wow-my-dotfiles/.vimrc'
+      let p = p[len(getcwd()) + 1 : ]
+    endif
+    execute 'edit '.p
+  endfunction
+
+  command! -nargs=? EditVimrcPlugin :call s:EditVimrcPlugin()
+  function! s:EditVimrcPlugin()
+    let p = $HOME.'/wow-my-dotfiles/.vimrc.plugin'
+    if getcwd() == $HOME.'/wow-my-dotfiles/.vimrc.plugin'
+      let p = p[len(getcwd()) + 1 : ]
+    endif
+    execute 'edit '.p
+  endfunction
+
+  " to open coc config
+  call SetupCommandAbbrs('config', 'CocConfig')
+  call SetupCommandAbbrs('vimrc', 'EditVimrc')
+  call SetupCommandAbbrs('vimrcplugin', 'EditVimrcPlugin')
+  call SetupCommandAbbrs('blame', 'Gblame')
+
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+
+  let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+  let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+
+  let airline#extensions#coc#error_symbol = 'Error:'
+  let airline#extensions#coc#error_symbol = 'Warning:'
+  let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+  let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+
+  " coc.nvim - prettier
+  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+  nmap <leader>p :Prettier<CR>
+" }}
+
+
+" vim-stay setting {{
+  " for vim-stay Plug recommend set
+  set viewoptions=cursor,folds,slash,unix
+" }}
+
+
+" vim-autosave settings {{
+  " enable AutoSave on Vim startup"
+  let g:auto_save = 1  
+  " do not change the 'updatetime' option"
+  let g:auto_save_no_updatetime = 1  
+  " do not save while in insert mode"
+  let g:auto_save_in_insert_mode = 0  
+  " do not display the auto-save notification"
+  let g:auto_save_silent = 1  
+" }}
+
+
+" Valloric/MatchTagAlways settings {{
+  let g:mta_filetypes = {
+      \ 'html' : 1,
+      \ 'xhtml' : 1,
+      \ 'xml' : 1,
+      \ 'javascript' : 1,
+      \ 'jsx' : 1,
+      \ 'typescript' : 1,
+      \ 'tsx' : 1,
+      \ 'vue' : 1,
+      \}
+" }}
+
+
+" heavenshell/vim-jsdoc {{
+  nmap <silent> <leader>dd <Plug>(jsdoc)
+  let g:jsdoc_allow_input_prompt = 0
+  let g:jsdoc_enable_es6 = 1
+  let g:jsdoc_access_descriptions = 2
+  let g:jsdoc_underscore_private = 1
+  let g:jsdoc_custom_args_regex_only = 1
+  let g:jsdoc_custom_args_hook = {
+  \ '^\(callback\|cb\)$': {
+  \   'type': ' {Function} ',
+  \   'description': 'Callback function'
+  \ },
+  \ '\(err\|error\)$': {
+  \   'type': '{Error}'
+  \ },
+  \ '^\(opt\|options\)$': {
+  \   'type': '{Object}'
+  \ },
+  \ 'handler$': {
+  \   'type': '{Function}'
+  \ },
+  \ '^\(n\|i\)$': {
+  \   'type': ' {Number} '
+  \ },
+  \ '^i$': {
+  \   'type': ' {Number} '
+  \ },
+  \ '^_\?\(is\|has\)': {
+  \   'type': ' {Boolean} '
+  \ },
+  \ '^arr$': {
+  \   'type': ' {Array} '
+  \ },
+  \ '^str$': {
+  \   'type': ' {String} '
+  \ },
+  \ '^e$': {
+  \   'type': ' {Event} '
+  \ },
+  \ 'el$': {
+  \   'type': ' {Element} '
+  \ },
+  \ '^node$': {
+  \   'type': ' {Element} '
+  \ },
+  \ '^o$': {
+  \   'type': ' {Object} '
+  \ },
+  \ '^obj$': {
+  \   'type': ' {Object} '
+  \ },
+  \ '^fn$': {
+  \   'type': ' {Function} '
+  \ },
+  \}
+" }}
+
+
+
+" open-browser settings {{
+  " if it looks like URI, Open URI under cursor.
+  " Otherwise, Search word under cursor. 
+  nmap <C-g> <Plug>(openbrowser-smart-search)
+" }}
+
+
+" ggVGc/vim-fuzzysearch {{
+  " fuzzy search, 模糊搜索
+  nnoremap <C-f> :FuzzySearch<CR>
+" }}
+
+
+" scrooloose/nerdcommenter settings {{
+  " Add spaces after comment delimiters by default
+  let g:NERDSpaceDelims = 1
+
+  " Use compact syntax for prettified multi-line comments
+  let g:NERDCompactSexyComs = 1
+
+  " Align line-wise comment delimiters flush left instead of following code indentation
+  let g:NERDDefaultAlign = 'left'
+
+  " Set a language to use its alternate delimiters by default
+  let g:NERDAltDelims_java = 1
+
+  " Add your own custom formats or override the defaults
+  let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+  " Allow commenting and inverting empty lines (useful when commenting a region)
+  let g:NERDCommentEmptyLines = 1
+
+  " Enable trimming of trailing whitespace when uncommenting
+  let g:NERDTrimTrailingWhitespace = 1
+
+  " Enable NERDCommenterToggle to check all selected lines is commented or not
+  let g:NERDToggleCheckAllLines = 1
+
+  let g:ft = ''
+  function! NERDCommenter_before()
+    if &ft == 'vue'
+      let g:ft = 'vue'
+      let stack = synstack(line('.'), col('.'))
+      if len(stack) > 0
+        let syn = synIDattr((stack)[0], 'name')
+        if len(syn) > 0
+          exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+        endif
+      endif
+    endif
+  endfunction
+  function! NERDCommenter_after()
+    if g:ft == 'vue'
+      setf vue
+      let g:ft = ''
+    endif
+  endfunction
+" }}
+
+
+" CtrlP settings {{
+  let g:ctrlp_map = '<c-p>'
+  " mixed mode is more useful and smart
+  let g:ctrlp_cmd = 'CtrlPMixed'
+  " 性能起见，只开启MRU模式, 大范围的文件夹跳转用autojump
+  "let g:ctrlp_cmd = 'CtrlPMRU'
+  let g:ctrlp_working_path_mode = 'ra'
+  " let g:ctrlp_extensions = ['funky', 'ssh']
+
+  let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/](node_modules|target|dist)|\.(git|hg|svn|rvm)$',
+      \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+      \ }
+  let g:ctrlp_follow_symlinks=1
+" }}
+
+
+" CtrlSF Settings, based on ggreer/the_silver_searcher {{
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+  nnoremap <leader>sf :CtrlSF
+  let g:ctrlsf_auto_close = 0
+  let g:ctrlsf_default_root = 'project'
+  let g:ctrlsf_mapping = {
+      \ "next": "n",
+      \ "prev": "N",
+      \ }
+" }}
+
+
+" airblade/vim-gitgutter settings {{
+  " Required after having changed the colorscheme
+  hi clear SignColumn
+  " In vim-airline, only display "hunks" if the diff is non-zero
+  let g:airline#extensions#hunks#non_zero_only = 1
+" }}
+
+
+" vim-vue settings {{
+  let g:vue_disable_pre_processors=1
+" }}
+
+
+" othree/javascript-libraries-syntax.vim {{
+  let g:used_javascript_libs = 'jquery,underscore,react,ramda,vue'
+" }}
+
+" chemzqm/vim-run {{
+  nmap <leader>rr :Run<CR>
+  let g:vim_run_command_map = {
+        \'typescript': 'ts-node',
+        \'javascript': 'node',
+        \}
+" }}
+
+
+" Quramy/vim-js-pretty-template {{
+  " Register tag name associated the filetype
+  " autocmd FileType javascript JsPreTmpl
+  " autocmd FileType javascript.jsx JsPreTmpl
+  " autocmd FileType typescript JsPreTmpl
+  " autocmd FileType javascript.tsx JsPreTmpl
+  " autocmd FileType typescript syn clear foldBraces " For leafgarland/typescript-vim users only. Please see #1 for details.
+" }}
+
