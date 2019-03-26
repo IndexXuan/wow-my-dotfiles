@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 27 Plugins
+"                              Plug with 25 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazy load to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-gitgutter', 'ctrlp.vim', 'ctrlsf.vim')
+  autocmd vimEnter * call plug#load('vim-gitgutter', 'ctrlp.vim', 'ctrlsf.vim', 'nerdcommenter', 'vim-multiple-cursors')
                      \| autocmd! lazyload
 augroup END
 
@@ -99,7 +99,7 @@ Plug 'tyru/open-browser.vim'
    
 " https://github.com/amix/open_file_under_cursor.vim
 " Open file under cursor when pressing gf(if the text is a path)
-Plug 'amix/open_file_under_cursor.vim'
+" Plug 'amix/open_file_under_cursor.vim'
 
 " https://github.com/ggVGc/vim-fuzzysearch
 " Fuzzy pattern building, in any buffer
@@ -113,7 +113,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 " https://github.com/scrooloose/nerdcommenter
 " Vim plugin for intensely orgasmic commenting
-Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter', { 'on': [] }
 
 " https://github.com/ctrlpvim/ctrlp.vim
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
@@ -125,7 +125,7 @@ Plug 'dyng/ctrlsf.vim', { 'on': [] }
 
 " https://github.com/terryma/vim-multiple-cursors
 " sublime-like multiple line edit tool
-Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors', { 'on': [] }
 
 " -------------------------- Working with Git --------------------------------
 
@@ -157,18 +157,20 @@ Plug 'hallison/vim-markdown', { 'for' : ['markdown', 'md'] }
 
 " https://github.com/othree/javascript-libraries-syntax.vim
 " Syntax for JavaScript libraries
-Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
 
 " https://github.com/Quramy/vim-js-pretty-template
 " highlights JavaScript's Template Strings in other FileType syntax rule
-Plug 'Quramy/vim-js-pretty-template'
+" Plug 'Quramy/vim-js-pretty-template'
 
 " https://github.com/maxmellon/vim-jsx-pretty
+" 🔦 [Vim script] JSX syntax pretty highlighting for vim.
 Plug 'maxmellon/vim-jsx-pretty'
 
 " --------------------- Extras / Advanced ----------------------
 
 " https://github.com/honza/vim-snippets
+" vim-snipmate default snippets (Previously snipmate-snippets)
 Plug 'honza/vim-snippets'
 
 " https://github.com/Valloric/MatchTagAlways
@@ -186,13 +188,13 @@ Plug 'chemzqm/vim-run', { 'for': ['javascript', 'typescript'] }
 " Add plugins to &runtimepath
 call plug#end()
 
+" -------------------------  Plugins-Specific Settings Start -------------------------
+
 " leafgarland/typescript-vim {{
   " fix filetype settings
   autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 " }}
-
-" -------------------------  Plugins-Specific Settings Start -------------------------
 
 " bling/vim-airline settings {{
   let g:airline_theme = 'badwolf'
@@ -251,14 +253,14 @@ call plug#end()
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  " keymap
+  " core typings keymap
   nmap <silent> <leader>d <Plug>(coc-definition)
   nmap <silent> <leader>f <Plug>(coc-codeaction)
+  nmap <silent> <leader>h :call <SID>show_documentation()<CR>
   nmap <silent> <leader>rn <Plug>(coc-rename)
+  nmap <silent> <leader>rr <Plug>(coc-references)
   nmap <silent> <leader>tt <Plug>(coc-type-definition)
   nmap <silent> <leader>ii <Plug>(coc-implementation)
-  nmap <silent> <leader>rr <Plug>(coc-references)
-  nnoremap <silent> <leader>h :call <SID>show_documentation()<CR>
 
   function! s:show_documentation()
     if &filetype == 'vim'
@@ -374,6 +376,9 @@ call plug#end()
   \   'type': ' {Number} '
   \ },
   \ '^i$': {
+  \   'type': ' {Number} '
+  \ },
+  \ '^num': {
   \   'type': ' {Number} '
   \ },
   \ '^_\?\(is\|has\)': {
@@ -515,7 +520,7 @@ call plug#end()
 " }}
 
 " chemzqm/vim-run {{
-  nmap <leader>rr :Run<CR>
+  nmap <leader>rrr :Run<CR>
   let g:vim_run_command_map = {
         \'typescript': 'ts-node',
         \'javascript': 'node',

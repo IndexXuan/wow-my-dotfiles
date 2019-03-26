@@ -275,9 +275,9 @@ nnoremap QQ :q!<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 " !!!超级好用!!! 全局批量替换
-nnoremap <leader>ss ggVG:s//g<left><left>
+nnoremap <leader>s ggVG:s//g<left><left>
 " !!!超级好用!!! 全局精准批量替换, 输入单词， 然后换成目标单词
-nnoremap <leader>rr :%s/\<\>//g<left><left><left><left><left>
+nnoremap <leader>r :%s/\<\>//g<left><left><left><left><left>
 " }} leader
 
 " jj as Esc, very useful setting, great, great, great!!!

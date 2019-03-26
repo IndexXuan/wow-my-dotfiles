@@ -1,0 +1,14 @@
+{
+  // echo 信息到窗口底部，默认是顶部 preview 窗口，体验不好
+  "coc.preferences.hoverTarget": "echo",
+  // make vim select first item on completion
+  "suggest.noselect": false,
+  // when snippet activated and pumvisible, prefer complete completion.
+  "suggest.preferCompleteThanJumpPlaceholder": true,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.snippetIndicator": "~~",
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "snippets.extends": {
+    "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
+  }
+}
