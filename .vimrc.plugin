@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazy load to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-gitgutter', 'ctrlp.vim', 'ctrlsf.vim', 'nerdcommenter', 'vim-multiple-cursors')
+  autocmd vimEnter * call plug#load('vim-gitgutter', 'vim-fugitive', 'ctrlp.vim', 'ctrlsf.vim')
                      \| autocmd! lazyload
 augroup END
 
@@ -125,7 +125,7 @@ Plug 'dyng/ctrlsf.vim', { 'on': [] }
 
 " https://github.com/terryma/vim-multiple-cursors
 " sublime-like multiple line edit tool
-Plug 'terryma/vim-multiple-cursors', { 'on': [] }
+Plug 'terryma/vim-multiple-cursors'
 
 " -------------------------- Working with Git --------------------------------
 
@@ -135,13 +135,13 @@ Plug 'airblade/vim-gitgutter', { 'on' : [] }
 
 " https://github.com/tpope/vim-fugitive
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive', { 'on': [] }
 
 " --------------------------- Language plugins ---------------------------------
 
 " https://github.com/leafgarland/typescript-vim
 " Typescript syntax files for Vim
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
 " https://github.com/posva/vim-vue
 " Syntax Highlight for Vue.js components
@@ -155,17 +155,13 @@ Plug 'posva/vim-vue', { 'for' : ['vue'] }
 " Markdown syntax highlight for Vim editor with snippets support
 Plug 'hallison/vim-markdown', { 'for' : ['markdown', 'md'] }
 
-" https://github.com/othree/javascript-libraries-syntax.vim
-" Syntax for JavaScript libraries
-" Plug 'othree/javascript-libraries-syntax.vim'
-
 " https://github.com/Quramy/vim-js-pretty-template
 " highlights JavaScript's Template Strings in other FileType syntax rule
 " Plug 'Quramy/vim-js-pretty-template'
 
 " https://github.com/maxmellon/vim-jsx-pretty
 " 🔦 [Vim script] JSX syntax pretty highlighting for vim.
-Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'maxmellon/vim-jsx-pretty', { 'for': ['typescript.tsx', 'javascript.jsx'] }
 
 " --------------------- Extras / Advanced ----------------------
 
@@ -512,11 +508,6 @@ call plug#end()
 
 " vim-vue settings {{
   let g:vue_disable_pre_processors=1
-" }}
-
-
-" othree/javascript-libraries-syntax.vim {{
-  let g:used_javascript_libs = 'jquery,underscore,react,ramda,vue'
 " }}
 
 " chemzqm/vim-run {{
