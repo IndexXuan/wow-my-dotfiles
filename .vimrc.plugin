@@ -1,11 +1,11 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 25 Plugins
+"                              Plug with 20 Plugins
 "
 " ----------------------------------------------------------------------------
 
-" Install vim-Plug if we don't already have it
+" Install Vim-Plug if we don't already have it
 if empty(glob("~/.vim/autoload/plug.vim"))
     " Ensure all needed directories exist  (Thanks @kapadiamush)
     execute 'mkdir -p ~/.vim/autoload'
@@ -55,105 +55,85 @@ call plug#begin('~/.vim/bundle')
 " lazy load to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-gitgutter', 'vim-fugitive', 'ctrlp.vim', 'ctrlsf.vim')
+  autocmd vimEnter * call plug#load('vim-gitgutter', 'vim-fugitive', 'ctrlp.vim', 'ctrlsf.vim', 'nerdcommenter')
                      \| autocmd! lazyload
 augroup END
 
 " -------------------------- Wakatime ---------------------------
 
-" https://github.com/wakatime/vim-wakatime
+" https://github.com/wakatime/vim-wakatime - 1
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime'
 
 " -------------------------- UI Layout ---------------------------
 
-" https://github.com/vim-airline/vim-airline
+" https://github.com/vim-airline/vim-airline - 1
 " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
 
-" https://github.com/vim-airline/vim-airline-themes
+" https://github.com/vim-airline/vim-airline-themes - 1
 " A collection of themes for vim-airline
 Plug 'vim-airline/vim-airline-themes'
 
-" https://github.com/scrooloose/nerdtree
+" https://github.com/scrooloose/nerdtree - 0
 " a tree explorer plugin for vim
 Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
 
 " ----------------------- Base Functions Improved ------------------------
 
-" https://github.com/neoclide/coc.nvim
+" https://github.com/neoclide/coc.nvim - 0
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
 
-" https://github.com/kopischke/vim-stay
+" https://github.com/kopischke/vim-stay - 0
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
 
-" https://github.com/907th/vim-auto-save
-" Automatically save changes to disk in Vim
-Plug 'vim-scripts/vim-auto-save'
-
-" https://github.com/vim-scripts/open-browser.vim
+" https://github.com/vim-scripts/open-browser.vim - 2
 " Open URI with your favorite browser from your favorite editor
 Plug 'tyru/open-browser.vim'
-   
-" https://github.com/amix/open_file_under_cursor.vim
-" Open file under cursor when pressing gf(if the text is a path)
-" Plug 'amix/open_file_under_cursor.vim'
 
-" https://github.com/ggVGc/vim-fuzzysearch
+" https://github.com/ggVGc/vim-fuzzysearch - 2
 " Fuzzy pattern building, in any buffer
 Plug 'ggVGc/vim-fuzzysearch'
 
 " ----------------- As Programmer's text editor -----------------------
 
-" https://github.com/editorconfig/editorconfig-vim
+" https://github.com/editorconfig/editorconfig-vim - 0
 " EditorConfig plugin for Vim
 Plug 'editorconfig/editorconfig-vim'
 
-" https://github.com/scrooloose/nerdcommenter
+" https://github.com/scrooloose/nerdcommenter - 0
 " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdcommenter', { 'on': [] }
 
-" https://github.com/ctrlpvim/ctrlp.vim
+" https://github.com/ctrlpvim/ctrlp.vim - 1
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : [] }
 
-" https://github.com/dyng/ctrlsf.vim
+" https://github.com/dyng/ctrlsf.vim - 0
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'dyng/ctrlsf.vim', { 'on': [] }
 
-" https://github.com/terryma/vim-multiple-cursors
-" sublime-like multiple line edit tool
-Plug 'terryma/vim-multiple-cursors'
-
 " -------------------------- Working with Git --------------------------------
 
-" https://github.com/airblade/vim-gitgutter
+" https://github.com/airblade/vim-gitgutter - 0
 " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
 Plug 'airblade/vim-gitgutter', { 'on' : [] }
 
-" https://github.com/tpope/vim-fugitive
+" https://github.com/tpope/vim-fugitive - 1 
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-fugitive', { 'on': [] }
 
 " --------------------------- Language plugins ---------------------------------
 
-" https://github.com/leafgarland/typescript-vim
+" https://github.com/leafgarland/typescript-vim - 0
 " Typescript syntax files for Vim
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
-" https://github.com/posva/vim-vue
+" https://github.com/posva/vim-vue - 0
 " Syntax Highlight for Vue.js components
 Plug 'posva/vim-vue', { 'for' : ['vue'] }
-
-" https://github.com/jparise/vim-graphql
-" Vim plugin that provides GraphQL file detection, syntax highlighting, and indentation.
-" Plug 'jparise/vim-graphql'
-
-" https://github.com/hallison/vim-markdown
-" Markdown syntax highlight for Vim editor with snippets support
-Plug 'hallison/vim-markdown', { 'for' : ['markdown', 'md'] }
 
 " https://github.com/Quramy/vim-js-pretty-template
 " highlights JavaScript's Template Strings in other FileType syntax rule
@@ -165,19 +145,19 @@ Plug 'hallison/vim-markdown', { 'for' : ['markdown', 'md'] }
 
 " --------------------- Extras / Advanced ----------------------
 
-" https://github.com/honza/vim-snippets
+" https://github.com/honza/vim-snippets - 1
 " vim-snipmate default snippets (Previously snipmate-snippets)
 Plug 'honza/vim-snippets'
 
-" https://github.com/Valloric/MatchTagAlways
+" https://github.com/Valloric/MatchTagAlways - 0
 " A Vim plugin that always highlights the enclosing html / xml tags
 Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
 
-" https://github.com/heavenshell/vim-jsdoc.
+" https://github.com/heavenshell/vim-jsdoc - 2
 " Generate JSDoc to your JavaScript code.
 Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'typescript'] }
 
-" https://github.com/chemzqm/vim-run
+" https://github.com/chemzqm/vim-run - 2
 " Run file with command in vim and watch result side by side
 Plug 'chemzqm/vim-run', { 'for': ['javascript', 'typescript'] }
 
@@ -318,18 +298,6 @@ call plug#end()
 " vim-stay setting {{
   " for vim-stay Plug recommend set
   set viewoptions=cursor,folds,slash,unix
-" }}
-
-
-" vim-autosave settings {{
-  " enable AutoSave on Vim startup"
-  let g:auto_save = 1  
-  " do not change the 'updatetime' option"
-  let g:auto_save_no_updatetime = 1  
-  " do not save while in insert mode"
-  let g:auto_save_in_insert_mode = 0  
-  " do not display the auto-save notification"
-  let g:auto_save_silent = 1  
 " }}
 
 

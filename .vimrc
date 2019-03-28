@@ -102,7 +102,7 @@ hi Normal ctermbg=none ctermfg=255
 
 " {{ Misc
 " can use mouse
-set mouse=a
+set mouse=v
 " for RegExp, turn magic on
 set magic 
 set backspace=indent,eol,start
@@ -137,10 +137,22 @@ set completeopt=longest,menu
 " 增强模式中的命令行自动完成操作
 set wildmenu
 " Ignore compiled files
-"set wildignore=*.o,*~,*.pyc,*.class
+" set wildignore=*.o,*~,*.pyc,*.class
 " ref --> http://www.cnblogs.com/jianyungsun/archive/2012/07/31/2616671.html
-"set clipboard=unnamedplus
-"set clipboard=unnamed
+" set clipboard=unnamedplus
+set clipboard=unnamed
+let g:clipboard = {
+  \ 'name': 'pbcopy',
+  \ 'copy': {
+  \    '+': 'pbcopy',
+  \    '*': 'pbcopy',
+  \  },
+  \ 'paste': {
+  \    '+': 'pbpaste',
+  \    '*': 'pbpaste',
+  \ },
+  \ 'cache_enabled': 0,
+  \ } 
 " 退出vim后在终端留下文件内容，可以理解为残影
 "set t_ti= t_te=
 " }} Misc
