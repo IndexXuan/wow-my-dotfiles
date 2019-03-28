@@ -59,55 +59,52 @@ endif
 " -------------------------    Settings    ---------------------------
 " --------------------------------------------------------------------
 
+" go go go
 syntax on
 
-" {{ UI Layout
+" UI Layout {{
 " highlight current line, a great set if you have great theme...
 set cursorline
-
 " show the current typing command
 set showcmd 
-
 " if hidden is not set, TextEdit might fail.
 set hidden
-
+" for statusline(like airline) always display
+set laststatus=2
 " Better display for messages
 set cmdheight=2
-
-" Smaller updatetime for CursorHold & CursorHoldI
+" Smaller updatetime for CursorHold & CursorHold
 set updatetime=300
-
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-
 " always show signcolumns
 set signcolumn=yes
-
 set termguicolors
-
-" undo
-set undofile
-set undodir=$HOME/.vim/undo
 " no split line bar, focus on code only
-"set background=dark
+set background=dark
 " Set the colorscheme
 colorscheme molokai
 hi CursorLine term=bold cterm=bold
-" make ternimal beautiful and airline show well
+" make ternimal beautiful and statusline( like airline) show well
 set t_Co=256
 " key to make ternimal transparent, 256 is not ok
 hi Normal ctermbg=none ctermfg=255
-" }} UI Layout
+" }}
 
 
-" {{ Misc
+" Misc {{
+" undo
+set undofile
+set undodir=$HOME/.vim/undo
 " can use mouse
-set mouse=v
+set mouse=a
 " for RegExp, turn magic on
 set magic 
 set backspace=indent,eol,start
 " line number
 set nonu 
+" 不显示默认 --insert--，交给 statusline plugin 实现
+set noshowmode
 " 去掉错误提示音
 set noeb
 " file format settings
@@ -115,8 +112,6 @@ set fileencodings=utf-8,gk2312,gbk,gb18030
 set termencoding=utf-8
 set fileformats=unix
 set encoding=utf-8
-" for statusline(like airline) always display
-set laststatus=2
 set scrolloff=5
 " load when other editor change it
 set autoread
@@ -155,7 +150,7 @@ let g:clipboard = {
   \ } 
 " 退出vim后在终端留下文件内容，可以理解为残影
 "set t_ti= t_te=
-" }} Misc
+" }}
 
 " Search {{
 " 高亮search命中的文本。
@@ -168,25 +163,25 @@ nmap <silent> <Space> :nohlsearch<CR>
 set ignorecase
 " case-sensitive 
 set smartcase
-" }} Search
+" }}
 
-" {{ Spaces & Tabs
+" Spaces & Tabs {{
 set tabstop=2     " 设置Tab键的宽度        [等同的空格个数]
 set shiftwidth=2  " 每一次缩进对应的空格数
 set softtabstop=2 " 按退格键时可以一次删掉的空格数
 set expandtab " control whether change tab to space, add in 20150722
 set smarttab 
-" }} Spaces & Tabs
+" }}
 
-" {{ Indent 
+" Indent {{
 set smartindent " Smart indent
 set autoindent  " 打开自动缩进
 set shiftround  " indent as shiftwidth setting
-" }} Indent
+" }}
 
-" {{ folder
+" Folder {{
 " 代码折叠 make large file slow ???
- set foldenable
+ " set foldenable
 " 折叠方法
 " manual    手工折叠
 " indent    使用缩进表示折叠
@@ -194,8 +189,8 @@ set shiftround  " indent as shiftwidth setting
 " syntax    使用语法定义折叠
 " diff      对没有更改的文本进行折叠
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
- set foldlevel=99
- set foldmethod=manual
+ " set foldlevel=99
+ " set foldmethod=manual
 " zf 手动折叠
 " zc 关闭当前打开的折叠
 " zo 打开当前的折叠
@@ -209,14 +204,14 @@ set shiftround  " indent as shiftwidth setting
 " zk 移动至上一个折叠
 " zn 禁用折叠
 " zN 启用折叠
-" }} foler
+" }}
 
 " --------------------------------------------------------------------
 " -------------------------    Functions   ---------------------------
 " --------------------------------------------------------------------
 
-" ----- auto-setTitle when create file in target fileType -----
-autocmd BufNewFile *.sh,*.cpp,*.c,*.java,*.css,*.js,&.ts,*.jsx,*.tsx,*.scss,*.less exec ":call SetTitle()"
+" Auto set title when create file in target fileType {{
+autocmd BufNewFile *.sh,*.cpp,*.c,*.scss,*.less,*.css,*.js,*.ts,*.jsx,*.tsx exec ":call SetTitle()"
 func SetTitle()
     if &filetype == 'sh'
         call setline(1,"\#################################################")
@@ -249,7 +244,6 @@ func SetTitle()
     autocmd BufNewFile * normal G
 endfunc
 
-" ----- auto-generate vue component when create vue file -----
 autocmd BufNewFile *.vue exec ":call GenerateVue()"
 func GenerateVue()
     if &filetype == 'vue'
@@ -274,26 +268,30 @@ func GenerateVue()
     " to the end of the file when file created
     autocmd BufNewFile * exe "normal G"
 endfunc
+" }}
 
 " --------------------------------------------------------------------
 " -------------------------     KeyMaps    ---------------------------
 " --------------------------------------------------------------------
 
-" { leader
+" jj as Esc, very useful setting, great, great, great!!!
+inoremap jj <Esc>
+
+" force quit
+nnoremap QQ :q!<CR>
+
+" Leader {{
 nnoremap <leader>q :x<CR>
 nnoremap <leader>w :w!<CR>
-nnoremap QQ :q!<CR>
-" force write to file
-cmap w!! w !sudo tee % >/dev/null
 
 " !!!超级好用!!! 全局批量替换
 nnoremap <leader>s ggVG:s//g<left><left>
 " !!!超级好用!!! 全局精准批量替换, 输入单词， 然后换成目标单词
 nnoremap <leader>r :%s/\<\>//g<left><left><left><left><left>
-" }} leader
+" }}
 
-" jj as Esc, very useful setting, great, great, great!!!
-inoremap jj <Esc>
+" force write to file
+cmap w!! w !sudo tee % >/dev/null
 
 " shell-like move, very very very powerful in `insert mode`
 inoremap <C-b> <left>
@@ -341,7 +339,7 @@ nnoremap -- :retab!<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" goto older/newer position in change list, very powerful
+" goto older / newer position in change list, very powerful
 nnoremap <silent> ) g;
 nnoremap <silent> ( g,
 
@@ -516,4 +514,8 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 
 " 20190326 - v3.0
 " 全新的 coc.nvim 补全体系，LSP 支持；整理代码；尽量使用 coc 生态工具；
+" 因为 vim-node-rpc 导致启动速度在 500ms 左右
+
+" 20190328
+" use lightline, remove airline，启动速度在 450ms+
 

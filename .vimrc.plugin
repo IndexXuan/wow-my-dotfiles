@@ -66,14 +66,9 @@ augroup END
 Plug 'wakatime/vim-wakatime'
 
 " -------------------------- UI Layout ---------------------------
-
-" https://github.com/vim-airline/vim-airline - 1
-" lean & mean status/tabline for vim that's light as air
-Plug 'vim-airline/vim-airline'
-
-" https://github.com/vim-airline/vim-airline-themes - 1
-" A collection of themes for vim-airline
-Plug 'vim-airline/vim-airline-themes'
+" https://github.com/itchyny/lightline.vim
+" A light and configurable statusline/tabline plugin for Vim
+Plug 'itchyny/lightline.vim'
 
 " https://github.com/scrooloose/nerdtree - 0
 " a tree explorer plugin for vim
@@ -166,37 +161,24 @@ call plug#end()
 
 " -------------------------  Plugins-Specific Settings Start -------------------------
 
+" itchyny/lightline.vim {{
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+" }}
+
 " leafgarland/typescript-vim {{
   " fix filetype settings
   autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-" }}
-
-" bling/vim-airline settings {{
-  let g:airline_theme = 'badwolf'
-  if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
-  endif
-  let g:airline_symbols.space = "\ua0"
-  let g:airline_exclude_filename = []
-  let g:Powerline_symbols='fancy'
-  let g:airline_powerline_fonts=0
-  let Powerline_symbols='fancy'
-  let g:bufferline_echo=0
-
-  let g:airline_left_sep = '▶'
-  let g:airline_left_alt_sep = '❯'
-  let g:airline_right_sep = '◀'
-  let g:airline_right_alt_sep = '❮'
-  let g:airline_symbols.linenr = '¶'
-  let g:airline_symbols.branch = '⎇'
-  set fillchars+=stl:\ ,stlnc:\
-
-  " Show PASTE if in paste mode
-  let g:airline_detect_paste=1
-  " Show airline for tabs too
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#branch#enabled=1
 " }}
 
 
@@ -209,9 +191,6 @@ call plug#end()
   let NERDTreeIgnore=[ '\.obj$', '\.o$', '\.so$', '\.egg$' ]
   "close vim if the only window left open is a NERDTree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-
-  " ui in airline statusline
-  set statusline+=%#warningmsg#
 " }}
 
 
@@ -280,14 +259,6 @@ call plug#end()
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
   autocmd FileType json syntax match Comment +\/\/.\+$+
-
-  let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-  let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-
-  let airline#extensions#coc#error_symbol = 'Error:'
-  let airline#extensions#coc#error_symbol = 'Warning:'
-  let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
-  let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 
   " coc.nvim - prettier
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -469,8 +440,6 @@ call plug#end()
 " airblade/vim-gitgutter settings {{
   " Required after having changed the colorscheme
   hi clear SignColumn
-  " In vim-airline, only display "hunks" if the diff is non-zero
-  let g:airline#extensions#hunks#non_zero_only = 1
 " }}
 
 
