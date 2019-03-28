@@ -60,32 +60,54 @@ endif
 " --------------------------------------------------------------------
 
 " go go go
+filetype plugin indent on
 syntax on
 
 " UI Layout {{
-" highlight current line, a great set if you have great theme...
-set cursorline
-" show the current typing command
-set showcmd 
+" enable term gui colors
+set termguicolors
 " if hidden is not set, TextEdit might fail.
 set hidden
-" for statusline(like airline) always display
-set laststatus=2
+" history list
+set history=2000
+" highlight current line, a great set if you have great theme ...
+set cursorline
+" TODO: pumheight
+set pumheight=15
+" 增强模式中的命令行自动完成操作
+set wildmenu
+" TODO: always show signcolumns
+set signcolumn=yes
+" TODO: wildmore 
+set wildmode=list:longest,full
+" Backspace and cursor keys wrap too
+set whichwrap=b,s,h,l,<,>,[,]
+set backspace=indent,eol,start
+" TODO: display
+set display+=lastline
+" autowrite"
+set autowrite
+" load when other editor change it
+set autoread
+" show the current typing command
+set showcmd 
 " Better display for messages
 set cmdheight=2
+" line number
+set nonu 
+" 不显示默认 --insert--，交给 statusline plugin 实现
+set noshowmode
+" for statusline( like airline ) always display
+set laststatus=2
 " Smaller updatetime for CursorHold & CursorHold
 set updatetime=100
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
-set termguicolors
-" no split line bar, focus on code only
 set background=dark
 " Set the colorscheme
 colorscheme molokai
 hi CursorLine term=bold cterm=bold
-" make ternimal beautiful and statusline( like airline) show well
+" make ternimal beautiful and statusline( like airline ) show well
 set t_Co=256
 " key to make ternimal transparent, 256 is not ok
 hi Normal ctermbg=none ctermfg=255
@@ -93,18 +115,16 @@ hi Normal ctermbg=none ctermfg=255
 
 
 " Misc {{
+set autochdir
 " undo
 set undofile
 set undodir=$HOME/.vim/undo
+" 当右键单击窗口的时候， 弹出快捷菜单
+set mousemodel=popup
 " can use mouse
 set mouse=a
 " for RegExp, turn magic on
 set magic 
-set backspace=indent,eol,start
-" line number
-set nonu 
-" 不显示默认 --insert--，交给 statusline plugin 实现
-set noshowmode
 " 去掉错误提示音
 set noeb
 " file format settings
@@ -113,8 +133,6 @@ set termencoding=utf-8
 set fileformats=unix
 set encoding=utf-8
 set scrolloff=5
-" load when other editor change it
-set autoread
 " nobackup
 set nobackup
 set noswapfile
@@ -129,11 +147,7 @@ set showmatch
 set matchtime=1
 " autocomplete 
 set completeopt=longest,menu
-" 增强模式中的命令行自动完成操作
-set wildmenu
-" Ignore compiled files
-" set wildignore=*.o,*~,*.pyc,*.class
-" ref --> http://www.cnblogs.com/jianyungsun/archive/2012/07/31/2616671.html
+" @see - http://www.cnblogs.com/jianyungsun/archive/2012/07/31/2616671.html
 " set clipboard=unnamedplus
 set clipboard=unnamed
 let g:clipboard = {
@@ -149,7 +163,7 @@ let g:clipboard = {
   \ 'cache_enabled': 0,
   \ } 
 " 退出vim后在终端留下文件内容，可以理解为残影
-"set t_ti= t_te=
+" set t_ti= t_te=
 " }}
 
 " Search {{
@@ -211,6 +225,7 @@ set shiftround  " indent as shiftwidth setting
 " --------------------------------------------------------------------
 
 " Auto set title when create file in target fileType {{
+" https://www.cnblogs.com/yangliguo/p/7887438.html
 autocmd BufNewFile *.sh,*.cpp,*.c,*.scss,*.less,*.css,*.js,*.ts,*.jsx,*.tsx exec ":call SetTitle()"
 func SetTitle()
     if &filetype == 'sh'

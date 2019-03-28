@@ -55,83 +55,83 @@ call plug#begin('~/.vim/bundle')
 " lazy load to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-gitgutter', 'vim-fugitive', 'ctrlp.vim', 'ctrlsf.vim', 'nerdcommenter')
+  autocmd vimEnter * call plug#load('lightline.vim', 'vim-gitgutter', 'vim-fugitive', 'ctrlp.vim', 'ctrlsf.vim', 'nerdcommenter', 'open-browser.vim', 'vim-fuzzysearch', 'vim-snippets', 'MatchTagAlways', 'vim-jsdoc', 'vim-run')
                      \| autocmd! lazyload
 augroup END
 
 " -------------------------- Base ---------------------------
 
-" https://github.com/wakatime/vim-wakatime - 1
+" https://github.com/wakatime/vim-wakatime - 1 - no-need-lazy
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime'
 
-" https://github.com/mhinz/vim-startify
+" https://github.com/mhinz/vim-startify - 1 - not-support-lazy
 " 🔗 The fancy start screen for Vim.
 Plug 'mhinz/vim-startify'
 
-" https://github.com/neoclide/coc.nvim - 0
+" https://github.com/neoclide/coc.nvim - 0 - not-support-lazy
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
 
 " -------------------------- UI Layout ---------------------------
 
-" https://github.com/itchyny/lightline.vim
+" https://github.com/itchyny/lightline.vim - 0 - lazy
 " A light and configurable statusline/tabline plugin for Vim
-Plug 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim', { 'on': [] }
 
-" https://github.com/scrooloose/nerdtree - 0
+" https://github.com/scrooloose/nerdtree - 0 - lazy
 " a tree explorer plugin for vim
 Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
 
 " ----------------------- Functions Improved ------------------------
 
-" https://github.com/kopischke/vim-stay - 0
+" https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
 
-" https://github.com/vim-scripts/open-browser.vim - 2
+" https://github.com/vim-scripts/open-browser.vim - 2 - lazy
 " Open URI with your favorite browser from your favorite editor
-Plug 'tyru/open-browser.vim'
+Plug 'tyru/open-browser.vim', { 'on': [] }
 
-" https://github.com/ggVGc/vim-fuzzysearch - 2
+" https://github.com/ggVGc/vim-fuzzysearch - 2 - lazy
 " Fuzzy pattern building, in any buffer
-Plug 'ggVGc/vim-fuzzysearch'
+Plug 'ggVGc/vim-fuzzysearch', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
 
-" https://github.com/editorconfig/editorconfig-vim - 0
+" https://github.com/editorconfig/editorconfig-vim - 0 - no-need-lazy
 " EditorConfig plugin for Vim
 Plug 'editorconfig/editorconfig-vim'
 
-" https://github.com/scrooloose/nerdcommenter - 0
+" https://github.com/scrooloose/nerdcommenter - 0 - lazy
 " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdcommenter', { 'on': [] }
 
-" https://github.com/ctrlpvim/ctrlp.vim - 1
+" https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : [] }
 
-" https://github.com/dyng/ctrlsf.vim - 0
+" https://github.com/dyng/ctrlsf.vim - 0 - lazy
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'dyng/ctrlsf.vim', { 'on': [] }
 
 " -------------------------- Working with Git --------------------------------
 
-" https://github.com/airblade/vim-gitgutter - 0
+" https://github.com/airblade/vim-gitgutter - 0 - lazy
 " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
 Plug 'airblade/vim-gitgutter', { 'on' : [] }
 
-" https://github.com/tpope/vim-fugitive - 1 
+" https://github.com/tpope/vim-fugitive - 1 - lazy
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-fugitive', { 'on': [] }
 
 " --------------------------- Language Plugins ---------------------------------
 
-" https://github.com/leafgarland/typescript-vim - 0
+" https://github.com/leafgarland/typescript-vim - 0 - no-need-lazy
 " Typescript syntax files for Vim
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
-" https://github.com/posva/vim-vue - 0
+" https://github.com/posva/vim-vue - 0 - no-need-lazy
 " Syntax Highlight for Vue.js components
 Plug 'posva/vim-vue', { 'for' : ['vue'] }
 
@@ -145,21 +145,21 @@ Plug 'posva/vim-vue', { 'for' : ['vue'] }
 
 " --------------------- Extras / Advanced ----------------------
 
-" https://github.com/honza/vim-snippets - 1
+" https://github.com/honza/vim-snippets - 1 - lazy
 " vim-snipmate default snippets (Previously snipmate-snippets)
-Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets', { 'on': [] }
 
-" https://github.com/Valloric/MatchTagAlways - 0
+" https://github.com/Valloric/MatchTagAlways - 0 - lazy
 " A Vim plugin that always highlights the enclosing html / xml tags
-Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
+Plug 'Valloric/MatchTagAlways', { 'on': [], 'for' : ['html', 'vue'] }
 
-" https://github.com/heavenshell/vim-jsdoc - 2
+" https://github.com/heavenshell/vim-jsdoc - 2 - lazy
 " Generate JSDoc to your JavaScript code.
-Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'typescript'] }
+Plug 'heavenshell/vim-jsdoc', { 'on': [], 'for' : ['javascript', 'typescript'] }
 
-" https://github.com/chemzqm/vim-run - 2
+" https://github.com/chemzqm/vim-run - 2 - lazy
 " Run file with command in vim and watch result side by side
-Plug 'chemzqm/vim-run', { 'for': ['javascript', 'typescript'] }
+Plug 'chemzqm/vim-run', { 'on': [], 'for': ['javascript', 'typescript'] }
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -178,6 +178,13 @@ call plug#end()
 
 
 " neoclide/coc.nvim settings {{
+  " global installed extensions
+  let g:coc_global_extensions=[
+        \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-prettier',
+        \ 'coc-json', 'coc-yaml', 'coc-html', 'coc-emmet', 'coc-css', 'coc-tsserver', 'coc-vetur',
+        \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
+        \ 'coc-snippets', 'full-react-snippets', 'jest-snippets', 'vue-snippets']
+
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
   inoremap <silent><expr> <TAB>
@@ -192,6 +199,8 @@ call plug#end()
   endfunction
 
   " core typings keymap
+  nmap <silent> <leader>dp <Plug>(coc-diagnostic-prev)
+  nmap <silent> <leader>dn <Plug>(coc-diagnostic-next)
   nmap <silent> <leader>d <Plug>(coc-definition)
   nmap <silent> <leader>f <Plug>(coc-codeaction)
   nmap <silent> <leader>h :call <SID>show_documentation()<CR>
