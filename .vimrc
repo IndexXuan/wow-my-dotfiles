@@ -74,7 +74,7 @@ set laststatus=2
 " Better display for messages
 set cmdheight=2
 " Smaller updatetime for CursorHold & CursorHold
-set updatetime=300
+set updatetime=100
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 " always show signcolumns
