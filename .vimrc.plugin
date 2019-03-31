@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 20 Plugins
+"                              Plug with 18 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ call plug#begin('~/.vim/bundle')
 "    generate script for restoring the current snapshot of the plugins
 "
 "  options:
-"  branch / tag / commit => 插件git仓库选择
+"  branch / tag / commit => 插件 git 仓库选择
 "  rtp                   => vim 插件包含在子文件夹
 "  dir                   => 插件自定义文件夹
 "  do                    => 定义插件安装钩子，传入字符串命令或者函数名
@@ -52,10 +52,10 @@ call plug#begin('~/.vim/bundle')
 "
 " ----------------------------------------------------------------------------
 
-" lazy load to rush ~~~
+" lazyload to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('lightline.vim', 'vim-gitgutter', 'vim-fugitive', 'ctrlp.vim', 'ctrlsf.vim', 'nerdcommenter', 'open-browser.vim', 'vim-fuzzysearch', 'vim-snippets', 'MatchTagAlways', 'vim-jsdoc', 'vim-run')
+  autocmd vimEnter * call plug#load('vim-devicons', 'lightline.vim', 'vim-gitgutter', 'vim-fugitive', 'vim-snippets', 'open-browser.vim')
                      \| autocmd! lazyload
 augroup END
 
@@ -73,18 +73,6 @@ Plug 'mhinz/vim-startify'
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
 
-" -------------------------- UI Layout ---------------------------
-
-" https://github.com/itchyny/lightline.vim - 0 - lazy
-" A light and configurable statusline/tabline plugin for Vim
-Plug 'itchyny/lightline.vim', { 'on': [] }
-
-" https://github.com/scrooloose/nerdtree - 0 - lazy
-" a tree explorer plugin for vim
-Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
-
-" ----------------------- Functions Improved ------------------------
-
 " https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
@@ -93,9 +81,28 @@ Plug 'kopischke/vim-stay'
 " Open URI with your favorite browser from your favorite editor
 Plug 'tyru/open-browser.vim', { 'on': [] }
 
-" https://github.com/ggVGc/vim-fuzzysearch - 2 - lazy
-" Fuzzy pattern building, in any buffer
-Plug 'ggVGc/vim-fuzzysearch', { 'on': [] }
+" -------------------------- UI Layout ---------------------------
+
+" https://github.com/flazz/vim-colorschemes - no-need-lazy
+" one colorscheme pack to rule them all!
+Plug 'flazz/vim-colorschemes'
+
+" https://github.com/itchyny/lightline.vim - 0 - lazy - 否则会拖慢
+" A light and configurable statusline/tabline plugin for Vim
+Plug 'itchyny/lightline.vim', { 'on': [] }
+
+" https://github.com/ryanoasis/vim-devicons - 2 - lazy - 必须在 lightline 之前
+" Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
+" Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体
+Plug 'ryanoasis/vim-devicons', { 'on': [] }
+
+" https://github.com/scrooloose/nerdtree - 0 - lazy - on-demand
+" a tree explorer plugin for vim
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+
+" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 -lazy - on-demand
+" A plugin of NERDTree showing git status
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
 " ----------------- As Programmer's Editor -----------------------
 
@@ -103,17 +110,17 @@ Plug 'ggVGc/vim-fuzzysearch', { 'on': [] }
 " EditorConfig plugin for Vim
 Plug 'editorconfig/editorconfig-vim'
 
-" https://github.com/scrooloose/nerdcommenter - 0 - lazy
+" https://github.com/scrooloose/nerdcommenter - 0 - no-need-lazy
 " Vim plugin for intensely orgasmic commenting
-Plug 'scrooloose/nerdcommenter', { 'on': [] }
+Plug 'scrooloose/nerdcommenter'
 
-" https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy
+" https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy - on-demand
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'ctrlpvim/ctrlp.vim', { 'on' : [] }
+Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
 
-" https://github.com/dyng/ctrlsf.vim - 0 - lazy
+" https://github.com/dyng/ctrlsf.vim - 0 - lazy - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
-Plug 'dyng/ctrlsf.vim', { 'on': [] }
+Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
 " -------------------------- Working with Git --------------------------------
 
@@ -135,6 +142,10 @@ Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 " Syntax Highlight for Vue.js components
 Plug 'posva/vim-vue', { 'for' : ['vue'] }
 
+" https://github.com/iamcco/markdown-preview.nvim
+" markdown preview plugin for (neo)vim
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
 " https://github.com/Quramy/vim-js-pretty-template
 " highlights JavaScript's Template Strings in other FileType syntax rule
 " Plug 'Quramy/vim-js-pretty-template'
@@ -151,15 +162,15 @@ Plug 'honza/vim-snippets', { 'on': [] }
 
 " https://github.com/Valloric/MatchTagAlways - 0 - lazy
 " A Vim plugin that always highlights the enclosing html / xml tags
-Plug 'Valloric/MatchTagAlways', { 'on': [], 'for' : ['html', 'vue'] }
+Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
 
 " https://github.com/heavenshell/vim-jsdoc - 2 - lazy
 " Generate JSDoc to your JavaScript code.
-Plug 'heavenshell/vim-jsdoc', { 'on': [], 'for' : ['javascript', 'typescript'] }
+Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'typescript'] }
 
 " https://github.com/chemzqm/vim-run - 2 - lazy
 " Run file with command in vim and watch result side by side
-Plug 'chemzqm/vim-run', { 'on': [], 'for': ['javascript', 'typescript'] }
+Plug 'chemzqm/vim-run', { 'for': ['javascript', 'typescript'] }
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -178,13 +189,48 @@ call plug#end()
 
 
 " neoclide/coc.nvim settings {{
-  " global installed extensions
+
+  " 1. global installed extensions
   let g:coc_global_extensions=[
         \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-prettier',
         \ 'coc-json', 'coc-yaml', 'coc-html', 'coc-emmet', 'coc-css', 'coc-tsserver', 'coc-vetur',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets', 'full-react-snippets', 'jest-snippets', 'vue-snippets']
 
+
+  " 2. Misc
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+
+  " 3. Using CocList
+  " Show all diagnostics
+  nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+  " Manage extensions
+  nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+  " Show commands
+  nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+  " Find symbol of current document
+  nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+  " Search workspace symbols
+  nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+  " Do default action for next item.
+  nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+  " Do default action for previous item.
+  nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+  " Resume latest coc list
+  nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+  " 4. Buffer 内操作
+  " 文本搜索，等同于 / 内置命令
+  " nnoremap <silent> <C-f>  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+  " 文本模糊搜索，等同于 fuzzy-search 插件
+
+  " 5. 全局操作
+  " 模糊搜索文件 - 代替 CtrlP
+  " 模糊搜索文本 - 代替 CtrlSF
+
+  " 6. 补全配置
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
   inoremap <silent><expr> <TAB>
@@ -198,16 +244,19 @@ call plug#end()
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
+  let g:coc_snippet_next = '<tab>'
+
+  " 7. 跳转配置
   " core typings keymap
-  nmap <silent> <leader>dp <Plug>(coc-diagnostic-prev)
-  nmap <silent> <leader>dn <Plug>(coc-diagnostic-next)
+  nmap <silent> <leader>pp <Plug>(coc-diagnostic-prev)
+  nmap <silent> <leader>nn <Plug>(coc-diagnostic-next)
   nmap <silent> <leader>d <Plug>(coc-definition)
-  nmap <silent> <leader>f <Plug>(coc-codeaction)
   nmap <silent> <leader>h :call <SID>show_documentation()<CR>
+  nmap <silent> <leader>ca <Plug>(coc-codeaction)
   nmap <silent> <leader>rn <Plug>(coc-rename)
-  nmap <silent> <leader>rr <Plug>(coc-references)
-  nmap <silent> <leader>tt <Plug>(coc-type-definition)
-  nmap <silent> <leader>ii <Plug>(coc-implementation)
+  nmap <silent> <leader>rf <Plug>(coc-references)
+  nmap <silent> <leader>td <Plug>(coc-type-definition)
+  nmap <silent> <leader>ip <Plug>(coc-implementation)
 
   function! s:show_documentation()
     if &filetype == 'vim'
@@ -217,6 +266,7 @@ call plug#end()
     endif
   endfunction
 
+  " 8. 自定义命令
   function! SetupCommandAbbrs(from, to)
     exec 'cnoreabbrev <expr> '.a:from
           \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
@@ -247,11 +297,6 @@ call plug#end()
   call SetupCommandAbbrs('vimrcplugin', 'EditVimrcPlugin')
   call SetupCommandAbbrs('blame', 'Gblame')
 
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-
-  autocmd FileType json syntax match Comment +\/\/.\+$+
-
   " coc.nvim - prettier
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
   nmap <leader>p :Prettier<CR>
@@ -259,19 +304,63 @@ call plug#end()
 
 
 " itchyny/lightline.vim {{
-let g:lightline = {
+  let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified', 'coc' ] ]
+      \ },
+      \ 'component': {
+      \   'coc': 'Powered By coc.nvim'
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'cocstatus': 'coc#status'
+      \   'filename': 'LightlineFilename',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \   'gitbranch': 'LightlineGitBranch',
+      \   'cocstatus': 'LightlineCocStatus',
       \ },
       \ }
+
+  function! LightlineFilename()
+    let filename = expand('%:t') !=# '' ? expand('%:t') : '[New File]'
+    let modified = &modified ? ' +' : ''
+    return filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
+  endfunction
+
+  function! LightlineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
+
+  function! LightlineFiletype()
+    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  endfunction
+
+  function! LightlineGitBranch()
+    return '| ' . fugitive#head()
+  endfunction
+
+  function! LightlineCocStatus()
+    return coc#status() != '' ? coc#status() : 'no info'
+  endfunction
 " }}
 
+
+" ryanoasis/vim-devicons {{
+  let g:WebDevIconsOS = 'Darwin'
+  let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol='~'
+  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  let g:DevIconsEnableFolderPatternMatching = 1
+  " autocmd VimEnter * call NERDTreeHighlightFile('vue', 'white', 'none', 'white', '#151515')
+  " autocmd VimEnter * call NERDTreeHighlightFile('ts', 'white', 'none', 'white', '#151515')
+  " autocmd VimEnter * call NERDTreeHighlightFile('js', 'white', 'none', 'white', '#151515')
+  " autocmd VimEnter * call NERDTreeHighlightFile('html', 'green', 'none', 'green', '#151515')
+  " autocmd VimEnter * call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+  " autocmd VimEnter * call NERDTreeHighlightFile('scss', 'cyan', 'none', 'cyan', '#151515')
+  " autocmd VimEnter * call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+  " autocmd VimEnter * call NERDTreeHighlightFile('gitignore', '#686868', 'none', '#686868', '#151515')
+  " autocmd VimEnter * call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+" }}
 
 " leafgarland/typescript-vim {{
   " fix filetype settings
@@ -281,6 +370,13 @@ let g:lightline = {
 
 
 " {{ vim-nerdtree settings
+  let g:NERDTreeChDirMode = 2
+  " NERDTrees File highlighting
+  function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+    exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+    exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+  endfunction
+
   nmap <silent> <leader>t :NERDTreeToggle<CR>
   let NERDTreeHighlightCursorline=1
   let NERDTreeQuitOnOpen=1
@@ -295,6 +391,13 @@ let g:lightline = {
 " vim-stay setting {{
   " for vim-stay Plug recommend set
   set viewoptions=cursor,folds,slash,unix
+" }}
+
+
+" open-browser settings {{
+  " if it looks like URI, Open URI under cursor.
+  " Otherwise, Search word under cursor.
+  nmap <C-g> <Plug>(openbrowser-smart-search)
 " }}
 
 
@@ -373,19 +476,6 @@ let g:lightline = {
 " }}
 
 
-" open-browser settings {{
-  " if it looks like URI, Open URI under cursor.
-  " Otherwise, Search word under cursor. 
-  nmap <C-g> <Plug>(openbrowser-smart-search)
-" }}
-
-
-" ggVGc/vim-fuzzysearch {{
-  " fuzzy search, 模糊搜索
-  nnoremap <C-f> :FuzzySearch<CR>
-" }}
-
-
 " scrooloose/nerdcommenter settings {{
   " Add spaces after comment delimiters by default
   let g:NERDSpaceDelims = 1
@@ -395,12 +485,6 @@ let g:lightline = {
 
   " Align line-wise comment delimiters flush left instead of following code indentation
   let g:NERDDefaultAlign = 'left'
-
-  " Set a language to use its alternate delimiters by default
-  let g:NERDAltDelims_java = 1
-
-  " Add your own custom formats or override the defaults
-  let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 
   " Allow commenting and inverting empty lines (useful when commenting a region)
   let g:NERDCommentEmptyLines = 1
@@ -424,6 +508,7 @@ let g:lightline = {
       endif
     endif
   endfunction
+
   function! NERDCommenter_after()
     if g:ft == 'vue'
       setf vue
@@ -434,16 +519,14 @@ let g:lightline = {
 
 
 " CtrlP settings {{
-  let g:ctrlp_map = '<c-p>'
+  nnoremap <silent> <C-p> :CtrlP<CR>
+  " let g:ctrlp_map = '<C-p>'
   " mixed mode is more useful and smart
   let g:ctrlp_cmd = 'CtrlPMixed'
-  " 性能起见，只开启MRU模式, 大范围的文件夹跳转用autojump
-  "let g:ctrlp_cmd = 'CtrlPMRU'
   let g:ctrlp_working_path_mode = 'ra'
-  " let g:ctrlp_extensions = ['funky', 'ssh']
 
   let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](node_modules|target|dist)|\.(git|hg|svn|rvm)$',
+      \ 'dir':  '\v[\/](node_modules|target|dist|build)|\.(git|hg|svn|rvm)$',
       \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
       \ }
   let g:ctrlp_follow_symlinks=1
@@ -452,9 +535,11 @@ let g:lightline = {
 
 " CtrlSF Settings, based on ggreer/the_silver_searcher {{
   let g:ackprg = 'ag --nogroup --nocolor --column'
-  nnoremap <leader>sf :CtrlSF
+  nnoremap <leader>f :CtrlSF
   let g:ctrlsf_auto_close = 0
-  let g:ctrlsf_default_root = 'project'
+  " 都有场景，暂时先 cwd 吧
+  " let g:ctrlsf_default_root = 'project'
+  let g:ctrlsf_default_root = 'cwd'
   let g:ctrlsf_mapping = {
       \ "next": "n",
       \ "prev": "N",
@@ -472,9 +557,13 @@ let g:lightline = {
   let g:vue_disable_pre_processors=1
 " }}
 
+" iamcco/markdown-preview {{
+  nnoremap <leader>m :MarkdownPreview<CR>
+  nnoremap <leader>M :MarkdownPreviewStop<CR>
+" }}
 
 " chemzqm/vim-run {{
-  nmap <leader>rrr :Run<CR>
+  nmap <C-r> :Run<CR>
   let g:vim_run_command_map = {
         \'typescript': 'ts-node',
         \'javascript': 'node',

@@ -101,11 +101,19 @@ set noshowmode
 set laststatus=2
 " Smaller updatetime for CursorHold & CursorHold
 set updatetime=100
-" don't give |ins-completion-menu| messages.
+" TODO: shortmess
 set shortmess+=c
+" default bg & theme
 set background=dark
-" Set the colorscheme
 colorscheme molokai
+nnoremap <leader>bgl :colorscheme solarized8_light<CR>
+nnoremap <leader>bgd :colorscheme molokai<CR>
+" colorscheme solarized8_light
+" Set the colorscheme
+" colorscheme desertink
+" colorscheme late_evening
+" colorscheme sunburst
+" colorscheme triplejelly
 hi CursorLine term=bold cterm=bold
 " make ternimal beautiful and statusline( like airline ) show well
 set t_Co=256
@@ -115,7 +123,7 @@ hi Normal ctermbg=none ctermfg=255
 
 
 " Misc {{
-set autochdir
+" set autochdir
 " undo
 set undofile
 set undodir=$HOME/.vim/undo
@@ -131,7 +139,7 @@ set noeb
 set fileencodings=utf-8,gk2312,gbk,gb18030
 set termencoding=utf-8
 set fileformats=unix
-set encoding=utf-8
+set encoding=UTF-8
 set scrolloff=5
 " nobackup
 set nobackup
@@ -301,7 +309,7 @@ nnoremap <leader>w :w!<CR>
 
 " !!!超级好用!!! 全局批量替换
 nnoremap <leader>s ggVG:s//g<left><left>
-" !!!超级好用!!! 全局精准批量替换, 输入单词， 然后换成目标单词
+" !!!超级好用!!! 全局正则批量替换, 输入单词， 然后换成目标单词
 nnoremap <leader>r :%s/\<\>//g<left><left><left><left><left>
 " }}
 
@@ -310,7 +318,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 " shell-like move, very very very powerful in `insert mode`
 inoremap <C-b> <left>
-inoremap <c-f> <Right>
+inoremap <C-f> <Right>
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
 "imap <C-a> <Home> " 有奇怪的表现，改成了下方这样设置 20170313 
@@ -366,19 +374,16 @@ nnoremap 0 )
 nnoremap 5 %
 
 " Y need remap for useful
-nnoremap Y y$
+nnoremap YY y$
 " delete to the line begin 
 nnoremap DD d^
-
 " great, paste and auto in the bottom of the paste content, very useful!
 vnoremap <silent> y y`]
 nnoremap <silent> p p`]
 
 " ----- tab -----
-" so tabnext is very important, so map to tt 20150714
-nnoremap tt     :tabnext<CR>
-" add in 20150806, tab use often now
-nnoremap rr     :tabprevious<CR> 
+nnoremap tt    :tabnext<CR>
+nnoremap rr    :tabprevious<CR> 
 nnoremap <C-t>  :tabnew<CR>
 inoremap <C-t>  <Esc>:tabnew<CR>i
 
@@ -533,4 +538,16 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 
 " 20190328
 " use lightline, remove airline，启动速度在 450ms+
+
+" 20190329
+" use yarn global add vim-node-rpc, 启动速度正常了，外加精简插件，目前 ~200ms
+
+" 20190330
+" TODO: .vimrc 中很多不懂的配置
+" TODO: 尽量使用 coc 生态，去除 vim plugins，学习 coc-list
+
+" 20190331
+" 添加 nerdfont 安装文档，以支持 devicon 插件
+" 设置终端 font-size 14，让 emoji 显示正常
+" 复原 vim 设置：1. 具备基础工具; 2. vimrc; 3. 终端颜色等设置;
 
