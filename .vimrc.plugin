@@ -116,11 +116,11 @@ Plug 'scrooloose/nerdcommenter'
 
 " https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy - on-demand
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
+" Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
 
 " https://github.com/dyng/ctrlsf.vim - 0 - lazy - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
-Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
+" Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
 " -------------------------- Working with Git --------------------------------
 
@@ -195,31 +195,34 @@ call plug#end()
         \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-prettier',
         \ 'coc-json', 'coc-yaml', 'coc-html', 'coc-emmet', 'coc-css', 'coc-tsserver', 'coc-vetur',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
-        \ 'coc-snippets', 'full-react-snippets', 'jest-snippets', 'vue-snippets']
+        \ 'coc-snippets']
 
 
   " 2. Misc
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
+  " autocmd CursorHold * silent call CocActionAsync('doHover')
   autocmd FileType json syntax match Comment +\/\/.\+$+
 
   " 3. Using CocList
   " Show all diagnostics
-  nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+  nnoremap <silent> <space>l  :<C-u>CocList --number-select lists<cr>
+  nnoremap <silent> <space>d  :<C-u>CocList --number-select --auto-preview diagnostics<cr>
   " Manage extensions
-  nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+  nnoremap <silent> <space>e  :<C-u>CocList --number-select extensions<cr>
   " Show commands
-  nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+  nnoremap <silent> <space>c  :<C-u>CocList --number-select commands<cr>
   " Find symbol of current document
-  nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+  nnoremap <silent> <space>o  :<C-u>CocList --number-select --auto-preview outline<cr>
   " Search workspace symbols
-  nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+  nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<cr>
+  nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
   " Do default action for next item.
   nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
   nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list
-  nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+  nnoremap <silent> <space>r  :<C-u>CocListResume<CR>
 
   " 4. Buffer 内操作
   " 文本搜索，等同于 / 内置命令
@@ -519,31 +522,31 @@ call plug#end()
 
 
 " CtrlP settings {{
-  nnoremap <silent> <C-p> :CtrlP<CR>
-  " let g:ctrlp_map = '<C-p>'
-  " mixed mode is more useful and smart
-  let g:ctrlp_cmd = 'CtrlPMixed'
-  let g:ctrlp_working_path_mode = 'ra'
-
-  let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](node_modules|target|dist|build)|\.(git|hg|svn|rvm)$',
-      \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
-      \ }
-  let g:ctrlp_follow_symlinks=1
+  " nnoremap <silent> <C-p> :CtrlP<CR>
+  " " let g:ctrlp_map = '<C-p>'
+  " " mixed mode is more useful and smart
+  " let g:ctrlp_cmd = 'CtrlPMixed'
+  " let g:ctrlp_working_path_mode = 'ra'
+  "
+  " let g:ctrlp_custom_ignore = {
+  "     \ 'dir':  '\v[\/](node_modules|target|dist|build)|\.(git|hg|svn|rvm)$',
+  "     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+  "     \ }
+  " let g:ctrlp_follow_symlinks=1
 " }}
 
 
 " CtrlSF Settings, based on ggreer/the_silver_searcher {{
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-  nnoremap <leader>f :CtrlSF
-  let g:ctrlsf_auto_close = 0
-  " 都有场景，暂时先 cwd 吧
-  " let g:ctrlsf_default_root = 'project'
-  let g:ctrlsf_default_root = 'cwd'
-  let g:ctrlsf_mapping = {
-      \ "next": "n",
-      \ "prev": "N",
-      \ }
+  " let g:ackprg = 'ag --nogroup --nocolor --column'
+  " nnoremap <leader>f :CtrlSF
+  " let g:ctrlsf_auto_close = 0
+  " " 都有场景，暂时先 cwd 吧
+  " " let g:ctrlsf_default_root = 'project'
+  " let g:ctrlsf_default_root = 'cwd'
+  " let g:ctrlsf_mapping = {
+  "     \ "next": "n",
+  "     \ "prev": "N",
+  "     \ }
 " }}
 
 

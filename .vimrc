@@ -308,9 +308,9 @@ nnoremap <leader>q :x<CR>
 nnoremap <leader>w :w!<CR>
 
 " !!!超级好用!!! 全局批量替换
-nnoremap <leader>s ggVG:s//g<left><left>
+nnoremap <C-r> ggVG:s//g<left><left>
 " !!!超级好用!!! 全局正则批量替换, 输入单词， 然后换成目标单词
-nnoremap <leader>r :%s/\<\>//g<left><left><left><left><left>
+" nnoremap <C-r> :%s/\<\>//g<left><left><left><left><left>
 " }}
 
 " force write to file
@@ -382,8 +382,8 @@ vnoremap <silent> y y`]
 nnoremap <silent> p p`]
 
 " ----- tab -----
-nnoremap tt    :tabnext<CR>
-nnoremap rr    :tabprevious<CR> 
+nnoremap tn    :tabnext<CR>
+nnoremap tp    :tabprevious<CR>
 nnoremap <C-t>  :tabnew<CR>
 inoremap <C-t>  <Esc>:tabnew<CR>i
 
