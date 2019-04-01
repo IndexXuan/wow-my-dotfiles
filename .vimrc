@@ -382,8 +382,8 @@ vnoremap <silent> y y`]
 nnoremap <silent> p p`]
 
 " ----- tab -----
-nnoremap tn    :tabnext<CR>
-nnoremap tp    :tabprevious<CR>
+nnoremap <C-n>    :tabnext<CR>
+nnoremap <C-p>    :tabprevious<CR>
 nnoremap <C-t>  :tabnew<CR>
 inoremap <C-t>  <Esc>:tabnew<CR>i
 

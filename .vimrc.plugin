@@ -93,7 +93,7 @@ Plug 'itchyny/lightline.vim', { 'on': [] }
 
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 必须在 lightline 之前
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
-" Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体
+" NOTE: Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号（因为 emoji icon 太太，12 号不和谐）
 Plug 'ryanoasis/vim-devicons', { 'on': [] }
 
 " https://github.com/scrooloose/nerdtree - 0 - lazy - on-demand
@@ -191,6 +191,7 @@ call plug#end()
 " neoclide/coc.nvim settings {{
 
   " 1. global installed extensions
+  " NOTE: 还有些 github vscode snippets 没列出来，不稳定，有的安装不上
   let g:coc_global_extensions=[
         \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-prettier',
         \ 'coc-json', 'coc-yaml', 'coc-html', 'coc-emmet', 'coc-css', 'coc-tsserver', 'coc-vetur',
