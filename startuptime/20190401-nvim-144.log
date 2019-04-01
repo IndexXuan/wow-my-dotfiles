@@ -1,0 +1,128 @@
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.009  000.009: --- NVIM STARTING ---
+000.715  000.706: locale set
+001.237  000.522: inits 1
+001.259  000.022: window checked
+001.634  000.375: parsing arguments
+001.858  000.224: expanding arguments
+001.948  000.089: inits 2
+002.471  000.524: init highlight
+005.540  002.095  002.095: sourcing /Users/indexxuan/.local/share/nvim/site/autoload/plug.vim
+018.565  000.024  000.024: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/ftdetect/editorconfig.vim
+018.759  000.031  000.031: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/ftdetect/typescript.vim
+018.919  000.022  000.022: sourcing /Users/indexxuan/.vim/bundle/vim-vue/ftdetect/vue.vim
+019.068  007.014  006.937: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/filetype.vim
+019.301  000.048  000.048: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/ftplugin.vim
+019.524  000.048  000.048: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/indent.vim
+020.250  000.244  000.244: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/syncolor.vim
+020.373  000.537  000.294: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/synload.vim
+020.418  000.761  000.224: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/syntax.vim
+021.044  000.482  000.482: sourcing /Users/indexxuan/.vim/bundle/vim-startify/autoload/startify/fortune.vim
+021.841  018.559  008.111: sourcing /Users/indexxuan/.vim/.vimrc.plugin
+022.048  000.020  000.020: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/filetype.vim
+022.234  000.016  000.016: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/ftplugin.vim
+022.416  000.016  000.016: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/indent.vim
+022.847  000.221  000.221: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/nosyntax.vim
+023.358  000.177  000.177: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/syncolor.vim
+023.481  000.472  000.295: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/synload.vim
+023.521  000.996  000.303: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/syntax.vim
+024.203  000.180  000.180: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/syncolor.vim
+025.761  000.222  000.222: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/syncolor.vim
+026.764  000.189  000.189: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/syncolor.vim
+027.391  000.182  000.182: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/syncolor.vim
+027.982  003.063  002.470: sourcing /Users/indexxuan/.vim/bundle/vim-colorschemes/colors/molokai.vim
+028.489  025.465  002.615: sourcing /Users/indexxuan/.config/nvim/init.vim
+028.505  000.569: sourcing vimrc file(s)
+036.919  008.072  008.072: sourcing /Users/indexxuan/.vim/bundle/vim-wakatime/plugin/wakatime.vim
+037.351  000.161  000.161: sourcing /Users/indexxuan/.vim/bundle/vim-startify/plugin/startify.vim
+037.913  000.189  000.189: sourcing /Users/indexxuan/.vim/bundle/coc.nvim/autoload/coc/rpc.vim
+038.659  000.600  000.600: sourcing /Users/indexxuan/.vim/bundle/coc.nvim/autoload/coc/util.vim
+039.135  000.195  000.195: sourcing /Users/indexxuan/.vim/bundle/coc.nvim/autoload/coc/client.vim
+041.343  003.771  002.786: sourcing /Users/indexxuan/.vim/bundle/coc.nvim/plugin/coc.vim
+042.275  000.089  000.089: sourcing /Users/indexxuan/.vim/bundle/vim-stay/autoload/stay/shim.vim
+043.160  000.491  000.491: sourcing /Users/indexxuan/.vim/bundle/vim-stay/autoload/stay/integrate/fastfold.vim
+043.252  001.631  001.051: sourcing /Users/indexxuan/.vim/bundle/vim-stay/plugin/stay.vim
+043.676  000.141  000.141: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/plugin/editorconfig.vim
+049.101  005.074  005.074: sourcing /Users/indexxuan/.vim/bundle/nerdcommenter/plugin/NERD_commenter.vim
+050.136  000.306  000.306: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/gzip.vim
+050.249  000.020  000.020: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/health.vim
+050.459  000.097  000.097: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/man.vim
+051.151  000.605  000.605: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/matchit.vim
+051.480  000.212  000.212: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/matchparen.vim
+052.174  000.557  000.557: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/netrwPlugin.vim
+052.525  000.226  000.226: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/rplugin.vim
+052.761  000.133  000.133: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/shada.vim
+052.914  000.036  000.036: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/spellfile.vim
+053.205  000.180  000.180: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/tarPlugin.vim
+053.427  000.114  000.114: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/tohtml.vim
+053.552  000.028  000.028: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/tutor.vim
+053.858  000.212  000.212: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/plugin/zipPlugin.vim
+053.882  003.799: loading plugins
+054.027  000.145: loading packages
+054.096  000.070: loading after plugins
+054.112  000.016: inits 3
+054.898  000.786: reading ShaDa
+058.669  003.771: clearing screen
+064.358  000.130  000.130: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/ftplugin/xml.vim
+065.068  000.143  000.143: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/indent/xml.vim
+066.370  000.335  000.335: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/dtd.vim
+066.483  001.009  000.674: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/xml.vim
+068.144  000.312  000.312: sourcing /Users/indexxuan/.vim/bundle/vim-run/plugin/run.vim
+069.147  000.087  000.087: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/compiler/typescript.vim
+069.259  000.386  000.300: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/ftplugin/typescript.vim
+069.665  000.061  000.061: sourcing /Users/indexxuan/.vim/bundle/vim-jsdoc/ftplugin/typescript/jsdoc.vim
+070.649  000.338  000.338: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/indent/typescript.vim
+071.390  000.075  000.075: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/compiler/typescript.vim
+071.496  000.358  000.282: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/ftplugin/typescript.vim
+071.888  000.058  000.058: sourcing /Users/indexxuan/.vim/bundle/vim-jsdoc/ftplugin/typescript/jsdoc.vim
+072.549  000.046  000.046: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/indent/typescript.vim
+074.013  001.070  001.070: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/syntax/typescript.vim
+074.797  000.263  000.263: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig.vim
+076.819  000.036  000.036: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig/root.vim
+077.054  000.057  000.057: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig/insert_final_newline.vim
+077.276  000.047  000.047: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig/end_of_line.vim
+077.539  000.086  000.086: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig/charset.vim
+077.765  000.039  000.039: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig/indent_style.vim
+077.966  000.037  000.037: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig/indent_size.vim
+078.180  000.040  000.040: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig/trim_trailing_whitespace.vim
+078.379  000.030  000.030: sourcing /Users/indexxuan/.vim/bundle/vim-editorconfig/autoload/editorconfig/tab_width.vim
+079.084  000.174  000.174: sourcing /Users/indexxuan/.vim/bundle/vim-stay/autoload/stay/win.vim
+079.503  000.129  000.129: sourcing /Users/indexxuan/.vim/bundle/vim-stay/autoload/stay.vim
+080.046  000.162  000.162: sourcing /Users/indexxuan/.vim/bundle/vim-stay/autoload/stay/view.vim
+081.013  000.242  000.242: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/autoload/provider/clipboard.vim
+081.098  000.620  000.378: sourcing /Users/indexxuan/.local/share/nvim/view/~=+workspace=+delivery=+app=+service=+app.ts=
+081.377  017.078: opening buffers
+082.666  001.290: BufEnter autocommands
+082.674  000.008: editing files in windows
+085.908  000.025  000.025: sourcing /Users/indexxuan/.vim/bundle/vim-devicons/autoload/devicons/plugins/startify.vim
+085.948  002.167  002.143: sourcing /Users/indexxuan/.vim/bundle/vim-devicons/plugin/webdevicons.vim
+087.212  000.156  000.156: sourcing /Users/indexxuan/.vim/bundle/lightline.vim/plugin/lightline.vim
+088.833  000.174  000.174: sourcing /Users/indexxuan/.vim/bundle/vim-gitgutter/autoload/gitgutter/utility.vim
+089.377  000.123  000.123: sourcing /Users/indexxuan/.vim/bundle/vim-gitgutter/autoload/gitgutter/highlight.vim
+090.077  001.738  001.441: sourcing /Users/indexxuan/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim
+091.805  000.059  000.059: sourcing /Users/indexxuan/.vim/bundle/vim-fugitive/ftdetect/fugitive.vim
+092.803  000.511  000.511: sourcing /Users/indexxuan/.vim/bundle/vim-fugitive/plugin/fugitive.vim
+094.251  000.074  000.074: sourcing /Users/indexxuan/.vim/bundle/vim-snippets/plugin/vimsnippets.vim
+107.609  000.173  000.173: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/ftplugin/xml.vim
+108.399  000.157  000.157: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/indent/xml.vim
+109.824  000.361  000.361: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/dtd.vim
+109.960  001.019  000.657: sourcing /Users/indexxuan/nvim-osx64/share/nvim/runtime/syntax/xml.vim
+110.848  000.494  000.494: sourcing /Users/indexxuan/.vim/bundle/lightline.vim/autoload/lightline.vim
+111.678  000.198  000.198: sourcing /Users/indexxuan/.vim/bundle/coc.nvim/autoload/coc.vim
+117.615  005.470  005.470: sourcing /Users/indexxuan/.vim/bundle/vim-fugitive/autoload/fugitive.vim
+117.978  000.124  000.124: sourcing /Users/indexxuan/.vim/bundle/lightline.vim/autoload/lightline/tab.vim
+118.763  000.327  000.327: sourcing /Users/indexxuan/.vim/bundle/lightline.vim/autoload/lightline/colorscheme.vim
+120.783  002.566  002.239: sourcing /Users/indexxuan/.vim/bundle/lightline.vim/autoload/lightline/colorscheme/powerline.vim
+126.404  000.079  000.079: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/compiler/typescript.vim
+126.531  000.423  000.344: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/ftplugin/typescript.vim
+126.959  000.060  000.060: sourcing /Users/indexxuan/.vim/bundle/vim-jsdoc/ftplugin/typescript/jsdoc.vim
+127.810  000.063  000.063: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/indent/typescript.vim
+129.436  001.138  001.138: sourcing /Users/indexxuan/.vim/bundle/typescript-vim/syntax/typescript.vim
+135.359  036.094: VimEnter autocommands
+135.363  000.004: before starting main loop
+144.026  008.663: first screen update
+144.032  000.006: --- NVIM STARTED ---

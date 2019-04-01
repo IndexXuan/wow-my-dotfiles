@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 18 Plugins
+"                              Plug with 22 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazyload to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-devicons', 'lightline.vim', 'vim-gitgutter', 'vim-fugitive', 'vim-snippets', 'open-browser.vim')
+  autocmd vimEnter * call plug#load('vim-devicons', 'lightline.vim', 'vim-gitgutter', 'vim-fugitive', 'vim-snippets', 'nerdtree-git-plugin')
                      \| autocmd! lazyload
 augroup END
 
@@ -79,11 +79,15 @@ Plug 'kopischke/vim-stay'
 
 " https://github.com/vim-scripts/open-browser.vim - 2 - lazy
 " Open URI with your favorite browser from your favorite editor
-Plug 'tyru/open-browser.vim', { 'on': [] }
+Plug 'tyru/open-browser.vim', { 'on': '<Plug>(openbrowser-smart-search)' }
+
+" https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy
+" Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
+Plug 'sgur/vim-editorconfig'
 
 " -------------------------- UI Layout ---------------------------
 
-" https://github.com/flazz/vim-colorschemes - no-need-lazy
+" https://github.com/flazz/vim-colorschemes - 0 - no-need-lazy
 " one colorscheme pack to rule them all!
 Plug 'flazz/vim-colorschemes'
 
@@ -100,15 +104,11 @@ Plug 'ryanoasis/vim-devicons', { 'on': [] }
 " a tree explorer plugin for vim
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 -lazy - on-demand
+" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 -lazy - not support on-demand
 " A plugin of NERDTree showing git status
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
-
-" https://github.com/editorconfig/editorconfig-vim - 0 - no-need-lazy
-" EditorConfig plugin for Vim
-Plug 'editorconfig/editorconfig-vim'
 
 " https://github.com/scrooloose/nerdcommenter - 0 - no-need-lazy
 " Vim plugin for intensely orgasmic commenting
@@ -120,7 +120,7 @@ Plug 'scrooloose/nerdcommenter'
 
 " https://github.com/dyng/ctrlsf.vim - 0 - lazy - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
-" Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
+Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
 " -------------------------- Working with Git --------------------------------
 
@@ -142,9 +142,9 @@ Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 " Syntax Highlight for Vue.js components
 Plug 'posva/vim-vue', { 'for' : ['vue'] }
 
-" https://github.com/iamcco/markdown-preview.nvim
+" https://github.com/iamcco/markdown-preview.nvim - no-need-lazy
 " markdown preview plugin for (neo)vim
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': [ 'markdown', 'md'] }
 
 " https://github.com/Quramy/vim-js-pretty-template
 " highlights JavaScript's Template Strings in other FileType syntax rule
@@ -254,9 +254,10 @@ call plug#end()
   " core typings keymap
   nmap <silent> <leader>pp <Plug>(coc-diagnostic-prev)
   nmap <silent> <leader>nn <Plug>(coc-diagnostic-next)
-  nmap <silent> <leader>d <Plug>(coc-definition)
-  nmap <silent> <leader>h :call <SID>show_documentation()<CR>
-  nmap <silent> <leader>ca <Plug>(coc-codeaction)
+  nmap <silent> <leader>d  <Plug>(coc-definition)
+  nmap <silent> <leader>h  :call <SID>show_documentation()<CR>
+  " code fix since ca is nerdtree used
+  nmap <silent> <leader>cf <Plug>(coc-codeaction)
   nmap <silent> <leader>rn <Plug>(coc-rename)
   nmap <silent> <leader>rf <Plug>(coc-references)
   nmap <silent> <leader>td <Plug>(coc-type-definition)
@@ -312,7 +313,7 @@ call plug#end()
       \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified', 'coc' ] ]
+      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'coc' ] ]
       \ },
       \ 'component': {
       \   'coc': 'Powered By coc.nvim'
@@ -341,7 +342,7 @@ call plug#end()
   endfunction
 
   function! LightlineGitBranch()
-    return '| ' . fugitive#head()
+    return '| ⎇ ' . fugitive#head()
   endfunction
 
   function! LightlineCocStatus()
@@ -390,7 +391,6 @@ call plug#end()
   "close vim if the only window left open is a NERDTree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 " }}
-
 
 " vim-stay setting {{
   " for vim-stay Plug recommend set

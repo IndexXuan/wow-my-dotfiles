@@ -100,7 +100,7 @@ set noshowmode
 " for statusline( like airline ) always display
 set laststatus=2
 " Smaller updatetime for CursorHold & CursorHold
-set updatetime=100
+set updatetime=50
 " TODO: shortmess
 set shortmess+=c
 " default bg & theme
