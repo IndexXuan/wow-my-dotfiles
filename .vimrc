@@ -13,36 +13,31 @@
 "
 " ====================================================================
 "
-"  including 5 parts:
-"  
+"  including 4 parts:
+"
 "  1. Settings
 "
-"  2. Functions
+"  2. KeyMap
 "
-"  3. KeyMap 
+"  3. Temp
 "
-"  4. Temp
-"
-"  5. ChangeLog
+"  4. ChangeLog
 "
 "  Copyright 2015 - 2019, test for Mac OS
 "
 " ====================================================================
 
-" init, almost noop...
+" hello world
 set nocompatible
 
 " leader key setting
-let mapleader = ";"
 let g:mapleader = ";"
-
+let mapleader = ";"
 " basic mode for vimruntime without plugin
 let g:basicmode = 0
-
 " plugin manager
 let g:manager = 'Plug'
 "let g:manager = 'Vundle'
-
 " load plugin
 if filereadable(expand("~/.vim/.vimrc.plugin"))
   if basicmode == 0
@@ -61,335 +56,313 @@ endif
 
 " go go go
 filetype plugin indent on
+" same as
+" filetype on
+" filetype plugin on
+" filetype indent on
 syntax on
 
 " UI Layout {{
-" enable term gui colors
-set termguicolors
-" if hidden is not set, TextEdit might fail.
-set hidden
-" history list
-set history=2000
-" highlight current line, a great set if you have great theme ...
-set cursorline
-" TODO: pumheight
-set pumheight=15
-" 增强模式中的命令行自动完成操作
-set wildmenu
-" TODO: always show signcolumns
-set signcolumn=yes
-" TODO: wildmore 
-set wildmode=list:longest,full
-" Backspace and cursor keys wrap too
-set whichwrap=b,s,h,l,<,>,[,]
-set backspace=indent,eol,start
-" TODO: display
-set display+=lastline
-" autowrite"
-set autowrite
-" load when other editor change it
-set autoread
-" show the current typing command
-set showcmd 
-" Better display for messages
-set cmdheight=2
-" line number
-set nonu 
-" 不显示默认 --insert--，交给 statusline plugin 实现
-set noshowmode
-" for statusline( like airline ) always display
-set laststatus=2
-" Smaller updatetime for CursorHold & CursorHold
-set updatetime=50
-" TODO: shortmess
-set shortmess+=c
-" default bg & theme
-set background=dark
-colorscheme molokai
-nnoremap <leader>bgl :colorscheme solarized8_light<CR>
-nnoremap <leader>bgd :colorscheme molokai<CR>
-" colorscheme solarized8_light
-" Set the colorscheme
-" colorscheme desertink
-" colorscheme late_evening
-" colorscheme sunburst
-" colorscheme triplejelly
-hi CursorLine term=bold cterm=bold
-" make ternimal beautiful and statusline( like airline ) show well
-set t_Co=256
-" key to make ternimal transparent, 256 is not ok
-hi Normal ctermbg=none ctermfg=255
+  set termguicolors
+  " if hidden is not set, TextEdit might fail.
+  set hidden
+  set history=2000
+  set cursorline
+  set pumheight=15
+  set wildmenu
+  set signcolumn=yes
+  set wildmode=list:longest,full
+  " Backspace and cursor keys wrap too
+  set whichwrap=b,s,h,l,<,>,[,]
+  set backspace=indent,eol,start
+  set display+=lastline
+  set autowrite
+  set autoread
+  set showcmd
+  " Better display for messages
+  set cmdheight=2
+  " line number
+  set nonu
+  " 不显示默认 --insert--，交给 statusline plugin 实现
+  set noshowmode
+  " for statusline( like airline ) always display
+  set laststatus=2
+  " Smaller updatetime for CursorHold
+  set updatetime=300
+  " set synmaxcol=300
+  set shortmess+=c
+  " default bg & theme
+  set background=dark
+  colorscheme molokai
+  nnoremap <leader>bgl :colorscheme solarized8_light<CR>
+  nnoremap <leader>bgd :colorscheme molokai<CR>
+  " colorscheme solarized8_light
+  " Set the colorscheme
+  " colorscheme desertink
+  " colorscheme late_evening
+  " colorscheme sunburst
+  " colorscheme triplejelly
+  hi CursorLine term=bold cterm=bold
+  " make ternimal beautiful and statusline( like airline ) show well
+  set t_Co=256
+  " key to make ternimal transparent, 256 is not ok
+  hi Normal ctermbg=none ctermfg=255
+  " Neovim :terminal colors.
+  let g:terminal_color_0  = '#282828'
+  let g:terminal_color_1  = '#cc241d'
+  let g:terminal_color_2  = '#98971a'
+  let g:terminal_color_3  = '#d79921'
+  let g:terminal_color_4  = '#458588'
+  let g:terminal_color_5  = '#b16286'
+  let g:terminal_color_6  = '#689d6a'
+  let g:terminal_color_7  = '#a89984'
+  let g:terminal_color_8  = '#928374'
+  let g:terminal_color_9  = '#fb4934'
+  let g:terminal_color_10 = '#b8bb26'
+  let g:terminal_color_11 = '#fabd2f'
+  let g:terminal_color_12 = '#83a598'
+  let g:terminal_color_13 = '#d3869b'
+  let g:terminal_color_14 = '#8ec07c'
+  let g:terminal_color_15 = '#ebdbb2'
 " }}
 
 
 " Misc {{
-" set autochdir
-" undo
-set undofile
-set undodir=$HOME/.vim/undo
-" 当右键单击窗口的时候， 弹出快捷菜单
-set mousemodel=popup
-" can use mouse
-set mouse=a
-" for RegExp, turn magic on
-set magic 
-" 去掉错误提示音
-set noeb
-" file format settings
-set fileencodings=utf-8,gk2312,gbk,gb18030
-set termencoding=utf-8
-set fileformats=unix
-set encoding=UTF-8
-set scrolloff=5
-" nobackup
-set nobackup
-set noswapfile
-" backspace in Visual mode deletes selection
-vnoremap <BS> d
-" 按视口换行显示
-"set wrap
-set nowrap
-" 括号配对情况,跳转并高亮一下匹配的括号
-set showmatch
-" How many tenths of a second to blink when matching brackets
-set matchtime=1
-" autocomplete 
-set completeopt=longest,menu
-" @see - http://www.cnblogs.com/jianyungsun/archive/2012/07/31/2616671.html
-" set clipboard=unnamedplus
-set clipboard=unnamed
-let g:clipboard = {
-  \ 'name': 'pbcopy',
-  \ 'copy': {
-  \    '+': 'pbcopy',
-  \    '*': 'pbcopy',
-  \  },
-  \ 'paste': {
-  \    '+': 'pbpaste',
-  \    '*': 'pbpaste',
-  \ },
-  \ 'cache_enabled': 0,
-  \ } 
-" 退出vim后在终端留下文件内容，可以理解为残影
-" set t_ti= t_te=
+  " set autochdir
+  " undo
+  set undofile
+  set undodir=$HOME/.vim/undo
+  " 当右键单击窗口的时候， 弹出快捷菜单
+  set mousemodel=popup
+  " can use mouse
+  set mouse=a
+  " for RegExp, turn magic on
+  set magic
+  " 去掉错误提示音
+  set noeb
+  " file format settings
+  set fileencodings=utf-8,gk2312,gbk,gb18030
+  set termencoding=utf-8
+  set fileformats=unix
+  set encoding=UTF-8
+  set scrolloff=5
+  " nobackup
+  set nobackup
+  set noswapfile
+  set nowrap
+  " 括号配对情况,跳转并高亮一下匹配的括号
+  set showmatch
+  " How many tenths of a second to blink when matching brackets
+  set matchtime=1
+  " autocomplete
+  set completeopt=longest,menu
+  " @see - http://www.cnblogs.com/jianyungsun/archive/2012/07/31/2616671.html
+  " set clipboard=unnamedplus
+  set clipboard=unnamed
+  let g:clipboard = {
+    \ 'name': 'pbcopy',
+    \ 'copy': {
+    \    '+': 'pbcopy',
+    \    '*': 'pbcopy',
+    \  },
+    \ 'paste': {
+    \    '+': 'pbpaste',
+    \    '*': 'pbpaste',
+    \ },
+    \ 'cache_enabled': 0,
+    \ }
+  " 退出vim后在终端留下文件内容，可以理解为残影
+  " set t_ti= t_te=
 " }}
 
 " Search {{
-" 高亮search命中的文本。
-set hlsearch
-" 打开增量搜索模式,随着键入即时搜索
-set incsearch
-" after search, press space to cancel highlight of search results, very useful.
-nmap <silent> <Space> :nohlsearch<CR>
-" 搜索时忽略大小写
-set ignorecase
-" case-sensitive 
-set smartcase
+  " 高亮search命中的文本。
+  set hlsearch
+  " 打开增量搜索模式,随着键入即时搜索
+  set incsearch
+  " after search, press space+n to cancel highlight of search results, very useful.
+  nmap <silent> <Space>n :nohlsearch<CR>
+  " 搜索时忽略大小写
+  set ignorecase
+  " case-sensitive
+  set smartcase
 " }}
 
 " Spaces & Tabs {{
-set tabstop=2     " 设置Tab键的宽度        [等同的空格个数]
-set shiftwidth=2  " 每一次缩进对应的空格数
-set softtabstop=2 " 按退格键时可以一次删掉的空格数
-set expandtab " control whether change tab to space, add in 20150722
-set smarttab 
+  set tabstop=2     " 设置 Tab 键的宽度        [等同的空格个数]
+  set shiftwidth=2  " 每一次缩进对应的空格数
+  set softtabstop=2 " 按退格键时可以一次删掉的空格数
+  set expandtab " control whether change tab to space, add in 20150722
+  set smarttab
 " }}
 
 " Indent {{
-set smartindent " Smart indent
-set autoindent  " 打开自动缩进
-set shiftround  " indent as shiftwidth setting
+  set smartindent " Smart indent
+  set autoindent  " 打开自动缩进
+  set shiftround  " indent as shiftwidth setting
 " }}
 
 " Folder {{
-" 代码折叠 make large file slow ???
- " set foldenable
-" 折叠方法
-" manual    手工折叠
-" indent    使用缩进表示折叠
-" expr      使用表达式定义折叠
-" syntax    使用语法定义折叠
-" diff      对没有更改的文本进行折叠
-" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
- " set foldlevel=99
- " set foldmethod=manual
-" zf 手动折叠
-" zc 关闭当前打开的折叠
-" zo 打开当前的折叠
-" zm 关闭所有折叠
-" zM 关闭所有折叠及其嵌套的折叠
-" zr 打开所有折叠
-" zR 打开所有折叠及其嵌套的折叠
-" zd 删除当前折叠
-" zE 删除所有折叠
-" zj 移动至下一个折叠
-" zk 移动至上一个折叠
-" zn 禁用折叠
-" zN 启用折叠
-" }}
-
-" --------------------------------------------------------------------
-" -------------------------    Functions   ---------------------------
-" --------------------------------------------------------------------
-
-" Auto set title when create file in target fileType {{
-" https://www.cnblogs.com/yangliguo/p/7887438.html
-autocmd BufNewFile *.sh,*.cpp,*.c,*.scss,*.less,*.css,*.js,*.ts,*.jsx,*.tsx exec ":call SetTitle()"
-func SetTitle()
-    if &filetype == 'sh'
-        call setline(1,"\#################################################")
-        call append(line("."), "\# Author : IndexXuan(https://github.com/IndexXuan)")
-        call append(line(".")+1, "\# Mail   : indexxuan@gmail.com")
-        call append(line(".")+2, "\# Date   : ".strftime("%c"))
-        call append(line(".")+3, "\#################################################")
-        call append(line(".")+4, "\#!/usr/bin/env bash")
-        call append(line(".")+5, "")
-    else 
-        call setline(1,         "/**")
-        call append(line("."),   " *  TODO: file intro...")
-        call append(line(".")+1, " *  ---------------------------------------------")
-        call append(line(".")+2, " *  Author : IndexXuan(https://github.com/IndexXuan)")
-        call append(line(".")+3, " *  Mail   : indexxuan@gmail.com")
-        call append(line(".")+4, " *  Date   : ".strftime("%c"))
-        call append(line(".")+5, " */")
-        call append(line(".")+6, "")
-    endif
-
-    if &filetype == 'c'
-        call append(line(".")+5, "#include <stdio.h>")
-        call append(line(".")+6, "")
-    elseif &filetype =='cpp'
-        call append(line(".")+5, "#include <iostream>")
-        call append(line(".")+6, "using namespace std;")
-        call append(line(".")+7, "")
-    endif
-    " to the end of the file when file created
-    autocmd BufNewFile * normal G
-endfunc
-
-autocmd BufNewFile *.vue exec ":call GenerateVue()"
-func GenerateVue()
-    if &filetype == 'vue'
-        call setline(1,           "<template>")
-        call append(line("."),    "  ")
-        call append(line(".")+1,  "</template>")
-        call append(line(".")+2,  "")
-        call append(line(".")+3,  "<style>")
-        call append(line(".")+4,  "  ")
-        call append(line(".")+5,  "</style>")
-        call append(line(".")+6,  "")
-        call append(line(".")+7,  "<script>")
-        call append(line(".")+8,  "  export default {")
-        call append(line(".")+9,  "    data() {")
-        call append(line(".")+10, "      return {") 
-        call append(line(".")+11, "      }")
-        call append(line(".")+12, "    }")
-        call append(line(".")+13, "  }")
-        call append(line(".")+14, "</script>")
-    endif
-
-    " to the end of the file when file created
-    autocmd BufNewFile * exe "normal G"
-endfunc
+  " 代码折叠 make large file slow ???
+  " set foldenable
+  " 折叠方法
+  " manual    手工折叠
+  " indent    使用缩进表示折叠
+  " expr      使用表达式定义折叠
+  " syntax    使用语法定义折叠
+  " diff      对没有更改的文本进行折叠
+  " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
+  " set foldlevel=99
+  " set foldmethod=manual
+  " zf 手动折叠
+  " zc 关闭当前打开的折叠
+  " zo 打开当前的折叠
+  " zm 关闭所有折叠
+  " zM 关闭所有折叠及其嵌套的折叠
+  " zr 打开所有折叠
+  " zR 打开所有折叠及其嵌套的折叠
+  " zd 删除当前折叠
+  " zE 删除所有折叠
+  " zj 移动至下一个折叠
+  " zk 移动至上一个折叠
+  " zn 禁用折叠
+  " zN 启用折叠
 " }}
 
 " --------------------------------------------------------------------
 " -------------------------     KeyMaps    ---------------------------
 " --------------------------------------------------------------------
 
-" jj as Esc, very useful setting, great, great, great!!!
-inoremap jj <Esc>
-
-" force quit
-nnoremap QQ :q!<CR>
-
-" Leader {{
-nnoremap <leader>q :x<CR>
-nnoremap <leader>w :w!<CR>
-
-" !!!超级好用!!! 全局批量替换
-nnoremap <C-r> ggVG:s//g<left><left>
-" !!!超级好用!!! 全局正则批量替换, 输入单词， 然后换成目标单词
-" nnoremap <C-r> :%s/\<\>//g<left><left><left><left><left>
+" run {{
+  map <leader>rr :call Run()<CR>
+  func! Run()
+    exec "w"
+    if &filetype == 'c'
+      exec "!gcc % -o %<"
+      exec "! ./%<"
+      exec "!time ./%<:"
+    elseif &filetype == 'cpp'
+      exec "!g++ % -o %<"
+      exec "!time ./%<"
+    elseif &filetype == 'sh'
+      exec "!bash %<.sh"
+    elseif &filetype == 'typescript'
+      exec "!ts-node %<"
+    elseif &filetype == 'javascript'
+      exec "!node %<"
+    elseif &filetype == 'html'
+      exec "!google-chrome % &"
+      exec "!clear"
+    elseif &filetype == 'xml'
+      exec "!google-chrome % &"
+      exec "!clear"
+    endif
+  endfunc 
 " }}
 
-" force write to file
-cmap w!! w !sudo tee % >/dev/null
+"  Misc {{
+  " !!!超级好用!!! 全局批量替换
+  nnoremap <C-s> ggVG:s//g<left><left>
+  " !!!超级好用!!! 全局正则批量替换, 输入单词， 然后换成目标单词
+  " nnoremap <C-s> :%s/\<\>//g<left><left><left><left><left>
+" }}
 
-" shell-like move, very very very powerful in `insert mode`
-inoremap <C-b> <left>
-inoremap <C-f> <Right>
-inoremap <C-n> <Down>
-inoremap <C-p> <Up>
-"imap <C-a> <Home> " 有奇怪的表现，改成了下方这样设置 20170313 
-imap <C-a> <Esc>fi
-imap <C-e> <End>
-imap <C-d> <Del>
-imap <C-h> <BS>
-inoremap <C-u> <Esc>d0cl
-inoremap <C-w> <Esc>dbcl
 
-" better command line editing
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+" shell-like move {{
+  inoremap <C-b> <left>
+  inoremap <C-f> <Right>
+  inoremap <C-n> <Down>
+  inoremap <C-p> <Up>
+  "imap <C-a> <Home> " 有奇怪的表现，改成了下方这样设置 20170313
+  imap <C-a> <Esc>fi
+  imap <C-e> <End>
+  imap <C-d> <Del>
+  imap <C-h> <BS>
+  inoremap <C-u> <Esc>d0cl
+  inoremap <C-w> <Esc>dbcl
+  " force write to file
+  cnoremap w!! w !sudo tee % >/dev/null
+  " better command line editing
+  cnoremap <C-p> <Up>
+  cnoremap <C-n> <Down>
+  cnoremap <C-b> <Left>
+  cnoremap <C-f> <Right>
+  cnoremap <C-a> <Home>
+  cnoremap <C-e> <End>
+  cnoremap <C-d> <Del>
+  cnoremap <C-h> <BS>
+  cnoremap <C-t> <C-R>=expand("%:p:h") . "/" <CR>
+" }}
+" smart way to move between windows {{
+  noremap <C-j> <C-W>j
+  noremap <C-k> <C-W>k
+  noremap <C-h> <C-W>h
+  noremap <C-l> <C-W>l
+" }}
 
-" Smart way to move between windows, no need to use vim-tmux-navigator plugin
-noremap <C-j> <C-W>j
-noremap <C-k> <C-W>k
-noremap <C-h> <C-W>h
-noremap <C-l> <C-W>l
+" remap {{
+  " jj as Esc, very useful setting, great, great, great!!!
+  inoremap jj <Esc>
+  " Leader {{
+  nnoremap <leader>q :x<CR>
+  nnoremap <leader>w :w!<CR>
+  " force quit
+  nnoremap QQ :q!<CR>
+  " }}20150509, add some feature for fast and easy move
+  nmap f ^
+  nmap e $
+  " toggle paste mode in vim, very useful. 20150709
+  set pastetoggle=<F5>
+  " indent global
+  nnoremap = gg=G
+  " retab!
+  nnoremap -- :retab!<CR>
+  " Y need remap for useful
+  nnoremap Y y$
+  " delete to the line begin
+  nnoremap D d$
+" }}
 
-" 20150509, add some feature for fast and easy move
-nmap f ^
-nmap e $
+" remap improved {{
+  " backspace in Visual mode deletes selection
+  vnoremap <BS> d
+  " Treat long lines as break lines, useful when moving around in them
+  nnoremap j gj
+  nnoremap k gk
+  " Vmap for maintain Visual Mode after shifting > and <
+  vnoremap < <gv
+  vnoremap > >gv
+  " great, paste and auto in the bottom of the paste content, very useful!
+  vnoremap <silent> y y`]
+  nnoremap <silent> p p`]
+" }}
 
-" Treat long lines as break lines, useful when moving around in them
-nnoremap j gj
-nnoremap k gk
+" fast jump {{
+  " 20150611, fast the jump, shift key is hard to press
+  nnoremap [ {
+  nnoremap ] }
+  nnoremap 9 (
+  nnoremap 0 )
+  nnoremap 5 %
+  " goto older / newer position in change list, very powerful
+  nnoremap <silent> ) g;
+  nnoremap <silent> ( g,
+" }}
 
-" toggle paste mode in vim, very useful. 20150709
-set pastetoggle=<F5>
+" tabs {{
+  nnoremap <tab>   :tabnext<CR>
+  nnoremap <s-tab> :tabprevious<CR>
+  nnoremap <C-t>   :tabnew<CR>
+  inoremap <C-t>   <Esc>:tabnew<CR>i
+" }}
 
-" indent global
-nnoremap = gg=G
-
-" retab! 
-nnoremap -- :retab!<CR>
-
-" Vmap for maintain Visual Mode after shifting > and <
-vnoremap < <gv
-vnoremap > >gv
-
-" goto older / newer position in change list, very powerful
-nnoremap <silent> ) g;
-nnoremap <silent> ( g,
-
-" 20150611, fast the jump, shift key is hard to press
-nnoremap [ {
-nnoremap ] }
-nnoremap 9 (
-nnoremap 0 )
-nnoremap 5 %
-
-" Y need remap for useful
-nnoremap YY y$
-" delete to the line begin 
-nnoremap DD d^
-" great, paste and auto in the bottom of the paste content, very useful!
-vnoremap <silent> y y`]
-nnoremap <silent> p p`]
-
-" ----- tab -----
-nnoremap <C-n>    :tabnext<CR>
-nnoremap <C-p>    :tabprevious<CR>
-nnoremap <C-t>  :tabnew<CR>
-inoremap <C-t>  <Esc>:tabnew<CR>i
-
-" treat tpl, tmpl as html, add in 20160314 
-autocmd BufNewFile,BufRead *tpl set filetype=html
-autocmd BufNewFile,BufRead *tmpl set filetype=html
+" patch {{
+  " treat tpl, tmpl as html, add in 20160314
+  autocmd BufNewFile,BufRead *tpl set filetype=html
+  autocmd BufNewFile,BufRead *tmpl set filetype=html
+  " To get correct comment highlight
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+" }}
 
 " --------------------------------------------------------------------
 " -------------------------       Temp     ---------------------------
@@ -414,11 +387,11 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 " 20150723, 通过修改源码的方式将左对齐批量注释快捷键映射为 <leader>cc,
 " 并将源码链接到.vim/目录下，便于修改！！！
 
-" since syntastic plugin in js files was too slow, make vim not vim 
+" since syntastic plugin in js files was too slow, make vim not vim
 " so always we need to disabled the checker in js files
-" the plugin itself and checkers(jshint & eslint) was great for coding, 
+" the plugin itself and checkers(jshint & eslint) was great for coding,
 " woops,  wish a better experience, 201509251750
-" cmap vv :SyntasticToggleMode 
+" cmap vv :SyntasticToggleMode
 
 " --------------------------------------------------------------------
 " -------------------------    Changelog   ---------------------------
@@ -427,7 +400,7 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 " 20150611 !!
 " 增加备忘录区
 
-" 20150722 ! 
+" 20150722 !
 " 全局缩进变更为2个空格,　顺应新形式
 
 " 20150723
@@ -438,7 +411,7 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 " 加入jshint, 用的vim-jshint2插件，很好，性能正好满足，几乎不卡
 
 " 20150912 !
-" add react & jsx 
+" add react & jsx
 
 " 20151220 !
 " replace jshint with eslint
@@ -503,7 +476,7 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 " 20160213 解决一个疑惑同时也是忘记了的操作,vim中真正tab缩进,而且能产生normal模式下不可到达的空格
 " snippets的制作需要用到真正的tab缩进(makefile文件也是)，使用ctrl-v-i组合来打出
 
-" 20160327 
+" 20160327
 " change vue file tpl, add less-plugin
 
 " 20160417
@@ -525,7 +498,7 @@ autocmd BufNewFile,BufRead *tmpl set filetype=html
 " 20170306 - 20170307
 " 对 `vimrc` 进行了重构，精简插件，优化启动速度
 " 启用fuzzy search, ag 版 ctrlsf
- 
+
 " 20170309
 " 使用 `es2015 & react snips`，删除 `vim-es6` 里的snips
 

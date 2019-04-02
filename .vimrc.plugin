@@ -24,7 +24,7 @@ call plug#begin('~/.vim/bundle')
 "    install plugins
 "  :PlugUpdate[name ...]
 "    install or update plugins
-"  :PlugClean[!] 
+"  :PlugClean[!]
 "    remove plugin not in list(bang version will clean without prompt)
 "  :PlugStatus
 "    check the status of plugins(e.g. load or not)
@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazyload to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-devicons', 'lightline.vim', 'vim-gitgutter', 'vim-fugitive', 'vim-snippets', 'nerdtree-git-plugin')
+  autocmd vimEnter * call plug#load('vim-devicons', 'vim-fugitive', 'lightline.vim', 'vim-gitgutter', 'vim-snippets', 'nerdtree-git-plugin')
                      \| autocmd! lazyload
 augroup END
 
@@ -83,7 +83,7 @@ Plug 'tyru/open-browser.vim', { 'on': '<Plug>(openbrowser-smart-search)' }
 
 " https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy
 " Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
-Plug 'sgur/vim-editorconfig'
+" Plug 'sgur/vim-editorconfig'
 
 " -------------------------- UI Layout ---------------------------
 
@@ -110,7 +110,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
 
-" https://github.com/scrooloose/nerdcommenter - 0 - no-need-lazy
+" https://github.com/scrooloose/nerdcommenter - 0 - not-support-lazy
 " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdcommenter'
 
@@ -168,10 +168,6 @@ Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
 " Generate JSDoc to your JavaScript code.
 Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'typescript'] }
 
-" https://github.com/chemzqm/vim-run - 2 - lazy
-" Run file with command in vim and watch result side by side
-Plug 'chemzqm/vim-run', { 'for': ['javascript', 'typescript'] }
-
 " Add plugins to &runtimepath
 call plug#end()
 
@@ -189,7 +185,6 @@ call plug#end()
 
 
 " neoclide/coc.nvim settings {{
-
   " 1. global installed extensions
   " NOTE: 还有些 github vscode snippets 没列出来，不稳定，有的安装不上
   let g:coc_global_extensions=[
@@ -202,12 +197,13 @@ call plug#end()
   " 2. Misc
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   " autocmd CursorHold * silent call CocActionAsync('doHover')
-  autocmd FileType json syntax match Comment +\/\/.\+$+
 
   " 3. Using CocList
-  " Show all diagnostics
+  " Show all Lists
   nnoremap <silent> <space>l  :<C-u>CocList --number-select lists<cr>
+  " Show all diagnostics
   nnoremap <silent> <space>d  :<C-u>CocList --number-select --auto-preview diagnostics<cr>
   " Manage extensions
   nnoremap <silent> <space>e  :<C-u>CocList --number-select extensions<cr>
@@ -217,22 +213,22 @@ call plug#end()
   nnoremap <silent> <space>o  :<C-u>CocList --number-select --auto-preview outline<cr>
   " Search workspace symbols
   nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<cr>
-  nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
+  " nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
   " Do default action for next item.
-  nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+  " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
-  nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+  " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list
   nnoremap <silent> <space>r  :<C-u>CocListResume<CR>
 
   " 4. Buffer 内操作
-  " 文本搜索，等同于 / 内置命令
-  " nnoremap <silent> <C-f>  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+  " 文本搜索当前词，等同于 / 内置命令，但多了列表聚合展示
+  nnoremap <silent> <C-f> :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
   " 文本模糊搜索，等同于 fuzzy-search 插件
 
   " 5. 全局操作
-  " 模糊搜索文件 - 代替 CtrlP
-  " 模糊搜索文本 - 代替 CtrlSF
+  " 模糊搜索文件 - CocList files - 代替 CtrlP
+  " 模糊搜索文本 - 暂无 - 代替 CtrlSF
 
   " 6. 补全配置
   " Use tab for trigger completion with characters ahead and navigate.
@@ -252,8 +248,8 @@ call plug#end()
 
   " 7. 跳转配置
   " core typings keymap
-  nmap <silent> <leader>pp <Plug>(coc-diagnostic-prev)
-  nmap <silent> <leader>nn <Plug>(coc-diagnostic-next)
+  " nmap <silent> <leader>pp <Plug>(coc-diagnostic-prev)
+  " nmap <silent> <leader>nn <Plug>(coc-diagnostic-next)
   nmap <silent> <leader>d  <Plug>(coc-definition)
   nmap <silent> <leader>h  :call <SID>show_documentation()<CR>
   " code fix since ca is nerdtree used
@@ -301,6 +297,8 @@ call plug#end()
   call SetupCommandAbbrs('vimrc', 'EditVimrc')
   call SetupCommandAbbrs('vimrcplugin', 'EditVimrcPlugin')
   call SetupCommandAbbrs('blame', 'Gblame')
+  call SetupCommandAbbrs('status', 'Gstatus')
+  call SetupCommandAbbrs('log', 'Glog')
 
   " coc.nvim - prettier
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -328,7 +326,7 @@ call plug#end()
       \ }
 
   function! LightlineFilename()
-    let filename = expand('%:t') !=# '' ? expand('%:t') : '[New File]'
+    let filename = expand('%:t') !=# '' ? expand('%:t') : '[ New File ]'
     let modified = &modified ? ' +' : ''
     return filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
   endfunction
@@ -375,7 +373,7 @@ call plug#end()
 
 
 " {{ vim-nerdtree settings
-  let g:NERDTreeChDirMode = 2
+  " let g:NERDTreeChDirMode = 2
   " NERDTrees File highlighting
   function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
     exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
@@ -538,16 +536,16 @@ call plug#end()
 
 
 " CtrlSF Settings, based on ggreer/the_silver_searcher {{
-  " let g:ackprg = 'ag --nogroup --nocolor --column'
-  " nnoremap <leader>f :CtrlSF
-  " let g:ctrlsf_auto_close = 0
-  " " 都有场景，暂时先 cwd 吧
-  " " let g:ctrlsf_default_root = 'project'
-  " let g:ctrlsf_default_root = 'cwd'
-  " let g:ctrlsf_mapping = {
-  "     \ "next": "n",
-  "     \ "prev": "N",
-  "     \ }
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+  nnoremap <leader>sf :CtrlSF
+  let g:ctrlsf_auto_close = 0
+  " 都有场景，暂时先 cwd 吧
+  " let g:ctrlsf_default_root = 'project'
+  let g:ctrlsf_default_root = 'cwd'
+  let g:ctrlsf_mapping = {
+      \ "next": "n",
+      \ "prev": "N",
+      \ }
 " }}
 
 
@@ -564,14 +562,6 @@ call plug#end()
 " iamcco/markdown-preview {{
   nnoremap <leader>m :MarkdownPreview<CR>
   nnoremap <leader>M :MarkdownPreviewStop<CR>
-" }}
-
-" chemzqm/vim-run {{
-  nmap <C-r> :Run<CR>
-  let g:vim_run_command_map = {
-        \'typescript': 'ts-node',
-        \'javascript': 'node',
-        \}
 " }}
 
 
