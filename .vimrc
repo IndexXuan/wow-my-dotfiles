@@ -107,7 +107,7 @@ syntax on
   set t_Co=256
   " key to make ternimal transparent, 256 is not ok
   hi Normal ctermbg=none ctermfg=255
-  " Neovim :terminal colors.
+  " NOTE: works ? - Neovim :terminal colors.
   let g:terminal_color_0  = '#282828'
   let g:terminal_color_1  = '#cc241d'
   let g:terminal_color_2  = '#98971a'
@@ -129,6 +129,10 @@ syntax on
 
 " Misc {{
   " set autochdir
+  " NOTE: useful - https://eduncan911.com/software/fix-slow-scrolling-in-vim-and-neovim.html
+  set lazyredraw
+  " https://serverfault.com/questions/146093/how-do-i-keep-10-lines-visible-when-scrolling-up-to-eof-with-crtl-f/146095
+  set scrolloff=5
   " undo
   set undofile
   set undodir=$HOME/.vim/undo
@@ -136,8 +140,6 @@ syntax on
   set mousemodel=popup
   " can use mouse
   set mouse=a
-  " for RegExp, turn magic on
-  set magic
   " 去掉错误提示音
   set noeb
   " file format settings
@@ -145,7 +147,6 @@ syntax on
   set termencoding=utf-8
   set fileformats=unix
   set encoding=UTF-8
-  set scrolloff=5
   " nobackup
   set nobackup
   set noswapfile
@@ -176,6 +177,8 @@ syntax on
 " }}
 
 " Search {{
+  " for RegExp, turn magic on
+  set magic
   " 高亮search命中的文本。
   set hlsearch
   " 打开增量搜索模式,随着键入即时搜索
@@ -233,7 +236,7 @@ syntax on
 " -------------------------     KeyMaps    ---------------------------
 " --------------------------------------------------------------------
 
-" run {{
+" Run Code {{
   map <leader>rr :call Run()<CR>
   func! Run()
     exec "w"

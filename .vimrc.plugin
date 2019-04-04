@@ -73,6 +73,11 @@ Plug 'mhinz/vim-startify'
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
 
+" https://github.com/jiangmiao/auto-pairs - 0 - no-no-need-lazy
+" Vim plugin, insert or delete brackets, parens, quotes in pair
+" NOTE: 现阶段 coc-pairs 不能自动加空行( 按照官方映射 CR 也不行 )，暂时先不用了
+Plug 'jiangmiao/auto-pairs'
+
 " https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
@@ -104,6 +109,11 @@ Plug 'ryanoasis/vim-devicons', { 'on': [] }
 " a tree explorer plugin for vim
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
+" https://github.com/liuchengxu/vista.vim - 2 - lazy - on-demand
+" 🌵 View and search LSP symbols, tags in Vim
+" NOTE: 用来取代 tagbar 插件，启动很慢啊 ...
+Plug 'liuchengxu/vista.vim', { 'on': 'Vista!!' }
+
 " https://github.com/Xuyuanp/nerdtree-git-plugin - 0 -lazy - not support on-demand
 " A plugin of NERDTree showing git status
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
@@ -121,6 +131,11 @@ Plug 'scrooloose/nerdcommenter'
 " https://github.com/dyng/ctrlsf.vim - 0 - lazy - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
+
+" https://github.com/junegunn/fzf#using-the-finder
+" 🌸 A command-line fuzzy finder
+" NOTE: If installed using Homebrew
+" Plug '/usr/local/opt/fzf'
 
 " -------------------------- Working with Git --------------------------------
 
@@ -187,8 +202,9 @@ call plug#end()
 " neoclide/coc.nvim settings {{
   " 1. global installed extensions
   " NOTE: 还有些 github vscode snippets 没列出来，不稳定，有的安装不上
+  " NOTE: 暂时先去掉了 coc-pairs
   let g:coc_global_extensions=[
-        \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-prettier',
+        \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-prettier',
         \ 'coc-json', 'coc-yaml', 'coc-html', 'coc-emmet', 'coc-css', 'coc-tsserver', 'coc-vetur',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets']
@@ -199,7 +215,8 @@ call plug#end()
   inoremap <silent><expr> <c-space> coc#refresh()
   " coc-pairs 自动加空格，官方给的不行，不知道啥情况
   " inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
-  autocmd FileType markdown let b:coc_pairs_disabled = ['`']
+  " NOTE: coc-pairs
+  " autocmd FileType markdown let b:coc_pairs_disabled = ['`']
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
@@ -316,7 +333,7 @@ call plug#end()
       \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'coc' ] ]
+      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'coc', 'methodName' ] ]
       \ },
       \ 'component': {
       \   'coc': 'Powered By coc.nvim'
@@ -327,6 +344,7 @@ call plug#end()
       \   'filetype': 'LightlineFiletype',
       \   'gitbranch': 'LightlineGitBranch',
       \   'cocstatus': 'LightlineCocStatus',
+      \   'methodName': 'NearestMethodOrFunction'
       \ },
       \ }
 
@@ -345,11 +363,15 @@ call plug#end()
   endfunction
 
   function! LightlineGitBranch()
-    return '| ⎇ ' . fugitive#head()
+    return  '| ⎇ ' . fugitive#head()
   endfunction
 
   function! LightlineCocStatus()
     return coc#status() != '' ? coc#status() : 'no info'
+  endfunction
+
+  function! NearestMethodOrFunction()
+    return 'Ⓕ ' . get(b:, 'vista_nearest_method_or_function', '')
   endfunction
 " }}
 
@@ -394,6 +416,36 @@ call plug#end()
   "close vim if the only window left open is a NERDTree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 " }}
+
+
+" liuchengxu/vista.vim {{
+  set rtp+=/usr/local/opt/fzf
+  " Toggle Vista 弹窗
+  nnoremap <leader>b :Vista!!<CR>
+  " How each level is indented and what to prepend.
+  " This could make the display more compact or more spacious.
+  " e.g., more compact: ["▸ ", ""]
+  " let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+  let g:vista_icon_indent = ["╰─ ", "-▸ "]
+
+  " Executive used when opening vista sidebar without specifying it.
+  " See all the avaliable executives via `:echo g:vista#executives`.
+  let g:vista_default_executive = 'coc'
+
+  let g:vista_echo_cursor_strategy = 'floating_win'
+  let g:vista_sidebar_width = 40 " default 30
+  let g:vista_cursor_delay = 300 " default 400
+  let g:vista_blink = [3, 150] " default [2, 100]
+
+  " Set the executive for some filetypes explicitly. Use the explicit executive
+  " instead of the default one for these filetypes when using `:Vista` without
+  " specifying the executive.
+  let g:vista_executive_for = {
+    \ 'typescript': 'coc',
+    \ 'javascript': 'coc',
+    \ }
+" }}
+
 
 " vim-stay setting {{
   " for vim-stay Plug recommend set

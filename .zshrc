@@ -183,3 +183,5 @@ export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
 
 # Homebrew
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
