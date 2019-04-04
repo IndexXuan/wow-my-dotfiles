@@ -197,9 +197,8 @@ call plug#end()
   " 2. Misc
   " Use <c-space> for trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
-  " coc-pairs 自动加空格，自己摸索了这种方法， 官方给的不行，不知道啥情况
-  inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR><Up><End><CR>"
-  " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  " coc-pairs 自动加空格，官方给的不行，不知道啥情况
+  " inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
   autocmd FileType markdown let b:coc_pairs_disabled = ['`']
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')

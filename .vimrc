@@ -293,6 +293,7 @@ syntax on
   cnoremap <C-h> <BS>
   cnoremap <C-t> <C-R>=expand("%:p:h") . "/" <CR>
 " }}
+
 " smart way to move between windows {{
   noremap <C-j> <C-W>j
   noremap <C-k> <C-W>k

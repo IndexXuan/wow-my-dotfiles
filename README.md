@@ -2,6 +2,7 @@
 
 ## 备份自己的 vim 配置文件  
 - 基于 coc.nvim 体系的最新版，去 YCM 化
+- 启动速度 ~150ms
 
 ## vim 快捷键
 
@@ -11,10 +12,14 @@
 - QQ - 强制退出
 - <leader>q - 退出
 - <leader>w - 保存
+- :w!! - 强制写入需要 sudo 的文件
 - <space>n - 搜索后取消高亮
 
 ### 高级
 - tab - 下一个 tab
+- <s-tab> - 前一个 tab
+- <C-t> - 新开一个 tab
+- <leader>rr - :Run
 - <C-b> - Left
 - <C-f> - Right
 - <C-n> - Down
@@ -31,7 +36,6 @@
 - <C-l> - 移动到右侧窗口
 - '=' - 格式化
 - <C-s> - buffer 内全局批量替换
-- <s-tab> - 前一个 tab
 - <C-t> - 新开一个 tab
 - D - 删除光标之后内容
 - Y - 复制光标之后内容
@@ -59,7 +63,6 @@
 - <leader>dd - jsdoc
 - <leader>m - markdown 预览
 - <leader>M - markdown 结束预览
-- <leader>rr - Run
 - <C-g> - open-browser.vim
 - <C-p> - CtrlP - 全局文件模糊搜索 MRU
 - <leader>sf - 全局模糊搜索
@@ -67,3 +70,5 @@
 ## zsh 配置文件
 - 随机主题   
 - 常用快捷键  
+- vim & neovim
+
