@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 22 Plugins
+"                              Plug with 25 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -65,30 +65,38 @@ augroup END
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime'
 
-" https://github.com/mhinz/vim-startify - 1 - not-support-lazy
-" 🔗 The fancy start screen for Vim.
-Plug 'mhinz/vim-startify'
-
 " https://github.com/neoclide/coc.nvim - 0 - not-support-lazy
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
+
+" https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
+" Make Vim persist editing state without fuss
+Plug 'kopischke/vim-stay'
+
+" https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy
+" Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
+Plug 'sgur/vim-editorconfig'
+
+" https://github.com/mhinz/vim-startify - 1 - not-support-lazy
+" 🔗 The fancy start screen for Vim.
+Plug 'mhinz/vim-startify'
 
 " https://github.com/jiangmiao/auto-pairs - 0 - no-no-need-lazy
 " Vim plugin, insert or delete brackets, parens, quotes in pair
 " NOTE: 现阶段 coc-pairs 不能自动加空行( 按照官方映射 CR 也不行 )，暂时先不用了
 Plug 'jiangmiao/auto-pairs'
 
-" https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
-" Make Vim persist editing state without fuss
-Plug 'kopischke/vim-stay'
+" https://github.com/tpope/vim-surround
+" surround.vim: quoting/parenthesizing made simple
+Plug 'tpope/vim-surround'
+
+" https://github.com/tpope/vim-repeat
+" repeat.vim: enable repeating supported plugin maps with "." 
+Plug 'tpope/vim-repeat'
 
 " https://github.com/vim-scripts/open-browser.vim - 2 - lazy
 " Open URI with your favorite browser from your favorite editor
 Plug 'tyru/open-browser.vim', { 'on': '<Plug>(openbrowser-smart-search)' }
-
-" https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy
-" Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
-" Plug 'sgur/vim-editorconfig'
 
 " -------------------------- UI Layout ---------------------------
 
@@ -109,10 +117,10 @@ Plug 'ryanoasis/vim-devicons', { 'on': [] }
 " a tree explorer plugin for vim
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-" https://github.com/liuchengxu/vista.vim - 2 - lazy - on-demand
+" https://github.com/liuchengxu/vista.vim - 2 - no-lazy - 需要默认启动其功能，不能 lazy
 " 🌵 View and search LSP symbols, tags in Vim
-" NOTE: 用来取代 tagbar 插件，启动很慢啊 ...
-Plug 'liuchengxu/vista.vim', { 'on': 'Vista!!' }
+" NOTE: 用来取代 tagbar 插件，启动还好，使用起来很慢 ...
+Plug 'liuchengxu/vista.vim'
 
 " https://github.com/Xuyuanp/nerdtree-git-plugin - 0 -lazy - not support on-demand
 " A plugin of NERDTree showing git status
@@ -419,6 +427,7 @@ call plug#end()
 
 
 " liuchengxu/vista.vim {{
+  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
   set rtp+=/usr/local/opt/fzf
   " Toggle Vista 弹窗
   nnoremap <leader>b :Vista!!<CR>
