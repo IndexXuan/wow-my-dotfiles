@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 25 Plugins
+"                              Plug with 26 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazyload to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-devicons', 'vim-fugitive', 'lightline.vim', 'vim-gitgutter', 'vim-snippets', 'nerdtree-git-plugin')
+  autocmd vimEnter * call plug#load('vim-devicons', 'vim-fugitive', 'lightline.vim', 'vim-gitgutter', 'vim-snippets', 'nerdtree-git-plugin', 'vim-nerdtree-syntax-highlight')
                      \| autocmd! lazyload
 augroup END
 
@@ -86,11 +86,11 @@ Plug 'mhinz/vim-startify'
 " NOTE: 现阶段 coc-pairs 不能自动加空行( 按照官方映射 CR 也不行 )，暂时先不用了
 Plug 'jiangmiao/auto-pairs'
 
-" https://github.com/tpope/vim-surround
+" https://github.com/tpope/vim-surround - 1 - no-no-need-lazy
 " surround.vim: quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
 
-" https://github.com/tpope/vim-repeat
+" https://github.com/tpope/vim-repeat - 1 - no-no-need-lazy
 " repeat.vim: enable repeating supported plugin maps with "." 
 Plug 'tpope/vim-repeat'
 
@@ -117,14 +117,18 @@ Plug 'ryanoasis/vim-devicons', { 'on': [] }
 " a tree explorer plugin for vim
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
+" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 - lazy - not-support-on-demand
+" A plugin of NERDTree showing git status
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
+
+" https://github.com/tiagofumo/vim-nerdtree-syntax-highlight - 1 - lazy - not-support-on-demand
+" Extra syntax and highlight for nerdtree files
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
+
 " https://github.com/liuchengxu/vista.vim - 2 - no-lazy - 需要默认启动其功能，不能 lazy
 " 🌵 View and search LSP symbols, tags in Vim
 " NOTE: 用来取代 tagbar 插件，启动还好，使用起来很慢 ...
 Plug 'liuchengxu/vista.vim'
-
-" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 -lazy - not support on-demand
-" A plugin of NERDTree showing git status
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
 
@@ -187,7 +191,7 @@ Plug 'honza/vim-snippets', { 'on': [] }
 " A Vim plugin that always highlights the enclosing html / xml tags
 Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
 
-" https://github.com/heavenshell/vim-jsdoc - 2 - lazy
+" https://github.com/heavenshell/vim-jsdoc - 2 - lazy - 不支持 vue 文件，加了没也用
 " Generate JSDoc to your JavaScript code.
 Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'typescript'] }
 
@@ -212,8 +216,8 @@ call plug#end()
   " NOTE: 还有些 github vscode snippets 没列出来，不稳定，有的安装不上
   " NOTE: 暂时先去掉了 coc-pairs
   let g:coc_global_extensions=[
-        \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-prettier',
-        \ 'coc-json', 'coc-yaml', 'coc-html', 'coc-emmet', 'coc-css', 'coc-tsserver', 'coc-vetur',
+        \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight',
+        \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets']
 
@@ -423,6 +427,17 @@ call plug#end()
   let NERDTreeIgnore=[ '\.obj$', '\.o$', '\.so$', '\.egg$' ]
   "close vim if the only window left open is a NERDTree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+" }}
+ 
+" tiagofumo/vim-nerdtree-syntax-highlight {{
+  " NOTE: https://github.com/tiagofumo/vim-nerdtree-syntax-highlight/issues/30
+  let s:git_orange = 'F54D27'
+  let g:NERDTreeExtensionHighlightColor = {}
+  let g:NERDTreeExtensionHighlightColor['vue'] = '42b883'
+  let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
+  let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
+  let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+  let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 " }}
 
 
