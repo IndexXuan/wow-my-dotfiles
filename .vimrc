@@ -528,3 +528,8 @@ syntax on
 " 设置终端 font-size 14，让 emoji 显示正常
 " 复原 vim 设置：1. 具备基础工具; 2. vimrc; 3. 终端颜色等设置;
 
+" 20190412 - 27 plugins
+" lightline 美化，已经与 vim-airline 一致，之前没设置好 branch icon 等
+" 重新启用 CtrlP + CtrlSF
+" 启动速度 150ms+ & lightline 添加 NOTE，以供复原
+

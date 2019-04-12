@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 26 Plugins
+"                              Plug with 27 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -110,7 +110,6 @@ Plug 'itchyny/lightline.vim', { 'on': [] }
 
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 必须在 lightline 之前
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
-" NOTE: Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号（因为 emoji icon 太太，12 号不和谐）
 Plug 'ryanoasis/vim-devicons', { 'on': [] }
 
 " https://github.com/scrooloose/nerdtree - 0 - lazy - on-demand
@@ -138,7 +137,7 @@ Plug 'scrooloose/nerdcommenter'
 
 " https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy - on-demand
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-" Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
+Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
 
 " https://github.com/dyng/ctrlsf.vim - 0 - lazy - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
@@ -246,7 +245,7 @@ call plug#end()
   " Find symbol of current document
   nnoremap <silent> <space>o  :<C-u>CocList --number-select --auto-preview outline<cr>
   " Search workspace symbols
-  nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<cr>
+  " nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<cr>
   " nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
   " Do default action for next item.
   " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
@@ -341,30 +340,95 @@ call plug#end()
 
 
 " itchyny/lightline.vim {{
+  " NOTE: Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号 ( 因为 emoji icon 太太，12 号不和谐，vertical 100% and horizontal < 100% )
+  " NOTE: branch icon 等 from https://github.com/itchyny/lightline.vim/issues/353
   let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'coc', 'methodName' ] ]
+      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'methodName' ], ['ctrlpmark'] ],
+      \   'right':[ ['lineinfo'],
+      \             ['percent'], ['coc', 'fileformat', 'fileencoding'] ],
+      \ },
+      \ 'inactive': {
+      \   'left': [['mode', 'coc', 'filename']],
+      \   'right':[['lineinfo'], ['percent']],
       \ },
       \ 'component': {
-      \   'coc': 'Powered By coc.nvim'
+      \   'coc': '🌈 Powered By coc.nvim',
+      \   'lineinfo': ' %3l:%-2v',
       \ },
       \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
+      \   'mode': 'LightlineMode',
       \   'gitbranch': 'LightlineGitBranch',
       \   'cocstatus': 'LightlineCocStatus',
-      \   'methodName': 'NearestMethodOrFunction'
+      \   'readonly': 'LightLineReadonly',
+      \   'filename': 'LightlineFilename',
+      \   'methodName': 'NearestMethodOrFunction',
+      \   'ctrlpmark': 'CtrlPMark',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
       \ },
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
 
+  function! LightlineMode()
+	  let fname = expand('%:t')
+	  return fname =~ 'NERD_tree' ? 'NERDTree' :
+	        \ fname == 'ControlP' ? 'CtrlP' :
+	        \ fname == '__Gundo__' ? 'Gundo' :
+	        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+	        \ &ft == 'unite' ? 'Unite' :
+	        \ &ft == 'vimfiler' ? 'VimFiler' :
+	        \ &ft == 'vimshell' ? 'VimShell' :
+	        \ winwidth(0) > 60 ? lightline#mode() : ''
+	endfunction
+
+  function! LightlineGitBranch()
+    if exists("*fugitive#head")
+      let _ = fugitive#head()
+      return strlen(_) ? ' '._ : ''
+    endif
+    return ''
+  endfunction
+
+  function! LightlineCocStatus()
+    return coc#status() != '' ? coc#status() : 'no info'
+  endfunction
+
+  " like /etc/hosts readonly file
+  function! LightLineReadonly()
+    if &filetype == "help"
+      return ""
+    elseif &readonly
+      return ""
+    else
+      return ""
+    endif
+  endfunction
+
   function! LightlineFilename()
-    let filename = expand('%:t') !=# '' ? expand('%:t') : '[ New File ]'
+    let filename = expand('%:t') !=# '' ? expand('%:t') : '[ No Name ]'
     let modified = &modified ? ' +' : ''
     return filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
   endfunction
+
+  function! NearestMethodOrFunction()
+    return 'Ⓕ ' . get(b:, 'vista_nearest_method_or_function', '')
+  endfunction
+
+  let g:ctrlp_status_func = {
+        \ 'main': 'CtrlPStatusFunc_1',
+        \ 'prog': 'CtrlPStatusFunc_2',
+        \ }
+  function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+    return lightline#statusline(0)
+  endfunction
+  function! CtrlPStatusFunc_2(str)
+    return lightline#statusline(0)
+  endfunction
+
 
   function! LightlineFileformat()
     return winwidth(0) > 70 ? &fileformat : ''
@@ -372,18 +436,6 @@ call plug#end()
 
   function! LightlineFiletype()
     return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-  endfunction
-
-  function! LightlineGitBranch()
-    return  '| ⎇ ' . fugitive#head()
-  endfunction
-
-  function! LightlineCocStatus()
-    return coc#status() != '' ? coc#status() : 'no info'
-  endfunction
-
-  function! NearestMethodOrFunction()
-    return 'Ⓕ ' . get(b:, 'vista_nearest_method_or_function', '')
   endfunction
 " }}
 
@@ -605,17 +657,17 @@ call plug#end()
 
 
 " CtrlP settings {{
-  " nnoremap <silent> <C-p> :CtrlP<CR>
-  " " let g:ctrlp_map = '<C-p>'
-  " " mixed mode is more useful and smart
-  " let g:ctrlp_cmd = 'CtrlPMixed'
-  " let g:ctrlp_working_path_mode = 'ra'
-  "
-  " let g:ctrlp_custom_ignore = {
-  "     \ 'dir':  '\v[\/](node_modules|target|dist|build)|\.(git|hg|svn|rvm)$',
-  "     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
-  "     \ }
-  " let g:ctrlp_follow_symlinks=1
+  nnoremap <silent> <C-p> :CtrlP<CR>
+  " let g:ctrlp_map = '<C-p>'
+  " mixed mode is more useful and smart
+  let g:ctrlp_cmd = 'CtrlPMixed'
+  let g:ctrlp_working_path_mode = 'ra'
+
+  let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/](node_modules|target|dist|build)|\.(git|hg|svn|rvm)$',
+      \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+      \ }
+  let g:ctrlp_follow_symlinks=1
 " }}
 
 
@@ -624,8 +676,8 @@ call plug#end()
   nnoremap <leader>sf :CtrlSF
   let g:ctrlsf_auto_close = 0
   " 都有场景，暂时先 cwd 吧
-  " let g:ctrlsf_default_root = 'project'
-  let g:ctrlsf_default_root = 'cwd'
+  let g:ctrlsf_default_root = 'project'
+  " let g:ctrlsf_default_root = 'cwd'
   let g:ctrlsf_mapping = {
       \ "next": "n",
       \ "prev": "N",
