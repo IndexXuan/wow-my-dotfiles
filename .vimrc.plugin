@@ -415,7 +415,7 @@ call plug#end()
   endfunction
 
   function! NearestMethodOrFunction()
-    return 'Ⓕ ' . get(b:, 'vista_nearest_method_or_function', '')
+    return 'Ⓕ  ' . get(b:, 'vista_nearest_method_or_function', '')
   endfunction
 
   let g:ctrlp_status_func = {
@@ -442,6 +442,7 @@ call plug#end()
 
 " ryanoasis/vim-devicons {{
   let g:WebDevIconsOS = 'Darwin'
+  " let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
   let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol='~'
   let g:WebDevIconsUnicodeDecorateFolderNodes = 1
   let g:DevIconsEnableFolderPatternMatching = 1
@@ -464,6 +465,10 @@ call plug#end()
 
 
 " {{ vim-nerdtree settings
+  " How can I open NERDTree automatically when vim starts up on opening a directory?
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
   " let g:NERDTreeChDirMode = 2
   " NERDTrees File highlighting
   function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
