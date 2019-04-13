@@ -345,60 +345,62 @@ call plug#end()
   let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'methodName' ], ['ctrlpmark'] ],
-      \   'right':[ ['lineinfo'],
-      \             ['percent'], ['coc', 'fileformat', 'fileencoding'] ],
+      \   'left': [
+      \     [ 'mode', 'paste', 'readonly' ],
+      \     [ 'git', 'diagnostic', 'cocstatus', 'filename', 'nearestmethod', 'currentfunction' ]
+      \   ],
+      \   'right':[
+      \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+      \     [ 'coc' ]
+      \   ],
       \ },
       \ 'inactive': {
-      \   'left': [['mode', 'coc', 'filename']],
-      \   'right':[['lineinfo'], ['percent']],
+      \   'left': [ ['mode', 'filename'] ],
+      \   'right':[ ['lineinfo', 'percent'] ],
       \ },
       \ 'component': {
-      \   'coc': '🌈 Powered By coc.nvim',
-      \   'lineinfo': ' %3l:%-2v',
+      \ },
+      \ 'component_expand': {
+      \   'diagnostic': 'LightlineCocDiagnostic',
+      \   'cocstatus': 'LightlineCocStatus',
       \ },
       \ 'component_function': {
       \   'mode': 'LightlineMode',
-      \   'gitbranch': 'LightlineGitBranch',
-      \   'cocstatus': 'LightlineCocStatus',
       \   'readonly': 'LightLineReadonly',
+      \   'git': 'LightLineGit',
       \   'filename': 'LightlineFilename',
-      \   'methodName': 'NearestMethodOrFunction',
-      \   'ctrlpmark': 'CtrlPMark',
-      \   'fileformat': 'LightlineFileformat',
+      \   'nearestmethod': 'NearestMethodOrFunction',
+      \   'coc': 'LightlineCoc',
       \   'filetype': 'LightlineFiletype',
+      \   'fileencoding': 'LightlineFileEncoding',
+      \   'lineinfo': 'LightLineLineInfo',
+      \   'percent': 'LightlinePercent',
       \ },
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
 
+  " 设置 statusline 根据屏幕大小隐藏部分组件的响应式阈值
+  let g:xs = 30
+  let g:sm = 60
+  let g:md = 100
+  let g:lg = 120
+  let g:xl = 150
+
   function! LightlineMode()
 	  let fname = expand('%:t')
-	  return fname =~ 'NERD_tree' ? 'NERDTree' :
+	  return fname =~ 'NERD_tree' ? 'NERD' :
 	        \ fname == 'ControlP' ? 'CtrlP' :
-	        \ fname == '__Gundo__' ? 'Gundo' :
-	        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-	        \ &ft == 'unite' ? 'Unite' :
-	        \ &ft == 'vimfiler' ? 'VimFiler' :
-	        \ &ft == 'vimshell' ? 'VimShell' :
-	        \ winwidth(0) > 60 ? lightline#mode() : ''
+	        \ winwidth(0) > g:xs ? lightline#mode() : ''
 	endfunction
-
-  function! LightlineGitBranch()
-    if exists("*fugitive#head")
-      let _ = fugitive#head()
-      return strlen(_) ? ' '._ : ''
-    endif
-    return ''
-  endfunction
-
-  function! LightlineCocStatus()
-    return coc#status() != '' ? coc#status() : 'no info'
-  endfunction
 
   " like /etc/hosts readonly file
   function! LightLineReadonly()
+	  let fname = expand('%:t')
+	  let isNerdTree = fname =~ 'NERD_tree'
+    if isNerdTree
+      return ""
+    endif
     if &filetype == "help"
       return ""
     elseif &readonly
@@ -408,6 +410,60 @@ call plug#end()
     endif
   endfunction
 
+  function! LightlineGitBranch()
+    if exists("*fugitive#head")
+      let _ = fugitive#head()
+      let ret = strlen(_) ? ' '._ : ''
+      return winwidth(0) > g:md ? ret : ''
+    endif
+    return ''
+  endfunction
+
+  function! LightLineGitGutter()
+    if ! exists('*GitGutterGetHunkSummary')
+          \ || winwidth('.') <= g:md
+      return ''
+    endif
+    let symbols = ['+','~','-']
+    let hunks = GitGutterGetHunkSummary()
+    let ret = []
+    for i in [0, 1, 2]
+      if hunks[i] > 0
+        call add(ret, symbols[i] . hunks[i])
+      endif
+    endfor
+    return join(ret, ' ')
+  endfunction
+
+  function! LightLineGit()
+    let branch = LightlineGitBranch()
+    let gutter = LightLineGitGutter()
+    return branch . gutter
+  endfunction
+
+  function! LightlineCocDiagnostic() abort
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if empty(info) | return '' | endif
+    let msgs = []
+    if get(info, 'error', 0)
+      " call add(msgs, 'E' . info['error'])
+      call add(msgs, '❌ ' . info['error'])
+    endif
+    if get(info, 'warning', 0)
+      " call add(msgs, 'W' . info['warning'])
+      call add(msgs, '⚠️  ' . info['warning'])
+    endif
+    return join(msgs, ' ')
+  endfunction
+
+  " NOTE: 展示 ts version & prettier，没啥意义，暂时注释掉
+  function! LightlineCocStatus() abort
+    return ''
+    " return get(g:, 'coc_status', '')
+  endfunction
+
+  autocmd User CocDiagnosticChange call lightline#update()
+
   function! LightlineFilename()
     let filename = expand('%:t') !=# '' ? expand('%:t') : '[ No Name ]'
     let modified = &modified ? ' +' : ''
@@ -415,27 +471,51 @@ call plug#end()
   endfunction
 
   function! NearestMethodOrFunction()
-    return 'Ⓕ  ' . get(b:, 'vista_nearest_method_or_function', '')
+    let name = get(b:, 'vista_nearest_method_or_function', '')
+    let _ = name != '' ? 'Ⓕ  ' . name : ''
+    return winwidth(0) > g:sm ? _ : ''
+  endfunction
+
+  " NOTE: 20190413 现阶段不如 vista NearestMethodOrFunction
+  " function! CocCurrentFunction()
+  "   return 'Ⓕ  ' . get(b:, 'coc_current_function', 'no info')
+  " endfunction
+
+  function! LightlineCoc()
+    return winwidth(0) > g:lg ? '⚡Powered By coc.nvim' : ''
+  endfunction
+
+  function! LightlineFiletype()
+    return winwidth(0) > g:lg ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  endfunction
+
+  function! LightlineFileEncoding()
+    let _ = &fileencoding
+    return winwidth(0) > g:lg ? _ : ''
+  endfunction
+
+  function! LightLineLineInfo()
+    " \   'lineinfo': '%3l:%-2v',
+    let _ = printf('  %d:%-2d', line('.'), col('.'))
+    return winwidth(0) > g:sm ? _ : ''
+  endfunction
+
+  function! LightlinePercent()
+    let _ = (100 * line('.') / line('$')) . '%'
+    return winwidth(0) > g:xs ? _ : ''
   endfunction
 
   let g:ctrlp_status_func = {
         \ 'main': 'CtrlPStatusFunc_1',
         \ 'prog': 'CtrlPStatusFunc_2',
         \ }
+
   function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
     return lightline#statusline(0)
   endfunction
+
   function! CtrlPStatusFunc_2(str)
     return lightline#statusline(0)
-  endfunction
-
-
-  function! LightlineFileformat()
-    return winwidth(0) > 70 ? &fileformat : ''
-  endfunction
-
-  function! LightlineFiletype()
-    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
   endfunction
 " }}
 

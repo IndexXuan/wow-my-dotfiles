@@ -1,6 +1,7 @@
 {
   // echo 信息到窗口底部，默认是顶部 preview 窗口，体验不好
   "coc.preferences.hoverTarget": "float",
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   // make vim select first item on completion
   "suggest.noselect": false,
   // when snippet activated and pumvisible, prefer complete completion.

@@ -94,8 +94,8 @@ syntax on
   " default bg & theme
   set background=dark
   colorscheme molokai
-  cnoremap light :colorscheme solarized8_light
-  cnoremap dark  :colorscheme molokai
+  cnoremap clight :colorscheme solarized8_light
+  cnoremap cdark  :colorscheme molokai
   " colorscheme solarized8_light
   " Set the colorscheme
   " colorscheme desertink
