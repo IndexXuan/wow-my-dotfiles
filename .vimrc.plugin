@@ -468,7 +468,8 @@ call plug#end()
   function! LightlineFilename()
     let filename = expand('%:t') !=# '' ? expand('%:t') : 'no fn'
     let modified = &modified ? ' +' : ''
-    return filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
+    let _  = filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
+    return winwidth(0) > g:sm ? _ : ''
   endfunction
 
   function! NearestMethodOrFunction()
