@@ -390,8 +390,9 @@ call plug#end()
 
   function! LightlineMode()
 	  let fname = expand('%:t')
-	  return fname =~ 'NERD_tree' ? 'NERD' :
+	  return fname =~ 'NERD_tree' ? 'NERDTree' :
 	        \ fname == 'ControlP' ? 'CtrlP' :
+          \ &filetype == 'startify' ? 'Startify' :
 	        \ winwidth(0) > s:screen_xs ? lightline#mode() : ''
 	endfunction
 
@@ -439,7 +440,7 @@ call plug#end()
   function! LightLineGit()
     let branch = LightlineGitBranch()
     let gutter = LightLineGitGutter()
-    return branch . gutter
+    return branch . ' ' . gutter
   endfunction
 
   function! LightlineCocDiagnostic() abort
@@ -466,15 +467,16 @@ call plug#end()
   autocmd User CocDiagnosticChange call lightline#update()
 
   function! LightlineFilename()
-    let filename = expand('%:t') !=# '' ? expand('%:t') : 'no fn'
+    let filename = expand('%:t') !=# '' ? expand('%:t') : '[no name]'
     let modified = &modified ? ' +' : ''
     let _  = filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
   function! NearestMethodOrFunction()
+    let f_icon = get(g:, 'eleline_function_icon', "\uf794 ")
     let name = get(b:, 'vista_nearest_method_or_function', '')
-    let _ = name != '' ? 'Ⓕ  ' . name : ''
+    let _ = name != '' ? f_icon . name : ''
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
@@ -553,14 +555,17 @@ call plug#end()
 
 
 " {{ vim-nerdtree settings
+  " Tree UI
+  let g:NERDTreeDirArrowExpandable = '▸'
+  let g:NERDTreeDirArrowCollapsible = '▾'
+
   " How can I open NERDTree automatically when vim starts up on opening a directory?
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-  " let g:NERDTreeChDirMode = 2
-
+  " map
   nmap <silent> <leader>t :NERDTreeToggle<CR>
-  let NERDTreeHighlightCursorline=1
+  " 进入文件自动关闭 Tree
   let NERDTreeQuitOnOpen=1
   " show hidden files, add in 20160125
   let g:NERDTreeShowHidden=1
