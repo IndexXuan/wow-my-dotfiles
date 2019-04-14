@@ -114,7 +114,7 @@ function! Handler(_)
   endif
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways', 'vim-multiple-cursors', 'vim-expand-region')
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways', 'vim-multiple-cursors', 'vim-expand-region', 'vim-translate-me')
 endfunction
 
 " Order is important
@@ -177,6 +177,9 @@ Plug 'terryma/vim-multiple-cursors', { 'on': [] }
 
 " https://github.com/terryma/vim-expand-region
 Plug 'terryma/vim-expand-region', { 'on': [] }
+
+" https://github.com/voldikss/vim-translate-me
+Plug 'voldikss/vim-translate-me', { 'on': [] }
 
 " -------------------------- UI Layout ---------------------------
 
@@ -539,6 +542,17 @@ call plug#end()
 " https://github.com/terryma/vim-expand-region {{
   map K <Plug>(expand_region_expand)
   map J <Plug>(expand_region_shrink)
+" }}
+
+
+" https://github.com/voldikss/vim-translate-me {{
+  let g:vtm_default_mapping = 0
+  " 翻译光标下的文本，在命令行回显翻译内容
+  nmap <silent> <leader>ttt <Plug>Translate
+  vmap <silent> <leader>ttt <Plug>TranslateV
+  " 翻译光标下的文本，在窗口中显示翻译内容
+  nmap <silent> <leader>tt <Plug>TranslateW
+  vmap <silent> <leader>tt <Plug>TranslateWV
 " }}
 
 
