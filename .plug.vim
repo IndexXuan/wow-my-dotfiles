@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 30 Plugins
+"                              Plug with 31 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -114,7 +114,7 @@ function! Handler(_)
   endif
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways')
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways', 'vim-multiple-cursors')
 endfunction
 
 " Order is important
@@ -171,6 +171,9 @@ Plug 'tpope/vim-repeat', { 'on': [] }
 " https://github.com/vim-scripts/open-browser.vim - 2 - lazy - 基础功能插件
 " Open URI with your favorite browser from your favorite editor
 Plug 'tyru/open-browser.vim', { 'on': ['<Plug>(openbrowser-smart-search)', 'OpenBrowser'] }
+
+" https://github.com/terryma/vim-multiple-cursors
+Plug 'terryma/vim-multiple-cursors', { 'on': [] }
 
 " -------------------------- UI Layout ---------------------------
 
@@ -512,6 +515,21 @@ call plug#end()
   " if it looks like URI, Open URI under cursor.
   " Otherwise, Search word under cursor.
   nmap <C-g> <Plug>(openbrowser-smart-search)
+" }}
+
+
+" https://github.com/terryma/vim-multiple-cursors {{
+  let g:multi_cursor_use_default_mapping=0
+
+  " Default mapping
+  let g:multi_cursor_start_word_key      = '<C-n>'
+  let g:multi_cursor_select_all_word_key = '<A-n>'
+  let g:multi_cursor_start_key           = 'g<C-n>'
+  let g:multi_cursor_select_all_key      = 'g<A-n>'
+  let g:multi_cursor_next_key            = '<C-n>'
+  let g:multi_cursor_prev_key            = '<C-p>'
+  let g:multi_cursor_skip_key            = '<C-x>'
+  let g:multi_cursor_quit_key            = '<Esc>'
 " }}
 
 
