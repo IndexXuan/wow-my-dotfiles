@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 31 Plugins
+"                              Plug with 32 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -114,7 +114,7 @@ function! Handler(_)
   endif
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways', 'vim-multiple-cursors')
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways', 'vim-multiple-cursors', 'vim-expand-region')
 endfunction
 
 " Order is important
@@ -174,6 +174,9 @@ Plug 'tyru/open-browser.vim', { 'on': ['<Plug>(openbrowser-smart-search)', 'Open
 
 " https://github.com/terryma/vim-multiple-cursors
 Plug 'terryma/vim-multiple-cursors', { 'on': [] }
+
+" https://github.com/terryma/vim-expand-region
+Plug 'terryma/vim-expand-region', { 'on': [] }
 
 " -------------------------- UI Layout ---------------------------
 
@@ -530,6 +533,12 @@ call plug#end()
   let g:multi_cursor_prev_key            = '<C-p>'
   let g:multi_cursor_skip_key            = '<C-x>'
   let g:multi_cursor_quit_key            = '<Esc>'
+" }}
+
+
+" https://github.com/terryma/vim-expand-region {{
+  map K <Plug>(expand_region_expand)
+  map J <Plug>(expand_region_shrink)
 " }}
 
 
