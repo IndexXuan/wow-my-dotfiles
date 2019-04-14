@@ -474,9 +474,10 @@ call plug#end()
   autocmd User CocDiagnosticChange call lightline#update()
 
   function! LightlineFilename()
+    let isStartify = &filetype == 'startify'
     let filename = expand('%:t') !=# '' ? expand('%:t') : '[no name]'
     let modified = &modified ? ' +' : ''
-    let _  = filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
+    let _  = isStartify ? '' : filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
