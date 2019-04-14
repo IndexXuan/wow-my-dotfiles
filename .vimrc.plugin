@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazyload to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-devicons', 'vim-fugitive', 'lightline.vim', 'vim-gitgutter', 'vim-snippets', 'nerdtree-git-plugin', 'vim-nerdtree-syntax-highlight')
+  autocmd vimEnter * call plug#load('vim-fugitive', 'vim-gitgutter', 'lightline.vim', 'vim-snippets', 'nerdtree-git-plugin', 'vim-nerdtree-syntax-highlight')
                      \| autocmd! lazyload
 augroup END
 
@@ -108,17 +108,17 @@ Plug 'flazz/vim-colorschemes'
 " A light and configurable statusline/tabline plugin for Vim
 Plug 'itchyny/lightline.vim', { 'on': [] }
 
-" https://github.com/ryanoasis/vim-devicons - 2 - lazy - 必须在 lightline 之前
+" https://github.com/ryanoasis/vim-devicons - 2 - lazy - 为了美观，适配更多情况，直接启动
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
-Plug 'ryanoasis/vim-devicons', { 'on': [] }
+Plug 'ryanoasis/vim-devicons'
 
-" https://github.com/scrooloose/nerdtree - 0 - lazy - on-demand
+" https://github.com/scrooloose/nerdtree - 0 - no-need-lazy - 最常用功能，直接启用
 " a tree explorer plugin for vim
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 
-" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 - lazy - not-support-on-demand
+" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 - not-support-lazy - 跟随 NerdTree 直接启用
 " A plugin of NERDTree showing git status
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight - 1 - lazy - not-support-on-demand
 " Extra syntax and highlight for nerdtree files
@@ -543,15 +543,6 @@ call plug#end()
   let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol='~'
   let g:WebDevIconsUnicodeDecorateFolderNodes = 1
   let g:DevIconsEnableFolderPatternMatching = 1
-  " autocmd VimEnter * call NERDTreeHighlightFile('vue', 'white', 'none', 'white', '#151515')
-  " autocmd VimEnter * call NERDTreeHighlightFile('ts', 'white', 'none', 'white', '#151515')
-  " autocmd VimEnter * call NERDTreeHighlightFile('js', 'white', 'none', 'white', '#151515')
-  " autocmd VimEnter * call NERDTreeHighlightFile('html', 'green', 'none', 'green', '#151515')
-  " autocmd VimEnter * call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-  " autocmd VimEnter * call NERDTreeHighlightFile('scss', 'cyan', 'none', 'cyan', '#151515')
-  " autocmd VimEnter * call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-  " autocmd VimEnter * call NERDTreeHighlightFile('gitignore', '#686868', 'none', '#686868', '#151515')
-  " autocmd VimEnter * call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
 " }}
 
 " leafgarland/typescript-vim {{
@@ -567,11 +558,6 @@ call plug#end()
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
   " let g:NERDTreeChDirMode = 2
-  " NERDTrees File highlighting
-  function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-    exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-    exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-  endfunction
 
   nmap <silent> <leader>t :NERDTreeToggle<CR>
   let NERDTreeHighlightCursorline=1
@@ -633,6 +619,14 @@ call plug#end()
   set viewoptions=cursor,folds,slash,unix
 " }}
 
+" mhinz/vim-startify {{
+  autocmd VimEnter *
+              \   if !argc()
+              \ |   Startify
+              \ |   NERDTree
+              \ |   wincmd w
+              \ | endif
+" }}
 
 " open-browser settings {{
   " if it looks like URI, Open URI under cursor.
