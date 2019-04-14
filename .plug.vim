@@ -1135,11 +1135,14 @@ call plug#end()
       \ 'r'    : ['', 'which_key_ignore']    ,
       \ 'rf'   : ['', 'references']          ,
       \ 'rn'   : ['', 'rename']              ,
-      \ 's'    : ['', 'ctrlsf']              ,
+      \ 'sf'   : ['', 'ctrlsf']              ,
       \ 't'    : ['', 'toggle-nerdtree']     ,
       \ 'td'   : ['', 'type-definition']     ,
       \ 'w'    : ['', 'save']                ,
       \ }
+  " add <leader>s as nothing to ignore, work for CtrlSF's <leader>sf
+  nnoremap <silent> <leader>s :<CR>
+  let g:which_key_map.s = 'which_key_ignore'
   nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
   nnoremap <silent> <Space> :<c-u>WhichKey '<Space>'<CR>
   autocmd! User vim-which-key call which_key#register(g:mapleader, 'g:which_key_map')
@@ -1218,7 +1221,7 @@ call plug#end()
   " NOTE: @Install - Use RG for CtrlSF - https://github.com/BurntSushi/ripgrep
   " brew install ripgrep
   let g:ctrlsf_ackprg = '/usr/local/bin/rg'
-  nnoremap <leader>s :CtrlSF<Space><Right>''<Right><Left>
+  nnoremap <leader>sf :CtrlSF<Space><Right>''<Right><Left>
   let g:ctrlsf_confirm_save = 1
   let g:ctrlsf_auto_close = {
         \ "normal" : 0,
