@@ -27,7 +27,7 @@
 "
 " ====================================================================
 
-" hello world
+" Hello World !
 set nocompatible
 
 " leader key setting
@@ -54,56 +54,49 @@ endif
 " -------------------------    Settings    ---------------------------
 " --------------------------------------------------------------------
 
-" go go go
-filetype plugin indent on
-" same as
-" filetype on
-" filetype plugin on
-" filetype indent on
-syntax on
-
 " UI Layout {{
+  " Better gui colors
   set termguicolors
-  " if hidden is not set, TextEdit might fail.
-  set hidden
-  set history=2000
+  " Show cursor line
   set cursorline
-  set pumheight=15
-  set wildmenu
-  set signcolumn=yes
-  set wildmode=list:longest,full
-  " Backspace and cursor keys wrap too
-  set whichwrap=b,s,h,l,<,>,[,]
-  set backspace=indent,eol,start
-  set display+=lastline
-  set autowrite
-  set autoread
-  set showcmd
   " Better display for messages
   set cmdheight=2
-  " line number
+  " Avoid the pop up menu occupying the whole screen
+  set pumheight=15
+  " Show list instead of just completing
+  set wildmenu
+  " Faster redrawing
+  set ttyfast
+  " Viminfo include !
+  set viminfo+=!
+  " Show sign column
+  set signcolumn=yes
+  " Show as much as possible of the last line
+  set display+=lastline
+  " Show current cmd
+  set showcmd
+  " Show line number
   set nonu
-  " 不显示默认 --insert--，交给 statusline plugin 实现
+  " Hide default --insert--, use statusline plugin
   set noshowmode
-  " for statusline( like airline ) always display
+  " Always display statusline( like airline / lightline )
   set laststatus=2
   " Smaller updatetime for CursorHold
   set updatetime=300
   " set synmaxcol=300
   set shortmess+=c
-  " default bg & theme
+  " Default background & color theme
   set background=dark
-  colorscheme molokai
+  if basicmode == 0
+    " Since vim-colorschemes plugin
+    colorscheme molokai
+  endif
+  " Fast change background
   cnoremap clight :colorscheme solarized8_light
   cnoremap cdark  :colorscheme molokai
-  " colorscheme solarized8_light
-  " Set the colorscheme
-  " colorscheme desertink
-  " colorscheme late_evening
-  " colorscheme sunburst
-  " colorscheme triplejelly
+  " Colors
   hi CursorLine term=bold cterm=bold
-  " make ternimal beautiful and statusline( like airline ) show well
+  " Make ternimal beautiful and statusline( like airline / lightline ) show well
   set t_Co=256
   " key to make ternimal transparent, 256 is not ok
   hi Normal ctermbg=none ctermfg=255
@@ -126,40 +119,64 @@ syntax on
   let g:terminal_color_15 = '#ebdbb2'
 " }}
 
+" File format {{
+  set fileencodings=utf-8,gk2312,gbk,gb18030
+  set termencoding=utf-8
+  set fileformats=unix
+  set encoding=UTF-8
+" }}
 
 " Misc {{
+  " if hidden is not set, TextEdit might fail.
+  set hidden
+  set history=2000
+  set wildmode=list:longest,full
+  " Backspace and cursor keys wrap too
+  set whichwrap=b,s,h,l,<,>,[,]
+  set backspace=indent,eol,start
+  set autowrite
+  set autoread
   " set autochdir
   " NOTE: useful - https://eduncan911.com/software/fix-slow-scrolling-in-vim-and-neovim.html
   set lazyredraw
   " https://serverfault.com/questions/146093/how-do-i-keep-10-lines-visible-when-scrolling-up-to-eof-with-crtl-f/146095
   set scrolloff=5
-  " undo
-  set undofile
-  set undodir=$HOME/.vim/undo
-  " 当右键单击窗口的时候， 弹出快捷菜单
-  set mousemodel=popup
   " can use mouse
   set mouse=a
-  " 去掉错误提示音
-  set noeb
-  " file format settings
-  set fileencodings=utf-8,gk2312,gbk,gb18030
-  set termencoding=utf-8
-  set fileformats=unix
-  set encoding=UTF-8
-  " nobackup
-  set nobackup
-  set noswapfile
-  set nowrap
-  " 括号配对情况,跳转并高亮一下匹配的括号
-  set showmatch
-  " How many tenths of a second to blink when matching brackets
-  set matchtime=1
+  if has('gui_running')
+    set guioptions-=r        " Hide the right scrollbar
+    set guioptions-=L        " Hide the left scrollbar
+    set guioptions-=T
+    set guioptions-=e
+    set shortmess+=c
+    " No annoying sound on errors
+    set noerrorbells
+    set novisualbell
+    set visualbell t_vb=
+  endif
+  " No annoying sound on errors
   " autocomplete
   set completeopt=longest,menu
+  " 退出 Vim 后在终端留下文件内容，可以理解为残影
+  " set t_ti= t_te=
+" }}
+
+" Undo / Backup {{
+  set undofile
+  set undodir=$HOME/.vim/undo
+  set nobackup
+  set nowritebackup
+  set noswapfile
+  set nowrap
+" }}
+
+" Clipboard {{
   " @see - http://www.cnblogs.com/jianyungsun/archive/2012/07/31/2616671.html
-  " set clipboard=unnamedplus
-  set clipboard=unnamed
+  if has('unnamedplus')
+    set clipboard=unnamedplus,unnamed
+  else
+    set clipboard+=unnamed
+  endif
   let g:clipboard = {
     \ 'name': 'pbcopy',
     \ 'copy': {
@@ -172,37 +189,36 @@ syntax on
     \ },
     \ 'cache_enabled': 0,
     \ }
-  " 退出vim后在终端留下文件内容，可以理解为残影
-  " set t_ti= t_te=
 " }}
 
 " Search {{
-  " for RegExp, turn magic on
+  " Turn magic on for regexp
   set magic
-  " 高亮search命中的文本。
+  " Highlight search results
   set hlsearch
-  " 打开增量搜索模式,随着键入即时搜索
+  " Increase search
   set incsearch
-  " after search, press space+n to cancel highlight of search results, very useful.
+  " Cancel highlight of search results
   nmap <silent> <Space>n :nohlsearch<CR>
-  " 搜索时忽略大小写
+  " Search ignore case
   set ignorecase
-  " case-sensitive
+  " Search case-sensitive
   set smartcase
 " }}
 
 " Spaces & Tabs {{
-  set tabstop=2     " 设置 Tab 键的宽度        [等同的空格个数]
-  set shiftwidth=2  " 每一次缩进对应的空格数
-  set softtabstop=2 " 按退格键时可以一次删掉的空格数
-  set expandtab " control whether change tab to space, add in 20150722
+  " Will override by editorconfig plugin
+  set tabstop=2
+  set shiftwidth=2
+  set softtabstop=2
+  set expandtab
   set smarttab
 " }}
 
 " Indent {{
-  set smartindent " Smart indent
-  set autoindent  " 打开自动缩进
-  set shiftround  " indent as shiftwidth setting
+  set smartindent
+  set autoindent
+  set shiftround
 " }}
 
 " Folder {{
@@ -238,7 +254,7 @@ syntax on
 
 " Run Code {{
   map <leader>rr :call Run()<CR>
-  func! Run()
+  function! Run()
     exec "w"
     if &filetype == 'c'
       exec "!gcc % -o %<"
@@ -254,37 +270,30 @@ syntax on
     elseif &filetype == 'javascript'
       exec "!node %<"
     elseif &filetype == 'html'
-      exec "!google-chrome % &"
-      exec "!clear"
-    elseif &filetype == 'xml'
-      exec "!google-chrome % &"
-      exec "!clear"
+      exec "!open % &"
     endif
-  endfunc 
+  endfunction
 " }}
 
-"  Misc {{
-  " !!!超级好用!!! 全局批量替换
+" Misc {{
+  " Global replace
   nnoremap <C-s> ggVG:s//g<left><left>
-  " !!!超级好用!!! 全局正则批量替换, 输入单词， 然后换成目标单词
+  " Global replace with regexp
   " nnoremap <C-s> :%s/\<\>//g<left><left><left><left><left>
 " }}
 
 
-" shell-like move {{
+" Shell-like move {{
   inoremap <C-b> <left>
   inoremap <C-f> <Right>
   inoremap <C-n> <Down>
   inoremap <C-p> <Up>
-  "imap <C-a> <Home> " 有奇怪的表现，改成了下方这样设置 20170313
   imap <C-a> <Esc>fi
   imap <C-e> <End>
   imap <C-d> <Del>
   imap <C-h> <BS>
   inoremap <C-u> <Esc>d0cl
   inoremap <C-w> <Esc>dbcl
-  " force write to file
-  cnoremap w!! w !sudo tee % >/dev/null
   " better command line editing
   cnoremap <C-p> <Up>
   cnoremap <C-n> <Down>
@@ -297,19 +306,22 @@ syntax on
   cnoremap <C-t> <C-R>=expand("%:p:h") . "/" <CR>
 " }}
 
-" smart way to move between windows {{
+" Smart way to move between windows {{
   noremap <C-j> <C-W>j
   noremap <C-k> <C-W>k
   noremap <C-h> <C-W>h
   noremap <C-l> <C-W>l
 " }}
 
-" remap {{
+" Remap {{
   " jj as Esc, very useful setting, great, great, great!!!
   inoremap jj <Esc>
+  cnoremap jj <C-c>
   " Leader {{
   nnoremap <leader>q :x<CR>
   nnoremap <leader>w :w!<CR>
+  " force write to file
+  cnoremap w!! w !sudo tee % >/dev/null
   " force quit
   nnoremap QQ :q!<CR>
   " }}20150509, add some feature for fast and easy move
@@ -325,9 +337,19 @@ syntax on
   nnoremap Y y$
   " delete to the line begin
   nnoremap D d$
+  " terminal in Vim
+  if has('nvim') || has('terminal')
+    map <Leader>' :terminal<CR>
+  else
+    map <Leader>' :shell<CR>
+  endif
+  " remove trailing whitespaces
+  " :%s/\s\+$//
 " }}
 
-" remap improved {{
+" Remap improved {{
+  " Quick command mode
+  nnoremap <CR> :
   " backspace in Visual mode deletes selection
   vnoremap <BS> d
   " Treat long lines as break lines, useful when moving around in them
@@ -339,9 +361,12 @@ syntax on
   " great, paste and auto in the bottom of the paste content, very useful!
   vnoremap <silent> y y`]
   nnoremap <silent> p p`]
+  " split layouts
+  nnoremap <leader>/ :vsplit<CR>
+  nnoremap <leader>- :split<CR>
 " }}
 
-" fast jump {{
+" Fast jump {{
   " 20150611, fast the jump, shift key is hard to press
   nnoremap [ {
   nnoremap ] }
@@ -353,14 +378,18 @@ syntax on
   nnoremap <silent> ( g,
 " }}
 
-" tabs {{
+" Tabs {{
   nnoremap <tab>   :tabnext<CR>
   nnoremap <s-tab> :tabprevious<CR>
   nnoremap <C-t>   :tabnew<CR>
   inoremap <C-t>   <Esc>:tabnew<CR>i
+  " <leader>[1-9] move to tab [1-9]
+  for s:i in range(1, 9)
+    execute 'nnoremap <leader>' . s:i . ' ' . s:i . 'gt'
+  endfor
 " }}
 
-" patch {{
+" Patches {{
   " treat tpl, tmpl as html, add in 20160314
   autocmd BufNewFile,BufRead *tpl set filetype=html
   autocmd BufNewFile,BufRead *tmpl set filetype=html
@@ -532,4 +561,8 @@ syntax on
 " lightline 美化，已经与 vim-airline 一致，之前没设置好 branch icon 等
 " 重新启用 CtrlP + CtrlSF
 " 启动速度 150ms+ & lightline 添加 NOTE，以供复原
+
+" 20190413 - 入职 mt 两周年
+" 美化 lightline + vista.vim
+" 整理代码
 

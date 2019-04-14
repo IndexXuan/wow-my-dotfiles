@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazyload to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-fugitive', 'vim-gitgutter', 'lightline.vim', 'vim-snippets')
+  autocmd vimEnter * call plug#load('vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
                      \| autocmd! lazyload
 augroup END
 
@@ -91,7 +91,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 
 " https://github.com/tpope/vim-repeat - 1 - no-no-need-lazy
-" repeat.vim: enable repeating supported plugin maps with "." 
+" repeat.vim: enable repeating supported plugin maps with "."
 Plug 'tpope/vim-repeat'
 
 " https://github.com/vim-scripts/open-browser.vim - 2 - lazy
@@ -436,10 +436,11 @@ call plug#end()
     let ret = []
     for i in [0, 1, 2]
       if hunks[i] > 0
-        call add(ret, symbols[i] . hunks[i])
+        call add(ret, symbols[i] . '' . hunks[i])
       endif
     endfor
-    return join(ret, ' ')
+    let msg = join(ret, ' ╰ ')
+    return len(ret) ? '╰ ' . msg : ''
   endfunction
 
   function! LightLineGit()
@@ -579,7 +580,7 @@ call plug#end()
   "close vim if the only window left open is a NERDTree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 " }}
- 
+
 " tiagofumo/vim-nerdtree-syntax-highlight {{
   " NOTE: https://github.com/tiagofumo/vim-nerdtree-syntax-highlight/issues/30
   let s:git_orange = 'F54D27'
