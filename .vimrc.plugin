@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazyload to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-fugitive', 'vim-gitgutter', 'lightline.vim', 'vim-snippets', 'nerdtree-git-plugin', 'vim-nerdtree-syntax-highlight')
+  autocmd vimEnter * call plug#load('vim-fugitive', 'vim-gitgutter', 'lightline.vim', 'vim-snippets')
                      \| autocmd! lazyload
 augroup END
 
@@ -116,13 +116,13 @@ Plug 'ryanoasis/vim-devicons'
 " a tree explorer plugin for vim
 Plug 'scrooloose/nerdtree'
 
-" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 - not-support-lazy - 跟随 NerdTree 直接启用
+" https://github.com/Xuyuanp/nerdtree-git-plugin - 1 - not-support-lazy - 跟随 NerdTree 直接启用
 " A plugin of NERDTree showing git status
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" https://github.com/tiagofumo/vim-nerdtree-syntax-highlight - 1 - lazy - not-support-on-demand
+" https://github.com/tiagofumo/vim-nerdtree-syntax-highlight - 2 - lazy - 跟随 NerdTree 直接启用
 " Extra syntax and highlight for nerdtree files
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " https://github.com/liuchengxu/vista.vim - 2 - no-lazy - 需要默认启动其功能，不能 lazy
 " 🌵 View and search LSP symbols, tags in Vim
@@ -404,33 +404,31 @@ call plug#end()
     let ft = &filetype
     let isVista = ft == 'vista_kind'
     if isVista
-      return ""
+      return ''
     endif
 	  let isNerdTree = fname =~ 'NERD_tree'
     if isNerdTree
-      return ""
+      return ''
     endif
     if &filetype == "help"
-      return ""
+      return ''
     elseif &readonly
       return ""
     else
-      return ""
+      return ''
     endif
   endfunction
 
   function! LightlineGitBranch()
     if exists("*fugitive#head")
-      let _ = fugitive#head()
-      let ret = strlen(_) ? ' '._ : ''
-      return winwidth(0) > s:screen_md ? ret : ''
+      let branch = fugitive#head()
+      return strlen(branch) ? ' '. branch : ''
     endif
     return ''
   endfunction
 
   function! LightLineGitGutter()
     if ! exists('*GitGutterGetHunkSummary')
-          \ || winwidth('.') <= s:screen_md
       return ''
     endif
     let symbols = ['+','~','-']
@@ -447,7 +445,8 @@ call plug#end()
   function! LightLineGit()
     let branch = LightlineGitBranch()
     let gutter = LightLineGitGutter()
-    return branch . ' ' . gutter
+    let _ = branch . ' ¶ ' . gutter
+    return winwidth(0) > s:screen_md ? _ : ''
   endfunction
 
   function! LightlineCocDiagnostic() abort
@@ -497,22 +496,22 @@ call plug#end()
   endfunction
 
   function! LightlineFiletype()
-    return winwidth(0) > s:screen_lg ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+    let _ = &filetype !=# '' ? &filetype : 'no ft'
+    return winwidth(0) > s:screen_lg ? _ : ''
   endfunction
 
   function! LightlineFileEncoding()
-    let _ = &fileencoding
+    let _ = &fileencoding . '[' . &fileformat . ']'
     return winwidth(0) > s:screen_lg ? _ : ''
   endfunction
 
   function! LightLineLineInfo()
-    " \   'lineinfo': '%3l:%-2v',
-    let _ = printf('  %d:%-2d', line('.'), col('.'))
+    let _ = printf('㏑ %d:%-2d', line('.'), col('.'))
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
   function! LightlinePercent()
-    let _ = (100 * line('.') / line('$')) . '%'
+    let _ = 'Ξ ' . (100 * line('.') / line('$')) . '%'
     return winwidth(0) > s:screen_xs ? _ : ''
   endfunction
 
