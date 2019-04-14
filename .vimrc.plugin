@@ -390,8 +390,10 @@ call plug#end()
 
   function! LightlineMode()
 	  let fname = expand('%:t')
-	  return fname =~ 'NERD_tree' ? 'NERDTree' :
+	  return fname =~ 'NERD_tree' ? 'NERD' :
 	        \ fname == 'ControlP' ? 'CtrlP' :
+	        \ &filetype == 'ctrlsf' ? 'CtrlSF' :
+	        \ &filetype == 'vista_kind' ? 'Vista' :
           \ &filetype == 'startify' ? 'Startify' :
 	        \ winwidth(0) > s:screen_xs ? lightline#mode() : ''
 	endfunction
@@ -399,6 +401,11 @@ call plug#end()
   " like /etc/hosts readonly file
   function! LightLineReadonly()
 	  let fname = expand('%:t')
+    let ft = &filetype
+    let isVista = ft == 'vista_kind'
+    if isVista
+      return ""
+    endif
 	  let isNerdTree = fname =~ 'NERD_tree'
     if isNerdTree
       return ""
