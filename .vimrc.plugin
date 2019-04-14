@@ -381,18 +381,18 @@ call plug#end()
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
 
-  " 设置 statusline 根据屏幕大小隐藏部分组件的响应式阈值
-  let g:xs = 30
-  let g:sm = 60
-  let g:md = 100
-  let g:lg = 120
-  let g:xl = 150
+  " 设置 statusline 根据屏幕大小隐藏部分组件的响应式阈值(脚本局部变量)
+  let s:screen_xs = 30
+  let s:screen_sm = 60
+  let s:screen_md = 100
+  let s:screen_lg = 120
+  let s:screen_xl = 150
 
   function! LightlineMode()
 	  let fname = expand('%:t')
 	  return fname =~ 'NERD_tree' ? 'NERD' :
 	        \ fname == 'ControlP' ? 'CtrlP' :
-	        \ winwidth(0) > g:xs ? lightline#mode() : ''
+	        \ winwidth(0) > s:screen_xs ? lightline#mode() : ''
 	endfunction
 
   " like /etc/hosts readonly file
@@ -415,14 +415,14 @@ call plug#end()
     if exists("*fugitive#head")
       let _ = fugitive#head()
       let ret = strlen(_) ? ' '._ : ''
-      return winwidth(0) > g:md ? ret : ''
+      return winwidth(0) > s:screen_md ? ret : ''
     endif
     return ''
   endfunction
 
   function! LightLineGitGutter()
     if ! exists('*GitGutterGetHunkSummary')
-          \ || winwidth('.') <= g:md
+          \ || winwidth('.') <= s:screen_md
       return ''
     endif
     let symbols = ['+','~','-']
@@ -469,13 +469,13 @@ call plug#end()
     let filename = expand('%:t') !=# '' ? expand('%:t') : 'no fn'
     let modified = &modified ? ' +' : ''
     let _  = filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
-    return winwidth(0) > g:sm ? _ : ''
+    return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
   function! NearestMethodOrFunction()
     let name = get(b:, 'vista_nearest_method_or_function', '')
     let _ = name != '' ? 'Ⓕ  ' . name : ''
-    return winwidth(0) > g:sm ? _ : ''
+    return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
   " NOTE: 20190413 现阶段不如 vista NearestMethodOrFunction
@@ -484,27 +484,27 @@ call plug#end()
   " endfunction
 
   function! LightlineCoc()
-    return winwidth(0) > g:lg ? '⚡Powered By coc.nvim' : ''
+    return winwidth(0) > s:screen_lg ? '⚡Powered By coc.nvim' : ''
   endfunction
 
   function! LightlineFiletype()
-    return winwidth(0) > g:lg ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+    return winwidth(0) > s:screen_lg ? (&filetype !=# '' ? &filetype : 'no ft') : ''
   endfunction
 
   function! LightlineFileEncoding()
     let _ = &fileencoding
-    return winwidth(0) > g:lg ? _ : ''
+    return winwidth(0) > s:screen_lg ? _ : ''
   endfunction
 
   function! LightLineLineInfo()
     " \   'lineinfo': '%3l:%-2v',
     let _ = printf('  %d:%-2d', line('.'), col('.'))
-    return winwidth(0) > g:sm ? _ : ''
+    return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
   function! LightlinePercent()
     let _ = (100 * line('.') / line('$')) . '%'
-    return winwidth(0) > g:xs ? _ : ''
+    return winwidth(0) > s:screen_xs ? _ : ''
   endfunction
 
   let g:ctrlp_status_func = {
