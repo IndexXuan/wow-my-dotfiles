@@ -55,7 +55,7 @@ call plug#begin('~/.vim/bundle')
 " lazyload to rush ~~~
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
+  autocmd vimEnter * call plug#load('vim-fugitive', 'lightline.vim', 'vim-snippets')
                      \| autocmd! lazyload
 augroup END
 
@@ -150,9 +150,10 @@ Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
 " -------------------------- Working with Git --------------------------------
 
-" https://github.com/airblade/vim-gitgutter - 0 - lazy
+" TODO: 启动很慢
+" https://github.com/airblade/vim-gitgutter - 0 - not-support-lazy - 否则影响功能
 " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
-Plug 'airblade/vim-gitgutter', { 'on' : [] }
+Plug 'airblade/vim-gitgutter'
 
 " https://github.com/tpope/vim-fugitive - 1 - lazy
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
@@ -431,7 +432,17 @@ call plug#end()
     if ! exists('*GitGutterGetHunkSummary')
       return ''
     endif
-    let symbols = ['+','~','-']
+    " let g:gitgutter_sign_added = "\u271a"
+    " let g:gitgutter_sign_modified = "\u279c"
+    " let g:gitgutter_sign_removed = "\u2718"
+    let g:gitgutter_sign_added = "+"
+    let g:gitgutter_sign_modified = "~"
+    let g:gitgutter_sign_removed = "-"
+    let symbols = [
+          \ g:gitgutter_sign_added . ' ',
+          \ g:gitgutter_sign_modified . ' ',
+          \ g:gitgutter_sign_removed . ' '
+          \ ]
     let hunks = GitGutterGetHunkSummary()
     let ret = []
     for i in [0, 1, 2]
@@ -446,7 +457,7 @@ call plug#end()
   function! LightLineGit()
     let branch = LightlineGitBranch()
     let gutter = LightLineGitGutter()
-    let _ = branch . ' ¶ ' . gutter
+    let _ = branch . (gutter != '' ? ' ¶ ' . gutter : '')
     return winwidth(0) > s:screen_md ? _ : ''
   endfunction
 

@@ -81,8 +81,8 @@ endif
   set noshowmode
   " Always display statusline( like airline / lightline )
   set laststatus=2
-  " Smaller updatetime for CursorHold
-  set updatetime=300
+  " Smaller updatetime for CursorHold, CursorHoldI
+  set updatetime=100
   " set synmaxcol=300
   set shortmess+=c
   " Default background & color theme
