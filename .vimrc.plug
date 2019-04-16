@@ -215,11 +215,14 @@ call plug#end()
   " 1. global installed extensions
   " NOTE: 还有些 github vscode snippets 没列出来，不稳定，有的安装不上
   " NOTE: 暂时先去掉了 coc-pairs
-  let g:coc_global_extensions=[
+  let g:coc_global_extensions = [
         \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight',
         \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
-        \ 'coc-snippets']
+        \ 'coc-snippets',
+        \ 'https://github.com/walteribeiro/full-react-snippets.git#master',
+        \ 'https://github.com/andys8/vscode-jest-snippets.git#master',
+        \ 'https://github.com/hollowtree/vscode-vue-snippets.git#master']
 
 
   " 2. Misc
@@ -595,7 +598,7 @@ call plug#end()
   let NERDTreeQuitOnOpen=1
   " show hidden files, add in 20160125
   let g:NERDTreeShowHidden=1
-  let NERDTreeIgnore=[ '\.obj$', '\.o$', '\.so$', '\.egg$' ]
+  let NERDTreeIgnore = [ '\.obj$', '\.o$', '\.so$', '\.egg$' ]
   "close vim if the only window left open is a NERDTree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 " }}
