@@ -4,7 +4,6 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnType": true,
   "coc.preferences.bracketEnterImprove": true,
-  "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.snippetStatusText": "SNIP",
   // make vim select first item on completion
   "suggest.noselect": false,
