@@ -6,14 +6,14 @@
 " ----------------------------------------------------------------------------
 
 " Install Vim-Plug if we don't already have it
-if empty(glob("~/.vim/autoload/plug.vim"))
+if empty(glob("$HOME/.vim/autoload/plug.vim"))
     " Ensure all needed directories exist  (Thanks @kapadiamush)
-    execute 'mkdir -p ~/.vim/autoload'
+    execute 'mkdir -p $HOME/.vim/autoload'
     " Download the actual plugin manager
     execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('$HOME/.vim/plugged')
 
 " ----------------------------------------------------------------------------
 "
@@ -102,7 +102,7 @@ Plug 'tyru/open-browser.vim', { 'on': '<Plug>(openbrowser-smart-search)' }
 
 " https://github.com/flazz/vim-colorschemes - 0 - no-need-lazy
 " one colorscheme pack to rule them all!
-Plug 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes'
 
 " https://github.com/itchyny/lightline.vim - 0 - lazy - 否则会拖慢
 " A light and configurable statusline/tabline plugin for Vim
@@ -385,9 +385,9 @@ call plug#end()
   " 设置 statusline 根据屏幕大小隐藏部分组件的响应式阈值(脚本局部变量)
   let s:screen_xs = 30
   let s:screen_sm = 60
-  let s:screen_md = 100
-  let s:screen_lg = 120
-  let s:screen_xl = 150
+  let s:screen_md = 120
+  let s:screen_lg = 150
+  let s:screen_xl = 180
 
   function! LightlineMode()
 	  let fname = expand('%:t')
@@ -422,8 +422,11 @@ call plug#end()
 
   function! LightlineGitBranch()
     if exists("*fugitive#head")
-      let branch = fugitive#head()
-      return strlen(branch) ? ' '. branch : ''
+      let _branch = fugitive#head()
+      let parts = split(_branch, '/')
+      let branch = strlen(_branch) > 12 ? parts[len(parts) - 1] : _branch
+      let _ = strlen(branch) ? ' '. branch : ''
+      return winwidth(0) > s:screen_md ? _ : ''
     endif
     return ''
   endfunction
@@ -439,26 +442,27 @@ call plug#end()
     let g:gitgutter_sign_modified = "~"
     let g:gitgutter_sign_removed = "-"
     let symbols = [
-          \ g:gitgutter_sign_added . ' ',
-          \ g:gitgutter_sign_modified . ' ',
-          \ g:gitgutter_sign_removed . ' '
+          \ g:gitgutter_sign_added,
+          \ g:gitgutter_sign_modified,
+          \ g:gitgutter_sign_removed,
           \ ]
     let hunks = GitGutterGetHunkSummary()
     let ret = []
     for i in [0, 1, 2]
       if hunks[i] > 0
-        call add(ret, symbols[i] . '' . hunks[i])
+        call add(ret, symbols[i] . hunks[i])
       endif
     endfor
-    let msg = join(ret, ' ╰ ')
-    return len(ret) ? '╰ ' . msg : ''
+    let msg = join(ret, ' ')
+    let _ = len(ret) ? msg : ''
+    return winwidth(0) > s:screen_lg ? _ : ''
   endfunction
 
   function! LightLineGit()
     let branch = LightlineGitBranch()
     let gutter = LightLineGitGutter()
-    let _ = branch . (gutter != '' ? ' ¶ ' . gutter : '')
-    return winwidth(0) > s:screen_md ? _ : ''
+    " return branch . (gutter != '' ? '☞ ' . gutter : '')
+    return branch . (gutter != '' ? ' ¶ ' . gutter : '')
   endfunction
 
   function! LightlineCocDiagnostic() abort
@@ -467,10 +471,13 @@ call plug#end()
     let msgs = []
     if get(info, 'error', 0)
       " call add(msgs, 'E' . info['error'])
-      call add(msgs, '❌ ' . info['error'])
+      " call add(msgs, '⨶ ' . info['error'])
+      " call add(msgs, '❌ ' . info['error']) " 颜色很好，但符号太大了，不太协调
+      call add(msgs, '❎ ' . info['error'])
     endif
     if get(info, 'warning', 0)
       " call add(msgs, 'W' . info['warning'])
+      " call add(msgs, '⚠ ' . info['warning'])
       call add(msgs, '⚠️  ' . info['warning'])
     endif
     return join(msgs, ' ')
@@ -607,7 +614,7 @@ call plug#end()
 
 " liuchengxu/vista.vim {{
   autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-  set rtp+=/usr/local/opt/fzf
+  set runtimepath+=/usr/local/opt/fzf
   " Toggle Vista 弹窗
   nnoremap <leader>b :Vista!!<CR>
   " How each level is indented and what to prepend.

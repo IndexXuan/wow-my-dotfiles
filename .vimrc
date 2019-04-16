@@ -28,24 +28,25 @@
 " ====================================================================
 
 " Hello World !
+set runtimepath+=$HOME/.vim/
 set nocompatible
 
 " leader key setting
 let g:mapleader = ";"
 let mapleader = ";"
 " basic mode for vimruntime without plugin
-let g:basicmode = 0
+let g:basicmode = $BASIC_MODE == 1
 " plugin manager
 let g:manager = 'Plug'
 "let g:manager = 'Vundle'
 " load plugin
-if filereadable(expand("~/.vim/.vimrc.plugin"))
+if filereadable(expand("$HOME/.vim/.vimrc.plug"))
   if basicmode == 0
     if manager == 'Plug'
-      source ~/.vim/.vimrc.plugin
+      source $HOME/.vim/.vimrc.plug
     endif
     if manager == 'Vundle'
-      source ~/.vim/.vimrc.bundle
+      source $HOME/.vim/.vimrc.vundle
     endif
   endif
 endif
@@ -87,10 +88,7 @@ endif
   set shortmess+=c
   " Default background & color theme
   set background=dark
-  if basicmode == 0
-    " Since vim-colorschemes plugin
-    colorscheme molokai
-  endif
+  colorscheme molokai
   " Fast change background
   cnoremap clight :colorscheme solarized8_light
   cnoremap cdark  :colorscheme molokai

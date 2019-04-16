@@ -120,13 +120,20 @@ alias l="ls -al"
 alias ll="ls -al"
 alias lll="ls -al"
 
+# Vim
 alias ovim="/usr/local/bin/vim"
+# NeoVim
 alias nvim="~/nvim-osx64/bin/nvim"
-alias v="nvim --noplugin"
-alias vv="nvim"
-alias vi="nvim"
+# Alias Vim as NeoVim
 alias vim="nvim"
-alias vim-debug="nvim --startuptime ~/.vim/debug/startuptime.log"
+# 急速 Vim
+alias v="vim -u NONE"
+# 基础 Vim
+alias vv="BASIC_MODE=1 vim"
+# Alias vi for Vim
+alias vi="vim"
+# Vim Perf Debug
+alias vim-debug="vim --startuptime ~/.vim/debug/startuptime.log"
 
 alias gitlog="git log --graph --oneline --all --decorate --color"
 alias git-soft-remove-last-commit="git reset --soft HEAD^"
