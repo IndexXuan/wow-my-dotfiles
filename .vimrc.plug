@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 23 Plugins
+"                              Plug with 24 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -106,7 +106,7 @@ Plug 'tpope/vim-repeat'
 
 " https://github.com/vim-scripts/open-browser.vim - 2 - lazy
 " Open URI with your favorite browser from your favorite editor
-Plug 'tyru/open-browser.vim', { 'on': '<Plug>(openbrowser-smart-search)' }
+Plug 'tyru/open-browser.vim', { 'on': ['<Plug>(openbrowser-smart-search)', 'OpenBrowser'] }
 
 " -------------------------- UI Layout ---------------------------
 
@@ -118,13 +118,13 @@ Plug 'tyru/open-browser.vim', { 'on': '<Plug>(openbrowser-smart-search)' }
 " 🔗 The fancy start screen for Vim.
 Plug 'mhinz/vim-startify'
 
-" https://github.com/itchyny/lightline.vim - 0 - lazy - 否则会拖慢
-" A light and configurable statusline/tabline plugin for Vim
-Plug 'itchyny/lightline.vim', { 'on': [] }
-
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 但也要尽快加载，否则很多地方出不来
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
 Plug 'ryanoasis/vim-devicons', { 'on': [] }
+
+" https://github.com/itchyny/lightline.vim - 0 - lazy - 否则会拖慢
+" A light and configurable statusline/tabline plugin for Vim
+Plug 'itchyny/lightline.vim', { 'on': [] }
 
 " https://github.com/scrooloose/nerdtree - 0 - lazy
 " a tree explorer plugin for vim
@@ -137,6 +137,10 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 " https://github.com/Xuyuanp/nerdtree-git-plugin - 0 - 没啥大用
 " A plugin of NERDTree showing git status
 " Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
+
+" https://github.com/skywind3000/quickmenu.vim
+" A nice customizable popup menu for vim 
+Plug 'skywind3000/quickmenu.vim'
 
 " ----------------- As Programmer's Editor -----------------------
 
@@ -208,32 +212,8 @@ call plug#end()
 
 " -------------------------  Plugins-Specific Settings Start -------------------------
 
-" mhinz/vim-startify {{
-  " autocmd VimEnter *
-  "             \   if !argc()
-  "             \ |   Startify
-  "             \ |   NERDTree
-  "             \ |   wincmd w
-  "             \ | endif
 
-  function! s:filter_header(lines) abort
-      let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
-      let centered_lines = map(copy(a:lines),
-          \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
-      return centered_lines
-  endfunction
-  let g:startify_custom_header = s:filter_header(startify#fortune#cowsay())
-  let g:startify_bookmarks = [
-        \ {'v': '~/.vimrc'},
-        \ {'z': '~/.zshrc'}
-        \]
-  let g:startify_change_to_dir       = 1
-  let g:startify_update_oldfiles     = 1
-  let g:startify_session_autoload    = 1
-" }}
-
-
-" neoclide/coc.nvim settings {{
+" https://github.com/neoclide/coc.nvim {{
   " 1. global installed extensions
   " NOTE: 还有些 github vscode snippets 没列出来，不稳定，有的安装不上
   " NOTE: 暂时先去掉了 coc-pairs
@@ -367,7 +347,57 @@ call plug#end()
 " }}
 
 
-" itchyny/lightline.vim {{
+" https://github.com/zhimsel/vim-stay {{
+  " for vim-stay Plug recommend set
+  autocmd FileType log let b:stay_ignore=1
+  " reading log 20190402
+  autocmd BufReadPost *.log normal! G
+  set viewoptions=cursor,folds,slash,unix
+" }}
+
+
+" https://github.com/vim-scripts/open-browser.vim {{
+  " if it looks like URI, Open URI under cursor.
+  " Otherwise, Search word under cursor.
+  nmap <C-g> <Plug>(openbrowser-smart-search)
+" }}
+
+
+" https://github.com/mhinz/vim-startify {{
+  " autocmd VimEnter *
+  "             \   if !argc()
+  "             \ |   Startify
+  "             \ |   NERDTree
+  "             \ |   wincmd w
+  "             \ | endif
+
+  function! s:filter_header(lines) abort
+      let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
+      let centered_lines = map(copy(a:lines),
+          \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+      return centered_lines
+  endfunction
+  let g:startify_custom_header = s:filter_header(startify#fortune#cowsay())
+  let g:startify_bookmarks = [
+        \ {'v': '~/.vimrc'},
+        \ {'z': '~/.zshrc'}
+        \]
+  let g:startify_change_to_dir       = 1
+  let g:startify_update_oldfiles     = 1
+  let g:startify_session_autoload    = 1
+" }}
+
+
+" https://github.com/ryanoasis/vim-devicons {{
+  let g:WebnevIconsOS = 'Darwin'
+  " let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+  let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol='~'
+  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  let g:DevIconsEnableFolderPatternMatching = 1
+" }}
+
+
+" https://github.com/itchyny/lightline.vim {{
   " NOTE: Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号 ( 因为 emoji icon 太太，12 号不和谐，vertical 100% and horizontal < 100% )
   " NOTE: branch icon 等 from https://github.com/itchyny/lightline.vim/issues/353
   let g:lightline = {
@@ -422,20 +452,17 @@ call plug#end()
 	        \ fname == 'ControlP' ? 'CtrlP' :
 	        \ &filetype == 'ctrlsf' ? 'CtrlSF' :
 	        \ &filetype == 'vista_kind' ? 'Vista' :
+	        \ &filetype == 'quickmenu' ? 'Menu' :
           \ &filetype == 'startify' ? 'Startify' :
 	        \ winwidth(0) > s:screen_xs ? lightline#mode() : ''
 	endfunction
 
   " like /etc/hosts readonly file
   function! LightLineReadonly()
-	  let fname = expand('%:t')
     let ft = &filetype
-    let isVista = ft == 'vista_kind'
-    if isVista
-      return ''
-    endif
-	  let isNerdTree = fname =~ 'NERD_tree'
-    if isNerdTree
+	  let fname = expand('%:t')
+    let isBar = ft == 'vista_kind' || ft == 'quickmenu' || fname =~ 'NERD_tree'
+    if isBar
       return ''
     endif
     if &filetype == "help"
@@ -536,7 +563,9 @@ call plug#end()
   function! LightlineMethod()
     " 必须双引号
     let f_icon = "\uf794"
-    return f_icon . ' ' . get(b:, 'coc_current_function', '')
+    let name = get(b:, 'coc_current_function', '')
+    let _ = name != '' ? f_icon . ' ' . name : ''
+    return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
   function! LightlineCoc()
@@ -560,7 +589,8 @@ call plug#end()
 
   function! LightlinePercent()
     let _ = 'Ξ ' . (100 * line('.') / line('$')) . '%'
-    return winwidth(0) > s:screen_xs ? _ : ''
+    " always show percent
+    return _
   endfunction
 
   let g:ctrlp_status_func = {
@@ -593,26 +623,13 @@ call plug#end()
 " }}
 
 
-" ryanoasis/vim-devicons {{
-  let g:WebDevIconsOS = 'Darwin'
-  " let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-  let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol='~'
-  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-  let g:DevIconsEnableFolderPatternMatching = 1
-" }}
-
-" leafgarland/typescript-vim {{
-  " fix filetype settings
-  autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-" }}
-
-
-" {{ nerdtree settings
+" https://github.com/scrooloose/nerdtree {{
   " Tree UI
+  let g:NERDTreeWinSize = 30
   let g:NERDTreeDirArrowExpandable = '▸'
   let g:NERDTreeDirArrowCollapsible = '▾'
 
+  " 在 Handler 里设置
   " How can I open NERDTree automatically when vim starts up on opening a directory?
   " autocmd StdinReadPre * let s:std_in=1
   " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
@@ -620,15 +637,15 @@ call plug#end()
   " map
   nmap <silent> <leader>t :NERDTreeToggle<CR>
   " 进入文件自动关闭 Tree
-  let NERDTreeQuitOnOpen=1
+  let NERDTreeQuitOnOpen = 0
   " show hidden files, add in 20160125
-  let g:NERDTreeShowHidden=1
+  let g:NERDTreeShowHidden = 1
   let NERDTreeIgnore = [ '\.obj$', '\.o$', '\.so$', '\.egg$' ]
   "close vim if the only window left open is a NERDTree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 " }}
 
-" tiagofumo/vim-nerdtree-syntax-highlight {{
+" https://github.com/tiagofumo/vim-nerdtree-syntax-highlight {{
   " NOTE: https://github.com/tiagofumo/vim-nerdtree-syntax-highlight/issues/30
   let s:git_orange = 'F54D27'
   let g:NERDTreeExtensionHighlightColor = {}
@@ -640,23 +657,147 @@ call plug#end()
 " }}
 
 
-" vim-stay setting {{
-  " for vim-stay Plug recommend set
-  autocmd FileType log let b:stay_ignore=1
-  " reading log 20190402
-  autocmd BufReadPost *.log normal! G
-  set viewoptions=cursor,folds,slash,unix
+" https://github.com/skywind3000/quickmenu.vim {{
+  let g:quickmenu_max_width = 30
+  " choose a favorite key to show/hide quickmenu
+  noremap <silent><leader>b :call quickmenu#toggle(0)<cr>
+  call quickmenu#header('Menu Bar')
+  call quickmenu#reset()
+  " enable cursorline (L) and cmdline help (H)
+  let g:quickmenu_options = "L"
+  " use your favorite key to show / hide quickmenu
+  " new section: empty action with text starts with "#" represent a new section
+  " call quickmenu#append("# Debug", '')
+  " script between %{ and } will be evaluated before menu open
+  " call quickmenu#append("Run %{expand('%:t')}", '!./%', "Run current file")
+  " new section
+  call quickmenu#append("# Git", '')
+  " use fugitive to show diff
+  call quickmenu#append("git diff", 'Gvdiff', "use fugitive's Gvdiff on current document")
+  call quickmenu#append("git status", 'Gstatus', "use fugitive's Gstatus on current document")
+  " new section
+  call quickmenu#append("# Misc", '')
+  call quickmenu#append("Light Color Schema", ":colorscheme solarized8_light", "turn on light colorscheme")
+  call quickmenu#append("Dark Color Schema", ":colorscheme molokai", "turn on dark colorscheme")
+  call quickmenu#append("Wakatime Dashboard", "OpenBrowser https://wakatime.com/dashboard", "go to wakatime")
 " }}
 
 
-" open-browser settings {{
-  " if it looks like URI, Open URI under cursor.
-  " Otherwise, Search word under cursor.
-  nmap <C-g> <Plug>(openbrowser-smart-search)
+" https://github.com/scrooloose/nerdcommenter {{
+  " Add spaces after comment delimiters by default
+  let g:NERDSpaceDelims = 1
+
+  " Use compact syntax for prettified multi-line comments
+  let g:NERDCompactSexyComs = 1
+
+  " Align line-wise comment delimiters flush left instead of following code indentation
+  let g:NERDDefaultAlign = 'left'
+
+  " Allow commenting and inverting empty lines (useful when commenting a region)
+  let g:NERDCommentEmptyLines = 1
+
+  " Enable trimming of trailing whitespace when uncommenting
+  let g:NERDTrimTrailingWhitespace = 1
+
+  " Enable NERDCommenterToggle to check all selected lines is commented or not
+  let g:NERDToggleCheckAllLines = 1
+
+  let g:ft = ''
+  function! NERDCommenter_before()
+    if &ft == 'vue'
+      let g:ft = 'vue'
+      let stack = synstack(line('.'), col('.'))
+      if len(stack) > 0
+        let syn = synIDattr((stack)[0], 'name')
+        if len(syn) > 0
+          exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+        endif
+      endif
+    endif
+  endfunction
+
+  function! NERDCommenter_after()
+    if g:ft == 'vue'
+      setf vue
+      let g:ft = ''
+    endif
+  endfunction
 " }}
 
 
-" Valloric/MatchTagAlways settings {{
+" https://github.com/ctrlpvim/ctrlp.vim {{
+  nnoremap <silent> <C-p> :CtrlP<CR>
+  " mixed mode is more useful and smart
+  let g:ctrlp_cmd = 'CtrlPMixed'
+  let g:ctrlp_working_path_mode = 'ra'
+
+  " MacOSX / Linux
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+  let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'some_bad_symbolic_links',
+    \ }
+  " Ignore files in .gitignore
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+  let g:ctrlp_follow_symlinks=1
+" }}
+
+
+" https://github.com/dyng/ctrlsf.vim {{
+  nnoremap <leader>s :CtrlSF<Space><Right>''<Right><Left>
+  let g:ctrlsf_confirm_save = 1
+  let g:ctrlsf_auto_close = {
+    \ "normal" : 0,
+    \ "compact": 0
+    \}
+  " cwd | project
+  let g:ctrlsf_default_root = 'cwd'
+  " normal | compact
+  let g:ctrlsf_default_view_mode = 'normal'
+  " no need
+  " let g:ctrlsf_extra_backend_args = {
+  "   \ 'ag': '--nogroup --nocolor --column'
+  "   \ }
+  let g:ctrlsf_search_mode = 'async'
+  let g:ctrlsf_position = 'left'
+  let g:ctrlsf_winsize = '40%'
+  let g:ctrlsf_mapping = {
+      \ "next": "n",
+      \ "prev": "N",
+      \ }
+" }}
+
+
+" https://github.com/airblade/vim-gitgutter {{
+  " Required after having changed the colorscheme
+  hi clear SignColumn
+  let g:gitgutter_map_keys = 0
+  nnoremap <leader>] <Plug>GitGutterNextHunk
+  nnoremap <leader>[ <Plug>GitGutterPrevHunk
+  nnoremap <leader>gh :GitGutterLineHighlightsEnable<CR>
+" }}
+
+
+" https://github.com/leafgarland/typescript-vim {{
+  " fix filetype
+  autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+" }}
+"
+
+" https://github.com/posva/vim-vue {{
+  let g:vue_disable_pre_processors=1
+" }}
+
+" https://github.com/iamcco/markdown-preview.nvim {{
+  nnoremap <leader>m :MarkdownPreview<CR>
+  nnoremap <leader>M :MarkdownPreviewStop<CR>
+" }}
+
+
+" https://github.com/Valloric/MatchTagAlways {{
   let g:mta_filetypes = {
       \ 'html' : 1,
       \ 'xhtml' : 1,
@@ -670,7 +811,7 @@ call plug#end()
 " }}
 
 
-" heavenshell/vim-jsdoc {{
+" https://github.com/heavenshell/vim-jsdoc {{
   nmap <silent> <leader>dd <Plug>(jsdoc)
   let g:jsdoc_allow_input_prompt = 0
   let g:jsdoc_enable_es6 = 1
@@ -728,121 +869,4 @@ call plug#end()
   \   'type': ' {Function} '
   \ },
   \}
-" }}
-
-
-" scrooloose/nerdcommenter settings {{
-  " Add spaces after comment delimiters by default
-  let g:NERDSpaceDelims = 1
-
-  " Use compact syntax for prettified multi-line comments
-  let g:NERDCompactSexyComs = 1
-
-  " Align line-wise comment delimiters flush left instead of following code indentation
-  let g:NERDDefaultAlign = 'left'
-
-  " Allow commenting and inverting empty lines (useful when commenting a region)
-  let g:NERDCommentEmptyLines = 1
-
-  " Enable trimming of trailing whitespace when uncommenting
-  let g:NERDTrimTrailingWhitespace = 1
-
-  " Enable NERDCommenterToggle to check all selected lines is commented or not
-  let g:NERDToggleCheckAllLines = 1
-
-  let g:ft = ''
-  function! NERDCommenter_before()
-    if &ft == 'vue'
-      let g:ft = 'vue'
-      let stack = synstack(line('.'), col('.'))
-      if len(stack) > 0
-        let syn = synIDattr((stack)[0], 'name')
-        if len(syn) > 0
-          exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-        endif
-      endif
-    endif
-  endfunction
-
-  function! NERDCommenter_after()
-    if g:ft == 'vue'
-      setf vue
-      let g:ft = ''
-    endif
-  endfunction
-" }}
-
-
-" CtrlP settings {{
-  nnoremap <silent> <C-p> :CtrlP<CR>
-  " mixed mode is more useful and smart
-  let g:ctrlp_cmd = 'CtrlPMixed'
-  let g:ctrlp_working_path_mode = 'ra'
-
-  " MacOSX / Linux
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-  let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll)$',
-    \ 'link': 'some_bad_symbolic_links',
-    \ }
-  " Ignore files in .gitignore
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-  let g:ctrlp_follow_symlinks=1
-" }}
-
-
-" CtrlSF Settings {{
-  nnoremap <leader>s :CtrlSF<Space><Right>''<Right><Left>
-  let g:ctrlsf_confirm_save = 1
-  let g:ctrlsf_auto_close = {
-    \ "normal" : 0,
-    \ "compact": 0
-    \}
-  " cwd | project
-  let g:ctrlsf_default_root = 'cwd'
-  " normal | compact
-  let g:ctrlsf_default_view_mode = 'normal'
-  " no need
-  " let g:ctrlsf_extra_backend_args = {
-  "   \ 'ag': '--nogroup --nocolor --column'
-  "   \ }
-  let g:ctrlsf_search_mode = 'async'
-  let g:ctrlsf_position = 'left'
-  let g:ctrlsf_winsize = '40%'
-  let g:ctrlsf_mapping = {
-      \ "next": "n",
-      \ "prev": "N",
-      \ }
-" }}
-
-
-" airblade/vim-gitgutter settings {{
-  " Required after having changed the colorscheme
-  hi clear SignColumn
-  let g:gitgutter_map_keys = 0
-  nnoremap <leader>] <Plug>GitGutterNextHunk
-  nnoremap <leader>[ <Plug>GitGutterPrevHunk
-  nnoremap <leader>gh :GitGutterLineHighlightsEnable<CR>
-" }}
-
-
-" vim-vue settings {{
-  let g:vue_disable_pre_processors=1
-" }}
-
-" iamcco/markdown-preview {{
-  nnoremap <leader>m :MarkdownPreview<CR>
-  nnoremap <leader>M :MarkdownPreviewStop<CR>
-" }}
-
-
-" Quramy/vim-js-pretty-template {{
-  " Register tag name associated the filetype
-  " autocmd FileType javascript JsPreTmpl
-  " autocmd FileType javascript.jsx JsPreTmpl
-  " autocmd FileType typescript JsPreTmpl
-  " autocmd FileType javascript.tsx JsPreTmpl
-  " autocmd FileType typescript syn clear foldBraces " For leafgarland/typescript-vim users only. Please see #1 for details.
 " }}
