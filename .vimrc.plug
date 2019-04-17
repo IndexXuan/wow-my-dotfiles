@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 25 Plugins
+"                              Plug with 23 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ augroup lazyload
   autocmd vimEnter * call LoadAsync() | autocmd! lazyload
 augroup END
 
-function Handler(_)
+function! Handler(_)
   call plug#load('vim-devicons', 'nerdtree', 'vim-nerdtree-syntax-highlight', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
   execute ":GitGutterEnable"
   if &filetype == 'startify'
@@ -70,34 +70,34 @@ function Handler(_)
   if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 endfunction
 
-" 函数名必须大写开头
-function LoadAsync()
+" 函数名必须大写开头，加 ! 为了避免报重复定义，强行覆盖执行
+function! LoadAsync()
   let timer = timer_start(0, 'Handler', { 'repeat': 1 })
 endfunction
 
 " -------------------------- Base ---------------------------
 
-" https://github.com/wakatime/vim-wakatime - 0 - no-need-lazy
-" Vim plugin for automatic time tracking and metrics generated from your programming activity
-Plug 'wakatime/vim-wakatime'
-
 " https://github.com/neoclide/coc.nvim - 0 - not-support-lazy
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
+
+" https://github.com/wakatime/vim-wakatime - 0 - no-need-lazy
+" Vim plugin for automatic time tracking and metrics generated from your programming activity
+Plug 'wakatime/vim-wakatime'
 
 " https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
 
-" https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy - 基础插件
+" https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy
 " Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
 Plug 'sgur/vim-editorconfig'
 
-" https://github.com/tpope/vim-surround - 1 - no-no-need-lazy
+" https://github.com/tpope/vim-surround - 1 - no-need-lazy
 " surround.vim: quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
 
-" https://github.com/tpope/vim-repeat - 1 - no-no-need-lazy
+" https://github.com/tpope/vim-repeat - 1 - no-need-lazy
 " repeat.vim: enable repeating supported plugin maps with "."
 Plug 'tpope/vim-repeat'
 
@@ -119,30 +119,25 @@ Plug 'mhinz/vim-startify'
 " A light and configurable statusline/tabline plugin for Vim
 Plug 'itchyny/lightline.vim', { 'on': [] }
 
-" https://github.com/ryanoasis/vim-devicons - 2 - lazy - 为了美观，适配更多情况，直接启动
+" https://github.com/ryanoasis/vim-devicons - 2 - lazy
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
 Plug 'ryanoasis/vim-devicons', { 'on': [] }
 
-" https://github.com/scrooloose/nerdtree - 0 - no-need-lazy - 最常用功能，直接启用
+" https://github.com/scrooloose/nerdtree - 0 - lazy
 " a tree explorer plugin for vim
 Plug 'scrooloose/nerdtree', { 'on': [] }
 
-" https://github.com/Xuyuanp/nerdtree-git-plugin - 1 - not-support-lazy - 跟随 NerdTree 直接启用
-" A plugin of NERDTree showing git status
-" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
-
-" https://github.com/tiagofumo/vim-nerdtree-syntax-highlight - 2 - lazy - 跟随 NerdTree 直接启用
+" https://github.com/tiagofumo/vim-nerdtree-syntax-highlight - 2 - lazy - 非常好看
 " Extra syntax and highlight for nerdtree files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 
-" https://github.com/liuchengxu/vista.vim - 2 - no-lazy - 需要默认启动其功能，不能 lazy
-" 🌵 View and search LSP symbols, tags in Vim
-" NOTE: 用来取代 tagbar 插件，启动还好，使用起来很慢 ...
-" Plug 'liuchengxu/vista.vim'
+" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 - 没啥大用
+" A plugin of NERDTree showing git status
+" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
 
-" https://github.com/scrooloose/nerdcommenter - 0 - not-support-lazy
+" https://github.com/scrooloose/nerdcommenter - 0 - no-need-lazy
 " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdcommenter'
 
@@ -161,7 +156,7 @@ Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
 " -------------------------- Working with Git --------------------------------
 
-" https://github.com/airblade/vim-gitgutter - 0 - lazyload_insert_enter - 性能很慢，必须 lazy
+" https://github.com/airblade/vim-gitgutter - 0 - lazy - 性能很慢，必须 lazy
 " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
 Plug 'airblade/vim-gitgutter', { 'on': [] }
 
@@ -237,9 +232,7 @@ call plug#end()
         \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets',
-        \ 'https://github.com/walteribeiro/full-react-snippets.git#master',
-        \ 'https://github.com/andys8/vscode-jest-snippets.git#master',
-        \ 'https://github.com/hollowtree/vscode-vue-snippets.git#master'
+        \ 'https://github.com/hollowtree/vscode-vue-snippets.git#master',
         \]
 
 
@@ -341,8 +334,8 @@ call plug#end()
 
   command! -nargs=? EditVimrcPlugin :call s:EditVimrcPlugin()
   function! s:EditVimrcPlugin()
-    let p = $HOME.'/wow-my-dotfiles/.vimrc.plugin'
-    if getcwd() == $HOME.'/wow-my-dotfiles/.vimrc.plugin'
+    let p = $HOME.'/wow-my-dotfiles/.vimrc.plug'
+    if getcwd() == $HOME.'/wow-my-dotfiles/.vimrc.plug'
       let p = p[len(getcwd()) + 1 : ]
     endif
     execute 'edit '.p
@@ -350,11 +343,13 @@ call plug#end()
 
   " to open coc config
   call SetupCommandAbbrs('config', 'CocConfig')
-  call SetupCommandAbbrs('vimrc', 'EditVimrc')
-  call SetupCommandAbbrs('vimrcplugin', 'EditVimrcPlugin')
-  call SetupCommandAbbrs('blame', 'Gblame')
-  call SetupCommandAbbrs('status', 'Gstatus')
-  call SetupCommandAbbrs('log', 'Glog')
+  call SetupCommandAbbrs('restart', ':source $HOME/.vimrc')
+  call SetupCommandAbbrs('vim', 'EditVimrc')
+  call SetupCommandAbbrs('plugin', 'EditVimrcPlugin')
+  call SetupCommandAbbrs('gb', 'Gblame')
+  call SetupCommandAbbrs('gs', 'Gstatus')
+  call SetupCommandAbbrs('gl', '0Glog')
+  call SetupCommandAbbrs('gh', 'GitGutterLineHighlightsEnable')
 
   " coc.nvim - prettier
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -632,36 +627,6 @@ call plug#end()
   let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
   let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
   let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-" }}
-
-
-" liuchengxu/vista.vim {{
-  " autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-  " set runtimepath+=/usr/local/opt/fzf
-  " " Toggle Vista 弹窗
-  " nnoremap <leader>b :Vista!!<CR>
-  " " How each level is indented and what to prepend.
-  " " This could make the display more compact or more spacious.
-  " " e.g., more compact: ["▸ ", ""]
-  " " let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-  " let g:vista_icon_indent = ["╰─ ", "-▸ "]
-  "
-  " " Executive used when opening vista sidebar without specifying it.
-  " " See all the avaliable executives via `:echo g:vista#executives`.
-  " let g:vista_default_executive = 'coc'
-  "
-  " let g:vista_echo_cursor_strategy = 'floating_win'
-  " let g:vista_sidebar_width = 40 " default 30
-  " let g:vista_cursor_delay = 300 " default 400
-  " let g:vista_blink = [3, 150] " default [2, 100]
-  "
-  " " Set the executive for some filetypes explicitly. Use the explicit executive
-  " " instead of the default one for these filetypes when using `:Vista` without
-  " " specifying the executive.
-  " let g:vista_executive_for = {
-  "   \ 'typescript': 'coc',
-  "   \ 'javascript': 'coc',
-  "   \ }
 " }}
 
 
