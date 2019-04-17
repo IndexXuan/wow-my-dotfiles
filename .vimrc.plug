@@ -52,15 +52,22 @@ call plug#begin('$HOME/.vim/plugged')
 "
 " ----------------------------------------------------------------------------
 
+" Disabled built-in Netrw, always use NerdTree
+let loaded_netrwPlugin = 1
+
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call LoadAsync()
-                     \| autocmd! lazyload
+  autocmd vimEnter * call LoadAsync() | autocmd! lazyload
 augroup END
 
 function Handler(_)
-  let loaded_netrwPlugin = 1
-  call plug#load('vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
+  call plug#load('vim-devicons', 'nerdtree', 'vim-nerdtree-syntax-highlight', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
+  execute ":GitGutterEnable"
+  if &filetype == 'startify'
+    execute ":NERDTree"
+  endif
+  autocmd StdinReadPre * let s:std_in=1
+  if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 endfunction
 
 " 函数名必须大写开头
@@ -102,7 +109,7 @@ Plug 'tyru/open-browser.vim', { 'on': '<Plug>(openbrowser-smart-search)' }
 
 " https://github.com/flazz/vim-colorschemes - 0 - no-need-lazy
 " one colorscheme pack to rule them all!
-Plug 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes'
 
 " https://github.com/mhinz/vim-startify - 1 - not-support-lazy
 " 🔗 The fancy start screen for Vim.
@@ -114,19 +121,19 @@ Plug 'itchyny/lightline.vim', { 'on': [] }
 
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 为了美观，适配更多情况，直接启动
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
-Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons', { 'on': [] }
 
 " https://github.com/scrooloose/nerdtree - 0 - no-need-lazy - 最常用功能，直接启用
 " a tree explorer plugin for vim
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': [] }
 
 " https://github.com/Xuyuanp/nerdtree-git-plugin - 1 - not-support-lazy - 跟随 NerdTree 直接启用
 " A plugin of NERDTree showing git status
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 
 " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight - 2 - lazy - 跟随 NerdTree 直接启用
 " Extra syntax and highlight for nerdtree files
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 
 " https://github.com/liuchengxu/vista.vim - 2 - no-lazy - 需要默认启动其功能，不能 lazy
 " 🌵 View and search LSP symbols, tags in Vim
@@ -204,12 +211,12 @@ call plug#end()
 " -------------------------  Plugins-Specific Settings Start -------------------------
 
 " mhinz/vim-startify {{
-  autocmd VimEnter *
-              \   if !argc()
-              \ |   Startify
-              \ |   NERDTree
-              \ |   wincmd w
-              \ | endif
+  " autocmd VimEnter *
+  "             \   if !argc()
+  "             \ |   Startify
+  "             \ |   NERDTree
+  "             \ |   wincmd w
+  "             \ | endif
 
   function! s:filter_header(lines) abort
       let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
@@ -232,7 +239,8 @@ call plug#end()
         \ 'coc-snippets',
         \ 'https://github.com/walteribeiro/full-react-snippets.git#master',
         \ 'https://github.com/andys8/vscode-jest-snippets.git#master',
-        \ 'https://github.com/hollowtree/vscode-vue-snippets.git#master']
+        \ 'https://github.com/hollowtree/vscode-vue-snippets.git#master'
+        \]
 
 
   " 2. Misc
@@ -523,7 +531,7 @@ call plug#end()
   function! LightlineMethod()
     " 必须双引号
     let f_icon = "\uf794"
-    return f_icon . get(b:, 'coc_current_function', '')
+    return f_icon . ' ' . get(b:, 'coc_current_function', '')
   endfunction
 
   function! LightlineCoc()
@@ -601,8 +609,8 @@ call plug#end()
   let g:NERDTreeDirArrowCollapsible = '▾'
 
   " How can I open NERDTree automatically when vim starts up on opening a directory?
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+  " autocmd StdinReadPre * let s:std_in=1
+  " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
   " map
   nmap <silent> <leader>t :NERDTreeToggle<CR>
@@ -792,26 +800,42 @@ call plug#end()
 
 " CtrlP settings {{
   nnoremap <silent> <C-p> :CtrlP<CR>
-  " let g:ctrlp_map = '<C-p>'
   " mixed mode is more useful and smart
   let g:ctrlp_cmd = 'CtrlPMixed'
   let g:ctrlp_working_path_mode = 'ra'
 
+  " MacOSX / Linux
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
   let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](node_modules|target|dist|build)|\.(git|hg|svn|rvm)$',
-      \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
-      \ }
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'some_bad_symbolic_links',
+    \ }
+  " Ignore files in .gitignore
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
   let g:ctrlp_follow_symlinks=1
 " }}
 
 
-" CtrlSF Settings, based on ggreer/the_silver_searcher {{
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-  nnoremap <leader>sf :CtrlSF
-  let g:ctrlsf_auto_close = 0
-  " 都有场景，暂时先 cwd 吧
-  " let g:ctrlsf_default_root = 'project'
+" CtrlSF Settings {{
+  nnoremap <leader>s :CtrlSF<Space><Right>''<Right><Left>
+  let g:ctrlsf_confirm_save = 1
+  let g:ctrlsf_auto_close = {
+    \ "normal" : 0,
+    \ "compact": 0
+    \}
+  " cwd | project
   let g:ctrlsf_default_root = 'cwd'
+  " normal | compact
+  let g:ctrlsf_default_view_mode = 'normal'
+  " no need
+  " let g:ctrlsf_extra_backend_args = {
+  "   \ 'ag': '--nogroup --nocolor --column'
+  "   \ }
+  let g:ctrlsf_search_mode = 'async'
+  let g:ctrlsf_position = 'left'
+  let g:ctrlsf_winsize = '40%'
   let g:ctrlsf_mapping = {
       \ "next": "n",
       \ "prev": "N",
