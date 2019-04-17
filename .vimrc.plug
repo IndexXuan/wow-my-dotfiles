@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 27 Plugins
+"                              Plug with 25 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -47,21 +47,37 @@ call plug#begin('$HOME/.vim/plugged')
 "  keybindings
 "  in :PlugStatus state, press L to load plugin in cursor
 "
-"  more docs in github homepage
+"  More docs in github homepage
 "  https://github.com/junegunn/vim-plug
 "
 " ----------------------------------------------------------------------------
 
-" lazyload to rush ~~~
+" Disabled built-in Netrw, always use NerdTree
+let loaded_netrwPlugin = 1
+
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call plug#load('vim-fugitive', 'lightline.vim', 'vim-snippets')
-                     \| autocmd! lazyload
+  autocmd vimEnter * call LoadAsync() | autocmd! lazyload
 augroup END
+
+function Handler(_)
+  call plug#load('vim-devicons', 'nerdtree', 'vim-nerdtree-syntax-highlight', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
+  execute ":GitGutterEnable"
+  if &filetype == 'startify'
+    execute ":NERDTree"
+  endif
+  autocmd StdinReadPre * let s:std_in=1
+  if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+endfunction
+
+" 函数名必须大写开头
+function LoadAsync()
+  let timer = timer_start(0, 'Handler', { 'repeat': 1 })
+endfunction
 
 " -------------------------- Base ---------------------------
 
-" https://github.com/wakatime/vim-wakatime - 1 - no-need-lazy
+" https://github.com/wakatime/vim-wakatime - 0 - no-need-lazy
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime'
 
@@ -73,18 +89,9 @@ Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
 
-" https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy
+" https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy - 基础插件
 " Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
 Plug 'sgur/vim-editorconfig'
-
-" https://github.com/mhinz/vim-startify - 1 - not-support-lazy
-" 🔗 The fancy start screen for Vim.
-Plug 'mhinz/vim-startify'
-
-" https://github.com/jiangmiao/auto-pairs - 0 - no-no-need-lazy
-" Vim plugin, insert or delete brackets, parens, quotes in pair
-" NOTE: 现阶段 coc-pairs 不能自动加空行( 按照官方映射 CR 也不行 )，暂时先不用了
-Plug 'jiangmiao/auto-pairs'
 
 " https://github.com/tpope/vim-surround - 1 - no-no-need-lazy
 " surround.vim: quoting/parenthesizing made simple
@@ -104,30 +111,34 @@ Plug 'tyru/open-browser.vim', { 'on': '<Plug>(openbrowser-smart-search)' }
 " one colorscheme pack to rule them all!
 " Plug 'flazz/vim-colorschemes'
 
+" https://github.com/mhinz/vim-startify - 1 - not-support-lazy
+" 🔗 The fancy start screen for Vim.
+Plug 'mhinz/vim-startify'
+
 " https://github.com/itchyny/lightline.vim - 0 - lazy - 否则会拖慢
 " A light and configurable statusline/tabline plugin for Vim
 Plug 'itchyny/lightline.vim', { 'on': [] }
 
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 为了美观，适配更多情况，直接启动
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
-Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons', { 'on': [] }
 
 " https://github.com/scrooloose/nerdtree - 0 - no-need-lazy - 最常用功能，直接启用
 " a tree explorer plugin for vim
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': [] }
 
 " https://github.com/Xuyuanp/nerdtree-git-plugin - 1 - not-support-lazy - 跟随 NerdTree 直接启用
 " A plugin of NERDTree showing git status
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 
 " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight - 2 - lazy - 跟随 NerdTree 直接启用
 " Extra syntax and highlight for nerdtree files
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 
 " https://github.com/liuchengxu/vista.vim - 2 - no-lazy - 需要默认启动其功能，不能 lazy
 " 🌵 View and search LSP symbols, tags in Vim
 " NOTE: 用来取代 tagbar 插件，启动还好，使用起来很慢 ...
-Plug 'liuchengxu/vista.vim'
+" Plug 'liuchengxu/vista.vim'
 
 " ----------------- As Programmer's Editor -----------------------
 
@@ -150,10 +161,9 @@ Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
 " -------------------------- Working with Git --------------------------------
 
-" TODO: 启动很慢
-" https://github.com/airblade/vim-gitgutter - 0 - not-support-lazy - 否则影响功能
+" https://github.com/airblade/vim-gitgutter - 0 - lazyload_insert_enter - 性能很慢，必须 lazy
 " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', { 'on': [] }
 
 " https://github.com/tpope/vim-fugitive - 1 - lazy
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
@@ -201,6 +211,13 @@ call plug#end()
 " -------------------------  Plugins-Specific Settings Start -------------------------
 
 " mhinz/vim-startify {{
+  " autocmd VimEnter *
+  "             \   if !argc()
+  "             \ |   Startify
+  "             \ |   NERDTree
+  "             \ |   wincmd w
+  "             \ | endif
+
   function! s:filter_header(lines) abort
       let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
       let centered_lines = map(copy(a:lines),
@@ -216,22 +233,23 @@ call plug#end()
   " NOTE: 还有些 github vscode snippets 没列出来，不稳定，有的安装不上
   " NOTE: 暂时先去掉了 coc-pairs
   let g:coc_global_extensions = [
-        \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight',
+        \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs',
         \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets',
         \ 'https://github.com/walteribeiro/full-react-snippets.git#master',
         \ 'https://github.com/andys8/vscode-jest-snippets.git#master',
-        \ 'https://github.com/hollowtree/vscode-vue-snippets.git#master']
+        \ 'https://github.com/hollowtree/vscode-vue-snippets.git#master'
+        \]
 
 
   " 2. Misc
   " Use <c-space> for trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
-  " coc-pairs 自动加空格，官方给的不行，不知道啥情况
-  " inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
+  "uto coc-pairs 自动加空格，需要配合 coc-settings.json 里的属性
+  inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
   " NOTE: coc-pairs
-  " autocmd FileType markdown let b:coc_pairs_disabled = ['`']
+  autocmd FileType markdown let b:coc_pairs_disabled = ['`']
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
@@ -264,8 +282,8 @@ call plug#end()
   " 文本模糊搜索，等同于 fuzzy-search 插件
 
   " 5. 全局操作
-  " 模糊搜索文件 - CocList files - 代替 CtrlP
-  " 模糊搜索文本 - 暂无 - 代替 CtrlSF
+  " 模糊搜索文件 - CocList files - 代替 CtrlP - 暂未发现优势
+  " 模糊搜索文本 - 暂无 - 代替 CtrlSF - 暂未发现优势
 
   " 6. 补全配置
   " Use tab for trigger completion with characters ahead and navigate.
@@ -510,11 +528,10 @@ call plug#end()
     " return winwidth(0) > s:screen_sm ? _ : ''
   " endfunction
 
-  " NOTE: 20190413 现阶段不如 vista NearestMethodOrFunction
   function! LightlineMethod()
     " 必须双引号
     let f_icon = "\uf794"
-    return f_icon . get(b:, 'coc_current_function', '')
+    return f_icon . ' ' . get(b:, 'coc_current_function', '')
   endfunction
 
   function! LightlineCoc()
@@ -586,14 +603,14 @@ call plug#end()
 " }}
 
 
-" {{ vim-nerdtree settings
+" {{ nerdtree settings
   " Tree UI
   let g:NERDTreeDirArrowExpandable = '▸'
   let g:NERDTreeDirArrowCollapsible = '▾'
 
   " How can I open NERDTree automatically when vim starts up on opening a directory?
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+  " autocmd StdinReadPre * let s:std_in=1
+  " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
   " map
   nmap <silent> <leader>t :NERDTreeToggle<CR>
@@ -656,14 +673,6 @@ call plug#end()
   set viewoptions=cursor,folds,slash,unix
 " }}
 
-" mhinz/vim-startify {{
-  autocmd VimEnter *
-              \   if !argc()
-              \ |   Startify
-              \ |   NERDTree
-              \ |   wincmd w
-              \ | endif
-" }}
 
 " open-browser settings {{
   " if it looks like URI, Open URI under cursor.
@@ -791,26 +800,42 @@ call plug#end()
 
 " CtrlP settings {{
   nnoremap <silent> <C-p> :CtrlP<CR>
-  " let g:ctrlp_map = '<C-p>'
   " mixed mode is more useful and smart
   let g:ctrlp_cmd = 'CtrlPMixed'
   let g:ctrlp_working_path_mode = 'ra'
 
+  " MacOSX / Linux
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
   let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](node_modules|target|dist|build)|\.(git|hg|svn|rvm)$',
-      \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
-      \ }
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'some_bad_symbolic_links',
+    \ }
+  " Ignore files in .gitignore
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
   let g:ctrlp_follow_symlinks=1
 " }}
 
 
-" CtrlSF Settings, based on ggreer/the_silver_searcher {{
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-  nnoremap <leader>sf :CtrlSF
-  let g:ctrlsf_auto_close = 0
-  " 都有场景，暂时先 cwd 吧
-  " let g:ctrlsf_default_root = 'project'
+" CtrlSF Settings {{
+  nnoremap <leader>s :CtrlSF<Space><Right>''<Right><Left>
+  let g:ctrlsf_confirm_save = 1
+  let g:ctrlsf_auto_close = {
+    \ "normal" : 0,
+    \ "compact": 0
+    \}
+  " cwd | project
   let g:ctrlsf_default_root = 'cwd'
+  " normal | compact
+  let g:ctrlsf_default_view_mode = 'normal'
+  " no need
+  " let g:ctrlsf_extra_backend_args = {
+  "   \ 'ag': '--nogroup --nocolor --column'
+  "   \ }
+  let g:ctrlsf_search_mode = 'async'
+  let g:ctrlsf_position = 'left'
+  let g:ctrlsf_winsize = '40%'
   let g:ctrlsf_mapping = {
       \ "next": "n",
       \ "prev": "N",
@@ -821,6 +846,10 @@ call plug#end()
 " airblade/vim-gitgutter settings {{
   " Required after having changed the colorscheme
   hi clear SignColumn
+  let g:gitgutter_map_keys = 0
+  nnoremap <leader>] <Plug>GitGutterNextHunk
+  nnoremap <leader>[ <Plug>GitGutterPrevHunk
+  nnoremap <leader>gh :GitGutterLineHighlightsEnable<CR>
 " }}
 
 
