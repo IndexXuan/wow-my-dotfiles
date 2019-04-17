@@ -57,11 +57,13 @@ let loaded_netrwPlugin = 1
 
 augroup lazyload
   autocmd!
-  autocmd vimEnter * call LoadAsync() | autocmd! lazyload
+  autocmd vimEnter * call plug#load('vim-devicons') 
+                   \ | call LoadAsync()
+                   \ | autocmd! lazyload
 augroup END
 
 function! Handler(_)
-  call plug#load('vim-devicons', 'nerdtree', 'vim-nerdtree-syntax-highlight', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
+  call plug#load('nerdtree', 'vim-nerdtree-syntax-highlight', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
   execute ":GitGutterEnable"
   if &filetype == 'startify'
     execute ":NERDTree"
@@ -220,6 +222,13 @@ call plug#end()
       return centered_lines
   endfunction
   let g:startify_custom_header = s:filter_header(startify#fortune#cowsay())
+  let g:startify_bookmarks = [
+        \ {'v': '~/.vimrc'},
+        \ {'z': '~/.zshrc'}
+        \]
+  let g:startify_change_to_dir       = 1
+  let g:startify_update_oldfiles     = 1
+  let g:startify_session_autoload    = 1
 " }}
 
 
