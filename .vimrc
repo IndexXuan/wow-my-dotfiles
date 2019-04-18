@@ -564,3 +564,5 @@ endif
 " 美化 lightline + vista.vim
 " 整理代码
 
+" 20190418 - 全异步延时加载 ~100ms
+" 功能完备，UI 完美
