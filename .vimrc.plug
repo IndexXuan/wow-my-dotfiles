@@ -5,14 +5,6 @@
 "
 " ----------------------------------------------------------------------------
 
-" Install Vim-Plug if we don't already have it
-if empty(glob("$HOME/.vim/autoload/plug.vim"))
-    " Ensure all needed directories exist  (Thanks @kapadiamush)
-    execute 'mkdir -p $HOME/.vim/autoload'
-    " Download the actual plugin manager
-    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-endif
-
 call plug#begin('$HOME/.vim/plugged')
 
 " ----------------------------------------------------------------------------
@@ -52,30 +44,53 @@ call plug#begin('$HOME/.vim/plugged')
 "
 " ----------------------------------------------------------------------------
 
+" Path Alias
+let g:vimfiles = $HOME . '.vim/'
+let g:dotfiles = $HOME . '/wow-my-dotfiles/'
+
 " Disabled built-in Netrw, always use NerdTree
 let loaded_netrwPlugin = 1
 
 augroup lazyload
   autocmd!
   " 必须先加载 dev-icons 否则 vim-startify 会不展示 icon
-  autocmd vimEnter * call plug#load('vim-devicons') 
-                   \ | call LoadAsync()
+  autocmd vimEnter * call LoadAsync()
                    \ | autocmd! lazyload
 augroup END
 
 function! Handler(_)
-  call plug#load('nerdtree', 'vim-nerdtree-syntax-highlight', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
-  execute ":GitGutterEnable"
-  if &filetype == 'startify'
-    execute ":NERDTree"
+  call plug#load('vim-devicons', 'nerdtree', 'vim-nerdtree-syntax-highlight', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
+  if !has("nvim")
+    " Vim 需要提前加载这个，懒加载不起作用 ...
+    call plug#load('quickmenu.vim')
   endif
+  execute ":GitGutterEnable"
+  " vim [empty]
+  if !argc()
+    " Open Startify
+    execute("Startify")
+    call OpenBar()
+    " 光标置为 Startify 窗口
+    wincmd w
+  endif
+  " for vim [dir], call NerdTree
   autocmd StdinReadPre * let s:std_in=1
-  if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+  if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
+    " Open Left-Side NERDTree
+    exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0]
+  endif
+endfunction
+
+function! OpenBar()
+  " Open Right-Side Menu
+  call OpenMenu()
+  " Open Left-Side NERDTree
+  execute("NERDTree")
 endfunction
 
 " 函数名必须大写开头，加 ! 为了避免报重复定义，强行覆盖执行
 function! LoadAsync()
-  let timer = timer_start(0, 'Handler', { 'repeat': 1 })
+  return timer_start(0, 'Handler', { 'repeat': 1 })
 endfunction
 
 " -------------------------- Base ---------------------------
@@ -140,7 +155,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 
 " https://github.com/skywind3000/quickmenu.vim
 " A nice customizable popup menu for vim 
-Plug 'skywind3000/quickmenu.vim'
+Plug 'skywind3000/quickmenu.vim', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
 
@@ -315,8 +330,8 @@ call plug#end()
 
   command! -nargs=? EditVimrc :call s:EditVimrc()
   function! s:EditVimrc()
-    let p = $HOME.'/wow-my-dotfiles/.vimrc'
-    if getcwd() == $HOME.'/wow-my-dotfiles/.vimrc'
+    let p = dotfiles . 'vimrc'
+    if getcwd() == dotfiles . 'vimrc'
       let p = p[len(getcwd()) + 1 : ]
     endif
     execute 'edit '.p
@@ -324,8 +339,8 @@ call plug#end()
 
   command! -nargs=? EditVimrcPlugin :call s:EditVimrcPlugin()
   function! s:EditVimrcPlugin()
-    let p = $HOME.'/wow-my-dotfiles/.vimrc.plug'
-    if getcwd() == $HOME.'/wow-my-dotfiles/.vimrc.plug'
+    let p = dotfiles . 'vimrc.plug'
+    if getcwd() == dotfiles . 'vimrc.plug'
       let p = p[len(getcwd()) + 1 : ]
     endif
     execute 'edit '.p
@@ -364,23 +379,18 @@ call plug#end()
 
 
 " https://github.com/mhinz/vim-startify {{
-  " autocmd VimEnter *
-  "             \   if !argc()
-  "             \ |   Startify
-  "             \ |   NERDTree
-  "             \ |   wincmd w
-  "             \ | endif
-
+  " TODO: useless
   function! s:filter_header(lines) abort
-      let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
-      let centered_lines = map(copy(a:lines),
+    let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
+    let centered_lines = map(copy(a:lines),
           \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
-      return centered_lines
+    return centered_lines
   endfunction
   let g:startify_custom_header = s:filter_header(startify#fortune#cowsay())
   let g:startify_bookmarks = [
-        \ {'v': '~/.vimrc'},
-        \ {'z': '~/.zshrc'}
+        \ {'v': dotfiles . '.vimrc'},
+        \ {'p': dotfiles . '.vimrc.plug'},
+        \ {'z': dotfiles . '.zshrc'}
         \]
   let g:startify_change_to_dir       = 1
   let g:startify_update_oldfiles     = 1
@@ -405,7 +415,7 @@ call plug#end()
       \ 'active': {
       \   'left': [
       \     [ 'mode', 'paste', 'readonly' ],
-      \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method', 'currentfunction' ]
+      \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
       \   ],
       \   'right':[
       \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
@@ -546,10 +556,10 @@ call plug#end()
   autocmd User CocDiagnosticChange call lightline#update()
 
   function! LightlineFilename()
-    let isStartify = &filetype == 'startify'
+    let isHidden = &filetype == 'startify' || &filetype == 'quickmenu'
     let filename = expand('%:t') !=# '' ? expand('%:t') : '[no name]'
     let modified = &modified ? ' +' : ''
-    let _  = isStartify ? '' : filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
+    let _  = isHidden ? '' : filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
@@ -659,27 +669,30 @@ call plug#end()
 
 " https://github.com/skywind3000/quickmenu.vim {{
   let g:quickmenu_max_width = 30
-  " choose a favorite key to show/hide quickmenu
-  noremap <silent><leader>b :call quickmenu#toggle(0)<cr>
-  call quickmenu#header('Menu Bar')
-  call quickmenu#reset()
+  let g:quickmenu_ft_blacklist = ['netrw', 'nerdtree']
+  let g:quickmenu_disable_nofile = 0
+  " choose a favorite key to show / hide quickmenu
+  noremap <silent><leader>b :call OpenMenu()<cr>
   " enable cursorline (L) and cmdline help (H)
   let g:quickmenu_options = "L"
-  " use your favorite key to show / hide quickmenu
-  " new section: empty action with text starts with "#" represent a new section
-  " call quickmenu#append("# Debug", '')
-  " script between %{ and } will be evaluated before menu open
-  " call quickmenu#append("Run %{expand('%:t')}", '!./%', "Run current file")
-  " new section
-  call quickmenu#append("# Git", '')
-  " use fugitive to show diff
-  call quickmenu#append("git diff", 'Gvdiff', "use fugitive's Gvdiff on current document")
-  call quickmenu#append("git status", 'Gstatus', "use fugitive's Gstatus on current document")
-  " new section
-  call quickmenu#append("# Misc", '')
-  call quickmenu#append("Light Color Schema", ":colorscheme solarized8_light", "turn on light colorscheme")
-  call quickmenu#append("Dark Color Schema", ":colorscheme molokai", "turn on dark colorscheme")
-  call quickmenu#append("Wakatime Dashboard", "OpenBrowser https://wakatime.com/dashboard", "go to wakatime")
+  function! OpenMenu()
+    call plug#load('quickmenu.vim')
+    " Reset Old
+    call quickmenu#reset()
+    " Build Menu
+    call quickmenu#header('Menu Bar')
+    call quickmenu#append("# Git", '')
+    " use fugitive to show diff
+    call quickmenu#append("git diff", 'Gvdiff', "use fugitive's Gvdiff on current document")
+    call quickmenu#append("git status", 'Gstatus', "use fugitive's Gstatus on current document")
+    " new section
+    call quickmenu#append("# Misc", '')
+    call quickmenu#append("Light Color Schema", ":colorscheme solarized8_light", "turn on light colorscheme")
+    call quickmenu#append("Dark Color Schema", ":colorscheme molokai", "turn on dark colorscheme")
+    call quickmenu#append("Wakatime Dashboard", "OpenBrowser https://wakatime.com/dashboard", "go to wakatime")
+    " Open it
+    call quickmenu#toggle(0)
+  endfunction
 " }}
 
 
