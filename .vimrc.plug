@@ -174,7 +174,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 " Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 
 " https://github.com/skywind3000/quickmenu.vim
-" A nice customizable popup menu for vim 
+" A nice customizable popup menu for vim
 Plug 'skywind3000/quickmenu.vim', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
@@ -682,6 +682,7 @@ call plug#end()
   let g:quickmenu_options = "L"
   function! OpenMenu()
     call plug#load('quickmenu.vim')
+    call quickmenu#current('menu')
     " Reset Old
     call quickmenu#reset()
     " Build Menu
@@ -692,11 +693,13 @@ call plug#end()
     call quickmenu#append("git status", 'Gstatus', "use fugitive's Gstatus on current document")
     " new section
     call quickmenu#append("# Misc", '')
-    call quickmenu#append("Light Color Schema", ":colorscheme solarized8_light", "turn on light colorscheme")
-    call quickmenu#append("Dark Color Schema", ":colorscheme molokai", "turn on dark colorscheme")
+    call quickmenu#append("Remove White Space", ":%s/\\s\\+$//", "remove trailing whitespace")
+    call quickmenu#append("Color Schema Light", ":colorscheme solarized8_light", "turn on light colorscheme")
+    call quickmenu#append("Color Schema Dark" , ":colorscheme molokai", "turn on dark colorscheme")
     call quickmenu#append("Wakatime Dashboard", "OpenBrowser https://wakatime.com/dashboard", "go to wakatime")
+    call quickmenu#append("Code Outline List" , "CocList --number-select --auto-preview outline", "show code outline")
     " Open it
-    call quickmenu#toggle(0)
+    call quickmenu#toggle('menu')
   endfunction
 " }}
 
@@ -759,14 +762,14 @@ call plug#end()
 
 
 " https://github.com/dyng/ctrlsf.vim {{
-  nnoremap <leader>s :CtrlSF<Space><Right>''<Right><Left>
+  nnoremap <leader>sf :CtrlSF<Space><Right>''<Right><Left>
   let g:ctrlsf_confirm_save = 1
   let g:ctrlsf_auto_close = {
         \ "normal" : 0,
         \ "compact": 0
         \}
   " cwd | project
-  let g:ctrlsf_default_root = 'cwd'
+  let g:ctrlsf_default_root = 'project'
   " normal | compact
   let g:ctrlsf_default_view_mode = 'normal'
   " no need
