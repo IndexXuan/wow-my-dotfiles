@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 24 Plugins
+"                              Plug with 25 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -77,14 +77,14 @@ augroup lazyload
 augroup END
 
 function! Handler(_)
-  " 1. before lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig')
+  " 0. before lazyload
+  " call plug#load()
 
-  " 2. lazyload
+  " 1. lazyload
   " TODO: nerdtree-git-plugin 有点卡性能，编辑时候关闭 nerdtree 才行
   call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
 
-  " 3. vim [empty] - 顺序不能变，精心调试出来的
+  " 2. vim [empty] - 顺序不能变，精心调试出来的
   if !argc()
     " Open Left & Right Bar
     call OpenBar()
@@ -103,14 +103,14 @@ function! Handler(_)
     execute("Startify")
   endif
 
-  " 4. for vim [dir], call NerdTree
+  " 3. for vim [dir], call NerdTree
   autocmd StdinReadPre * let s:std_in=1
   if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
     " Open Left-Side NERDTree
     exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0]
   endif
 
-  " 5. immediate action
+  " 4. immediate action
   if !has("nvim")
     " Vim 需要提前加载这个，懒加载不起作用 ...
     call plug#load('quickmenu.vim')
@@ -118,8 +118,8 @@ function! Handler(_)
 
   execute ":GitGutterEnable"
 
-  " 6. after lazyload
-  call plug#load('ctrlp.vim', 'vim-surround', 'vim-repeat', 'nerdcommenter', 'vim-jsdoc')
+  " 5. after lazyload
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'nerdcommenter', 'vim-jsdoc')
 endfunction
 
 " Order is important
@@ -148,6 +148,10 @@ Plug 'wakatime/vim-wakatime', { 'on': [] }
 " https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
+
+" https://github.com/terryma/vim-smooth-scroll - lazy - 好用
+" Make scrolling in Vim more pleasant
+Plug 'terryma/vim-smooth-scroll', { 'on': [] }
 
 " https://github.com/sgur/vim-editorconfig - 0 - lazy - before
 " Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
@@ -415,6 +419,15 @@ call plug#end()
   set viewoptions=cursor,folds,slash,unix
 " }}
 
+" https://github.com/terryma/vim-smooth-scroll {{
+  " Distance: This is the total number of lines you want to scroll
+  " Duration: This is how long you want each frame of the scrolling animation to last in milliseconds. Each frame will take at least this amount of time. It could take more if Vim's scrolling itself is slow
+  " Speed: This is how many lines to scroll during each frame of the scrolling animation
+  noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 16, 2)<CR>
+  noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 16, 2)<CR>
+  noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 16, 4)<CR>
+  noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 16, 4)<CR>
+" }}
 
 " https://github.com/vim-scripts/open-browser.vim {{
   " if it looks like URI, Open URI under cursor.
@@ -765,8 +778,9 @@ call plug#end()
     call quickmenu#header('Menu Bar')
     call quickmenu#append("# Git", '')
     " use fugitive to show diff
-    call quickmenu#append("git diff", 'Gvdiff', "use fugitive's Gvdiff on current document")
-    call quickmenu#append("git status", 'Gstatus', "use fugitive's Gstatus on current document")
+    call quickmenu#append("Git Diff", 'Gvdiff', "use fugitive's Gvdiff on current document")
+    call quickmenu#append("Git Status", 'Gstatus', "use fugitive's Gstatus on current document")
+    call quickmenu#append("Git Log", '0Glog', "use fugitive's 0Glog on current document")
     " new section
     call quickmenu#append("# Misc", '')
     call quickmenu#append("Remove White Space", ":%s/\\s\\+$//", "remove trailing whitespace")
