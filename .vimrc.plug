@@ -1,9 +1,17 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 25 Plugins
+"                              Plug with 24 Plugins
 "
 " ----------------------------------------------------------------------------
+
+" setup
+" if has('nvim')
+"   let g:python_host_skip_check = 1
+"   let g:python_host_prog = '/usr/local/bin/python'
+"   let g:python3_host_skip_check = 1
+"   let g:python3_host_prog = '/usr/local/bin/python3'
+" endif
 
 call plug#begin('$HOME/.vim/plugged')
 
@@ -54,12 +62,12 @@ let g:loaded_netrwPlugin = 1
 " UI Bar Width
 let g:bar_width = 30
 
-" 设置 statusline 根据屏幕大小隐藏部分组件的响应式阈值(脚本局部变量)
+" Set statusline screen break point
 let s:screen_xs = 30
 let s:screen_sm = 60
-let s:screen_md = 120
-let s:screen_lg = 150
-let s:screen_xl = 180
+let s:screen_md = 80
+let s:screen_lg = 120
+let s:screen_xl = 150
 
 augroup lazyload
   autocmd!
@@ -69,13 +77,14 @@ augroup lazyload
 augroup END
 
 function! Handler(_)
-  call plug#load('vim-nerdtree-syntax-highlight', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
-  if !has("nvim")
-    " Vim 需要提前加载这个，懒加载不起作用 ...
-    call plug#load('quickmenu.vim')
-  endif
-  execute ":GitGutterEnable"
-  " vim [empty] - 顺序不能变，精心调试出来的
+  " 1. before lazyload
+  call plug#load('vim-wakatime', 'vim-editorconfig')
+
+  " 2. lazyload
+  " TODO: nerdtree-git-plugin 有点卡性能，编辑时候关闭 nerdtree 才行
+  call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
+
+  " 3. vim [empty] - 顺序不能变，精心调试出来的
   if !argc()
     " Open Left & Right Bar
     call OpenBar()
@@ -93,18 +102,31 @@ function! Handler(_)
     " Open Startify Screen
     execute("Startify")
   endif
-  " for vim [dir], call NerdTree
+
+  " 4. for vim [dir], call NerdTree
   autocmd StdinReadPre * let s:std_in=1
   if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
     " Open Left-Side NERDTree
     exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0]
   endif
+
+  " 5. immediate action
+  if !has("nvim")
+    " Vim 需要提前加载这个，懒加载不起作用 ...
+    call plug#load('quickmenu.vim')
+  endif
+
+  execute ":GitGutterEnable"
+
+  " 6. after lazyload
+  call plug#load('ctrlp.vim', 'vim-surround', 'vim-repeat', 'nerdcommenter', 'vim-jsdoc')
 endfunction
 
+" Order is important
 function! OpenBar()
-  " Open Right-Side Menu
+  " 1. Open Right-Side Menu
   call OpenMenu()
-  " Open Left-Side NERDTree
+  " 2. Open Left-Side NERDTree
   execute("NERDTree")
 endfunction
 
@@ -119,25 +141,25 @@ endfunction
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
 
-" https://github.com/wakatime/vim-wakatime - 0 - no-need-lazy - 基础插件
+" https://github.com/wakatime/vim-wakatime - 0 - lazy - before
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
-Plug 'wakatime/vim-wakatime'
+Plug 'wakatime/vim-wakatime', { 'on': [] }
 
 " https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
 
-" https://github.com/sgur/vim-editorconfig - 0 - no-need-lazy - 基础插件
+" https://github.com/sgur/vim-editorconfig - 0 - lazy - before
 " Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
-Plug 'sgur/vim-editorconfig'
+Plug 'sgur/vim-editorconfig', { 'on': [] }
 
-" https://github.com/tpope/vim-surround - 1 - no-need-lazy
+" https://github.com/tpope/vim-surround - 1 - lazy - after
 " surround.vim: quoting/parenthesizing made simple
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround', { 'on': [] }
 
-" https://github.com/tpope/vim-repeat - 1 - no-need-lazy
+" https://github.com/tpope/vim-repeat - 1 - lazy - after
 " repeat.vim: enable repeating supported plugin maps with "."
-Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat', { 'on': [] }
 
 " https://github.com/vim-scripts/open-browser.vim - 2 - lazy
 " Open URI with your favorite browser from your favorite editor
@@ -149,9 +171,9 @@ Plug 'tyru/open-browser.vim', { 'on': ['<Plug>(openbrowser-smart-search)', 'Open
 " one colorscheme pack to rule them all!
 " Plug 'flazz/vim-colorschemes'
 
-" https://github.com/mhinz/vim-startify - 1 - not-support-lazy - 会出问题
+" https://github.com/mhinz/vim-startify - 1 - lazy
 " 🔗 The fancy start screen for Vim.
-Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify', { 'on': [] }
 
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 但也要尽快加载，否则很多地方出不来
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
@@ -176,19 +198,20 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 " A plugin of NERDTree showing git status
 Plug 'tsony-tsonev/nerdtree-git-plugin', { 'on': [] }
 
-" https://github.com/skywind3000/quickmenu.vim
+" https://github.com/skywind3000/quickmenu.vim - 0 - lazy
 " A nice customizable popup menu for vim
 Plug 'skywind3000/quickmenu.vim', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
 
-" https://github.com/scrooloose/nerdcommenter - 0 - no-need-lazy
+" https://github.com/scrooloose/nerdcommenter - 0 - lazy
 " Vim plugin for intensely orgasmic commenting
-Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter', { 'on': [] }
 
-" https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy - on-demand
+" https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy - on-demand-load will not work with devicon, dont know why
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
+" Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
+Plug 'ctrlpvim/ctrlp.vim'
 
 " https://github.com/dyng/ctrlsf.vim - 0 - lazy - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
@@ -239,11 +262,11 @@ Plug 'honza/vim-snippets', { 'on': [] }
 
 " https://github.com/Valloric/MatchTagAlways - 0 - lazy
 " A Vim plugin that always highlights the enclosing html / xml tags
-Plug 'Valloric/MatchTagAlways', { 'for' : ['html', 'vue'] }
+" Plug 'Valloric/MatchTagAlways'
 
 " https://github.com/heavenshell/vim-jsdoc - 2 - lazy - 不支持 vue 文件，加了没也用
 " Generate JSDoc to your JavaScript code.
-Plug 'heavenshell/vim-jsdoc', { 'for' : ['javascript', 'typescript'] }
+Plug 'heavenshell/vim-jsdoc', { 'on': [] }
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -402,9 +425,9 @@ call plug#end()
 
 " https://github.com/mhinz/vim-startify {{
   let g:startify_bookmarks = [
-        \ {'v': dotfiles . '.vimrc'},
-        \ {'p': dotfiles . '.vimrc.plug'},
-        \ {'z': dotfiles . '.zshrc'}
+        \ { 'v': dotfiles . '.vimrc' },
+        \ { 'p': dotfiles . '.vimrc.plug' },
+        \ { 'z': dotfiles . '.zshrc' },
         \]
   let g:startify_change_to_dir       = 1
   let g:startify_update_oldfiles     = 1
@@ -413,19 +436,23 @@ call plug#end()
 
 
 " https://github.com/ryanoasis/vim-devicons {{
+  " useful ?
+  " if exists('g:loaded_webdevicons')
+  "   call webdevicons#refresh()
+  " endif
+  " let g:webdevicons_conceal_nerdtree_brackets = 1
   let g:WebnevIconsOS = 'Darwin'
 
-  let g:webdevicons_conceal_nerdtree_brackets = 1
   let g:webdevicons_enable = 1
-  let g:webdevicons_conceal_nerdtree_brackets = 0
   let g:webdevicons_enable_nerdtree = 1
   let g:webdevicons_enable_startify = 1
   let g:webdevicons_enable_ctrlp = 1
   " Force extra padding in NERDTree so that the filetype icons line up vertically
   let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
   " let g:DevIconsDefaultFolderOpenSymbol = ''
+  let g:DevIconsEnableFoldersOpenClose = 1
 
-  let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+  " let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
   let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol='~'
   let g:DevIconsEnableFolderPatternMatching = 1
   let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -607,12 +634,12 @@ call plug#end()
   endfunction
 
   function! LightlineFileEncoding()
-    let _ = &fileencoding . '[' . &fileformat . ']' . ' ' . WebDevIconsGetFileFormatSymbol()
+    let _ = &fileencoding . ' ' . WebDevIconsGetFileFormatSymbol()
     return winwidth(0) > s:screen_lg ? _ : ''
   endfunction
 
   function! LightLineLineInfo()
-    let _ = printf('㏑ %d:%-2d', line('.'), col('.'))
+    let _ = printf('㏑ %d:%d', line('.'), col('.'))
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
@@ -692,8 +719,8 @@ call plug#end()
 
 
 " https://github.com/tsony-tsonev/nerdtree-git-plugin {{
-  " let g:NERDTreeShowIgnoredStatus = 1
-  set conceallevel=3
+  " a heavy feature may cost much more time
+  let g:NERDTreeShowIgnoredStatus = 1
 
   " use color for stutus
   let g:NERDTreeGitStatusWithFlags = 1
@@ -792,8 +819,8 @@ call plug#end()
 
 " https://github.com/ctrlpvim/ctrlp.vim {{
   nnoremap <silent> <C-p> :CtrlP<CR>
-  " mixed mode is more useful and smart
-  let g:ctrlp_cmd = 'CtrlPMixed'
+  " not use buffers, so MRU for files only
+  let g:ctrlp_cmd = 'CtrlPMRU'
   let g:ctrlp_working_path_mode = 'ra'
 
   " MacOSX / Linux
@@ -806,7 +833,7 @@ call plug#end()
         \ }
   " Ignore files in .gitignore
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-  let g:ctrlp_follow_symlinks=1
+  let g:ctrlp_follow_symlinks = 1
 " }}
 
 
@@ -863,20 +890,22 @@ call plug#end()
 
 
 " https://github.com/Valloric/MatchTagAlways {{
-  let g:mta_filetypes = {
-        \ 'html' : 1,
-        \ 'xhtml' : 1,
-        \ 'xml' : 1,
-        \ 'javascript' : 1,
-        \ 'jsx' : 1,
-        \ 'typescript' : 1,
-        \ 'tsx' : 1,
-        \ 'vue' : 1,
-        \}
+  " let g:mta_filetypes = {
+  "       \ 'html' : 1,
+  "       \ 'xhtml' : 1,
+  "       \ 'xml' : 1,
+  "       \ 'javascript' : 1,
+  "       \ 'jsx' : 1,
+  "       \ 'typescript' : 1,
+  "       \ 'tsx' : 1,
+  "       \ 'vue' : 1,
+  "       \}
 " }}
 
 
 " https://github.com/heavenshell/vim-jsdoc {{
+  " works but not perfect ...
+  " autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript.html
   nmap <silent> <leader>dd <Plug>(jsdoc)
   let g:jsdoc_allow_input_prompt = 0
   let g:jsdoc_enable_es6 = 1
