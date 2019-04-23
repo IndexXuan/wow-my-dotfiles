@@ -652,7 +652,7 @@ call plug#end()
   endfunction
 
   function! LightLineLineInfo()
-    let _ = printf('㏑ %d:%d', line('.'), col('.'))
+    let _ = printf('㏑%d:%d', line('.'), col('.'))
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
