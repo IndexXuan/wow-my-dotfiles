@@ -5,6 +5,11 @@
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.snippetStatusText": "SNIP",
+  "list.normalMappings": {
+    "<C-j>": "normal:j",
+    "<C-k>": "normal:k",
+    "<C-t>": "action:tabe"
+  },
   // make vim select first item on completion
   "suggest.noselect": false,
   // when snippet activated and pumvisible, prefer complete completion.
