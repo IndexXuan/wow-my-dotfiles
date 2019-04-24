@@ -139,7 +139,7 @@ endfunction
 
 " https://github.com/neoclide/coc.nvim - 0 - not-support-lazy - 异步加载会超级慢
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
-Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': 'yarn install --frozen-lockfile' }
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 
 " https://github.com/wakatime/vim-wakatime - 0 - lazy - before
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
@@ -287,7 +287,8 @@ call plug#end()
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets',
         \ 'https://github.com/xabikos/vscode-javascript',
-        \ 'https://github.com/IndexXuan/vue-vscode-snippets',
+        \ 'https://github.com/sdras/vue-vscode-snippets',
+        \ 'https://github.com/snowffer/Element-UI-Snippets-VSCode',
         \ 'https://github.com/xabikos/vscode-react',
         \]
 
