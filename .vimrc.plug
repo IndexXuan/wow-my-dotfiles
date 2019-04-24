@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 27 Plugins
+"                              Plug with 29 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ function! Handler(_)
   execute ":GitGutterEnable"
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim')
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'vim-easymotion')
 endfunction
 
 " Order is important
@@ -141,9 +141,17 @@ endfunction
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 
+" https://github.com/takac/vim-hardtime - lazy - after
+" Plugin to help you stop repeating the basic movement keys
+Plug 'takac/vim-hardtime', { 'on': []}
+
 " https://github.com/wakatime/vim-wakatime - 0 - lazy - before
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime', { 'on': [] }
+
+" https://github.com/easymotion/vim-easymotion
+" Vim motions on speed! 
+Plug 'easymotion/vim-easymotion', { 'on': [] }
 
 " https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
 " Make Vim persist editing state without fuss
@@ -444,6 +452,36 @@ call plug#end()
   nmap <leader>p :Prettier<CR>
 " }}
 
+" https://github.com/takac/vim-hardtime {{
+  " If you want hardtime to run in every buffer, add this to .vimrc
+  let g:hardtime_default_on = 1
+  " To enable the notification about HardTime being enabled set
+  let g:hardtime_showmsg = 1
+  " Setting this value to 2 will allow a user to press jj but not jjj.
+  let g:hardtime_maxcount = 5
+  " To enable hardtime to ignore certain buffer patterns set
+  let g:hardtime_ignore_buffer_patterns = [ "quickmenu", "NERD.*" ]
+" }}
+
+" https://github.com/easymotion/vim-easymotion {{
+  " nnoremap <leader><leader> <Plug>(easymotion-prefix)
+  let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+  " Turn on case-insensitive feature
+  let g:EasyMotion_smartcase = 1
+
+  " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+  " `s{char}{label}`
+  " nmap <leader><leader>g <Plug>(easymotion-overwin-f)
+  " or
+  " `s{char}{char}{label}`
+  " Need one more keystroke, but on average, it may be more comfortable.
+  nmap s <Plug>(easymotion-overwin-f2)
+
+  " JK motions: Line motions
+  nmap <leader>j <Plug>(easymotion-j)
+  nmap <leader>k <Plug>(easymotion-k)
+" }}
 
 " https://github.com/zhimsel/vim-stay {{
   " reading log useful settings
@@ -489,6 +527,7 @@ call plug#end()
   function! s:goyo_enter()
     set noshowcmd
     set scrolloff=999
+    exec "HardTimeOff"
     Limelight
     " colorscheme solarized8_light
     echo "加油! Deadline 是第一生产力 ..."
@@ -502,6 +541,7 @@ call plug#end()
   function! s:goyo_leave()
     set showcmd
     set scrolloff=5
+    exec "HardTimeOn"
     Limelight!
     " colorscheme molokai
 
