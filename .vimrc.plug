@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 25 Plugins
+"                              Plug with 27 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ function! Handler(_)
   execute ":GitGutterEnable"
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'nerdcommenter', 'vim-jsdoc')
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim')
 endfunction
 
 " Order is important
@@ -178,6 +178,14 @@ Plug 'tyru/open-browser.vim', { 'on': ['<Plug>(openbrowser-smart-search)', 'Open
 " https://github.com/mhinz/vim-startify - 1 - lazy
 " 🔗 The fancy start screen for Vim.
 Plug 'mhinz/vim-startify', { 'on': [] }
+
+" https://github.com/junegunn/goyo.vim - lazy - UI
+" 🌷 Distraction-free writing in Vim
+Plug 'junegunn/goyo.vim', { 'on': [] }
+
+" https://github.com/junegunn/limelight.vim - lazy - UI
+" 🔦 All the world's indeed a stage and we are merely players
+Plug 'junegunn/limelight.vim', { 'on': [] }
 
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 但也要尽快加载，否则很多地方出不来
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
@@ -473,6 +481,49 @@ call plug#end()
   let g:startify_session_autoload    = 1
 " }}
 
+" https://github.com/junegunn/goyo.vim {{
+  let g:goyo_width = 120
+  let g:goyo_height = '80%'
+  let g:goyo_linenr = 0
+  noremap <leader>e :Goyo<CR>
+  function! s:goyo_enter()
+    set noshowcmd
+    set scrolloff=999
+    Limelight
+    " colorscheme solarized8_light
+    echo "加油! Deadline 是第一生产力 ..."
+
+    let b:quitting = 0
+    let b:quitting_bang = 0
+    autocmd QuitPre <buffer> let b:quitting = 1
+    cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+  endfunction
+
+  function! s:goyo_leave()
+    set showcmd
+    set scrolloff=5
+    Limelight!
+    " colorscheme molokai
+
+    " Quit Vim if this is the only remaining buffer
+    if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+      if b:quitting_bang
+        qa!
+      else
+        qa
+      endif
+    endif
+  endfunction
+
+  autocmd! User GoyoEnter nested call <SID>goyo_enter()
+  autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" }}
+
+" https://github.com/junegunn/limelight.vim {{
+  " Default: 0.5
+  let g:limelight_default_coefficient = 0.6
+  nnoremap <leader>l :Limelight!! 0.6<CR>
+" }}
 
 " https://github.com/ryanoasis/vim-devicons {{
   " useful ?
