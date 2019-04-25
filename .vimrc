@@ -322,7 +322,7 @@ endif
   cnoremap w!! w !sudo tee % >/dev/null
   " force quit
   nnoremap QQ :q!<CR>
-  " }}20150509, add some feature for fast and easy move
+  " add some feature for fast and easy motion，like <C-a> & <C-e>
   nmap f ^
   nmap e $
   " toggle paste mode in vim, very useful. 20150709
@@ -337,9 +337,9 @@ endif
   nnoremap D d$
   " terminal in Vim
   if has('nvim') || has('terminal')
-    map <Leader>' :terminal<CR>
+    map <leader>' :terminal<CR>
   else
-    map <Leader>' :shell<CR>
+    map <leader>' :shell<CR>
   endif
   " remove trailing whitespaces
   " :%s/\s\+$//

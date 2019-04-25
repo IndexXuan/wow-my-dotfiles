@@ -1,11 +1,14 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 29 Plugins
+"                              Plug with 30 Plugins
 "
 " ----------------------------------------------------------------------------
 
 " setup
+" " enable python if $PATH has python3 >= 3.4
+" " pip3 install --user --upgrade pynvim
+
 " if has('nvim')
 "   let g:python_host_skip_check = 1
 "   let g:python_host_prog = '/usr/local/bin/python'
@@ -119,7 +122,7 @@ function! Handler(_)
   execute ":GitGutterEnable"
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'vim-easymotion')
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime')
 endfunction
 
 " Order is important
@@ -282,7 +285,7 @@ Plug 'honza/vim-snippets', { 'on': [] }
 
 " https://github.com/Valloric/MatchTagAlways - 0 - lazy
 " A Vim plugin that always highlights the enclosing html / xml tags
-" Plug 'Valloric/MatchTagAlways'
+Plug 'Valloric/MatchTagAlways'
 
 " https://github.com/heavenshell/vim-jsdoc - 2 - lazy - 不支持 vue 文件，加了没也用
 " Generate JSDoc to your JavaScript code.
@@ -455,6 +458,11 @@ call plug#end()
 " https://github.com/takac/vim-hardtime {{
   " If you want hardtime to run in every buffer, add this to .vimrc
   let g:hardtime_default_on = 1
+  " default settings
+  let g:list_of_normal_keys = ["h", "j", "k", "l", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+  let g:list_of_visual_keys = ["h", "l", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+  let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+  let g:list_of_disabled_keys = []
   " To enable the notification about HardTime being enabled set
   let g:hardtime_showmsg = 1
   " Setting this value to 2 will allow a user to press jj but not jjj.
@@ -464,8 +472,28 @@ call plug#end()
 " }}
 
 " https://github.com/easymotion/vim-easymotion {{
-  " nnoremap <leader><leader> <Plug>(easymotion-prefix)
-  let g:EasyMotion_do_mapping = 0 " Disable default mappings
+  " let g:EasyMotion_do_mapping = 0 " Disable default mappings
+  map <leader><leader> <Plug>(easymotion-prefix)
+  " Default Mapping      | Details
+  "   ---------------------|----------------------------------------------
+  "   <Leader>f{char}      | Find {char} to the right. See |f|.
+  "   <Leader>F{char}      | Find {char} to the left. See |F|.
+  "   <Leader>t{char}      | Till before the {char} to the right. See |t|.
+  "   <Leader>T{char}      | Till after the {char} to the left. See |T|.
+  "   <Leader>w            | Beginning of word forward. See |w|.
+  "   <Leader>W            | Beginning of WORD forward. See |W|.
+  "   <Leader>b            | Beginning of word backward. See |b|.
+  "   <Leader>B            | Beginning of WORD backward. See |B|.
+  "   <Leader>e            | End of word forward. See |e|.
+  "   <Leader>E            | End of WORD forward. See |E|.
+  "   <Leader>ge           | End of word backward. See |ge|.
+  "   <Leader>gE           | End of WORD backward. See |gE|.
+  "   <Leader>j            | Line downward. See |j|.
+  "   <Leader>k            | Line upward. See |k|.
+  "   <Leader>n            | Jump to latest "/" or "?" forward. See |n|.
+  "   <Leader>N            | Jump to latest "/" or "?" backward. See |N|.
+  "   <Leader>s            | Find(Search) {char} forward and backward.
+  "                        | See |f| and |F|.
 
   " Turn on case-insensitive feature
   let g:EasyMotion_smartcase = 1
@@ -477,10 +505,6 @@ call plug#end()
   " `s{char}{char}{label}`
   " Need one more keystroke, but on average, it may be more comfortable.
   nmap s <Plug>(easymotion-overwin-f2)
-
-  " JK motions: Line motions
-  nmap <leader>j <Plug>(easymotion-j)
-  nmap <leader>k <Plug>(easymotion-k)
 " }}
 
 " https://github.com/zhimsel/vim-stay {{
@@ -527,7 +551,9 @@ call plug#end()
   function! s:goyo_enter()
     set noshowcmd
     set scrolloff=999
-    exec "HardTimeOff"
+    if g:hardtime_default_on == 1
+      exec "HardTimeOff"
+    endif
     Limelight
     " colorscheme solarized8_light
     echo "加油! Deadline 是第一生产力 ..."
@@ -541,7 +567,9 @@ call plug#end()
   function! s:goyo_leave()
     set showcmd
     set scrolloff=5
-    exec "HardTimeOn"
+    if g:hardtime_default_on == 1
+      exec "HardTimeOn"
+    endif
     Limelight!
     " colorscheme molokai
 
@@ -898,6 +926,8 @@ call plug#end()
     call quickmenu#append("Git Diff", 'Gvdiff', "use fugitive's Gvdiff on current document")
     call quickmenu#append("Git Status", 'Gstatus', "use fugitive's Gstatus on current document")
     call quickmenu#append("Git Log", '0Glog', "use fugitive's 0Glog on current document")
+    call quickmenu#append("Git Highlight", 'GitGutterLineHighlightsEnable', "use fugitive's LineHighlights")
+
     " new section
     call quickmenu#append("# Misc", '')
     call quickmenu#append("Remove White Space", ":%s/\\s\\+$//", "remove trailing whitespace")
@@ -997,9 +1027,9 @@ call plug#end()
   " Required after having changed the colorscheme
   hi clear SignColumn
   let g:gitgutter_map_keys = 0
-  nnoremap <leader>] <Plug>GitGutterNextHunk
-  nnoremap <leader>[ <Plug>GitGutterPrevHunk
-  nnoremap <leader>gh :GitGutterLineHighlightsEnable<CR>
+  " nnoremap <leader>] <Plug>GitGutterNextHunk
+  " nnoremap <leader>[ <Plug>GitGutterPrevHunk
+  " nnoremap <leader>gh :GitGutterLineHighlightsEnable<CR>
 " }}
 
 
@@ -1021,16 +1051,16 @@ call plug#end()
 
 
 " https://github.com/Valloric/MatchTagAlways {{
-  " let g:mta_filetypes = {
-  "       \ 'html' : 1,
-  "       \ 'xhtml' : 1,
-  "       \ 'xml' : 1,
-  "       \ 'javascript' : 1,
-  "       \ 'jsx' : 1,
-  "       \ 'typescript' : 1,
-  "       \ 'tsx' : 1,
-  "       \ 'vue' : 1,
-  "       \}
+  let g:mta_filetypes = {
+        \ 'html' : 1,
+        \ 'xhtml' : 1,
+        \ 'xml' : 1,
+        \ 'javascript' : 1,
+        \ 'jsx' : 1,
+        \ 'typescript' : 1,
+        \ 'tsx' : 1,
+        \ 'vue' : 1,
+        \}
 " }}
 
 
