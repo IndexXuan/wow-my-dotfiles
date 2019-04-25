@@ -142,7 +142,7 @@ endfunction
 
 " https://github.com/neoclide/coc.nvim - 0 - not-support-lazy - 异步加载会超级慢
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
-Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+Plug 'neoclide/coc.nvim', { 'do': './install.sh nightly' }
 
 " https://github.com/takac/vim-hardtime - lazy - after
 " Plugin to help you stop repeating the basic movement keys
