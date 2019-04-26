@@ -6,6 +6,7 @@
 " ----------------------------------------------------------------------------
 
 " setup
+" NOTE: @Install
 " " enable python if $PATH has python3 >= 3.4
 " " pip3 install --user --upgrade pynvim
 
@@ -153,7 +154,7 @@ Plug 'takac/vim-hardtime', { 'on': []}
 Plug 'wakatime/vim-wakatime', { 'on': [] }
 
 " https://github.com/easymotion/vim-easymotion
-" Vim motions on speed! 
+" Vim motions on speed!
 Plug 'easymotion/vim-easymotion', { 'on': [] }
 
 " https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
@@ -299,7 +300,6 @@ call plug#end()
 
 " https://github.com/neoclide/coc.nvim {{
   " 1. global installed extensions
-  " NOTE: 还有些 github vscode snippets 没列出来，不稳定，有的安装不上
   let g:coc_global_extensions = [
         \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs',
         \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
@@ -618,7 +618,7 @@ call plug#end()
 
 
 " https://github.com/itchyny/lightline.vim {{
-  " NOTE: Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号 ( 因为 emoji icon 太太，12 号不和谐，vertical 100% and horizontal < 100% )
+  " NOTE: @Install -  Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号 ( 因为 emoji icon 太太，12 号不和谐，vertical 100% and horizontal < 100% )
   " NOTE: branch icon 等 from https://github.com/itchyny/lightline.vim/issues/353
   let g:lightline = {
         \ 'colorscheme': 'powerline',
@@ -999,7 +999,7 @@ call plug#end()
         \ }
   " Ignore files in .gitignore
   " let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-  " use rg for CtrlP
+  " NOTE: @Install - Use RG for CtrlP - https://github.com/BurntSushi/ripgrep
   if executable('rg')
     set grepprg=rg\ --color=never
     let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
@@ -1010,6 +1010,8 @@ call plug#end()
 
 
 " https://github.com/dyng/ctrlsf.vim {{
+  " NOTE: @Install - Use RG for CtrlSF - https://github.com/BurntSushi/ripgrep
+  let g:ctrlsf_ackprg = '/usr/local/bin/rg'
   nnoremap <leader>sf :CtrlSF<Space><Right>''<Right><Left>
   let g:ctrlsf_confirm_save = 1
   let g:ctrlsf_auto_close = {
@@ -1027,9 +1029,11 @@ call plug#end()
   let g:ctrlsf_search_mode = 'async'
   let g:ctrlsf_position = 'left'
   let g:ctrlsf_winsize = '40%'
+  " map for 一致性
   let g:ctrlsf_mapping = {
         \ "next": "n",
         \ "prev": "N",
+        \ "tab" : "<C-t>",
         \ }
 " }}
 
