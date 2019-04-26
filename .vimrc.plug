@@ -804,13 +804,14 @@ call plug#end()
 
   function! LightLineLineInfo()
     let _ = printf('㏑%d:%d', line('.'), col('.'))
-    return winwidth(0) > s:screen_sm ? _ : ''
+    " without Startify
+    return winwidth(0) && (&filetype == 'Startify') > s:screen_sm ? _ : ''
   endfunction
 
   function! LightlinePercent()
     let _ = 'Ξ ' . (100 * line('.') / line('$')) . '%'
-    " always show percent
-    return _
+    " always show percent with Startify
+    return &filetype == 'startify' ? '' : _
   endfunction
 
   " NOTE: override lightline, mark CtrlP all modes and features
