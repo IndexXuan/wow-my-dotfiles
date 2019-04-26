@@ -802,9 +802,10 @@ call plug#end()
   endfunction
 
   function! LightLineLineInfo()
-    let _ = printf('㏑%d:%d', line('.'), col('.'))
     " without Startify
-    return winwidth(0) && (&filetype == 'Startify') > s:screen_sm ? _ : ''
+    let li = printf('㏑%d:%d', line('.'), col('.'))
+    let _ = &filetype != 'Startify' ? li : ''
+    return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
   function! LightlinePercent()
