@@ -122,7 +122,7 @@ function! Handler(_)
   execute ":GitGutterEnable"
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime')
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways')
 endfunction
 
 " Order is important
@@ -285,7 +285,7 @@ Plug 'honza/vim-snippets', { 'on': [] }
 
 " https://github.com/Valloric/MatchTagAlways - 0 - lazy
 " A Vim plugin that always highlights the enclosing html / xml tags
-Plug 'Valloric/MatchTagAlways'
+Plug 'Valloric/MatchTagAlways', { 'on': [] }
 
 " https://github.com/heavenshell/vim-jsdoc - 2 - lazy - 不支持 vue 文件，加了没也用
 " Generate JSDoc to your JavaScript code.
@@ -624,7 +624,7 @@ call plug#end()
         \ 'colorscheme': 'powerline',
         \ 'active': {
         \   'left': [
-        \     [ 'mode', 'paste', 'readonly' ],
+        \     [ 'mode', 'paste' ],
         \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
         \   ],
         \   'right':[
@@ -644,7 +644,6 @@ call plug#end()
         \ },
         \ 'component_function': {
         \   'mode': 'LightlineMode',
-        \   'readonly': 'LightLineReadonly',
         \   'ctrlpmark': 'CtrlPMark',
         \   'git': 'LightLineGit',
         \   'filename': 'LightlineFilename',
@@ -664,17 +663,16 @@ call plug#end()
     return fname =~ 'NERD_tree' ? 'NERD' :
           \ fname == 'ControlP' ? 'CtrlP' :
           \ &filetype == 'ctrlsf' ? 'CtrlSF' :
-          \ &filetype == 'vista_kind' ? 'Vista' :
           \ &filetype == 'quickmenu' ? 'Menu' :
           \ &filetype == 'startify' ? 'Startify' :
           \ winwidth(0) > s:screen_xs ? lightline#mode() : ''
   endfunction
 
   " like /etc/hosts readonly file
-  function! LightLineReadonly()
+  function! LightlineReadonly()
     let ft = &filetype
     let fname = expand('%:t')
-    let isBar = ft == 'vista_kind' || ft == 'quickmenu' || fname =~ 'NERD_tree'
+    let isBar = fname =~ 'NERD_tree' || ft == 'quickmenu'
     if isBar
       return ''
     endif
@@ -759,20 +757,21 @@ call plug#end()
 
   autocmd User CocDiagnosticChange call lightline#update()
 
-  function! LightlineFilename()
-    let isHidden = &filetype == 'startify' || &filetype == 'quickmenu'
-    let filename = expand('%:t') !=# '' ? expand('%:t') : '[no name]'
-    let modified = &modified ? ' +' : ''
-    let _  = isHidden ? '' : filename . modified . ' ' . WebDevIconsGetFileTypeSymbol()
-    return winwidth(0) > s:screen_sm ? _ : ''
+
+  function! LightlineModified()
+    return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
   endfunction
 
-  " function! LightlineMethod()
-  " let f_icon = get(g:, 'eleline_function_icon', "\uf794 ")
-  " let name = get(b:, 'vista_nearest_method_or_function', '')
-  " let _ = name != '' ? f_icon . name : ''
-  " return winwidth(0) > s:screen_sm ? _ : ''
-  " endfunction
+  function! LightlineFilename()
+    let fname = expand('%:t')
+	  let ret = fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+	        \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+	        \ ('' != fname ? fname : '[No Name]') .
+	        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+    let isHidden = &filetype == 'startify' || &filetype == 'quickmenu'
+    let _  = isHidden ? '' : ret . ' ' . WebDevIconsGetFileTypeSymbol()
+    return winwidth(0) > s:screen_sm ? _ : ''
+  endfunction
 
   function! LightlineMethod()
     " 必须双引号
@@ -787,12 +786,19 @@ call plug#end()
   endfunction
 
   function! LightlineFiletype()
-    let _ = &filetype !=# '' ? &filetype : 'no ft'
-    return winwidth(0) > s:screen_lg ? _ : ''
+    let ft = &filetype !=# '' ? &filetype : 'no ft'
+    let fname = expand('%:t')
+    return fname =~ 'NERD_tree' ? '' :
+          \ fname == 'ControlP' ? '' :
+          \ &filetype == 'ctrlsf' ? '' :
+          \ &filetype == 'quickmenu' ? '' :
+          \ &filetype == 'startify' ? '' :
+          \ winwidth(0) > s:screen_lg ? ft : ''
   endfunction
 
   function! LightlineFileEncoding()
-    let _ = &fileencoding . ' ' . WebDevIconsGetFileFormatSymbol()
+    let fc = &fenc !=# '' ? &fenc : &enc
+    let _ = fc != '' ? fc . ' ' . WebDevIconsGetFileFormatSymbol() : ''
     return winwidth(0) > s:screen_lg ? _ : ''
   endfunction
 
@@ -807,14 +813,9 @@ call plug#end()
     return _
   endfunction
 
-  let g:ctrlp_status_func = {
-        \ 'main': 'CtrlPStatusFunc_1',
-        \ 'prog': 'CtrlPStatusFunc_2',
-        \ }
-
-  " NOTE: 强心重写了左侧，适配 CtrlP
+  " NOTE: override lightline, mark CtrlP all modes and features
   function! CtrlPMark()
-    if expand('%:t') =~ 'ControlP'
+    if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
       call lightline#link('iR'[g:lightline.ctrlp_regex])
       return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
             \ , g:lightline.ctrlp_next], 0)
@@ -822,6 +823,11 @@ call plug#end()
       return ''
     endif
   endfunction
+
+  let g:ctrlp_status_func = {
+        \ 'main': 'CtrlPStatusFunc_1',
+        \ 'prog': 'CtrlPStatusFunc_2',
+        \ }
 
   function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
     let g:lightline.ctrlp_regex = a:regex
@@ -980,8 +986,8 @@ call plug#end()
 
 " https://github.com/ctrlpvim/ctrlp.vim {{
   nnoremap <silent> <C-p> :CtrlP<CR>
-  " not use buffers, so MRU for files only
-  let g:ctrlp_cmd = 'CtrlPMRU'
+  " Mixed Mode is useful, both Buffers and MRU
+  let g:ctrlp_cmd = 'CtrlPMixed'
   let g:ctrlp_working_path_mode = 'ra'
 
   " MacOSX / Linux
@@ -1006,7 +1012,7 @@ call plug#end()
         \ "compact": 0
         \}
   " cwd | project
-  let g:ctrlsf_default_root = 'project'
+  let g:ctrlsf_default_root = 'cwd'
   " normal | compact
   let g:ctrlsf_default_view_mode = 'normal'
   " no need
