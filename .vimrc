@@ -317,7 +317,7 @@ endif
   cnoremap jj <C-c>
   " Leader {{
   nnoremap <leader>q :x<CR>
-  nnoremap <leader>w :w!<CR>
+  nnoremap <silent> <leader>w :update<CR>
   " force write to file
   cnoremap w!! w !sudo tee % >/dev/null
   " force quit

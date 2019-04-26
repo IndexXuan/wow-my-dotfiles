@@ -10,12 +10,12 @@
 " " enable python if $PATH has python3 >= 3.4
 " " pip3 install --user --upgrade pynvim
 
-" if has('nvim')
-"   let g:python_host_skip_check = 1
-"   let g:python_host_prog = '/usr/local/bin/python'
-"   let g:python3_host_skip_check = 1
-"   let g:python3_host_prog = '/usr/local/bin/python3'
-" endif
+if has('nvim')
+  let g:python_host_skip_check = 1
+  let g:python_host_prog = '/usr/local/bin/python3'
+  let g:python3_host_skip_check = 1
+  let g:python3_host_prog = '/usr/local/bin/python3'
+endif
 
 call plug#begin('$HOME/.vim/plugged')
 
@@ -767,7 +767,7 @@ call plug#end()
 	  let ret = ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
 	        \ ('' != fname ? fname : '[No Name]') .
 	        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-    let isHidden = &filetype == 'startify' || &filetype == 'quickmenu' || fname == 'ControlP'
+    let isHidden = &filetype == 'nerdtree' || &filetype == 'startify' || &filetype == 'quickmenu' || fname == 'ControlP'
     let _  = isHidden ? '' : ret . ' ' . WebDevIconsGetFileTypeSymbol()
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
