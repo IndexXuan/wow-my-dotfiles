@@ -60,18 +60,8 @@ call plug#begin('$HOME/.vim/plugged')
 let g:vimfiles = $HOME . '.vim/'
 let g:dotfiles = $HOME . '/wow-my-dotfiles/'
 
-" Disabled built-in Netrw, always use NerdTree
-let g:loaded_netrwPlugin = 1
-
 " UI Bar Width
 let g:bar_width = 30
-
-" Set statusline screen break point
-let s:screen_xs = 30
-let s:screen_sm = 60
-let s:screen_md = 80
-let s:screen_lg = 120
-let s:screen_xl = 150
 
 augroup lazyload
   autocmd!
@@ -618,10 +608,30 @@ call plug#end()
 
 
 " https://github.com/itchyny/lightline.vim {{
+  " Set statusline screen break point
+  let s:screen_xs = 30
+  let s:screen_sm = 60
+  let s:screen_md = 80
+  let s:screen_lg = 120
+  let s:screen_xl = 150
+
   " NOTE: @Install -  Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号 ( 因为 emoji icon 太太，12 号不和谐，vertical 100% and horizontal < 100% )
   " NOTE: branch icon 等 from https://github.com/itchyny/lightline.vim/issues/353
+  " NOTE: tabline inactive filename 使用原生 tab#filename，因为 WebDevIconsGetFileTypeSymbol() 不能根据 tab 文件类型做变化
   let g:lightline = {
         \ 'colorscheme': 'powerline',
+        \ 'enable': {
+        \   'tabline': 1,
+        \   'statusline': 1,
+        \ },
+        \ 'tab': {
+        \   'active': [ 'tnum', 'tfilename' ],
+		    \   'inactive': [ 'tabnum', 'filename' ],
+        \ },
+        \ 'tabline': {
+        \   'left': [ [ 'tabs', 'close' ] ],
+		    \   'right': [ [ ] ],
+        \ },
         \ 'active': {
         \   'left': [
         \     [ 'mode', 'paste' ],
@@ -642,6 +652,12 @@ call plug#end()
         \   'diagnostic': 'LightlineCocDiagnostic',
         \   'cocstatus': 'LightlineCocStatus',
         \ },
+        \ 'tab_component_function': {
+        \   'tabnum': 'lightline#tab#tabnum',
+        \   'tnum': 'LightlineTabNum',
+        \   'filename': 'lightline#tab#filename',
+        \   'tfilename': 'LightlineTabFilename',
+        \ },
         \ 'component_function': {
         \   'mode': 'LightlineMode',
         \   'ctrlpmark': 'CtrlPMark',
@@ -659,6 +675,12 @@ call plug#end()
         \ }
 
   function! LightlineMode()
+    " change tabline color here
+    let s:palette = g:lightline#colorscheme#powerline#palette
+    " active tab bgColor
+    let s:palette.tabline.tabsel = [ [ '#000000', 'yellow', 252, 66, 'bold' ] ]
+    let s:palette.tabline.left = [ [ '#ffffff', 'gray', 252, 66, 'bold' ] ]
+
     let fname = expand('%:t')
     return fname =~ 'NERD_tree' ? 'NERD' :
           \ fname == 'ControlP' ? 'CtrlP' :
@@ -666,6 +688,21 @@ call plug#end()
           \ &filetype == 'quickmenu' ? 'Menu' :
           \ &filetype == 'startify' ? 'Startify' :
           \ winwidth(0) > s:screen_xs ? lightline#mode() : ''
+  endfunction
+
+  " https://github.com/itchyny/lightline.vim/issues/302
+  function! LightlineTabNum(n)
+    let cur = tabpagenr()
+    return cur
+  endfunction
+
+  " https://github.com/itchyny/lightline.vim/issues/297
+  function! LightlineTabFilename(n)
+     let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
+     let fname = expand('#' . bufnr . ':t')
+     let _ = fname =~ 'NERD_tree' ? 'NERDTree' :
+           \ ('' != fname ? fname : '[No Name]')
+    return _ . ' ' . WebDevIconsGetFileTypeSymbol()
   endfunction
 
   " like /etc/hosts readonly file
@@ -844,6 +881,9 @@ call plug#end()
 
 
 " https://github.com/scrooloose/nerdtree {{
+  " Disabled built-in Netrw, always use NerdTree
+  let g:loaded_netrwPlugin = 1
+
   " Tree UI
   let g:NERDTreeWinSize = bar_width
   let g:NERDTreeDirArrowExpandable = '▸'
@@ -947,43 +987,6 @@ call plug#end()
 " }}
 
 
-" https://github.com/scrooloose/nerdcommenter {{
-  " Add spaces after comment delimiters by default
-  let g:NERDSpaceDelims = 1
-  " Use compact syntax for prettified multi-line comments
-  let g:NERDCompactSexyComs = 1
-  " Align line-wise comment delimiters flush left instead of following code indentation
-  let g:NERDDefaultAlign = 'left'
-  " Allow commenting and inverting empty lines (useful when commenting a region)
-  let g:NERDCommentEmptyLines = 1
-  " Enable trimming of trailing whitespace when uncommenting
-  let g:NERDTrimTrailingWhitespace = 1
-  " Enable NERDCommenterToggle to check all selected lines is commented or not
-  let g:NERDToggleCheckAllLines = 1
-
-  let g:ft = ''
-  function! NERDCommenter_before()
-    if &ft == 'vue'
-      let g:ft = 'vue'
-      let stack = synstack(line('.'), col('.'))
-      if len(stack) > 0
-        let syn = synIDattr((stack)[0], 'name')
-        if len(syn) > 0
-          exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-        endif
-      endif
-    endif
-  endfunction
-
-  function! NERDCommenter_after()
-    if g:ft == 'vue'
-      setf vue
-      let g:ft = ''
-    endif
-  endfunction
-" }}
-
-
 " https://github.com/ctrlpvim/ctrlp.vim {{
   nnoremap <silent> <C-p> :CtrlP<CR>
   " Mixed Mode is useful, both Buffers and MRU
@@ -1036,6 +1039,43 @@ call plug#end()
         \ "prev": "N",
         \ "tab" : "<C-t>",
         \ }
+" }}
+
+
+" https://github.com/scrooloose/nerdcommenter {{
+  " Add spaces after comment delimiters by default
+  let g:NERDSpaceDelims = 1
+  " Use compact syntax for prettified multi-line comments
+  let g:NERDCompactSexyComs = 1
+  " Align line-wise comment delimiters flush left instead of following code indentation
+  let g:NERDDefaultAlign = 'left'
+  " Allow commenting and inverting empty lines (useful when commenting a region)
+  let g:NERDCommentEmptyLines = 1
+  " Enable trimming of trailing whitespace when uncommenting
+  let g:NERDTrimTrailingWhitespace = 1
+  " Enable NERDCommenterToggle to check all selected lines is commented or not
+  let g:NERDToggleCheckAllLines = 1
+
+  let g:ft = ''
+  function! NERDCommenter_before()
+    if &ft == 'vue'
+      let g:ft = 'vue'
+      let stack = synstack(line('.'), col('.'))
+      if len(stack) > 0
+        let syn = synIDattr((stack)[0], 'name')
+        if len(syn) > 0
+          exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+        endif
+      endif
+    endif
+  endfunction
+
+  function! NERDCommenter_after()
+    if g:ft == 'vue'
+      setf vue
+      let g:ft = ''
+    endif
+  endfunction
 " }}
 
 

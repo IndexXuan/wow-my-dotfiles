@@ -78,6 +78,8 @@ endif
   set showcmd
   " Show line number
   set nonu
+  " Show Tabline always
+  set showtabline=2
   " Hide default --insert--, use statusline plugin
   set noshowmode
   " Always display statusline( like airline / lightline )
