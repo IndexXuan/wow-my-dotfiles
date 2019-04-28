@@ -131,43 +131,43 @@ endfunction
 
 " -------------------------- Base ---------------------------
 
-" https://github.com/neoclide/coc.nvim - 0 - not-support-lazy - 异步加载会超级慢
+" https://github.com/neoclide/coc.nvim - 0 - not-support-lazy - 异步加载会超级慢 - 基础生态插件
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'do': './install.sh nightly' }
 
-" https://github.com/takac/vim-hardtime - lazy - after
-" Plugin to help you stop repeating the basic movement keys
-Plug 'takac/vim-hardtime', { 'on': []}
-
-" https://github.com/wakatime/vim-wakatime - 0 - lazy - before
+" https://github.com/wakatime/vim-wakatime - 0 - lazy - 基础功能插件
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime', { 'on': [] }
 
-" https://github.com/easymotion/vim-easymotion
+" https://github.com/takac/vim-hardtime - lazy - 基础插件，Vim 特色
+" Plugin to help you stop repeating the basic movement keys
+Plug 'takac/vim-hardtime', { 'on': []}
+
+" https://github.com/easymotion/vim-easymotion - 0 - lazy - 基础插件，Vim 特色
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion', { 'on': [] }
 
-" https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关
+" https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关 - 基础功能插件
 " Make Vim persist editing state without fuss
 Plug 'kopischke/vim-stay'
 
-" https://github.com/terryma/vim-smooth-scroll - lazy - 好用
+" https://github.com/terryma/vim-smooth-scroll - 0 - lazy - 基础功能插件
 " Make scrolling in Vim more pleasant
 Plug 'terryma/vim-smooth-scroll', { 'on': [] }
 
-" https://github.com/sgur/vim-editorconfig - 0 - lazy - before
+" https://github.com/sgur/vim-editorconfig - 0 - lazy - 基础插件
 " Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
 Plug 'sgur/vim-editorconfig', { 'on': [] }
 
-" https://github.com/tpope/vim-surround - 1 - lazy - after
+" https://github.com/tpope/vim-surround - 1 - lazy - 基础插件，Vim 特色
 " surround.vim: quoting/parenthesizing made simple
 Plug 'tpope/vim-surround', { 'on': [] }
 
-" https://github.com/tpope/vim-repeat - 1 - lazy - after
+" https://github.com/tpope/vim-repeat - 1 - lazy - 基础插件，Vim 特色
 " repeat.vim: enable repeating supported plugin maps with "."
 Plug 'tpope/vim-repeat', { 'on': [] }
 
-" https://github.com/vim-scripts/open-browser.vim - 2 - lazy
+" https://github.com/vim-scripts/open-browser.vim - 2 - lazy - 基础功能插件
 " Open URI with your favorite browser from your favorite editor
 Plug 'tyru/open-browser.vim', { 'on': ['<Plug>(openbrowser-smart-search)', 'OpenBrowser'] }
 
@@ -987,6 +987,43 @@ call plug#end()
 " }}
 
 
+" https://github.com/scrooloose/nerdcommenter {{
+  " Add spaces after comment delimiters by default
+  let g:NERDSpaceDelims = 1
+  " Use compact syntax for prettified multi-line comments
+  let g:NERDCompactSexyComs = 1
+  " Align line-wise comment delimiters flush left instead of following code indentation
+  let g:NERDDefaultAlign = 'left'
+  " Allow commenting and inverting empty lines (useful when commenting a region)
+  let g:NERDCommentEmptyLines = 1
+  " Enable trimming of trailing whitespace when uncommenting
+  let g:NERDTrimTrailingWhitespace = 1
+  " Enable NERDCommenterToggle to check all selected lines is commented or not
+  let g:NERDToggleCheckAllLines = 1
+
+  let g:ft = ''
+  function! NERDCommenter_before()
+    if &ft == 'vue'
+      let g:ft = 'vue'
+      let stack = synstack(line('.'), col('.'))
+      if len(stack) > 0
+        let syn = synIDattr((stack)[0], 'name')
+        if len(syn) > 0
+          exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+        endif
+      endif
+    endif
+  endfunction
+
+  function! NERDCommenter_after()
+    if g:ft == 'vue'
+      setf vue
+      let g:ft = ''
+    endif
+  endfunction
+" }}
+
+
 " https://github.com/ctrlpvim/ctrlp.vim {{
   nnoremap <silent> <C-p> :CtrlP<CR>
   " Mixed Mode is useful, both Buffers and MRU
@@ -1026,10 +1063,6 @@ call plug#end()
   let g:ctrlsf_default_root = 'cwd'
   " normal | compact
   let g:ctrlsf_default_view_mode = 'normal'
-  " no need
-  " let g:ctrlsf_extra_backend_args = {
-  "   \ 'ag': '--nogroup --nocolor --column'
-  "   \ }
   let g:ctrlsf_search_mode = 'async'
   let g:ctrlsf_position = 'left'
   let g:ctrlsf_winsize = '40%'
@@ -1039,43 +1072,6 @@ call plug#end()
         \ "prev": "N",
         \ "tab" : "<C-t>",
         \ }
-" }}
-
-
-" https://github.com/scrooloose/nerdcommenter {{
-  " Add spaces after comment delimiters by default
-  let g:NERDSpaceDelims = 1
-  " Use compact syntax for prettified multi-line comments
-  let g:NERDCompactSexyComs = 1
-  " Align line-wise comment delimiters flush left instead of following code indentation
-  let g:NERDDefaultAlign = 'left'
-  " Allow commenting and inverting empty lines (useful when commenting a region)
-  let g:NERDCommentEmptyLines = 1
-  " Enable trimming of trailing whitespace when uncommenting
-  let g:NERDTrimTrailingWhitespace = 1
-  " Enable NERDCommenterToggle to check all selected lines is commented or not
-  let g:NERDToggleCheckAllLines = 1
-
-  let g:ft = ''
-  function! NERDCommenter_before()
-    if &ft == 'vue'
-      let g:ft = 'vue'
-      let stack = synstack(line('.'), col('.'))
-      if len(stack) > 0
-        let syn = synIDattr((stack)[0], 'name')
-        if len(syn) > 0
-          exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-        endif
-      endif
-    endif
-  endfunction
-
-  function! NERDCommenter_after()
-    if g:ft == 'vue'
-      setf vue
-      let g:ft = ''
-    endif
-  endfunction
 " }}
 
 
