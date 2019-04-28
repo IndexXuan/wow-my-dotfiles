@@ -494,7 +494,7 @@ call plug#end()
   " or
   " `s{char}{char}{label}`
   " Need one more keystroke, but on average, it may be more comfortable.
-  nmap s <Plug>(easymotion-overwin-f2)
+  nmap <CR> <Plug>(easymotion-overwin-f2)
 " }}
 
 " https://github.com/zhimsel/vim-stay {{

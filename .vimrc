@@ -348,8 +348,6 @@ endif
 " }}
 
 " Remap improved {{
-  " Quick command mode
-  nnoremap <CR> :
   " backspace in Visual mode deletes selection
   vnoremap <BS> d
   " Treat long lines as break lines, useful when moving around in them

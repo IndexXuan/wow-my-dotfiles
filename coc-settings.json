@@ -20,5 +20,6 @@
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
-  }
+  },
+  "eslint.filetypes": ["javascript", "javascriptreact", "html", "typescript", "vue", "jsx", "tsx"]
 }
