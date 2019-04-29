@@ -615,6 +615,7 @@ call plug#end()
   let s:screen_lg = 120
   let s:screen_xl = 150
 
+  " NOTE: fonts @see - https://github.com/ryanoasis/nerd-fonts/issues/144
   " NOTE: @Install -  Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号 ( 因为 emoji icon 太太，12 号不和谐，vertical 100% and horizontal < 100% )
   " NOTE: branch icon 等 from https://github.com/itchyny/lightline.vim/issues/353
   " NOTE: tabline inactive filename 使用原生 tab#filename，因为 WebDevIconsGetFileTypeSymbol() 不能根据 tab 文件类型做变化
@@ -741,12 +742,19 @@ call plug#end()
   endfunction
 
   function! LightlineGitBranch()
-    if exists("*fugitive#head")
+    if exists("*fugitive#head") && exists('*GitGutterGetHunkSummary')
       let _branch = fugitive#head()
       " show just important info when branch name too long
       let parts = split(_branch, '/')
       let branch = strlen(_branch) > 12 ? parts[len(parts) - 1] : _branch
-      let _ = strlen(branch) ? ' '. branch : ''
+      "  
+      let branchname = strlen(branch) ? ' '. branch : ''
+      let [ added, modified, removed ] = GitGutterGetHunkSummary()
+      let _ = branchname
+      if added != 0 || modified != 0 || removed != 0
+        " like VSCode
+        let _ = _ . '*'
+      endif
       return winwidth(0) > s:screen_md ? _ : ''
     endif
     return ''
@@ -822,7 +830,7 @@ call plug#end()
   endfunction
 
   function! LightlineCoc()
-    return winwidth(0) > s:screen_lg ? '⚡Powered By coc.nvim' : ''
+    return winwidth(0) > s:screen_lg ? '⚡Powered By  coc.nvim' : ''
   endfunction
 
   function! LightlineFiletype()
@@ -858,9 +866,11 @@ call plug#end()
   " NOTE: override lightline, mark CtrlP all modes and features
   function! CtrlPMark()
     if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-      " NOTE: 这里映射合法的 mode 值即可，regex 对应 0 | 1
-      call lightline#link('VR'[g:lightline.ctrlp_regex])
-      return lightline#concatenate([g:lightline.ctrlp_item, g:lightline.ctrlp_regexmode, g:ctrlp_working_path_mode], 0)
+      " NOTE: 这里映射合法的 lightline#mode() 值即可，regex 对应 0 | 1
+      call lightline#link('RV'[g:lightline.ctrlp_regex])
+      " g:ctrlp_working_path_mode => return 'ra' or 'r' based on your settings
+      return lightline#concatenate([g:lightline.ctrlp_item, g:lightline.ctrlp_regexmode, g:lightline.ctrlp_cwd], 0)
+
     else
       return ''
     endif
@@ -877,6 +887,8 @@ call plug#end()
     let g:lightline.ctrlp_prev = a:prev
     let g:lightline.ctrlp_item = a:item
     let g:lightline.ctrlp_next = a:next
+    " NOTE: 这里只是 hardcode 了 getcwd，可以根据 path_mode 来动态设置真实搜索目录
+    let g:lightline.ctrlp_cwd = getcwd()
     return lightline#statusline(0)
   endfunction
 
@@ -1031,10 +1043,12 @@ call plug#end()
 
 
 " https://github.com/ctrlpvim/ctrlp.vim {{
+  " Change the default mapping and the default command to invoke CtrlP:
   nnoremap <silent> <C-p> :CtrlP<CR>
-  " Mixed Mode is useful, both Buffers and MRU
+  " search in Files, Buffers and MRU files at the same time.
   let g:ctrlp_cmd = 'CtrlPMixed'
-  let g:ctrlp_working_path_mode = 'ra'
+  " the nearest ancestor of the current file that contains one of these directories or files: .git .hg .svn .bzr _darcs
+  let g:ctrlp_working_path_mode = 'r'
 
   " MacOSX / Linux
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip
