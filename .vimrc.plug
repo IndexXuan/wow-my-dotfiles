@@ -737,8 +737,7 @@ call plug#end()
   " https://github.com/itchyny/lightline.vim/issues/302
   function! LightlineTabNum(n)
     " instead of tabpagenr(), use code below to active and inactive tabnum
-    let winnr = tabpagewinnr(a:n)
-    let cur = tabpagebuflist(a:n)[winnr - 1]
+    let cur = a:n
     " http://xahlee.info/comp/unicode_circled_numbers.html
     let iconmap = ['① ', '② ', '③ ', '④ ', '⑤ ', '⑥ ', '⑦ ', '⑧ ', '⑨ ']
     return cur >= 10 ? cur : iconmap[cur - 1] . ' '
@@ -774,20 +773,14 @@ call plug#end()
   endfunction
 
   function! LightlineGitBranch()
-    if exists("*fugitive#head") && exists('*GitGutterGetHunkSummary')
+    if exists("*fugitive#head")
+      let s:threshold = 12
       let _branch = fugitive#head()
       " show just important info when branch name too long
       let parts = split(_branch, '/')
-      let branch = strlen(_branch) > 12 ? parts[len(parts) - 1] : _branch
+      let branch = strlen(_branch) > s:threshold ? parts[len(parts) - 1] : _branch
       "  
-      let branchname = strlen(branch) ? ' '. branch : ''
-      let [ added, modified, removed ] = GitGutterGetHunkSummary()
-      let _ = branchname
-      if added != 0 || modified != 0 || removed != 0
-        " like VSCode
-        let _ = _ . '*'
-      endif
-      return winwidth(0) > s:screen_md ? _ : ''
+      return strlen(branch) ? ' '. branch : ''
     endif
     return ''
   endfunction
@@ -800,15 +793,18 @@ call plug#end()
     if added == 0 && modified == 0 && removed == 0
       return ''
     endif
-    let _ = printf('+%d ~%d -%d', added, modified, removed)
-    return winwidth(0) > s:screen_lg ? _ : ''
+    return printf('+%d ~%d -%d', added, modified, removed)
   endfunction
 
   function! LightLineGit()
     let branch = LightlineGitBranch()
     let gutter = LightLineGitGutter()
-    " return branch . (gutter != '' ? '☞ ' . gutter : '')
-    return branch . (gutter != '' ? ' ¶ ' . gutter : '')
+    if gutter != ''
+      " like VSCode branch symbol
+      let branch = branch.'*'
+    endif
+    let full = branch . (gutter != '' ? ' ¶ ' . gutter : '')
+    return winwidth(0) > s:screen_md ? full : winwidth(0) > s:screen_sm ? branch : ''
   endfunction
 
   function! LightlineCocDiagnostic() abort
@@ -842,13 +838,45 @@ call plug#end()
     return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
   endfunction
 
+  function s:shorten(_, val)
+    let wind = winwidth(0)
+    let s:shorter = wind > s:screen_xl ? 10 : wind > s:screen_lg ? 3 : wind > s:screen_sm ? 2 : 1
+    return strpart(a:val, 0, s:shorter)
+  endfunction
+
+  " relative path to root with shorten
+  function! LightlineRaPathName()
+    if !exists("*fugitive#head")
+      return pathshorten(fnamemodify(expand('%'), ":."))
+    endif
+    let fname = expand('%:t')
+    let fullfname = expand('%')
+    let root = fnamemodify(get(b:, 'git_dir'), ':h')
+    let path = expand('%:p')
+    try
+      if path[:len(root)-1] ==# root
+        let rawpath = path[len(root)+1:]
+        let splits = split(rawpath, '/')
+        let parts = deepcopy(splits)
+        call remove(parts, len(parts) - 1)
+        let mapped = map(parts, function('s:shorten'))
+        let joined = join(mapped, '/')
+        return joined == '' ? fname : joined.'/'.fname
+      else
+        return fname
+      endif
+    catch
+      return fname
+    endtry
+  endfunction
+
   function! LightlineFilename()
     let fname = expand('%:t')
-    let fullfname = pathshorten(fnamemodify(expand('%'), ":."))
+    let fullfname = LightlineRaPathName()
 	  let ret = ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
 	        \ ('' != fname ? fname : '[No Name]') .
 	        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-    let isHidden = &filetype == 'nerdtree' || &filetype == 'startify' || &filetype == 'quickmenu' || fname == 'ControlP'
+    let isHidden = &filetype == '' || &filetype == 'nerdtree' || &filetype == 'startify' || &filetype == 'quickmenu' || fname == 'ControlP'
     let _  = isHidden ? '' : (winwidth(0) > s:screen_md ? fullfname : ret) . ' ' . WebDevIconsGetFileTypeSymbol()
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
@@ -862,7 +890,7 @@ call plug#end()
   endfunction
 
   function! LightlineCoc()
-    return winwidth(0) > s:screen_lg ? '⚡Powered By  coc.nvim' : ''
+    return winwidth(0) > s:screen_xl ? '⚡Powered By  coc.nvim' : ''
   endfunction
 
   function! LightlineFiletype()
