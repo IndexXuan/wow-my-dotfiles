@@ -615,6 +615,30 @@ call plug#end()
   let s:screen_lg = 120
   let s:screen_xl = 150
 
+  " NOTE: only work once right now ... not support toggle
+  " change lightline colorscheme on the fly
+  augroup LightLineColorscheme
+    autocmd!
+    autocmd ColorScheme * call s:lightline_update()
+  augroup END
+  function! s:lightline_update()
+    " if !exists('g:loaded_lightline')
+    "   return
+    " endif
+    try
+        if &background == 'dark'
+          let g:lightline.colorscheme = 'powerline'
+        else
+          let g:lightline.colorscheme = 'solarized'
+        endif
+        call lightline#init()
+        call lightline#colorscheme()
+        call lightline#update()
+      endif
+    catch
+    endtry
+  endfunction
+
   " NOTE: fonts @see - https://github.com/ryanoasis/nerd-fonts/issues/144
   " NOTE: @Install -  Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号 ( 因为 emoji icon 太太，12 号不和谐，vertical 100% and horizontal < 100% )
   " NOTE: branch icon 等 from https://github.com/itchyny/lightline.vim/issues/353
@@ -675,20 +699,28 @@ call plug#end()
         \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
         \ }
 
-  function! LightlineMode()
+  function! PatchTablineColor(bg)
     " change tabline color here
     " tabline color as inactive color
     let s:tablinecolor = '#d0d0d0'
     " tabline bgcolor
     let s:tablinebg = '#585858'
-    let s:palette = g:lightline#colorscheme#powerline#palette
+    if a:bg == 'dark'
+      let s:palette = g:lightline#colorscheme#powerline#palette
+    else
+      let s:palette = g:lightline#colorscheme#solarized#palette
+    endif
+
     " 定义 active tab color & bgcolor( same as Normal mode bgcolor )
     let s:palette.tabline.tabsel = [ [ '#606060', '#afdf00', 252, 66, 'bold' ] ]
     " 定义 tabline 背景与颜色，也就是 x 号颜色，x 号背景
     let s:palette.tabline.left = [ [ s:tablinecolor, s:tablinebg, 252, 66 ] ]
     let s:palette.tabline.middle = [ [ s:tablinecolor, s:tablinebg, 252, 66 ] ]
     let s:palette.tabline.right = [ [ s:tablinecolor, s:tablinebg, 252, 66 ] ]
+  endfunction
 
+  function! LightlineMode()
+    call PatchTablineColor(&background)
     let fname = expand('%:t')
     return fname =~ 'NERD_tree' ? 'NERD' :
           \ fname == 'ControlP' ? 'CtrlP' :
@@ -995,12 +1027,21 @@ call plug#end()
     " new section
     call quickmenu#append("# Misc", '')
     call quickmenu#append("Remove White Space", ":%s/\\s\\+$//", "remove trailing whitespace")
-    call quickmenu#append("Color Schema Light", ":colorscheme solarized8_light", "turn on light colorscheme")
-    call quickmenu#append("Color Schema Dark" , ":colorscheme molokai", "turn on dark colorscheme")
+    call quickmenu#append("Color Schema Light", "call ColorschemeChange('solarized8_light')", "turn on light colorscheme")
+    call quickmenu#append("Color Schema Dark" , "call ColorschemeChange('molokai')", "turn on dark colorscheme")
     call quickmenu#append("Wakatime Dashboard", "OpenBrowser https://wakatime.com/dashboard", "go to wakatime")
     call quickmenu#append("Code Outline List" , "CocList --number-select --auto-preview outline", "show code outline")
     " Open it
     call quickmenu#toggle('menu')
+  endfunction
+
+  function! ColorschemeChange(theme)
+    execute('colorscheme '.a:theme)
+    " not works perfect
+    " patch vim-vue syntax highlight - @see https://github.com/posva/vim-vue#my-syntax-highlighting-stops-working-randomly
+    if &filetype == 'vue'
+      syntax sync fromstart
+    endif
   endfunction
 " }}
 
