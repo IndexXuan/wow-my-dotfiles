@@ -625,18 +625,15 @@ call plug#end()
         \   'statusline': 1,
         \ },
         \ 'tab': {
-        \   'active': [ 'tnum', 'tfilename' ],
-		    \   'inactive': [ 'tabnum', 'filename', 'modified' ],
+        \   'active': [ 'tabname' ],
+        \   'inactive': [ 'tabname' ],
         \ },
         \ 'tabline': {
         \   'left': [ [ 'tabs', 'close' ] ],
 		    \   'right': [ [ ] ],
         \ },
         \ 'tab_component_function': {
-        \   'tabnum': 'lightline#tab#tabnum',
-        \   'tnum': 'LightlineTabNum',
-        \   'filename': 'lightline#tab#filename',
-        \   'tfilename': 'LightlineTabFilename',
+        \   'tabname': 'LightlineTabName',
         \ },
         \ 'tabline_separator': { 'left': "", 'right': "" },
         \ 'tabline_subseparator': { 'left': "", 'right': "" },
@@ -679,7 +676,7 @@ call plug#end()
   function! LightlineMode()
     " change tabline color here
     " tabline color as inactive color
-    let s:tablinecolor = '#ffffff'
+    let s:tablinecolor = '#d0d0d0'
     " tabline bgcolor
     let s:tablinebg = '#585858'
     let s:palette = g:lightline#colorscheme#powerline#palette
@@ -701,19 +698,24 @@ call plug#end()
 
   " https://github.com/itchyny/lightline.vim/issues/302
   function! LightlineTabNum(n)
-    let cur = tabpagenr()
-    return cur
+    " instead of tabpagenr(), use code below to active and inactive tabnum
+    let winnr = tabpagewinnr(a:n)
+    let cur = tabpagebuflist(a:n)[winnr - 1]
+    " http://xahlee.info/comp/unicode_circled_numbers.html
+    let iconmap = ['① ', '② ', '③ ', '④ ', '⑤ ', '⑥ ', '⑦ ', '⑧ ', '⑨ ']
+    return cur >= 10 ? cur : iconmap[cur - 1] . ' '
   endfunction
 
   " https://github.com/itchyny/lightline.vim/issues/297
-  function! LightlineTabFilename(n)
-     let winnr = tabpagewinnr(a:n)
-     let bufnr = tabpagebuflist(a:n)[winnr - 1]
-     let modified = gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
-     let fname = expand('#' . bufnr . ':t')
-     let _ = fname =~ 'NERD_tree' ? 'NERDTree' :
+  function! LightlineTabName(n)
+    let winnr = tabpagewinnr(a:n)
+    let bufnr = tabpagebuflist(a:n)[winnr - 1]
+    let modified = gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
+    let fname = expand('#' . bufnr . ':t')
+    let _ = fname =~ 'NERD_tree' ? 'NERDTree' :
            \ ('' != fname ? fname : '[No Name]')
-    return _ . ' ' . WebDevIconsGetFileTypeSymbol() . ' ' . modified
+    " use file.filename as file.${ext} to show active and inactive icons
+    return LightlineTabNum(a:n) . _ . ' ' . WebDevIconsGetFileTypeSymbol('file'.fname) . ' ' . modified
   endfunction
 
   " like /etc/hosts readonly file
@@ -749,26 +751,11 @@ call plug#end()
     if ! exists('*GitGutterGetHunkSummary')
       return ''
     endif
-    " let g:gitgutter_sign_added = "\u271a"
-    " let g:gitgutter_sign_modified = "\u279c"
-    " let g:gitgutter_sign_removed = "\u2718"
-    let g:gitgutter_sign_added = "+"
-    let g:gitgutter_sign_modified = "~"
-    let g:gitgutter_sign_removed = "-"
-    let symbols = [
-          \ g:gitgutter_sign_added,
-          \ g:gitgutter_sign_modified,
-          \ g:gitgutter_sign_removed,
-          \ ]
-    let hunks = GitGutterGetHunkSummary()
-    let ret = []
-    for i in [0, 1, 2]
-      if hunks[i] > 0
-        call add(ret, symbols[i] . hunks[i])
-      endif
-    endfor
-    let msg = join(ret, ' ')
-    let _ = len(ret) ? msg : ''
+    let [ added, modified, removed ] = GitGutterGetHunkSummary()
+    if added == 0 && modified == 0 && removed == 0
+      return ''
+    endif
+    let _ = printf('+%d ~%d -%d', added, modified, removed)
     return winwidth(0) > s:screen_lg ? _ : ''
   endfunction
 
@@ -812,11 +799,12 @@ call plug#end()
 
   function! LightlineFilename()
     let fname = expand('%:t')
+    let fullfname = pathshorten(fnamemodify(expand('%'), ":."))
 	  let ret = ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
 	        \ ('' != fname ? fname : '[No Name]') .
 	        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
     let isHidden = &filetype == 'nerdtree' || &filetype == 'startify' || &filetype == 'quickmenu' || fname == 'ControlP'
-    let _  = isHidden ? '' : ret . ' ' . WebDevIconsGetFileTypeSymbol()
+    let _  = isHidden ? '' : (winwidth(0) > s:screen_md ? fullfname : ret) . ' ' . WebDevIconsGetFileTypeSymbol()
     return winwidth(0) > s:screen_sm ? _ : ''
   endfunction
 
@@ -825,7 +813,7 @@ call plug#end()
     let f_icon = "\uf794"
     let name = get(b:, 'coc_current_function', '')
     let _ = name != '' ? f_icon . ' ' . name : ''
-    return winwidth(0) > s:screen_sm ? _ : ''
+    return winwidth(0) > s:screen_md ? _ : ''
   endfunction
 
   function! LightlineCoc()
@@ -865,7 +853,8 @@ call plug#end()
   " NOTE: override lightline, mark CtrlP all modes and features
   function! CtrlPMark()
     if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-      call lightline#link('iR'[g:lightline.ctrlp_regex])
+      " NOTE: 这里映射合法的 mode 值即可，regex 对应 0 | 1
+      call lightline#link('VR'[g:lightline.ctrlp_regex])
       return lightline#concatenate([g:lightline.ctrlp_item, g:lightline.ctrlp_regexmode, g:ctrlp_working_path_mode], 0)
     else
       return ''
