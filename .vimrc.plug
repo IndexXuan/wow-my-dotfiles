@@ -1183,6 +1183,8 @@ call plug#end()
 
 " https://github.com/posva/vim-vue {{
   let g:vue_disable_pre_processors = 1
+
+  cnoremap <silent>vuecolor :syntax sync fromstart<CR>
 " }}
 
 " https://github.com/iamcco/markdown-preview.nvim {{
