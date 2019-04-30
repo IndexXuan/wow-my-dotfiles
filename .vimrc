@@ -27,8 +27,11 @@
 "
 " ====================================================================
 
+" Path Alias
+let g:dotfiles = $HOME . '/wow-my-dotfiles/'
+
 " Hello World !
-set runtimepath+=$HOME/.vim/
+execute('set runtimepath+='.g:dotfiles)
 set nocompatible
 
 " leader key setting
@@ -36,18 +39,11 @@ let g:mapleader = ";"
 let mapleader = ";"
 " basic mode for vimruntime without plugin
 let g:basicmode = $BASIC_MODE == 1
-" plugin manager
-let g:manager = 'Plug'
-"let g:manager = 'Vundle'
 " load plugin
-if filereadable(expand("$HOME/.vim/.vimrc.plug"))
+let g:plugconfigpath = '$HOME/wow-my-dotfiles/.plug.vim'
+if filereadable(expand(g:plugconfigpath))
   if basicmode == 0
-    if manager == 'Plug'
-      source $HOME/.vim/.vimrc.plug
-    endif
-    if manager == 'Vundle'
-      source $HOME/.vim/.vimrc.vundle
-    endif
+    execute('source '.g:plugconfigpath)
   endif
 endif
 

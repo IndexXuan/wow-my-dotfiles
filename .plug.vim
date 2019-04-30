@@ -56,10 +56,6 @@ call plug#begin('$HOME/.vim/plugged')
 "
 " ----------------------------------------------------------------------------
 
-" Path Alias
-let g:vimfiles = $HOME . '.vim/'
-let g:dotfiles = $HOME . '/wow-my-dotfiles/'
-
 " UI Bar Width
 let g:bar_width = 30
 
@@ -412,29 +408,8 @@ call plug#end()
           \ .'? ("'.a:to.'") : ("'.a:from.'"))'
   endfunction
 
-  command! -nargs=? EditVimrc :call s:EditVimrc()
-  function! s:EditVimrc()
-    let p = dotfiles . 'vimrc'
-    if getcwd() == dotfiles . 'vimrc'
-      let p = p[len(getcwd()) + 1 : ]
-    endif
-    execute 'edit '.p
-  endfunction
-
-  command! -nargs=? EditVimrcPlugin :call s:EditVimrcPlugin()
-  function! s:EditVimrcPlugin()
-    let p = dotfiles . 'vimrc.plug'
-    if getcwd() == dotfiles . 'vimrc.plug'
-      let p = p[len(getcwd()) + 1 : ]
-    endif
-    execute 'edit '.p
-  endfunction
-
   " to open coc config
   call SetupCommandAbbrs('config', 'CocConfig')
-  call SetupCommandAbbrs('restart', ':source $HOME/.vimrc')
-  call SetupCommandAbbrs('vim', 'EditVimrc')
-  call SetupCommandAbbrs('plugin', 'EditVimrcPlugin')
   call SetupCommandAbbrs('gb', 'Gblame')
   call SetupCommandAbbrs('gs', 'Gstatus')
   call SetupCommandAbbrs('gl', '0Glog')
@@ -525,7 +500,7 @@ call plug#end()
 " https://github.com/mhinz/vim-startify {{
   let g:startify_bookmarks = [
         \ { 'v': dotfiles . '.vimrc' },
-        \ { 'p': dotfiles . '.vimrc.plug' },
+        \ { 'p': dotfiles . '.plug.vim' },
         \ { 'z': dotfiles . '.zshrc' },
         \]
   let g:startify_change_to_dir       = 1
