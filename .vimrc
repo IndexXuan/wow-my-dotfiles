@@ -562,3 +562,8 @@ endif
 
 " 20190418 - 全异步延时加载 ~100ms
 " 功能完备，UI 完美
+
+" 20190430 - 代码整理 & UI 美化，增加更多图标 & 更多了解 lightline.vim
+" 30 plugins
+" .vimrc ~500 lines & .plug.vim ~1100 lines, with startuptime about 70ms
+ 
