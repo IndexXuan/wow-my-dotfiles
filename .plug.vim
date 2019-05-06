@@ -101,15 +101,22 @@ function! Handler(_)
     call OpenBar()
     " focus on Startify
     wincmd w
-    function! s:filter_header(lines) abort
+    function! s:center_layout(lines) abort
       let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
       " NOTE: 修复居中问题，减去 bar_width * 2
-      let cols =  &columns - 60 "&columns
+      let cols = &columns - (2 * g:bar_width)
       let centered_lines = map(copy(a:lines),
             \ 'repeat(" ", (cols / 2) - (longest_line / 2)) . v:val')
       return centered_lines
     endfunction
-    let g:startify_custom_header = s:filter_header(startify#fortune#cowsay())
+    " let g:startify_custom_header = s:center_layout(startify#fortune#cowsay())
+    let g:startify_custom_header = s:center_layout([
+          \'+-------------------------------------------+',
+          \'|              Index.Vim ^_^                |',
+          \'|                                           |',
+          \'|            Github: IndexXuan              |',
+          \'+-------------------------------------------+',
+          \])
     " Open Startify Screen
     execute("Startify")
   endif
@@ -523,6 +530,7 @@ call plug#end()
 
 
 " https://github.com/mhinz/vim-startify {{
+  let g:startify_files_number        = 10
   let g:startify_bookmarks = [
         \ { 'v': dotfiles.'/.vimrc' },
         \ { 'p': dotfiles.'/.plug.vim' },
