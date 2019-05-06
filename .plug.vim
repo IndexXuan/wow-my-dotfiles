@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 30 Plugins
+"                              Plug with 31 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -130,7 +130,7 @@ function! Handler(_)
   execute ":GitGutterEnable"
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways')
+  call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways')
 endfunction
 
 " Order is important
@@ -232,6 +232,10 @@ Plug 'tsony-tsonev/nerdtree-git-plugin', { 'on': [] }
 " https://github.com/skywind3000/quickmenu.vim - 0 - lazy
 " A nice customizable popup menu for vim
 Plug 'skywind3000/quickmenu.vim', { 'on': [] }
+
+" https://github.com/Yggdroot/indentLine
+" A vim plugin to display the indention levels with thin vertical lines
+Plug 'Yggdroot/indentLine', { 'on': [] }
 
 " ----------------- As Programmer's Editor -----------------------
 
@@ -1073,6 +1077,12 @@ call plug#end()
   autocmd bufenter * if (winnr("$") == 1 && (&filetype == 'quickmenu')) | q | end
 " }}
 
+" https://github.com/Yggdroot/indentLine {{
+  let g:indentLineine_enabled = 1
+  let g:indentLine_char = '┆'
+  let g:indentLine_fileTypeExclude = ['startify']
+  let g:indentLine_concealcursor = 'niv'
+" }}
 
 " https://github.com/scrooloose/nerdcommenter {{
   " Add spaces after comment delimiters by default
