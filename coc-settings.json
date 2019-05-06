@@ -21,5 +21,13 @@
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
   },
-  "eslint.filetypes": ["javascript", "javascriptreact", "html", "typescript", "vue", "jsx", "tsx"]
+  "eslint.filetypes": ["javascript", "javascriptreact", "html", "typescript", "vue", "jsx", "tsx"],
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  }
 }
