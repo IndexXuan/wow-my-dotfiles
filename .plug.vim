@@ -499,9 +499,11 @@ call plug#end()
 
 " https://github.com/mhinz/vim-startify {{
   let g:startify_bookmarks = [
-        \ { 'v': dotfiles . '.vimrc' },
-        \ { 'p': dotfiles . '.plug.vim' },
-        \ { 'z': dotfiles . '.zshrc' },
+        \ { 'v': dotfiles.'/.vimrc' },
+        \ { 'p': dotfiles.'/.plug.vim' },
+        \ { 'c': dotfiles.'/coc-settings.json' },
+        \ { 'p': dotfiles.'/.plug.vim' },
+        \ { 'z': dotfiles.'/.zshrc' },
         \]
   let g:startify_change_to_dir       = 1
   let g:startify_update_oldfiles     = 1
@@ -934,6 +936,8 @@ call plug#end()
 
 
 " https://github.com/scrooloose/nerdtree {{
+  " do not show ? help & up a dir
+  " let NERDTreeMinimalUI = 1
   " Disabled built-in Netrw, always use NerdTree
   let g:loaded_netrwPlugin = 1
 
@@ -959,7 +963,7 @@ call plug#end()
   let g:NERDTreeShowHidden = 1
   let NERDTreeIgnore = [ '\.obj$', '\.o$', '\.so$', '\.egg$' ]
   "close vim if the only window left open is a NERDTree
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | end
 " }}
 
 
@@ -1046,6 +1050,8 @@ call plug#end()
       syntax sync fromstart
     endif
   endfunction
+  " quit when only quickmenu tab left
+  autocmd bufenter * if (winnr("$") == 1 && (&filetype == 'quickmenu')) | q | end
 " }}
 
 

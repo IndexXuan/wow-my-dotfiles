@@ -28,7 +28,7 @@
 " ====================================================================
 
 " Path Alias
-let g:dotfiles = $HOME . '/wow-my-dotfiles/'
+let g:dotfiles = $HOME.'/wow-my-dotfiles'
 
 " Hello World !
 execute('set runtimepath+='.g:dotfiles)
@@ -40,7 +40,7 @@ let mapleader = ";"
 " basic mode for vimruntime without plugin
 let g:basicmode = $BASIC_MODE == 1
 " load plugin
-let g:plugconfigpath = '$HOME/wow-my-dotfiles/.plug.vim'
+let g:plugconfigpath = g:dotfiles.'/.plug.vim'
 if filereadable(expand(g:plugconfigpath))
   if basicmode == 0
     execute('source '.g:plugconfigpath)
@@ -565,5 +565,5 @@ endif
 
 " 20190430 - 代码整理 & UI 美化，增加更多图标 & 更多了解 lightline.vim
 " 30 plugins
-" .vimrc ~500 lines & .plug.vim ~1100 lines, with startuptime about 70ms
+" .vimrc ~600 lines & .plug.vim ~1200 lines, with startuptime about 70ms
  
