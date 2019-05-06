@@ -1175,6 +1175,15 @@ call plug#end()
 
 
 " https://github.com/airblade/vim-gitgutter {{
+  let g:gitgutter_sign_added = '▎'
+  let g:gitgutter_sign_modified = '▎'
+  let g:gitgutter_sign_removed = '▏'
+  let g:gitgutter_sign_removed_first_line = '▔'
+  let g:gitgutter_sign_modified_removed = '▋'
+  highlight GitGutterAdd ctermfg=22 guifg=#006000 ctermbg=NONE guibg=NONE
+  highlight GitGutterChange ctermfg=58 guifg=#5F6000 ctermbg=NONE guibg=NONE
+  highlight GitGutterDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
+  highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
   " Required after having changed the colorscheme
   hi clear SignColumn
   let g:gitgutter_map_keys = 0
