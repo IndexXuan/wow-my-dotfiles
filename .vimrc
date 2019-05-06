@@ -284,6 +284,7 @@ endif
   inoremap <C-f> <Right>
   inoremap <C-n> <Down>
   inoremap <C-p> <Up>
+  inoremap <C-o> <Esc>o
   imap <C-a> <Esc>fi
   imap <C-e> <End>
   imap <C-d> <Del>
@@ -315,6 +316,7 @@ endif
   cnoremap jj <C-c>
   " Leader {{
   nnoremap <leader>q :x<CR>
+  nnoremap <C-x> :bd<CR>
   nnoremap <silent> <leader>w :update<CR>
   " force write to file
   cnoremap w!! w !sudo tee % >/dev/null
