@@ -29,5 +29,7 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     }
-  }
+  },
+  //  
+  "git.branchCharacter": ""
 }

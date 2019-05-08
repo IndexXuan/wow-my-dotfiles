@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 32 Plugins
+"                              Plug with 31 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -72,7 +72,7 @@ function! Handler(_)
 
   " 1. lazyload
   " TODO: nerdtree-git-plugin 有点卡性能，编辑时候关闭 nerdtree 才行
-  call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'vim-gitgutter', 'vim-fugitive', 'lightline.vim', 'vim-snippets')
+  call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'lightline.vim', 'vim-snippets', 'vim-fugitive')
 
   " 2. vim [empty] - 顺序不能变，精心调试出来的
   if !argc()
@@ -112,8 +112,6 @@ function! Handler(_)
     " Vim 需要提前加载这个，懒加载不起作用 ...
     call plug#load('quickmenu.vim')
   endif
-
-  execute ":GitGutterEnable"
 
   " 5. after lazyload
   call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways')
@@ -251,10 +249,11 @@ Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
 " https://github.com/airblade/vim-gitgutter - 0 - lazy - 性能很慢
 " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
-Plug 'airblade/vim-gitgutter', { 'on': [] }
+" Plug 'airblade/vim-gitgutter', { 'on': [] }
 
 " https://github.com/tpope/vim-fugitive - 1 - lazy
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
+" TODO: replace by coc-git
 Plug 'tpope/vim-fugitive', { 'on': [] }
 
 " --------------------------- Language Plugins ---------------------------------
@@ -302,7 +301,7 @@ call plug#end()
 " https://github.com/neoclide/coc.nvim {{
   " 1. global installed extensions
   let g:coc_global_extensions = [
-        \ 'coc-lists', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs',
+        \ 'coc-lists', 'coc-git', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs',
         \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets',
@@ -345,6 +344,8 @@ call plug#end()
   " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list
   nnoremap <silent> <space>r  :<C-u>CocListResume<CR>
+  nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
+  command! -nargs=0 GStatus :CocList --normal gstatus
 
   " 4. Buffer 内操作
   " 文本搜索当前词，等同于 / 内置命令，但多了列表聚合展示
@@ -428,7 +429,6 @@ call plug#end()
   call SetupCommandAbbrs('gb', 'Gblame')
   call SetupCommandAbbrs('gs', 'Gstatus')
   call SetupCommandAbbrs('gl', '0Glog')
-  call SetupCommandAbbrs('gh', 'GitGutterLineHighlightsEnable')
 
   " coc.nvim - prettier
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -766,38 +766,14 @@ call plug#end()
     endif
   endfunction
 
-  function! LightlineGitBranch()
-    if exists("*fugitive#head")
-      let s:threshold = 12
-      let _branch = fugitive#head()
-      " show just important info when branch name too long
-      let parts = split(_branch, '/')
-      let branch = strlen(_branch) > s:threshold ? parts[len(parts) - 1] : _branch
-      "  
-      return strlen(branch) ? ' '. branch : ''
-    endif
-    return ''
-  endfunction
-
-  function! LightLineGitGutter()
-    if ! exists('*GitGutterGetHunkSummary')
-      return ''
-    endif
-    let [ added, modified, removed ] = GitGutterGetHunkSummary()
-    if added == 0 && modified == 0 && removed == 0
-      return ''
-    endif
-    return printf('+%d ~%d -%d', added, modified, removed)
-  endfunction
-
   function! LightLineGit()
-    let branch = LightlineGitBranch()
-    let gutter = LightLineGitGutter()
-    if gutter != ''
-      " like VSCode branch symbol
-      let branch = branch.'*'
-    endif
-    let full = branch . (gutter != '' ? ' ¶ ' . gutter : '')
+    let _branch = trim(get(g:, 'coc_git_status', ''))
+    let s:threshold = 12
+    " show just important info when branch name too long
+    let parts = split(_branch, '/')
+    let branch = strlen(_branch) > s:threshold ? parts[len(parts) - 1] : _branch
+    let gutter = get(b:, 'coc_git_status', '')
+    let full = branch . (gutter != '' ? '¶' . gutter : '')
     return winwidth(0) > s:screen_md ? full : winwidth(0) > s:screen_sm ? branch : ''
   endfunction
 
@@ -840,9 +816,6 @@ call plug#end()
 
   " relative path to root with shorten
   function! LightlineRaPathName()
-    if !exists("*fugitive#head")
-      return pathshorten(fnamemodify(expand('%'), ":."))
-    endif
     let fname = expand('%:t')
     let fullfname = expand('%')
     let root = fnamemodify(get(b:, 'git_dir'), ':h')
@@ -1042,7 +1015,8 @@ call plug#end()
     call quickmenu#append("# Git", '')
     " use fugitive to show diff
     call quickmenu#append("Git Diff", 'Gvdiff', "use fugitive's Gvdiff on current document")
-    call quickmenu#append("Git Status", 'Gstatus', "use fugitive's Gstatus on current document")
+    call quickmenu#append("Git Blame", 'Gblame', "use fugitive's Gblame on current document")
+    call quickmenu#append("Git Status", 'Gstatus', "use coc-git's Gstatus on current document")
     call quickmenu#append("Git Log", '0Glog', "use fugitive's 0Glog on current document")
     call quickmenu#append("Git Highlight", 'GitGutterLineHighlightsEnable', "use fugitive's LineHighlights")
 
@@ -1208,25 +1182,6 @@ call plug#end()
         \ "prev": "N",
         \ "tab" : "<C-t>",
         \ }
-" }}
-
-
-" https://github.com/airblade/vim-gitgutter {{
-  let g:gitgutter_sign_added = '▎'
-  let g:gitgutter_sign_modified = '▎'
-  let g:gitgutter_sign_removed = '▏'
-  let g:gitgutter_sign_removed_first_line = '▔'
-  let g:gitgutter_sign_modified_removed = '▋'
-  highlight GitGutterAdd ctermfg=22 guifg=#006000 ctermbg=NONE guibg=NONE
-  highlight GitGutterChange ctermfg=58 guifg=#5F6000 ctermbg=NONE guibg=NONE
-  highlight GitGutterDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
-  highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
-  " Required after having changed the colorscheme
-  hi clear SignColumn
-  let g:gitgutter_map_keys = 0
-  " nnoremap <leader>] <Plug>GitGutterNextHunk
-  " nnoremap <leader>[ <Plug>GitGutterPrevHunk
-  " nnoremap <leader>gh :GitGutterLineHighlightsEnable<CR>
 " }}
 
 
