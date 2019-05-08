@@ -1090,9 +1090,9 @@ call plug#end()
 " }}
 
 " https://github.com/Yggdroot/indentLine {{
-  let g:indentLineine_enabled = 1
+  let g:indentLineine_enabled = 0
   let g:indentLine_char = '┆'
-  let g:indentLine_fileTypeExclude = ['startify']
+  let g:indentLine_fileTypeExclude = ['startify', 'json']
   let g:indentLine_concealcursor = 'niv'
   nnoremap <leader>i :IndentLinesToggle<CR>
 " }}
