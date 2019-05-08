@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 31 Plugins
+"                              Plug with 32 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -753,8 +753,9 @@ call plug#end()
     " instead of tabpagenr(), use code below to active and inactive tabnum
     let cur = a:n
     " http://xahlee.info/comp/unicode_circled_numbers.html
-    let iconmap = ['① ', '② ', '③ ', '④ ', '⑤ ', '⑥ ', '⑦ ', '⑧ ', '⑨ ']
-    return cur >= 10 ? cur : iconmap[cur - 1] . ' '
+    let iconmap = [ '❶ ', '❷ ', '❸ ', '❹ ', '❺ ', '❻ ', '❼ ', '❽ ', '❾ ']
+    " let iconmap = ['① ', '② ', '③ ', '④ ', '⑤ ', '⑥ ', '⑦ ', '⑧ ', '⑨ ']
+    return cur >= 10 ? cur : iconmap[cur - 1]
   endfunction
 
   " https://github.com/itchyny/lightline.vim/issues/297
