@@ -43,6 +43,19 @@ let g:basicmode = $BASIC_MODE == 1
 let g:plugconfigpath = g:dotfiles.'/.plug.vim'
 if filereadable(expand(g:plugconfigpath))
   if basicmode == 0
+    " Init
+    " Disable default plugins
+    let g:loaded_gzip              = 1
+    let g:loaded_man               = 1
+    let g:loaded_matchit           = 1
+    let g:loaded_matchparen        = 1
+    let g:loaded_netrwPlugin       = 1
+    let g:loaded_shada_plugin      = 1
+    let g:loaded_spellfile_plugin  = 1
+    let g:loaded_tarPlugin         = 1
+    let g:loaded_2html_plugin      = 1
+    let g:loaded_tutor_mode_plugin = 1
+    let g:loaded_zipPlugin         = 1
     execute('source '.g:plugconfigpath)
   endif
 endif
@@ -570,4 +583,7 @@ endif
 " 20190430 - 代码整理 & UI 美化，增加更多图标 & 更多了解 lightline.vim
 " 30 plugins
 " .vimrc ~600 lines & .plug.vim ~1200 lines, with startuptime about 70ms
+
+" 20190508 - 32 插件，优化 tabnum icons
+" 不加载内部插件，仅 source，优化启动速度至 71ms 左右
  
