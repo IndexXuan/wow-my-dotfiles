@@ -82,6 +82,8 @@ endif
   set laststatus=2
   " Smaller updatetime for CursorHold, CursorHoldI
   set updatetime=100
+  " By default timeoutlen is 1000 ms
+  set timeoutlen=500
   " set synmaxcol=300
   set shortmess+=c
   " Default background & color theme
@@ -195,7 +197,7 @@ endif
   " Increase search
   set incsearch
   " Cancel highlight of search results
-  nmap <silent> <Space>n :nohlsearch<CR>
+  nmap <silent> <CR> :nohlsearch<CR>
   " Search ignore case
   set ignorecase
   " Search case-sensitive

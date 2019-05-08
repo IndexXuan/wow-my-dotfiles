@@ -240,9 +240,13 @@ Plug 'tsony-tsonev/nerdtree-git-plugin', { 'on': [] }
 " A nice customizable popup menu for vim
 Plug 'skywind3000/quickmenu.vim', { 'on': [] }
 
-" https://github.com/Yggdroot/indentLine
+" https://github.com/Yggdroot/indentLine - 1 - lazy
 " A vim plugin to display the indention levels with thin vertical lines
 Plug 'Yggdroot/indentLine', { 'on': [] }
+
+" https://github.com/liuchengxu/vim-which-key - 1 - lazy
+" 🌷 Vim plugin that shows keybindings in popup
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 " ----------------- As Programmer's Editor -----------------------
 
@@ -469,8 +473,8 @@ call plug#end()
 " }}
 
 " https://github.com/easymotion/vim-easymotion {{
-  " let g:EasyMotion_do_mapping = 0 " Disable default mappings
-  map <leader><leader> <Plug>(easymotion-prefix)
+  let g:EasyMotion_do_mapping = 0 " Disable default mappings
+  " map <leader><leader> <Plug>(easymotion-prefix)
   " Default Mapping      | Details
   "   ---------------------|----------------------------------------------
   "   <Leader>f{char}      | Find {char} to the right. See |f|.
@@ -501,7 +505,7 @@ call plug#end()
   " or
   " `s{char}{char}{label}`
   " Need one more keystroke, but on average, it may be more comfortable.
-  nmap <CR> <Plug>(easymotion-overwin-f2)
+  nmap s <Plug>(easymotion-overwin-f2)
 " }}
 
 " https://github.com/zhimsel/vim-stay {{
@@ -1090,9 +1094,54 @@ call plug#end()
   let g:indentLine_char = '┆'
   let g:indentLine_fileTypeExclude = ['startify']
   let g:indentLine_concealcursor = 'niv'
+  nnoremap <leader>i :IndentLinesToggle<CR>
+" }}
+
+" https://github.com/liuchengxu/vim-which-key {{
+  let g:which_key_map = {
+      \ 'name' : '+leader'                   ,
+      \ "'"    : ['', 'open-terminal']       ,
+      \ '-'    : ['', 'split-window-below']  ,
+      \ '/'    : ['', 'split-window-right']  ,
+      \ '1'    : ['', 'tab1']                ,
+      \ '2'    : ['', 'tab2']                ,
+      \ '3'    : ['', 'tab3']                ,
+      \ '4'    : ['', 'tab4']                ,
+      \ '5'    : ['', 'tab5']                ,
+      \ '6'    : ['', 'tab6']                ,
+      \ '7'    : ['', 'tab7']                ,
+      \ '8'    : ['', 'tab8']                ,
+      \ '9'    : ['', 'tab9']                ,
+      \ 'b'    : ['', 'toggle-menu']         ,
+      \ 'dd'   : ['', 'jsdoc']               ,
+      \ 'e'    : ['', 'toggle-goyo']         ,
+      \ 'h'    : ['', 'show-documentation']  ,
+      \ 'c'    : ['', 'toggle-commenter']    ,
+      \ 'cf'   : ['', 'codefix']             ,
+      \ 'd'    : ['', 'definition']          ,
+      \ 'i'    : ['', 'toggle-indentline']   ,
+      \ 'ip'   : ['', 'find-implementation'] ,
+      \ 'l'    : ['', 'toggle-limelight']    ,
+      \ 'q'    : ['', 'save-and-quit']       ,
+      \ 'r'    : ['', 'which_key_ignore']    ,
+      \ 'rf'   : ['', 'find-references']     ,
+      \ 'rn'   : ['', 'rename']              ,
+      \ 's'    : ['', 'ctrlsf']              ,
+      \ 't'    : ['', 'toggle-nerdtree']     ,
+      \ 'td'   : ['', 'type-definition']     ,
+      \ 'w'    : ['', 'save']                ,
+      \ }
+  nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
+  vnoremap <silent> w :<c-u>WhichKeyVisual '<leader>'<CR>
+  nnoremap <silent> <Space> :<c-u>WhichKey '<Space>'<CR>
+  vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
+  autocmd! User vim-which-key call which_key#register(g:mapleader, 'g:which_key_map')
 " }}
 
 " https://github.com/scrooloose/nerdcommenter {{
+  let g:NERDCreateDefaultMappings = 0
+  nnoremap <leader>c :call NERDComment(0, "toggle")<CR>
+  vnoremap <leader>c :call NERDComment(0, "toggle")<CR>
   " Add spaces after comment delimiters by default
   let g:NERDSpaceDelims = 1
   " Use compact syntax for prettified multi-line comments
@@ -1160,7 +1209,7 @@ call plug#end()
 " https://github.com/dyng/ctrlsf.vim {{
   " NOTE: @Install - Use RG for CtrlSF - https://github.com/BurntSushi/ripgrep
   let g:ctrlsf_ackprg = '/usr/local/bin/rg'
-  nnoremap <leader>sf :CtrlSF<Space><Right>''<Right><Left>
+  nnoremap <leader>s :CtrlSF<Space><Right>''<Right><Left>
   let g:ctrlsf_confirm_save = 1
   let g:ctrlsf_auto_close = {
         \ "normal" : 0,
