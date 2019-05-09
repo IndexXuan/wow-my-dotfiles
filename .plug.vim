@@ -132,6 +132,10 @@ endfunction
 
 " -------------------------- Base ---------------------------
 
+" https://github.com/neoclide/coc-imselect
+" Input method enhance for iTerm2 on mac.
+ " Plug 'neoclide/coc-imselect'
+
 " https://github.com/neoclide/coc.nvim - 0 - not-support-lazy - 异步加载会超级慢 - 基础生态插件
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'do': './install.sh nightly' }
@@ -299,6 +303,8 @@ call plug#end()
 
 
 " https://github.com/neoclide/coc.nvim {{
+  " NOTE: @Install - https://github.com/universal-ctags/ctags
+  " brew install --HEAD universal-ctags/universal-ctags/universal-ctags
   " 1. global installed extensions
   let g:coc_global_extensions = [
         \ 'coc-lists', 'coc-git', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs',
@@ -402,8 +408,7 @@ call plug#end()
   " nmap <silent> <leader>nn <Plug>(coc-diagnostic-next)
   nmap <silent> <leader>d  <Plug>(coc-definition)
   nmap <silent> <leader>h  :call <SID>show_documentation()<CR>
-  " code fix since ca is nerdtree used
-  nmap <silent> <leader>cf <Plug>(coc-codeaction)
+  nmap <silent> <leader>ca <Plug>(coc-codeaction)
   nmap <silent> <leader>rn <Plug>(coc-rename)
   nmap <silent> <leader>rf <Plug>(coc-references)
   nmap <silent> <leader>td <Plug>(coc-type-definition)
@@ -634,8 +639,8 @@ call plug#end()
 
   " NOTE: fonts @see - https://github.com/ryanoasis/nerd-fonts/issues/144
   " NOTE: @Install -  Fonts: 安装 https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts 然后终端设置成该字体，字号 14 号 ( 因为 emoji icon 太太，12 号不和谐，vertical 100% and horizontal < 100% )
-  " NOTE: branch icon 等 from https://github.com/itchyny/lightline.vim/issues/353
-  " NOTE: tabline inactive filename 使用原生 tab#filename，因为 WebDevIconsGetFileTypeSymbol() 不能根据 tab 文件类型做变化
+  " brew tap caskroom/fonts
+  " brew cask install font-hack-nerd-font
   let g:lightline = {
         \ 'colorscheme': 'powerline',
         \ 'enable': {
@@ -767,13 +772,17 @@ call plug#end()
   endfunction
 
   function! LightLineGit()
-    let _branch = trim(get(g:, 'coc_git_status', ''))
+      " like VSCode branch symbol
+    let g:git_diff_symbol = '*'
+    let branch = trim(get(g:, 'coc_git_status', ''))
+    " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
+    let branch = substitute(branch, " +", g:git_diff_symbol, "")
     let s:threshold = 12
     " show just important info when branch name too long
-    let parts = split(_branch, '/')
-    let branch = strlen(_branch) > s:threshold ? parts[len(parts) - 1] : _branch
-    let gutter = get(b:, 'coc_git_status', '')
-    let full = branch . (gutter != '' ? '¶' . gutter : '')
+    let parts = split(branch, '/')
+    let branch = strlen(branch) > s:threshold ? parts[len(parts) - 1] : branch
+    let gutter = trim(get(b:, 'coc_git_status', ''))
+    let full = branch . (gutter != '' ? ' ¶ ' . gutter : '')
     return winwidth(0) > s:screen_md ? full : winwidth(0) > s:screen_sm ? branch : ''
   endfunction
 
@@ -1018,7 +1027,6 @@ call plug#end()
     call quickmenu#append("Git Blame", 'Gblame', "use fugitive's Gblame on current document")
     call quickmenu#append("Git Status", 'Gstatus', "use coc-git's Gstatus on current document")
     call quickmenu#append("Git Log", '0Glog', "use fugitive's 0Glog on current document")
-    call quickmenu#append("Git Highlight", 'GitGutterLineHighlightsEnable', "use fugitive's LineHighlights")
 
     " new section
     call quickmenu#append("# Misc", '')
@@ -1071,14 +1079,14 @@ call plug#end()
       \ 'e'    : ['', 'toggle-goyo']         ,
       \ 'h'    : ['', 'show-documentation']  ,
       \ 'c'    : ['', 'toggle-commenter']    ,
-      \ 'cf'   : ['', 'codefix']             ,
+      \ 'ca'   : ['', 'codeaction']          ,
       \ 'd'    : ['', 'definition']          ,
       \ 'i'    : ['', 'toggle-indentline']   ,
-      \ 'ip'   : ['', 'find-implementation'] ,
+      \ 'ip'   : ['', 'implementation']      ,
       \ 'l'    : ['', 'toggle-limelight']    ,
       \ 'q'    : ['', 'save-and-quit']       ,
       \ 'r'    : ['', 'which_key_ignore']    ,
-      \ 'rf'   : ['', 'find-references']     ,
+      \ 'rf'   : ['', 'references']          ,
       \ 'rn'   : ['', 'rename']              ,
       \ 's'    : ['', 'ctrlsf']              ,
       \ 't'    : ['', 'toggle-nerdtree']     ,
@@ -1086,9 +1094,7 @@ call plug#end()
       \ 'w'    : ['', 'save']                ,
       \ }
   nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
-  vnoremap <silent> w :<c-u>WhichKeyVisual '<leader>'<CR>
   nnoremap <silent> <Space> :<c-u>WhichKey '<Space>'<CR>
-  vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
   autocmd! User vim-which-key call which_key#register(g:mapleader, 'g:which_key_map')
 " }}
 
@@ -1151,6 +1157,7 @@ call plug#end()
   " Ignore files in .gitignore
   " let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
   " NOTE: @Install - Use RG for CtrlP - https://github.com/BurntSushi/ripgrep
+  " brew install ripgrep
   if executable('rg')
     set grepprg=rg\ --color=never
     let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
@@ -1162,6 +1169,7 @@ call plug#end()
 
 " https://github.com/dyng/ctrlsf.vim {{
   " NOTE: @Install - Use RG for CtrlSF - https://github.com/BurntSushi/ripgrep
+  " brew install ripgrep
   let g:ctrlsf_ackprg = '/usr/local/bin/rg'
   nnoremap <leader>s :CtrlSF<Space><Right>''<Right><Left>
   let g:ctrlsf_confirm_save = 1
