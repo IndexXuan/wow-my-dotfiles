@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 31 Plugins
+"                              Plug with 30 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -151,10 +151,6 @@ Plug 'takac/vim-hardtime', { 'on': []}
 " https://github.com/easymotion/vim-easymotion - 0 - lazy - 基础插件，Vim 特色
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion', { 'on': [] }
-
-" https://github.com/kopischke/vim-stay - 0 - not-support-lazy - 性能与上次位置有关 - 基础功能插件
-" Make Vim persist editing state without fuss
-Plug 'kopischke/vim-stay'
 
 " https://github.com/terryma/vim-smooth-scroll - 0 - lazy - 基础功能插件
 " Make scrolling in Vim more pleasant
@@ -353,6 +349,16 @@ call plug#end()
   nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
   command! -nargs=0 GStatus :CocList --normal gstatus
 
+  " coc-git
+  nmap <leader>g :CocCommand git.browserOpen<CR>
+  " navigate chunks of current buffer
+  nmap <leader>gp <Plug>(coc-git-prevchunk)
+  nmap <leader>gn <Plug>(coc-git-nextchunk)
+  " show chunk diff at current position
+  nmap <leader>gch <Plug>(coc-git-chunkinfo)
+  " show commit ad current position
+  nmap <leader>gcm <Plug>(coc-git-commit)
+
   " 4. Buffer 内操作
   " 文本搜索当前词，等同于 / 内置命令，但多了列表聚合展示
   nnoremap <silent> <C-f> :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
@@ -490,14 +496,6 @@ call plug#end()
   " `s{char}{char}{label}`
   " Need one more keystroke, but on average, it may be more comfortable.
   nmap s <Plug>(easymotion-overwin-f2)
-" }}
-
-" https://github.com/zhimsel/vim-stay {{
-  " reading log useful settings
-  autocmd FileType log let b:stay_ignore = 1
-  autocmd BufReadPost *.log normal! G
-  " for vim-stay Plug recommend set
-  set viewoptions=cursor,folds,slash,unix
 " }}
 
 " https://github.com/terryma/vim-smooth-scroll {{
@@ -1081,6 +1079,11 @@ call plug#end()
       \ 'c'    : ['', 'toggle-commenter']    ,
       \ 'ca'   : ['', 'codeaction']          ,
       \ 'd'    : ['', 'definition']          ,
+      \ 'g'    : ['', 'git-open-browser']    ,
+      \ 'gp'   : ['', 'git-prevchunk']       ,
+      \ 'gn'   : ['', 'git-nextchunk']       ,
+      \ 'gch'  : ['', 'git-chunkinfo']       ,
+      \ 'gcm'  : ['', 'git-commit']          ,
       \ 'i'    : ['', 'toggle-indentline']   ,
       \ 'ip'   : ['', 'implementation']      ,
       \ 'l'    : ['', 'toggle-limelight']    ,
