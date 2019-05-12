@@ -87,6 +87,14 @@ endif
   set showcmd
   " Show line number
   set nonu
+  function! NumberToggle()
+    if(&number == 0)
+      set relativenumber number
+    else
+      set nonumber norelativenumber
+    endif
+  endfunc
+  nnoremap <leader>n :call NumberToggle()<cr>
   " Show Tabline always
   set showtabline=2
   " Hide default --insert--, use statusline plugin
@@ -215,6 +223,12 @@ endif
   set ignorecase
   " Search case-sensitive
   set smartcase
+  " Keep search pattern at the center of the screen.
+  nnoremap <silent> n nzz
+  nnoremap <silent> N Nzz
+  nnoremap <silent> * *zz
+  nnoremap <silent> # #zz
+  nnoremap <silent> g* g*zz
 " }}
 
 " Spaces & Tabs {{
@@ -233,8 +247,8 @@ endif
 " }}
 
 " Folder {{
-  " 代码折叠 make large file slow ???
-  " set foldenable
+  " 代码折叠
+  set foldenable
   " 折叠方法
   " manual    手工折叠
   " indent    使用缩进表示折叠
@@ -257,6 +271,20 @@ endif
   " zk 移动至上一个折叠
   " zn 禁用折叠
   " zN 启用折叠
+  set foldmethod=indent
+  set foldlevel=99
+  " 代码折叠自定义快捷键 <leader>zz
+  let g:foldmethod = 0
+  map <leader>f :call ToggleFold()<cr>
+  function! ToggleFold()
+    if g:foldmethod == 0
+      exec "normal! zc"
+      let g:foldmethod = 1
+    else
+      exec "normal! zo"
+      let g:foldmethod = 0
+    endif
+  endfunction
 " }}
 
 " --------------------------------------------------------------------
