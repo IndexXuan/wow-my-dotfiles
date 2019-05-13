@@ -338,24 +338,25 @@ call plug#end()
   " 3. Using CocList
   " Show all Lists
   nnoremap <silent> <space>l  :<C-u>CocList --number-select lists<cr>
+  " Show commands
+  nnoremap <silent> <space>c  :<C-u>CocList --number-select commands<cr>
   " Show all diagnostics
   nnoremap <silent> <space>d  :<C-u>CocList --number-select --auto-preview diagnostics<cr>
   " Manage extensions
   nnoremap <silent> <space>e  :<C-u>CocList --number-select extensions<cr>
-  " Show commands
-  nnoremap <silent> <space>c  :<C-u>CocList --number-select commands<cr>
+  " Git status
+  nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
   " Find symbol of current document
   nnoremap <silent> <space>o  :<C-u>CocList --number-select --auto-preview outline<cr>
   " Search workspace symbols
   " nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<cr>
-  " nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
+  nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
   " Do default action for next item.
   " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
   " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list
   nnoremap <silent> <space>r  :<C-u>CocListResume<CR>
-  nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
 
   " coc-git
   nmap <leader>go :CocCommand git.browserOpen<CR>
@@ -1098,7 +1099,7 @@ call plug#end()
 " }}
 
 " https://github.com/liuchengxu/vim-which-key {{
-  let g:which_key_map = {
+  let g:which_key_map_leader = {
       \ 'name' : '+leader'                   ,
       \ "'"    : ['', 'open-terminal']       ,
       \ '-'    : ['', 'split-window-below']  ,
@@ -1131,6 +1132,7 @@ call plug#end()
       \ 'r'    : ['', 'which_key_ignore']    ,
       \ 'rf'   : ['', 'references']          ,
       \ 'rn'   : ['', 'rename']              ,
+      \ 's'    : ['', 'find-symbols']        ,
       \ 'sf'   : ['', 'CtrlSF']              ,
       \ 't'    : ['', 'toggle-nerdtree']     ,
       \ 'tt'   : ['', 'translate-cword']     ,
@@ -1138,29 +1140,31 @@ call plug#end()
       \ 'w'    : ['', 'save']                ,
       \ 'z'    : ['', 'toggle-folder']       ,
       \ }
-  " add <leader>s as nothing to ignore, work for CtrlSF's <leader>sf
-  nnoremap <silent> <leader>s :<CR>
-  let g:which_key_map.s = 'which_key_ignore'
-  let g:which_key_map.g = {
+  let g:which_key_map_leader.g = {
       \ 'name' : '+git'                      ,
       \ 'c'    : ['', 'git-commit']          ,
       \ 'n'    : ['', 'git-nextchunk']       ,
       \ 'o'    : ['', 'git-open-browser']    ,
       \ 'p'    : ['', 'git-prevchunk']       ,
       \ }
-  " let g:which_key_map['<Space>'] = {
-  "     \ 'name' : '+coc'                      ,
-  "     \ 'l'    : ['', 'coc-lists']           ,
-  "     \ 'c'    : ['', 'coc-commands']        ,
-  "     \ 'd'    : ['', 'coc-diagnostics']     ,
-  "     \ 'e'    : ['', 'coc-extensions']      ,
-  "     \ 'g'    : ['', 'coc-git-status']      ,
-  "     \ 'o'    : ['', 'coc-outline']         ,
-  "     \ 'r'    : ['', 'coc-list-resume']     ,
-  "     \ }
+  " non-leader key
+  let g:which_key_map_space = {
+      \ 'name' : '+coc'                      ,
+      \ 'l'    : ['', 'coc-lists']           ,
+      \ 'c'    : ['', 'coc-commands']        ,
+      \ 'd'    : ['', 'coc-diagnostics']     ,
+      \ 'e'    : ['', 'coc-extensions']      ,
+      \ 'g'    : ['', 'coc-git-status']      ,
+      \ 'o'    : ['', 'coc-outline']         ,
+      \ 'r'    : ['', 'coc-list-resume']     ,
+      \ }
   nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
   nnoremap <silent> <Space> :<c-u>WhichKey '<Space>'<CR>
-  autocmd! User vim-which-key call which_key#register(g:mapleader, 'g:which_key_map')
+  autocmd! User vim-which-key call WhichKey_Init()
+  function! WhichKey_Init()
+    call which_key#register(g:mapleader, 'g:which_key_map_leader')
+    call which_key#register('<Space>', 'g:which_key_map_space')
+  endfunction
   " TODO: 定制 which_key 窗口背景色
   autocmd FileType which_key highlight WhichKeySeperator guibg=#000 ctermbg=cyan
 " }}
