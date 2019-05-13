@@ -275,7 +275,8 @@ endif
   set foldlevel=99
   " 代码折叠自定义快捷键 <leader>zz
   let g:foldmethod = 0
-  map <leader>f :call ToggleFold()<cr>
+  " 使用类似原生命令的前缀 z
+  map <leader>z :call ToggleFold()<cr>
   function! ToggleFold()
     if g:foldmethod == 0
       exec "normal! zc"

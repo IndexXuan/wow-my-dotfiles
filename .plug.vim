@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 32 Plugins
+"                              Plug with 33 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -356,21 +356,20 @@ call plug#end()
   " Resume latest coc list
   nnoremap <silent> <space>r  :<C-u>CocListResume<CR>
   nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
-  command! -nargs=0 GStatus :CocList --normal gstatus
 
   " coc-git
-  nmap <leader>g :CocCommand git.browserOpen<CR>
+  nmap <leader>go :CocCommand git.browserOpen<CR>
   " navigate chunks of current buffer
   nmap <leader>gp <Plug>(coc-git-prevchunk)
   nmap <leader>gn <Plug>(coc-git-nextchunk)
   " show chunk diff at current position
-  nmap <leader>gch <Plug>(coc-git-chunkinfo)
-  " show commit ad current position
-  nmap <leader>gcm <Plug>(coc-git-commit)
+  " nmap <leader>gch <Plug>(coc-git-chunkinfo)
+  " show commit at current position
+  nmap <leader>gc <Plug>(coc-git-commit)
 
   " 4. Buffer 内操作
   " 文本搜索当前词，等同于 / 内置命令，但多了列表聚合展示
-  nnoremap <silent> <C-f> :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+  nnoremap <silent> <leader>f :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
   " 文本模糊搜索，等同于 fuzzy-search 插件
 
   " 5. 全局操作
@@ -520,7 +519,7 @@ call plug#end()
 " https://github.com/vim-scripts/open-browser.vim {{
   " if it looks like URI, Open URI under cursor.
   " Otherwise, Search word under cursor.
-  nmap <C-g> <Plug>(openbrowser-smart-search)
+  nmap <leader>o <Plug>(openbrowser-smart-search)
 " }}
 
 
@@ -548,8 +547,8 @@ call plug#end()
 " https://github.com/voldikss/vim-translate-me {{
   let g:vtm_default_mapping = 0
   " 翻译光标下的文本，在命令行回显翻译内容
-  nmap <silent> <leader>ttt <Plug>Translate
-  vmap <silent> <leader>ttt <Plug>TranslateV
+  " nmap <silent> <leader>ttt <Plug>Translate
+  " vmap <silent> <leader>ttt <Plug>TranslateV
   " 翻译光标下的文本，在窗口中显示翻译内容
   nmap <silent> <leader>tt <Plug>TranslateW
   vmap <silent> <leader>tt <Plug>TranslateWV
@@ -1120,32 +1119,50 @@ call plug#end()
       \ 'c'    : ['', 'toggle-commenter']    ,
       \ 'ca'   : ['', 'codeaction']          ,
       \ 'd'    : ['', 'definition']          ,
-      \ 'f'    : ['', 'toggle-folder']       ,
-      \ 'g'    : ['', 'git-open-browser']    ,
-      \ 'gp'   : ['', 'git-prevchunk']       ,
-      \ 'gn'   : ['', 'git-nextchunk']       ,
-      \ 'gch'  : ['', 'git-chunkinfo']       ,
-      \ 'gcm'  : ['', 'git-commit']          ,
+      \ 'f'    : ['', 'find-cword']          ,
       \ 'i'    : ['', 'toggle-indentline']   ,
       \ 'ip'   : ['', 'implementation']      ,
       \ 'l'    : ['', 'toggle-limelight']    ,
       \ 'm'    : ['', 'markdown-preview']    ,
       \ 'n'    : ['', 'toggle-number']       ,
+      \ 'o'    : ['', 'open-browser']        ,
+      \ 'p'    : ['', 'prettier']            ,
       \ 'q'    : ['', 'save-and-quit']       ,
       \ 'r'    : ['', 'which_key_ignore']    ,
       \ 'rf'   : ['', 'references']          ,
       \ 'rn'   : ['', 'rename']              ,
-      \ 'sf'   : ['', 'ctrlsf']              ,
+      \ 'sf'   : ['', 'CtrlSF']              ,
       \ 't'    : ['', 'toggle-nerdtree']     ,
+      \ 'tt'   : ['', 'translate-cword']     ,
       \ 'td'   : ['', 'type-definition']     ,
       \ 'w'    : ['', 'save']                ,
+      \ 'z'    : ['', 'toggle-folder']       ,
       \ }
   " add <leader>s as nothing to ignore, work for CtrlSF's <leader>sf
   nnoremap <silent> <leader>s :<CR>
   let g:which_key_map.s = 'which_key_ignore'
+  let g:which_key_map.g = {
+      \ 'name' : '+git'                      ,
+      \ 'c'    : ['', 'git-commit']          ,
+      \ 'n'    : ['', 'git-nextchunk']       ,
+      \ 'o'    : ['', 'git-open-browser']    ,
+      \ 'p'    : ['', 'git-prevchunk']       ,
+      \ }
+  " let g:which_key_map['<Space>'] = {
+  "     \ 'name' : '+coc'                      ,
+  "     \ 'l'    : ['', 'coc-lists']           ,
+  "     \ 'c'    : ['', 'coc-commands']        ,
+  "     \ 'd'    : ['', 'coc-diagnostics']     ,
+  "     \ 'e'    : ['', 'coc-extensions']      ,
+  "     \ 'g'    : ['', 'coc-git-status']      ,
+  "     \ 'o'    : ['', 'coc-outline']         ,
+  "     \ 'r'    : ['', 'coc-list-resume']     ,
+  "     \ }
   nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
   nnoremap <silent> <Space> :<c-u>WhichKey '<Space>'<CR>
   autocmd! User vim-which-key call which_key#register(g:mapleader, 'g:which_key_map')
+  " TODO: 定制 which_key 窗口背景色
+  autocmd FileType which_key highlight WhichKeySeperator guibg=#000 ctermbg=cyan
 " }}
 
 " https://github.com/scrooloose/nerdcommenter {{
@@ -1258,7 +1275,7 @@ call plug#end()
 
 " https://github.com/iamcco/markdown-preview.nvim {{
   nnoremap <leader>m :MarkdownPreview<CR>
-  nnoremap <leader>M :MarkdownPreviewStop<CR>
+  " nnoremap <leader>M :MarkdownPreviewStop<CR>
 " }}
 
 
