@@ -31,5 +31,17 @@
     }
   },
   //  
-  "git.branchCharacter": ""
+  "git.branchCharacter": "",
+    // File extensions to be parsed by the Typescript parser
+  "importCost.typescriptExtensions": [
+    "\\.tsx?$"
+  ],
+  // File extensions to be parsed by the Javascript parser
+  "importCost.javascriptExtensions": [
+    "\\.jsx?$"
+  ],
+  // Which bundle size to display
+  "importCost.bundleSizeDecoration": "both",
+  // Display the 'calculating' decoration
+  "importCost.showCalculatingDecoration": true
 }

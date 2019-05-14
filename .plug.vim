@@ -312,9 +312,9 @@ call plug#end()
   " brew install --HEAD universal-ctags/universal-ctags/universal-ctags
   " 1. global installed extensions
   let g:coc_global_extensions = [
-        \ 'coc-lists', 'coc-git', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs',
+        \ 'coc-lists', 'coc-git', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
         \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
-        \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
+        \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin', 'coc-import-cost',
         \ 'coc-snippets',
         \ 'https://github.com/xabikos/vscode-javascript',
         \ 'https://github.com/sdras/vue-vscode-snippets',
@@ -351,6 +351,7 @@ call plug#end()
   " Search workspace symbols
   " nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<cr>
   nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
+  nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
   " Do default action for next item.
   " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
@@ -1139,6 +1140,7 @@ call plug#end()
       \ 'td'   : ['', 'type-definition']     ,
       \ 'w'    : ['', 'save']                ,
       \ 'W'    : ['', 'sudo-save']           ,
+      \ 'y'    : ['', 'yank-list']           ,
       \ 'z'    : ['', 'toggle-folder']       ,
       \ }
   let g:which_key_map_leader.g = {
