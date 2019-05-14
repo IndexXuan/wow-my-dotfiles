@@ -5,6 +5,7 @@
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.snippetStatusText": "SNIP",
+  "list.previewSplitRight": true,
   "diagnostic.refreshOnInsertMode": true,
   "list.normalMappings": {
     "<C-j>": "normal:j",
