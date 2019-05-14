@@ -364,6 +364,7 @@ endif
   nnoremap <silent> <leader>w :update<CR>
   " force write to file
   cnoremap w!! w !sudo tee % >/dev/null
+  nnoremap <leader>W :<C-u>w !sudo tee % >/dev/null<CR>
   " force quit
   nnoremap QQ :q!<CR>
   " add some feature for fast and easy motion，like <C-a> & <C-e>
