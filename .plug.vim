@@ -351,7 +351,7 @@ call plug#end()
   " Search workspace symbols
   " nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<cr>
   nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
-  nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
+  nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
   " Do default action for next item.
   " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
@@ -423,7 +423,7 @@ call plug#end()
   " nmap <silent> <leader>pp <Plug>(coc-diagnostic-prev)
   " nmap <silent> <leader>nn <Plug>(coc-diagnostic-next)
   nmap <silent> <leader>d  <Plug>(coc-definition)
-  nmap <silent> <leader>h  :call <SID>show_documentation()<CR>
+  nmap <silent> <leader>a  :call <SID>show_documentation()<CR>
   nmap <silent> <leader>ca <Plug>(coc-codeaction)
   nmap <silent> <leader>rn <Plug>(coc-rename)
   nmap <silent> <leader>rf <Plug>(coc-references)
@@ -498,14 +498,16 @@ call plug#end()
 
   " Turn on case-insensitive feature
   let g:EasyMotion_smartcase = 1
+  " keep cursor column when JK motion
+  let g:EasyMotion_startofline = 0
 
-  " Jump to anywhere you want with minimal keystrokes, with just one key binding.
-  " `s{char}{label}`
-  " nmap <leader><leader>g <Plug>(easymotion-overwin-f)
-  " or
   " `s{char}{char}{label}`
   " Need one more keystroke, but on average, it may be more comfortable.
   nmap s <Plug>(easymotion-overwin-f2)
+  map <leader>j <Plug>(easymotion-j)
+  map <leader>k <Plug>(easymotion-k)
+  map <leader>l <Plug>(easymotion-lineforward)
+  map <leader>h <Plug>(easymotion-linebackward)
 " }}
 
 " https://github.com/terryma/vim-smooth-scroll {{
@@ -618,7 +620,7 @@ call plug#end()
 " https://github.com/junegunn/limelight.vim {{
   " Default: 0.5
   let g:limelight_default_coefficient = 0.6
-  nnoremap <leader>l :Limelight!! 0.6<CR>
+  nnoremap <leader>v :Limelight!! 0.6<CR>
 " }}
 
 " https://github.com/ryanoasis/vim-devicons {{
@@ -1114,18 +1116,23 @@ call plug#end()
       \ '7'    : ['', 'tab7']                ,
       \ '8'    : ['', 'tab8']                ,
       \ '9'    : ['', 'tab9']                ,
+      \ 'a'    : ['', 'show-documentation'] ,
       \ 'b'    : ['', 'toggle-menu']         ,
-      \ 'dd'   : ['', 'jsdoc']               ,
-      \ 'e'    : ['', 'toggle-edit-mode']    ,
-      \ 'h'    : ['', 'show-documentation']  ,
       \ 'c'    : ['', 'toggle-commenter']    ,
       \ 'ca'   : ['', 'codeaction']          ,
       \ 'd'    : ['', 'definition']          ,
+      \ 'dd'   : ['', 'jsdoc']               ,
+      \ 'e'    : ['', 'toggle-editmode']     ,
       \ 'f'    : ['', 'find-cword']          ,
+      \ 'g'    : ['', '+git']                ,
+      \ 'h'    : ['', 'motion-lineforward']  ,
       \ 'i'    : ['', 'toggle-indentline']   ,
       \ 'ip'   : ['', 'implementation']      ,
-      \ 'l'    : ['', 'toggle-limelight']    ,
+      \ 'j'    : ['', 'motion-down']         ,
+      \ 'k'    : ['', 'motion-up']           ,
+      \ 'l'    : ['', 'motion-linebackward'] ,
       \ 'm'    : ['', 'markdown-preview']    ,
+      \ 'M'    : ['', 'markdown-stop']       ,
       \ 'n'    : ['', 'toggle-number']       ,
       \ 'o'    : ['', 'open-browser']        ,
       \ 'p'    : ['', 'prettier']            ,
@@ -1138,13 +1145,16 @@ call plug#end()
       \ 't'    : ['', 'toggle-nerdtree']     ,
       \ 'tt'   : ['', 'translate-cword']     ,
       \ 'td'   : ['', 'type-definition']     ,
+      \ 'u'    : ['', '+empty']              ,
+      \ 'v'    : ['', 'toggle-limelight']    ,
       \ 'w'    : ['', 'save']                ,
       \ 'W'    : ['', 'sudo-save']           ,
-      \ 'y'    : ['', 'yank-list']           ,
-      \ 'z'    : ['', 'toggle-folder']       ,
+      \ 'x'    : ['', '+empty']              ,
+      \ 'y'    : ['', '+empty']              ,
+      \ 'z'    : ['', 'toggle-codefolder']   ,
       \ }
   let g:which_key_map_leader.g = {
-      \ 'name' : '+git'                      ,
+      \ 'name' : '+git',
       \ 'c'    : ['', 'git-commit']          ,
       \ 'n'    : ['', 'git-nextchunk']       ,
       \ 'o'    : ['', 'git-open-browser']    ,
@@ -1153,13 +1163,14 @@ call plug#end()
   " non-leader key
   let g:which_key_map_space = {
       \ 'name' : '+coc'                      ,
-      \ 'l'    : ['', 'coc-lists']           ,
       \ 'c'    : ['', 'coc-commands']        ,
       \ 'd'    : ['', 'coc-diagnostics']     ,
       \ 'e'    : ['', 'coc-extensions']      ,
       \ 'g'    : ['', 'coc-git-status']      ,
+      \ 'l'    : ['', 'coc-lists']           ,
       \ 'o'    : ['', 'coc-outline']         ,
       \ 'r'    : ['', 'coc-list-resume']     ,
+      \ 'y'    : ['', 'coc-yank-list']       ,
       \ }
   nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
   nnoremap <silent> <Space> :<c-u>WhichKey '<Space>'<CR>
@@ -1282,7 +1293,7 @@ call plug#end()
 
 " https://github.com/iamcco/markdown-preview.nvim {{
   nnoremap <leader>m :MarkdownPreview<CR>
-  " nnoremap <leader>M :MarkdownPreviewStop<CR>
+  nnoremap <leader>M :MarkdownPreviewStop<CR>
 " }}
 
 
