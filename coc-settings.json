@@ -33,7 +33,11 @@
   },
   //  
   "git.branchCharacter": "",
-    // File extensions to be parsed by the Typescript parser
+  "git.changedDecorator": "*",
+  "git.conflictedDecorator": "",
+  "git.stagedDecorator": "",
+  "git.untrackedDecorator": "",
+  // File extensions to be parsed by the Typescript parser
   "importCost.typescriptExtensions": [
     "\\.tsx?$"
   ],

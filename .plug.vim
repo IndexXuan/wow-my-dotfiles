@@ -454,6 +454,7 @@ call plug#end()
   " coc.nvim - prettier
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
   nmap <leader>p :Prettier<CR>
+  vmap <leader>p <Plug>(coc-format-selected)
 " }}
 
 " https://github.com/takac/vim-hardtime {{
@@ -814,11 +815,7 @@ call plug#end()
   endfunction
 
   function! LightLineGit()
-      " like VSCode branch symbol
-    let g:git_diff_symbol = '*'
     let branch = trim(get(g:, 'coc_git_status', ''))
-    " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
-    let branch = substitute(branch, " +", g:git_diff_symbol, "")
     let s:threshold = 12
     " show just important info when branch name too long
     let parts = split(branch, '/')
@@ -1263,7 +1260,7 @@ call plug#end()
         \ "compact": 0
         \}
   " cwd | project
-  let g:ctrlsf_default_root = 'cwd'
+  let g:ctrlsf_default_root = 'project'
   " normal | compact
   let g:ctrlsf_default_view_mode = 'normal'
   let g:ctrlsf_search_mode = 'async'
