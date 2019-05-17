@@ -312,7 +312,7 @@ call plug#end()
   " brew install --HEAD universal-ctags/universal-ctags/universal-ctags
   " 1. global installed extensions
   let g:coc_global_extensions = [
-        \ 'coc-lists', 'coc-git', 'coc-word', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
+        \ 'coc-lists', 'coc-git', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
         \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin', 'coc-import-cost',
         \ 'coc-snippets',
