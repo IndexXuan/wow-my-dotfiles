@@ -1104,6 +1104,8 @@ call plug#end()
       \ "'"    : ['', 'open-terminal']       ,
       \ '-'    : ['', 'split-window-below']  ,
       \ '/'    : ['', 'split-window-right']  ,
+      \ '['    : ['', 'win-resize+5']        ,
+      \ ']'    : ['', 'win-resize-5']        ,
       \ '1'    : ['', 'tab1']                ,
       \ '2'    : ['', 'tab2']                ,
       \ '3'    : ['', 'tab3']                ,
@@ -1121,7 +1123,13 @@ call plug#end()
       \ 'dd'   : ['', 'jsdoc']               ,
       \ 'e'    : ['', 'toggle-editmode']     ,
       \ 'f'    : ['', 'find-cword']          ,
-      \ 'g'    : ['', '+git']                ,
+      \ 'g'    : {
+        \ 'name' : '+git'                    ,
+        \ 'c'    : ['', 'git-commit']        ,
+        \ 'n'    : ['', 'git-nextchunk']     ,
+        \ 'o'    : ['', 'git-open-browser']  ,
+        \ 'p'    : ['', 'git-prevchunk']     ,
+      \ }                                    ,
       \ 'h'    : ['', 'motion-lineforward']  ,
       \ 'i'    : ['', 'toggle-indentline']   ,
       \ 'ip'   : ['', 'implementation']      ,
@@ -1146,16 +1154,9 @@ call plug#end()
       \ 'v'    : ['', 'toggle-limelight']    ,
       \ 'w'    : ['', 'save']                ,
       \ 'W'    : ['', 'sudo-save']           ,
-      \ 'x'    : ['', '+empty']              ,
+      \ 'x'    : ['', 'rm-trailing-space']   ,
       \ 'y'    : ['', '+empty']              ,
       \ 'z'    : ['', 'toggle-codefolder']   ,
-      \ }
-  let g:which_key_map_leader.g = {
-      \ 'name' : '+git',
-      \ 'c'    : ['', 'git-commit']          ,
-      \ 'n'    : ['', 'git-nextchunk']       ,
-      \ 'o'    : ['', 'git-open-browser']    ,
-      \ 'p'    : ['', 'git-prevchunk']       ,
       \ }
   " non-leader key
   let g:which_key_map_space = {

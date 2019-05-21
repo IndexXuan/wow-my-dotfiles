@@ -7,6 +7,7 @@
   "coc.preferences.snippetStatusText": "SNIP",
   "list.previewSplitRight": true,
   "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.checkCurrentLine": true,
   "list.normalMappings": {
     "<C-j>": "normal:j",
     "<C-k>": "normal:k",
@@ -22,21 +23,20 @@
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
   },
+  // coc-eslint
   "eslint.filetypes": ["javascript", "javascriptreact", "html", "typescript", "vue", "jsx", "tsx"],
-  "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
-    }
-  },
-  //  
+  // coc-prettier
+  "prettier.eslintIntegration": true,
+  "prettier.tslintIntegration": true,
+  "prettier.stylelintIntegration": true,
+  // coc-git  
   "git.branchCharacter": "",
   "git.changedDecorator": "*",
   "git.conflictedDecorator": "",
   "git.stagedDecorator": "",
   "git.untrackedDecorator": "",
+  "git.addGlameToVirtualText": true,
+  // coc-import-cost
   // File extensions to be parsed by the Typescript parser
   "importCost.typescriptExtensions": [
     "\\.tsx?$"
@@ -48,5 +48,19 @@
   // Which bundle size to display
   "importCost.bundleSizeDecoration": "both",
   // Display the 'calculating' decoration
-  "importCost.showCalculatingDecoration": true
+  "importCost.showCalculatingDecoration": true,
+  // coc-emmet
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
+  // languageserver
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  },
 }
