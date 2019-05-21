@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 34 Plugins
+"                              Plug with 35 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -114,7 +114,7 @@ function! Handler(_)
 
   " 5. after lazyload
   call plug#load(
-    \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll',
+    \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-mundo',
     \ 'nerdcommenter', 'vim-jsdoc', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'vim-expand-region', 'vim-multiple-cursors',
     \ 'MatchTagAlways', 'vim-translate-me', 'git-messenger.vim', 'goyo.vim', 'limelight.vim',
     \ )
@@ -180,6 +180,10 @@ Plug 'terryma/vim-multiple-cursors', { 'on': [] }
 
 " https://github.com/terryma/vim-expand-region
 Plug 'terryma/vim-expand-region', { 'on': [] }
+
+" https://github.com/simnalamburt/vim-mundo
+" 🎄 Vim undo tree visualizer
+Plug 'simnalamburt/vim-mundo', { 'on': [] }
 
 " https://github.com/voldikss/vim-translate-me
 Plug 'voldikss/vim-translate-me', { 'on': [] }
@@ -555,6 +559,10 @@ call plug#end()
   map J <Plug>(expand_region_shrink)
 " }}
 
+" https://github.com/simnalamburt/vim-mundo {{
+  let g:mundo_right = 1
+  nnoremap <silent> <leader>u :MundoToggle<CR>
+" }}
 
 " https://github.com/voldikss/vim-translate-me {{
   let g:vtm_default_mapping = 0
@@ -1155,7 +1163,7 @@ call plug#end()
       \ 't'    : ['', 'toggle-nerdtree']     ,
       \ 'tt'   : ['', 'translate-cword']     ,
       \ 'td'   : ['', 'type-definition']     ,
-      \ 'u'    : ['', '+empty']              ,
+      \ 'u'    : ['', 'toggle-undotree']     ,
       \ 'v'    : ['', 'toggle-limelight']    ,
       \ 'w'    : ['', 'save']                ,
       \ 'W'    : ['', 'sudo-save']           ,
