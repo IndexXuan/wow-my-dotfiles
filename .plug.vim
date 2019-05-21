@@ -314,7 +314,7 @@ call plug#end()
   let g:coc_global_extensions = [
         \ 'coc-lists', 'coc-git', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
         \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
-        \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin', 'coc-import-cost',
+        \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets',
         \ 'https://github.com/xabikos/vscode-javascript',
         \ 'https://github.com/sdras/vue-vscode-snippets',
