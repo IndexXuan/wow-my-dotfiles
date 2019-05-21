@@ -114,7 +114,7 @@ function! Handler(_)
 
   " 5. after lazyload
   call plug#load(
-    \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-mundo',
+    \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'indentLine', 'ctrlp.vim', 'comfortable-motion.vim', 'vim-mundo',
     \ 'nerdcommenter', 'vim-jsdoc', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'vim-expand-region', 'vim-multiple-cursors',
     \ 'MatchTagAlways', 'vim-translate-me', 'git-messenger.vim', 'goyo.vim', 'limelight.vim',
     \ )
@@ -157,7 +157,11 @@ Plug 'easymotion/vim-easymotion', { 'on': [] }
 
 " https://github.com/terryma/vim-smooth-scroll - 0 - lazy - 基础功能插件
 " Make scrolling in Vim more pleasant
-Plug 'terryma/vim-smooth-scroll', { 'on': [] }
+" Plug 'terryma/vim-smooth-scroll', { 'on': [] }
+
+" https://github.com/yuttie/comfortable-motion.vim
+" Brings physics-based smooth scrolling to the Vim world!
+Plug 'yuttie/comfortable-motion.vim', { 'on': [] }
 
 " https://github.com/sgur/vim-editorconfig - 0 - lazy - 基础插件
 " Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
@@ -526,10 +530,19 @@ call plug#end()
   " Distance: This is the total number of lines you want to scroll
   " Duration: This is how long you want each frame of the scrolling animation to last in milliseconds. Each frame will take at least this amount of time. It could take more if Vim's scrolling itself is slow
   " Speed: This is how many lines to scroll during each frame of the scrolling animation
-  noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 16, 2)<CR>
-  noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 16, 2)<CR>
-  noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 16, 4)<CR>
-  noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 16, 4)<CR>
+  " noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 16, 2)<CR>
+  " noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 16, 2)<CR>
+  " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 16, 4)<CR>
+  " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 16, 4)<CR>
+" }}
+
+" https://github.com/yuttie/comfortable-motion.vim {{
+  let g:comfortable_motion_no_default_key_mappings = 1
+  let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/decrease this value.
+  nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+  nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+  nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+  nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 " }}
 
 " https://github.com/vim-scripts/open-browser.vim {{
