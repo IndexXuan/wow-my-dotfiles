@@ -320,8 +320,8 @@ endif
   nnoremap <C-s> ggVG:s//g<left><left>
   " Global replace with regexp
   " nnoremap <C-s> :%s/\<\>//g<left><left><left><left><left>
-  nmap <silent> <leader>[ :vertical resize -3<CR>
-  nmap <silent> <leader>] :vertical resize +3<CR>
+  nmap <silent> <leader>[ :vertical resize -5<CR>
+  nmap <silent> <leader>] :vertical resize +5<CR>
 " }}
 
 
