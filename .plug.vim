@@ -263,7 +263,8 @@ Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 " https://github.com/junegunn/fzf#using-the-finder
 " 🌸 A command-line fuzzy finder
 " NOTE: If installed using Homebrew
-" Plug '/usr/local/opt/fzf'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " -------------------------- Working with Git --------------------------------
 
@@ -386,7 +387,7 @@ call plug#end()
 
   " 4. Buffer 内操作
   " 文本搜索当前词，等同于 / 内置命令，但多了列表聚合展示
-  nnoremap <silent> <leader>f :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+  " nnoremap <silent> <leader>f :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
   " 文本模糊搜索，等同于 fuzzy-search 插件
 
   " 5. 全局操作
@@ -1147,7 +1148,15 @@ call plug#end()
       \ 'd'    : ['', 'definition']          ,
       \ 'dd'   : ['', 'jsdoc']               ,
       \ 'e'    : ['', 'toggle-editmode']     ,
-      \ 'f'    : ['', 'find-cword']          ,
+      \ 'f'    : {
+      \ 'name' : '+fzf'                      ,
+      \ 'cp'   : ['', 'project-commits']     ,
+      \ 'cb'   : ['', 'buffer-commits']      ,
+      \ 'f'    : ['', 'files']               ,
+      \ 'm'    : ['', 'maps']                ,
+      \ 'r'    : ['', 'rg-search']           ,
+      \ 'w'    : ['', 'rg-search-cword']     ,
+      \ }                                    ,
       \ 'g'    : {
       \ 'name' : '+git'                      ,
       \ 'c'    : ['', 'git-commit']          ,
@@ -1300,6 +1309,110 @@ call plug#end()
         \ "tab" : "<C-t>",
         \ }
 " }}
+
+
+" https://github.com/junegunn/fzf.vim {{
+  " nnoremap <silent> <leader>fb :Buffers<CR>
+  " nnoremap <silent> <leader>fc :Colors<CR>
+  " nnoremap <silent> <leader>fc :Commands<CR>
+  nnoremap <silent> <leader>fcb :BCommits<CR>
+  nnoremap <silent> <leader>fcp :Commits<CR>
+  nnoremap <silent> <leader>ff :call FzfFiles()<CR>
+  nnoremap <silent> <leader>fm :Maps<CR>
+  nnoremap <silent> <leader>fr :Rg<CR>
+  nnoremap <silent> <leader>fw :Rg <C-R><C-W><CR>
+
+  " Customize fzf colors to match your color scheme
+  let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', '#5f5f87'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
+
+  let g:fzf_commits_log_options = '--graph --color=always
+    \ --format="%C(yellow)%h%C(red)%d%C(reset)
+    \ - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
+
+  "let $FZF_DEFAULT_COMMAND = 'ag --hidden -l -g ""'
+  " ripgrep
+  if executable('rg')
+    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+    set grepprg=rg\ --vimgrep
+    command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+  endif
+
+  let $FZF_DEFAULT_OPTS='--layout=reverse'
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+  function! FloatingFZF()
+    if ! has('nvim')
+      return
+    endif
+    let buf = nvim_create_buf(v:false, v:true)
+    call setbufvar(buf, 'number', 'no')
+
+    let height = float2nr(&lines/2)
+    let width = float2nr(&columns - (&columns * 2 / 10))
+    "let width = &columns
+    let row = float2nr(&lines / 3)
+    let col = float2nr((&columns - width) / 3)
+
+    let opts = {
+          \ 'relative': 'editor',
+          \ 'row': row,
+          \ 'col': col,
+          \ 'width': width,
+          \ 'height':height,
+          \ }
+    let win =  nvim_open_win(buf, v:true, opts)
+    call setwinvar(win, '&number', 0)
+    call setwinvar(win, '&relativenumber', 0)
+  endfunction
+
+  " Files + devicons
+  function! FzfFiles()
+    let l:fzf_files_options = ' --preview "rougify {2..-1} | head -'.&lines.'"'
+
+    function! s:files()
+      let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+      return s:prepend_icon(l:files)
+    endfunction
+
+    function! s:prepend_icon(candidates)
+      let l:result = []
+      for l:candidate in a:candidates
+        let l:filename = fnamemodify(l:candidate, ':p:t')
+        let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
+        call add(l:result, printf('%s %s', l:icon, l:candidate))
+      endfor
+
+      return l:result
+    endfunction
+
+    function! s:edit_file(item)
+      let l:pos = stridx(a:item, ' ')
+      let l:file_path = a:item[pos+1:-1]
+      execute 'silent e' l:file_path
+    endfunction
+
+    call fzf#run({
+          \ 'source': <sid>files(),
+          \ 'sink':   function('s:edit_file'),
+          \ 'options': '-m ' . l:fzf_files_options,
+          \ 'down':    '40%' ,
+          \ 'window': 'call FloatingFZF()'})
+  endfunction
+" }}
+
 
 " https://github.com/rhysd/git-messenger.vim {{
   let g:git_messenger_no_default_mappings = v:true
