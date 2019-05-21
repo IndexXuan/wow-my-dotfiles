@@ -1303,7 +1303,8 @@ call plug#end()
 
 " https://github.com/rhysd/git-messenger.vim {{
   let g:git_messenger_no_default_mappings = v:true
-  let g:git_messenger_include_diff = 'current'
+  " none | current
+  let g:git_messenger_include_diff = 'none'
   let g:git_messenger_always_into_popup = v:true
   nmap <leader>gm <Plug>(git-messenger)
 
