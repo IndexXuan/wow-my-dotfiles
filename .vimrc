@@ -320,8 +320,8 @@ endif
   nnoremap <C-s> ggVG:s//g<left><left>
   " Global replace with regexp
   " nnoremap <C-s> :%s/\<\>//g<left><left><left><left><left>
-  nmap <silent> <leader>[ :vertical resize -5<CR>
-  nmap <silent> <leader>] :vertical resize +5<CR>
+  nmap <silent> <C-[> :vertical resize -5<CR>
+  nmap <silent> <C-]> :vertical resize +5<CR>
 " }}
 
 
@@ -389,7 +389,7 @@ endif
     map <leader>' :shell<CR>
   endif
   " remove trailing whitespaces
-  nnoremap <leader>x :%s/\s\+$//
+  nnoremap <silent> <leader>x :%s/\s\+$//e<CR>
 " }}
 
 " Remap improved {{

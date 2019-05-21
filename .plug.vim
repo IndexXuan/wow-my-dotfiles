@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 33 Plugins
+"                              Plug with 34 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -71,7 +71,6 @@ function! Handler(_)
   " call plug#load()
 
   " 1. lazyload
-  " TODO: nerdtree-git-plugin 有点卡性能，编辑时候关闭 nerdtree 才行
   call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'lightline.vim', 'vim-snippets', 'vim-fugitive')
 
   " 2. vim [empty] - 顺序不能变，精心调试出来的
@@ -114,7 +113,11 @@ function! Handler(_)
   endif
 
   " 5. after lazyload
-  call plug#load('vim-wakatime', 'vim-editorconfig', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'nerdcommenter', 'vim-jsdoc', 'goyo.vim', 'limelight.vim', 'vim-hardtime', 'MatchTagAlways', 'vim-multiple-cursors', 'vim-expand-region', 'vim-translate-me')
+  call plug#load(
+    \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'indentLine', 'ctrlp.vim', 'vim-smooth-scroll',
+    \ 'nerdcommenter', 'vim-jsdoc', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'vim-expand-region', 'vim-multiple-cursors',
+    \ 'MatchTagAlways', 'vim-translate-me', 'git-messenger.vim', 'goyo.vim', 'limelight.vim',
+    \ )
 endfunction
 
 " Order is important
@@ -264,6 +267,10 @@ Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
 " TODO: replace by coc-git
 Plug 'tpope/vim-fugitive', { 'on': [] }
+
+" https://github.com/rhysd/git-messenger.vim
+" Vim and Neovim plugin to reveal the commit messages under the cursor
+Plug 'rhysd/git-messenger.vim', { 'on': [] }
 
 " --------------------------- Language Plugins ---------------------------------
 
@@ -1069,7 +1076,6 @@ call plug#end()
 
     " new section
     call quickmenu#append("# Misc", '')
-    call quickmenu#append("Remove White Space", ":%s/\\s\\+$//", "remove trailing whitespace")
     call quickmenu#append("Color Schema Light", "call ColorschemeChange('solarized8_light')", "turn on light colorscheme")
     call quickmenu#append("Color Schema Dark" , "call ColorschemeChange('molokai')", "turn on dark colorscheme")
     call quickmenu#append("Wakatime Dashboard", "OpenBrowser https://wakatime.com/dashboard", "go to wakatime")
@@ -1104,8 +1110,6 @@ call plug#end()
       \ "'"    : ['', 'open-terminal']       ,
       \ '-'    : ['', 'split-window-below']  ,
       \ '/'    : ['', 'split-window-right']  ,
-      \ '['    : ['', 'win-resize+5']        ,
-      \ ']'    : ['', 'win-resize-5']        ,
       \ '1'    : ['', 'tab1']                ,
       \ '2'    : ['', 'tab2']                ,
       \ '3'    : ['', 'tab3']                ,
@@ -1115,7 +1119,7 @@ call plug#end()
       \ '7'    : ['', 'tab7']                ,
       \ '8'    : ['', 'tab8']                ,
       \ '9'    : ['', 'tab9']                ,
-      \ 'a'    : ['', 'show-documentation'] ,
+      \ 'a'    : ['', 'show-documentation']  ,
       \ 'b'    : ['', 'toggle-menu']         ,
       \ 'c'    : ['', 'toggle-commenter']    ,
       \ 'ca'   : ['', 'codeaction']          ,
@@ -1124,11 +1128,12 @@ call plug#end()
       \ 'e'    : ['', 'toggle-editmode']     ,
       \ 'f'    : ['', 'find-cword']          ,
       \ 'g'    : {
-        \ 'name' : '+git'                    ,
-        \ 'c'    : ['', 'git-commit']        ,
-        \ 'n'    : ['', 'git-nextchunk']     ,
-        \ 'o'    : ['', 'git-open-browser']  ,
-        \ 'p'    : ['', 'git-prevchunk']     ,
+      \ 'name' : '+git'                      ,
+      \ 'c'    : ['', 'git-commit']          ,
+      \ 'm'    : ['', 'git-commit-msg']      ,
+      \ 'n'    : ['', 'git-nextchunk']       ,
+      \ 'o'    : ['', 'git-open-browser']    ,
+      \ 'p'    : ['', 'git-prevchunk']       ,
       \ }                                    ,
       \ 'h'    : ['', 'motion-lineforward']  ,
       \ 'i'    : ['', 'toggle-indentline']   ,
@@ -1273,6 +1278,21 @@ call plug#end()
         \ "prev": "N",
         \ "tab" : "<C-t>",
         \ }
+" }}
+
+" https://github.com/rhysd/git-messenger.vim {{
+  let g:git_messenger_no_default_mappings = v:true
+  let g:git_messenger_include_diff = 'current'
+  let g:git_messenger_always_into_popup = v:true
+  nmap <leader>gm <Plug>(git-messenger)
+
+  function! SetupGitMessengerPopup() abort
+    " Your favorite configuration here
+    nmap <buffer><C-p> o
+    nmap <buffer><C-n> O
+    nmap <buffer><Esc> q
+  endfunction
+  autocmd FileType gitmessengerpopup call SetupGitMessengerPopup()
 " }}
 
 
