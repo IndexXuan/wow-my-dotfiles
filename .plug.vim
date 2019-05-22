@@ -61,19 +61,18 @@ let g:bar_width = 30
 
 augroup lazyload
   autocmd!
-  " 必须先加载 dev-icons 否则 vim-startify 会不展示 icon
-  autocmd vimEnter * call LoadAsync()
+  autocmd vimEnter * call DeferLoadPlugins()
         \ | autocmd! lazyload
 augroup END
 
 function! Handler(_)
-  " 0. before lazyload
-  " call plug#load()
+  " 0. before load
+  " do nothing right now
 
-  " 1. lazyload
-  call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'lightline.vim', 'vim-snippets', 'vim-fugitive')
+  " 1. load plugins
+  call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'ctrlp.vim', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'lightline.vim', 'vim-snippets', 'vim-fugitive')
 
-  " 2. vim [empty] - 顺序不能变，精心调试出来的
+  " 2. handle vim [empty] - 顺序不能变，精心调试出来的
   if !argc()
     " Open Left & Right Bar
     call OpenBar()
@@ -90,7 +89,7 @@ function! Handler(_)
     " let g:startify_custom_header = s:center_layout(startify#fortune#cowsay())
     let g:startify_custom_header = s:center_layout([
           \'+-------------------------------------------+',
-          \'|              Index.Vim ^_^                |',
+          \'|              IndexVim ^_^                 |',
           \'|                                           |',
           \'|            Github: IndexXuan              |',
           \'+-------------------------------------------+',
@@ -99,24 +98,23 @@ function! Handler(_)
     execute("Startify")
   endif
 
-  " 3. for vim [dir], call NerdTree
+  " 3. handle vim [dir], call NerdTree
   autocmd StdinReadPre * let s:std_in=1
   if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in")
     " Open Left-Side NERDTree
     exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0]
   endif
 
-  " 4. immediate action
+  " 4. patch for vim
   if !has("nvim")
     " Vim 需要提前加载这个，懒加载不起作用 ...
     call plug#load('quickmenu.vim')
   endif
 
-  " 5. after lazyload
+  " 5. after load
   call plug#load(
-    \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'indentLine', 'ctrlp.vim', 'comfortable-motion.vim', 'vim-mundo',
-    \ 'nerdcommenter', 'vim-jsdoc', 'vim-surround', 'vim-repeat', 'vim-easymotion', 'vim-expand-region', 'vim-multiple-cursors',
-    \ 'MatchTagAlways', 'vim-translate-me', 'git-messenger.vim', 'goyo.vim', 'limelight.vim',
+    \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'comfortable-motion.vim', 'vim-surround', 'vim-repeat',
+    \ 'nerdcommenter', 'vim-multiple-cursors', 'MatchTagAlways', 'vim-jsdoc', 'fzf', 'fzf.vim',
     \ )
 endfunction
 
@@ -129,7 +127,7 @@ function! OpenBar()
 endfunction
 
 " 函数名必须大写开头，加 ! 为了避免报重复定义，强行覆盖执行
-function! LoadAsync()
+function! DeferLoadPlugins()
   return timer_start(0, 'Handler', { 'repeat': 1 })
 endfunction
 
@@ -151,15 +149,17 @@ Plug 'wakatime/vim-wakatime', { 'on': [] }
 " Plugin to help you stop repeating the basic movement keys
 Plug 'takac/vim-hardtime', { 'on': []}
 
-" https://github.com/easymotion/vim-easymotion - 0 - lazy - 基础插件，Vim 特色
+" https://github.com/easymotion/vim-easymotion - 0 - on-demand - 基础插件，Vim 特色
 " Vim motions on speed!
-Plug 'easymotion/vim-easymotion', { 'on': [] }
+Plug 'easymotion/vim-easymotion', { 'on': [
+      \ '<Plug>(easymotion-overwin-f2)',
+      \ '<Plug>(easymotion-j)',
+      \ '<Plug>(easymotion-k)',
+      \ '<Plug>(easymotion-lineforward)',
+      \ '<Plug>(easymotion-linebackward)',
+      \ ]}
 
-" https://github.com/terryma/vim-smooth-scroll - 0 - lazy - 基础功能插件
-" Make scrolling in Vim more pleasant
-" Plug 'terryma/vim-smooth-scroll', { 'on': [] }
-
-" https://github.com/yuttie/comfortable-motion.vim
+" https://github.com/yuttie/comfortable-motion.vim - 0 - lazy - 基础功能插件 - better than vim-smooth-scroll
 " Brings physics-based smooth scrolling to the Vim world!
 Plug 'yuttie/comfortable-motion.vim', { 'on': [] }
 
@@ -175,40 +175,36 @@ Plug 'tpope/vim-surround', { 'on': [] }
 " repeat.vim: enable repeating supported plugin maps with "."
 Plug 'tpope/vim-repeat', { 'on': [] }
 
-" https://github.com/vim-scripts/open-browser.vim - 2 - lazy - 基础功能插件
+" https://github.com/vim-scripts/open-browser.vim - 2 - on-demand - 基础功能插件
 " Open URI with your favorite browser from your favorite editor
 Plug 'tyru/open-browser.vim', { 'on': ['<Plug>(openbrowser-smart-search)', 'OpenBrowser'] }
 
-" https://github.com/terryma/vim-multiple-cursors
+" https://github.com/terryma/vim-multiple-cursors - 2 - lazy - 编辑能力增强
 Plug 'terryma/vim-multiple-cursors', { 'on': [] }
 
-" https://github.com/terryma/vim-expand-region
-Plug 'terryma/vim-expand-region', { 'on': [] }
+" https://github.com/terryma/vim-expand-region - 2 - on-demand - 选择能力增强，Vim 特色
+Plug 'terryma/vim-expand-region', { 'on': ['<Plug>(expand_region_expand)', '<Plug>(expand_region_shrink)'] }
 
-" https://github.com/simnalamburt/vim-mundo
+" https://github.com/simnalamburt/vim-mundo - 2 - on-demand - undotree
 " 🎄 Vim undo tree visualizer
-Plug 'simnalamburt/vim-mundo', { 'on': [] }
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
-" https://github.com/voldikss/vim-translate-me
-Plug 'voldikss/vim-translate-me', { 'on': [] }
+" https://github.com/voldikss/vim-translate-me - 1 - on-demand - 基础功能增强
+Plug 'voldikss/vim-translate-me', { 'on': ['<Plug>TranslateW', '<Plug>TranslateWV'] }
 
 " -------------------------- UI Layout ---------------------------
-
-" https://github.com/flazz/vim-colorschemes - 0 - no-need-lazy
-" one colorscheme pack to rule them all!
-" Plug 'flazz/vim-colorschemes'
 
 " https://github.com/mhinz/vim-startify - 1 - lazy
 " 🔗 The fancy start screen for Vim.
 Plug 'mhinz/vim-startify', { 'on': [] }
 
-" https://github.com/junegunn/goyo.vim - lazy - UI
+" https://github.com/junegunn/goyo.vim - on-demand - UI
 " 🌷 Distraction-free writing in Vim
-Plug 'junegunn/goyo.vim', { 'on': [] }
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 
-" https://github.com/junegunn/limelight.vim - lazy - UI
+" https://github.com/junegunn/limelight.vim - on-demand - UI
 " 🔦 All the world's indeed a stage and we are merely players
-Plug 'junegunn/limelight.vim', { 'on': [] }
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight'}
 
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 但也要尽快加载，否则很多地方出不来
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
@@ -229,57 +225,54 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 " https://github.com/Xuyuanp/nerdtree-git-plugin - 0 - lazy - UI 增强
 " A plugin of NERDTree showing git status
 " Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
-" https://github.com/tsony-tsonev/nerdtree-git-plugin - 0 - lazy - UI 增强
+" https://github.com/tsony-tsonev/nerdtree-git-plugin - 0 - lazy - fork 上面的，并做了 UI 颜色区分与增强
 " A plugin of NERDTree showing git status
 Plug 'tsony-tsonev/nerdtree-git-plugin', { 'on': [] }
 
-" https://github.com/skywind3000/quickmenu.vim - 0 - lazy
+" https://github.com/skywind3000/quickmenu.vim - 0 - lazy - UI 右侧栏
 " A nice customizable popup menu for vim
 Plug 'skywind3000/quickmenu.vim', { 'on': [] }
 
-" https://github.com/Yggdroot/indentLine - 1 - lazy
+" https://github.com/Yggdroot/indentLine - 1 - on-demand - UI 增强
 " A vim plugin to display the indention levels with thin vertical lines
-Plug 'Yggdroot/indentLine', { 'on': [] }
+Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
 
-" https://github.com/liuchengxu/vim-which-key - 1 - lazy
+" https://github.com/liuchengxu/vim-which-key - 1 - on-demand - 快捷键提示与导航
 " 🌷 Vim plugin that shows keybindings in popup
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 " ----------------- As Programmer's Editor -----------------------
 
-" https://github.com/scrooloose/nerdcommenter - 0 - lazy
+" https://github.com/scrooloose/nerdcommenter - 0 - lazy - 基础功能
 " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdcommenter', { 'on': [] }
 
-" https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy - on-demand-load will not work with devicon, dont know why
+" TODO:
+" https://github.com/ctrlpvim/ctrlp.vim - 1 - on-demand - will not work with devicon, dont know why
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 " Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim', { 'on': [] }
 
 " https://github.com/dyng/ctrlsf.vim - 0 - lazy - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
-" https://github.com/junegunn/fzf#using-the-finder
+" https://github.com/junegunn/fzf#using-the-finder - 1 - lazy - 强大搜索功能
 " 🌸 A command-line fuzzy finder
 " NOTE: If installed using Homebrew
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug '/usr/local/opt/fzf', { 'on': [] }
+Plug 'junegunn/fzf.vim', { 'on': [] }
 
 " -------------------------- Working with Git --------------------------------
 
-" https://github.com/airblade/vim-gitgutter - 0 - lazy - 性能很慢
-" A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
-" Plug 'airblade/vim-gitgutter', { 'on': [] }
-
+" TODO: replace by coc-git
 " https://github.com/tpope/vim-fugitive - 1 - lazy
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
-" TODO: replace by coc-git
 Plug 'tpope/vim-fugitive', { 'on': [] }
 
-" https://github.com/rhysd/git-messenger.vim
+" https://github.com/rhysd/git-messenger.vim - 1 - on-demand - Git 增强，UI 美观
 " Vim and Neovim plugin to reveal the commit messages under the cursor
-Plug 'rhysd/git-messenger.vim', { 'on': [] }
+Plug 'rhysd/git-messenger.vim', { 'on': ['<Plug>(git-messenger)'] }
 
 " --------------------------- Language Plugins ---------------------------------
 
@@ -313,7 +306,7 @@ Plug 'honza/vim-snippets', { 'on': [] }
 " A Vim plugin that always highlights the enclosing html / xml tags
 Plug 'Valloric/MatchTagAlways', { 'on': [] }
 
-" https://github.com/heavenshell/vim-jsdoc - 2 - lazy - 不支持 vue 文件，加了没也用
+" https://github.com/heavenshell/vim-jsdoc - 2 - lazy - hack 支持了 vue 文件
 " Generate JSDoc to your JavaScript code.
 Plug 'heavenshell/vim-jsdoc', { 'on': [] }
 
@@ -1465,9 +1458,25 @@ call plug#end()
 
 
 " https://github.com/heavenshell/vim-jsdoc {{
-  " works but not perfect ...
-  " autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript.html
-  nmap <silent> <leader>dd <Plug>(jsdoc)
+  nmap <silent> <leader>dd :call GenJsDoc()<CR>
+  function! GenJsDoc()
+    try
+      let ft = &filetype
+      " patch for vue
+      if ft == 'vue'
+        " works but not perfect ...
+        " autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript.html
+        execute('setlocal filetype=javascript.html')
+        execute('JsDoc')
+        execute('setlocal filetype=vue')
+        return
+      endif
+      execute('JsDoc')
+    catch
+      " catch and do nothing for not supported filetype
+    endtry
+  endfunction
+
   let g:jsdoc_allow_input_prompt = 0
   let g:jsdoc_enable_es6 = 1
   let g:jsdoc_access_descriptions = 2
