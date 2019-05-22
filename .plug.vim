@@ -1429,6 +1429,8 @@ call plug#end()
   " fix filetype
   autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+  " use lsp indent
+  let g:typescript_indent_disable = 1
 " }}
 "
 
