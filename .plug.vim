@@ -322,7 +322,7 @@ call plug#end()
   " 1. global installed extensions
   let g:coc_global_extensions = [
         \ 'coc-lists', 'coc-git', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
-        \ 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
+        \ 'coc-vimlsp', 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets',
         \ 'https://github.com/xabikos/vscode-javascript',
@@ -330,7 +330,6 @@ call plug#end()
         \ 'https://github.com/snowffer/Element-UI-Snippets-VSCode',
         \ 'https://github.com/xabikos/vscode-react',
         \]
-
 
   " 2. Misc
   " Use <c-space> for trigger completion.
@@ -685,19 +684,18 @@ call plug#end()
     autocmd ColorScheme * call s:lightline_update()
   augroup END
   function! s:lightline_update()
-    " if !exists('g:loaded_lightline')
-    "   return
-    " endif
+    if !exists('g:loaded_lightline')
+      return
+    endif
     try
-        if &background == 'dark'
-          let g:lightline.colorscheme = 'powerline'
-        else
-          let g:lightline.colorscheme = 'solarized'
-        endif
-        call lightline#init()
-        call lightline#colorscheme()
-        call lightline#update()
+      if &background == 'dark'
+        let g:lightline.colorscheme = 'powerline'
+      else
+        let g:lightline.colorscheme = 'solarized'
       endif
+      call lightline#init()
+      call lightline#colorscheme()
+      call lightline#update()
     catch
     endtry
   endfunction

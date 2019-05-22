@@ -95,17 +95,18 @@ Name           | Description
 [coc-pairs](https://github.com/neoclide/coc-pairs)                 | 成对符号补全
 [coc-yank](https://github.com/neoclide/coc-yank)                   | 复制历史记录列表
 [coc-prettier](https://github.com/neoclide/coc-prettier)           | 格式化
+[coc-vimlsp](https://github.com/iamcco/coc-vimlsp)                 | Vim Language Server
 [coc-tsserver](https://github.com/neoclide/coc-tsserver)           | TypeScript / JavaScript Language Server
-[coc-vetur](https://github.com/neoclide/coc-vetur)                 | Vue Server 
-[coc-html](https://github.com/neoclide/coc-html)                   | HTML Server
+[coc-vetur](https://github.com/neoclide/coc-vetur)                 | Vue Language Server
+[coc-html](https://github.com/neoclide/coc-html)                   | HTML Language Server
 [coc-emmet](https://github.com/neoclide/coc-emmet)                 | emmet 扩展
-[coc-css](https://github.com/neoclide/coc-css)                     | CSS Server
-[coc-json](https://github.com/neoclide/coc-json)                   | JSON Server
-[coc-yaml](https://github.com/neoclide/coc-yaml)                   | YAML Server
+[coc-css](https://github.com/neoclide/coc-css)                     | CSS Language Server ( css / scss / less ... )
+[coc-json](https://github.com/neoclide/coc-json)                   | JSON Language Server
+[coc-yaml](https://github.com/neoclide/coc-yaml)                   | YAML Language Server
 [coc-eslint](https://github.com/neoclide/coc-eslint)               | eslint 插件
 [coc-stylelint](https://github.com/neoclide/coc-stylelint)         | eslint 插件
 [coc-tslint-plugin](https://github.com/neoclide/coc-tslint-plugin) | eslint 插件
-[coc-snippets](https://github.com/neoclide/coc-snippets)           | 代码片段
+[coc-snippets](https://github.com/neoclide/coc-snippets)           | 适配 UltiSnips and VSCode Snippets
 [vscode-javascript](https://github.com/xabikos/vscode-javascript)  | VSCode JavaScript Snippets
 [vue-vscode-snippets](https://github.com/sdras/vue-vscode-snippets) | VSCode Vue Snippets
 [Element-UI-Snippets-VSCode](https://github.com/snowffer/Element-UI-Snippets-VSCode) | VSCode Element-UI Snippets
