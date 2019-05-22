@@ -354,7 +354,7 @@ call plug#end()
   " Manage extensions
   nnoremap <silent> <space>e  :<C-u>CocList --number-select extensions<cr>
   " Git status
-  nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
+  " nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
   " Find symbol of current document
   nnoremap <silent> <space>o  :<C-u>CocList --number-select --auto-preview outline<cr>
   " Search workspace symbols
@@ -1171,6 +1171,7 @@ call plug#end()
       \ 'p'    : ['', 'prettier']            ,
       \ 'q'    : ['', 'save-and-quit']       ,
       \ 'r'    : ['', 'which_key_ignore']    ,
+      \ 'rb'   : ['', 'async-run-buffer']    ,
       \ 'rf'   : ['', 'references']          ,
       \ 'rn'   : ['', 'rename']              ,
       \ 's'    : ['', 'find-symbol']         ,
