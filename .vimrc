@@ -328,8 +328,8 @@ endif
 " Shell-like move {{
   inoremap <C-b> <left>
   inoremap <C-f> <Right>
-  inoremap <C-n> <Down>
   inoremap <C-p> <Up>
+  inoremap <C-n> <Down>
   inoremap <C-o> <Esc>o
   imap <C-a> <Esc>fi
   imap <C-e> <End>
@@ -338,10 +338,10 @@ endif
   inoremap <C-u> <Esc>d0cl
   inoremap <C-w> <Esc>dbcl
   " better command line editing
-  cnoremap <C-p> <Up>
-  cnoremap <C-n> <Down>
   cnoremap <C-b> <Left>
   cnoremap <C-f> <Right>
+  cnoremap <C-p> <Up>
+  cnoremap <C-n> <Down>
   cnoremap <C-a> <Home>
   cnoremap <C-e> <End>
   cnoremap <C-d> <Del>

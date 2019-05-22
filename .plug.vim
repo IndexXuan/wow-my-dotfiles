@@ -368,7 +368,7 @@ call plug#end()
   nnoremap <silent> <space>r  :<C-u>CocListResume<CR>
 
   " coc-git
-  nmap <leader>go :CocCommand git.browserOpen<CR>
+  nmap <silent> <leader>go :CocCommand git.browserOpen<CR>
   " navigate chunks of current buffer
   nmap <leader>gp <Plug>(coc-git-prevchunk)
   nmap <leader>gn <Plug>(coc-git-nextchunk)
@@ -1141,7 +1141,7 @@ call plug#end()
       \ 'e'    : ['', 'toggle-editmode']     ,
       \ 'f'    : {
       \ 'name' : '+fzf'                      ,
-      \ 'cp'   : ['', 'project-commits']     ,
+      \ 'c'    : ['', 'commits']             ,
       \ 'cb'   : ['', 'buffer-commits']      ,
       \ 'f'    : ['', 'files']               ,
       \ 'm'    : ['', 'maps']                ,
@@ -1174,7 +1174,7 @@ call plug#end()
       \ 'rn'   : ['', 'rename']              ,
       \ 's'    : ['', 'find-symbol']         ,
       \ 'sf'   : ['', 'ctrlsf']              ,
-      \ 't'    : ['', 'toggle-nerdtree']     ,
+      \ 't'    : ['', 'toggle-filetree']     ,
       \ 'tt'   : ['', 'translate-cword']     ,
       \ 'td'   : ['', 'type-definition']     ,
       \ 'u'    : ['', 'toggle-undotree']     ,
@@ -1307,8 +1307,8 @@ call plug#end()
   " nnoremap <silent> <leader>fb :Buffers<CR>
   " nnoremap <silent> <leader>fc :Colors<CR>
   " nnoremap <silent> <leader>fc :Commands<CR>
+  nnoremap <silent> <leader>fc :Commits<CR>
   nnoremap <silent> <leader>fcb :BCommits<CR>
-  nnoremap <silent> <leader>fcp :Commits<CR>
   nnoremap <silent> <leader>ff :call FzfFiles()<CR>
   nnoremap <silent> <leader>fm :Maps<CR>
   nnoremap <silent> <leader>fr :Rg<CR>

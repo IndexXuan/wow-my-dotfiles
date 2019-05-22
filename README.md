@@ -118,6 +118,27 @@ Name           | Description
 - 可以敲击 <leader> 键，查看 vim-which-key 渲染出来的快捷键导航
 - <Space> 触发 coc 相关命令，也可以敲击 <Space> 键，查看 vim-which-key 渲染出来的快捷键导航
 
+* Remap
+
+Keys           | Mode   | Description
+-------------- | -------| ----------------
+j + j          | Insert | `<Esc>`
+Q + Q          | Normal | `:q!`
+=              | Visual | indent
+-              | Visual | retab
+Y              | Normal | y$
+D              | Normal | d$
+`<BackSpace>`  | Visual | d
+j              | Normal | gj
+k              | Normal | gk
+<              | Visual | `<gv`
+>              | Visual | `>gv`
+y              | Visual | y`]
+p              | Normal | p`]
+(              | Normal | older change position
+)              | Normal | newer change position
+
+
 * Emacs-Like Basic Motions ( Insert & Command Mode )
 
 Keys           | Mode   | Description
@@ -142,6 +163,7 @@ Ctrl + e | Command | 移动到行尾
 Ctrl + d | Command | 删除光标所在字符
 Ctrl + h | Command | 删除映射 `BackSpace`
 Ctrl + u | Command | 当前光标删除到行首
+Ctrl + t | Command | 回显当前路径
 
 * Advanced Motions
 
@@ -170,66 +192,76 @@ Ctrl + ] | Normal | 窗口宽度加 5
 
 Keys          | Mode   | Description
 ------------- | -------| ----------------
- Ctrl + t     | Normal | 新建 tab
- Ctrl + t     | Insert | 新建 tab
- `<leader>`q  | Normal | 关闭当前 tab
- `<Tab>`      | Normal | 切换活跃 tab
- `<S-Tab>`    | Normal | 反向切换活跃 tab
+Ctrl + t     | Normal | 新建 tab
+Ctrl + t     | Insert | 新建 tab
+`<leader>`q  | Normal | 关闭当前 tab
+`<Tab>`      | Normal | 切换活跃 tab
+`<S-Tab>`    | Normal | 反向切换活跃 tab
 
 * find & filter
 
 Keys           | Mode   | Description
 -------------- | -------| ----------------
- Ctrl + p      | Normal | CtrlP
- `<leader>`fs  | Normal | 项目 commits 历史搜索
- `<leader>`fcb | Normal | 当前文件 commits 历史搜索
- `<leader>`ff  | Normal | 项目文件搜索
- `<leader>`fm  | Normal | Vim 按键 map 搜索
- `<leader>`fr  | Normal | 使用 rg 搜搜
- `<leader>`fw  | Normal | 使用 rg 搜索当前单词
+Ctrl + p      | Normal | CtrlP
+`<leader>`fc  | Normal | 项目 commits 历史搜索
+`<leader>`fcb | Normal | 当前文件 commits 历史搜索
+`<leader>`ff  | Normal | 项目文件搜索
+`<leader>`fm  | Normal | Vim 按键 map 搜索
+`<leader>`fr  | Normal | 使用 rg 搜搜
+`<leader>`fw  | Normal | 使用 rg 搜索当前单词
+
+ * Git
+
+Keys           | Mode   | Description
+-------------- | -------| ----------------
+`<leader>`gc  | Normal | git-commit
+`<leader>`gm  | Normal | git-commit-msg
+`<leader>`gn  | Normal | git-next-chunk
+`<leader>`go  | Normal | git-open-browser
+`<leader>`gp  | Normal | git-preview-chunk
 
 * leaderKey
 
 Keys           | Mode   | Description
 -------------- | -------| ----------------
- `<leader>`数字 | Normal | 数字[0-9]选择 tab
- `<leader>`a   | Normal | 显示单词类型文档
- `<leader>`b   | Normal | 切换右侧菜单栏显隐
- `<leader>`c   | Normal | 切换当前代码注释开关
- `<leader>`c   | Visual | 切换当前代码注释开关
- `<leader>`ca  | Normal | 代码辅助自动修复
- `<leader>`d   | Normal | 显示类型
- `<leader>`dd  | Normal | 生成 JSDoc
- `<leader>`e   | Normal | 切换编辑模式
- `<leader>`f   | Normal | +fzf 相关 prefix，如上
- `<leader>`g   | Normal | +git 相关 prefix，如上
- `<leader>`h   | Normal | easymotion，如上
- `<leader>`i   | Normal | 切换 indentline 开关
- `<leader>`ip  | Normal | 查找类型的实现
- `<leader>`j   | Normal | easymotion，如上
- `<leader>`k   | Normal | easymotion，如上
- `<leader>`l   | Normal | easymotion，如上
- `<leader>`m   | Normal | 开始预览当前编辑的 markdown 文件
- `<leader>`M   | Normal | 结束预览当前编辑的 markdown 文件
- `<leader>`n   | Normal | 切换行号展示 ( number & relativenumber 混合显示 )
- `<leader>`o   | Normal | 使用默认浏览器打开当前链接或搜索当前单词
- `<leader>`p   | Normal | 调用 Prettier 命令进行代码自动风格纠正
- `<leader>`q   | Normal | 保存并退出 Vim
- `<leader>`r   | Normal | 运行当前文件代码
- `<leader>`rf  | Normal | 搜索当前 symbol 引用
- `<leader>`rn  | Normal | 当前 symbol 重命名
- `<leader>`s   | Normal | 搜索当前 symbol
- `<leader>`sf  | Normal | 项目内搜索单词
- `<leader>`t   | Normal | 切换左侧文件树显隐
- `<leader>`td  | Normal | 显示类型定义
- `<leader>`tt  | Normal | 显示当前单词的翻译
- `<leader>`u   | Normal | 切换 undotree 显隐
- `<leader>`v   | Normal | 切换 Limelight 开关
- `<leader>`w   | Normal | 保存
- `<leader>`W   | Normal | 强制保存
- `<leader>`x   | Normal | 删除当前文件行尾多余空白
- `<leader>`y   | Normal | +empty
- `<leader>`z   | Normal | 切换代码折叠
+`<leader>`数字 | Normal | 数字[0-9]选择 tab
+`<leader>`a   | Normal | 显示单词类型文档
+`<leader>`b   | Normal | 切换右侧菜单栏显隐
+`<leader>`c   | Normal | 切换当前代码注释开关
+`<leader>`c   | Visual | 切换当前代码注释开关
+`<leader>`ca  | Normal | 代码辅助自动修复
+`<leader>`d   | Normal | 显示类型
+`<leader>`dd  | Normal | 生成 JSDoc
+`<leader>`e   | Normal | 切换编辑模式
+`<leader>`f   | Normal | +fzf 相关 prefix，如上
+`<leader>`g   | Normal | +git 相关 prefix，如上
+`<leader>`h   | Normal | easymotion，如上
+`<leader>`i   | Normal | 切换 indentline 开关
+`<leader>`ip  | Normal | 查找类型的实现
+`<leader>`j   | Normal | easymotion，如上
+`<leader>`k   | Normal | easymotion，如上
+`<leader>`l   | Normal | easymotion，如上
+`<leader>`m   | Normal | 开始预览当前编辑的 markdown 文件
+`<leader>`M   | Normal | 结束预览当前编辑的 markdown 文件
+`<leader>`n   | Normal | 切换行号展示 ( number & relativenumber 混合显示 )
+`<leader>`o   | Normal | 使用默认浏览器打开当前链接或搜索当前单词
+`<leader>`p   | Normal | 调用 Prettier 命令进行代码自动风格纠正
+`<leader>`q   | Normal | 保存并退出 Vim
+`<leader>`rb  | Normal | 运行当前文件代码
+`<leader>`rf  | Normal | 搜索当前 symbol 引用
+`<leader>`rn  | Normal | 当前 symbol 重命名
+`<leader>`s   | Normal | 搜索当前 symbol
+`<leader>`sf  | Normal | 项目内搜索单词
+`<leader>`t   | Normal | 切换左侧文件树显隐
+`<leader>`td  | Normal | 显示类型定义
+`<leader>`tt  | Normal | 显示当前单词的翻译
+`<leader>`u   | Normal | 切换 undotree 显隐
+`<leader>`v   | Normal | 切换 Limelight 开关
+`<leader>`w   | Normal | 保存
+`<leader>`W   | Normal | 强制保存
+`<leader>`x   | Normal | 删除当前文件行尾多余空白
+`<leader>`y   | Normal | +empty
+`<leader>`z   | Normal | 切换代码折叠
 
 * Coc
 
