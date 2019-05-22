@@ -59,10 +59,10 @@ call plug#begin('$HOME/.vim/plugged')
 " UI Bar Width
 let g:bar_width = 30
 
-augroup lazyload
+augroup loadPlugin
   autocmd!
   autocmd vimEnter * call DeferLoadPlugins()
-        \ | autocmd! lazyload
+        \ | autocmd! loadPlugin
 augroup END
 
 function! Handler(_)
@@ -137,7 +137,7 @@ endfunction
 " Input method enhance for iTerm2 on mac.
  " Plug 'neoclide/coc-imselect'
 
-" https://github.com/neoclide/coc.nvim - 0 - not-support-lazy - 异步加载会超级慢 - 基础生态插件
+" https://github.com/neoclide/coc.nvim - 0 - init - 异步加载会超级慢 - 基础生态插件
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'do': './install.sh nightly' }
 
@@ -222,7 +222,7 @@ Plug 'scrooloose/nerdtree', { 'on': [] }
 " Extra syntax and highlight for nerdtree files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 
-" https://github.com/Xuyuanp/nerdtree-git-plugin - 0 - lazy - UI 增强
+" https://github.com/Xuyuanp/nerdtree-git-plugin
 " A plugin of NERDTree showing git status
 " Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 " https://github.com/tsony-tsonev/nerdtree-git-plugin - 0 - lazy - fork 上面的，并做了 UI 颜色区分与增强
@@ -248,12 +248,12 @@ Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'scrooloose/nerdcommenter', { 'on': [] }
 
 " TODO:
-" https://github.com/ctrlpvim/ctrlp.vim - 1 - on-demand - will not work with devicon, dont know why
+" https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy - must before devicon plugin
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 " Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
 Plug 'ctrlpvim/ctrlp.vim', { 'on': [] }
 
-" https://github.com/dyng/ctrlsf.vim - 0 - lazy - on-demand
+" https://github.com/dyng/ctrlsf.vim - 0 - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
@@ -276,15 +276,15 @@ Plug 'rhysd/git-messenger.vim', { 'on': ['<Plug>(git-messenger)'] }
 
 " --------------------------- Language Plugins ---------------------------------
 
-" https://github.com/leafgarland/typescript-vim - 0 - no-need-lazy
+" https://github.com/leafgarland/typescript-vim - 0 - filetype
 " Typescript syntax files for Vim
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
-" https://github.com/posva/vim-vue - 0 - no-need-lazy
+" https://github.com/posva/vim-vue - 0 - filetype
 " Syntax Highlight for Vue.js components
 Plug 'posva/vim-vue', { 'for' : ['vue'] }
 
-" https://github.com/iamcco/markdown-preview.nvim - no-need-lazy
+" https://github.com/iamcco/markdown-preview.nvim - filetype
 " markdown preview plugin for (neo)vim
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': [ 'markdown', 'md'] }
 
