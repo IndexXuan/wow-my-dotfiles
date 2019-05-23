@@ -8,8 +8,8 @@
 
   PluginCount | StartupTime | File
   ----------- | ----------- |---------
-     35       | 58 ~ 61ms   | empty file
-     35       | 73 ~ 81ms   | 700~ lines *.ts file
+     36       | 58 ~ 61ms   | empty file
+     36       | 73 ~ 81ms   | 700~ lines *.ts file
 
 ## 必要环境
 * Mac OS
@@ -64,9 +64,10 @@ Name           | Description
 [vim-fugitive](https://github.com/tpope/vim-fugitive) | Git 封装
 [vim-snippets](https://github.com/honza/vim-snippets) | 提供基础常用 snippets
 
-## 按需加载插件 - 10
+## 按需加载插件 - 11
 Name           | Description
 -------------- | ----------------------
+[vim-which-key](https://github.com/liuchengxu/vim-which-key) | 快捷键导航
 [vim-easymotion](https://github.com/easymotion/vim-easymotion) | 快速移动
 [open-browser.vim](https://github.com/vim-scripts/open-browser.vim) | 唤起浏览器
 [vim-expand-region](https://github.com/terryma/vim-expand-region) | 可视模式选区优化
@@ -80,11 +81,13 @@ Name           | Description
 
 
 ## 按文件类型加载插件 - 3
+Name           | Description
+-------------- | ----------------------
 [typescript.vim](https://github.com/leafgarland/typescript-vim) | TypeScript
 [vim-vue](https://github.com/posva/vim-vue) | Vue
 [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown
 
-## Coc Extensions
+## Coc Extensions - 24
 Name           | Description
 -------------- | ----------------------
 [coc-list](https://github.com/neoclide/coc-list)                   | 常用 source list
@@ -113,10 +116,10 @@ Name           | Description
 [vscode-react](https://github.com/xabikos/vscode-react) | VSCode React Snippets
 
 ## 键位操作
-- 默认 leader 为 `;` 可根据你的习惯修改
+- 默认 `<leader>` 为 `;` 可根据你的习惯修改
 - 根据功能的首字母进行组合，充分利用了 a-z 的 26 个字母 ( 极少数为大写 )，便于记忆
-- 可以敲击 <leader> 键，查看 vim-which-key 渲染出来的快捷键导航
-- <Space> 触发 coc 相关命令，也可以敲击 <Space> 键，查看 vim-which-key 渲染出来的快捷键导航
+- 可以敲击 `<leader>` 键，查看 [vim-which-key](https://github.com/liuchengxu/vim-which-key) 渲染出来的快捷键导航
+- `<Space>` 触发 coc 相关命令，也可以敲击 `<Space>` 键，查看 vim-which-key 渲染出来的快捷键导航
 
 * Remap
 
@@ -185,8 +188,6 @@ Ctrl + h | Normal | 移动到左边窗口
 Ctrl + l | Noraml | 移动到右边窗口
 Ctrl + j | Normal | 移动到下边窗口
 Ctrl + k | Normal | 移动到上边窗口
-Ctrl + [ | Normal | 窗口宽度减 5
-Ctrl + ] | Normal | 窗口宽度加 5
 
 * Tabline
 
@@ -222,9 +223,14 @@ Keys           | Mode   | Description
 
 * leaderKey
 
-Keys           | Mode   | Description
--------------- | -------| ----------------
-`<leader>`数字 | Normal | 数字[0-9]选择 tab
+Keys          | Mode   | Description
+--------------| -------| ----------------
+`<leader>`数字| Normal | 数字[0-9]选择 tab
+`<leader>`'   | Normal | 开发终端
+`<leader>`-   | Normal | 下分屏
+`<leader>`/   | Normal | 右分屏
+`<leader>`[   | Normal | 窗口宽度减 5
+`<leader>`]   | Normal | 窗口宽度加 5
 `<leader>`a   | Normal | 显示单词类型文档
 `<leader>`b   | Normal | 切换右侧菜单栏显隐
 `<leader>`c   | Normal | 切换当前代码注释开关
