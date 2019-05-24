@@ -184,10 +184,12 @@ e            | Normal | 跳转到行尾
 
 Keys           | Mode   | Description
 -------------- | -------| ----------------
-Ctrl + h | Normal | 移动到左边窗口
-Ctrl + l | Noraml | 移动到右边窗口
-Ctrl + j | Normal | 移动到下边窗口
-Ctrl + k | Normal | 移动到上边窗口
+Ctrl + h   | Normal | 移动到左边窗口
+Ctrl + l   | Noraml | 移动到右边窗口
+Ctrl + j   | Normal | 移动到下边窗口
+Ctrl + k   | Normal | 移动到上边窗口
+`<Space>`[ | Normal | 窗口宽度减 5
+`<Space>`] | Normal | 窗口宽度加 5
 
 * Tabline
 
@@ -229,8 +231,6 @@ Keys          | Mode   | Description
 `<leader>`'   | Normal | 开发终端
 `<leader>`-   | Normal | 下分屏
 `<leader>`/   | Normal | 右分屏
-`<leader>`[   | Normal | 窗口宽度减 5
-`<leader>`]   | Normal | 窗口宽度加 5
 `<leader>`a   | Normal | 显示单词类型文档
 `<leader>`b   | Normal | 切换右侧菜单栏显隐
 `<leader>`c   | Normal | 切换当前代码注释开关

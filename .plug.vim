@@ -1123,8 +1123,6 @@ call plug#end()
       \ "'"    : ['', 'open-terminal']       ,
       \ '-'    : ['', 'split-window-below']  ,
       \ '/'    : ['', 'split-window-right']  ,
-      \ '['    : ['', 'win-resize-5']        ,
-      \ ']'    : ['', 'win-resize+5']        ,
       \ '1'    : ['', 'tab1']                ,
       \ '2'    : ['', 'tab2']                ,
       \ '3'    : ['', 'tab3']                ,
@@ -1190,6 +1188,8 @@ call plug#end()
   " non-leader key
   let g:which_key_map_space = {
       \ 'name' : '+coc'                      ,
+      \ '['    : ['', 'which_key_ignore']    ,
+      \ ']'    : ['', 'which_key_ignore']    ,
       \ 'c'    : ['', 'coc-commands']        ,
       \ 'd'    : ['', 'coc-diagnostics']     ,
       \ 'e'    : ['', 'coc-extensions']      ,
