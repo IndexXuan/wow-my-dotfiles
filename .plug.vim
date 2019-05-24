@@ -440,7 +440,7 @@ call plug#end()
 
   function! s:show_documentation()
     if &filetype == 'vim'
-      execute 'h '.expand('<cword>')
+      execute('h '.expand('<cword>'))
     else
       call CocAction('doHover')
     endif
@@ -1092,16 +1092,23 @@ call plug#end()
 
     " new section
     call quickmenu#append("# Misc", '')
-    call quickmenu#append("Color Schema Light", "call ColorschemeChange('solarized8_light')", "turn on light colorscheme")
-    call quickmenu#append("Color Schema Dark" , "call ColorschemeChange('molokai')", "turn on dark colorscheme")
+    call quickmenu#append("Color Schema Light", "call ColorschemeChange('light')", "turn on light colorscheme")
+    call quickmenu#append("Color Schema Dark" , "call ColorschemeChange('dark')", "turn on dark colorscheme")
     call quickmenu#append("Wakatime Dashboard", "OpenBrowser https://wakatime.com/dashboard", "go to wakatime")
     call quickmenu#append("Code Outline List" , "CocList --number-select --auto-preview outline", "show code outline")
     " Open it
     call quickmenu#toggle('menu')
   endfunction
 
-  function! ColorschemeChange(theme)
-    execute('colorscheme '.a:theme)
+  function! ColorschemeChange(type)
+    if a:type == 'dark'
+      set background=dark
+      execute('colorscheme '.g:vim_theme_dark)
+    else
+      set background=light
+      echo g:vim_theme_light
+      execute('colorscheme '.g:vim_theme_light)
+    endif
     " not works perfect
     " patch vim-vue syntax highlight - @see https://github.com/posva/vim-vue#my-syntax-highlighting-stops-working-randomly
     if &filetype == 'vue'
@@ -1398,7 +1405,7 @@ call plug#end()
     function! s:edit_file(item)
       let l:pos = stridx(a:item, ' ')
       let l:file_path = a:item[pos+1:-1]
-      execute 'silent e' l:file_path
+      execute('silent e'. l:file_path)
     endfunction
 
     call fzf#run({

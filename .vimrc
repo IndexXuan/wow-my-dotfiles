@@ -109,10 +109,17 @@ endif
   set shortmess+=c
   " Default background & color theme
   set background=dark
-  colorscheme molokai
+  " dark theme
+  let g:vim_theme_dark = 'gruvbox9'
+  " let g:vim_dark_theme = 'molokai'
+  " light theme
+  let g:vim_theme_light = 'solarized8_light'
+  " default colorscheme
+  let g:vim_theme = g:vim_theme_dark
+  execute('colorscheme '.g:vim_theme)
   " Fast change background
-  cnoremap clight :colorscheme solarized8_light
-  cnoremap cdark  :colorscheme molokai
+  " cnoremap clight :colorscheme solarized8_light
+  " cnoremap cdark  :colorscheme molokai
   " Colors
   hi CursorLine term=bold cterm=bold
   " Make ternimal beautiful and statusline( like airline / lightline ) show well
@@ -428,7 +435,7 @@ endif
   inoremap <C-t>   <Esc>:tabnew<CR>i
   " <leader>[1-9] move to tab [1-9]
   for s:i in range(1, 9)
-    execute 'nnoremap <leader>' . s:i . ' ' . s:i . 'gt'
+    execute('nnoremap <leader>' . s:i . ' ' . s:i . 'gt')
   endfor
 " }}
 
