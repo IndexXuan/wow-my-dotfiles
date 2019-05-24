@@ -293,7 +293,7 @@ endif
 " --------------------------------------------------------------------
 
 " Run Code {{
-  map <leader>rb :call Run()<CR>
+  map <leader>rr :call Run()<CR>
   function! Run()
     exec "w"
     if &filetype == 'c'

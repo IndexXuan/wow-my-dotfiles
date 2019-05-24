@@ -253,7 +253,7 @@ Keys          | Mode   | Description
 `<leader>`o   | Normal | 使用默认浏览器打开当前链接或搜索当前单词
 `<leader>`p   | Normal | 调用 Prettier 命令进行代码自动风格纠正
 `<leader>`q   | Normal | 保存并退出 Vim
-`<leader>`rb  | Normal | 运行当前文件代码
+`<leader>`rr  | Normal | 运行当前文件代码
 `<leader>`rf  | Normal | 搜索当前 symbol 引用
 `<leader>`rn  | Normal | 当前 symbol 重命名
 `<leader>`s   | Normal | 搜索当前 symbol

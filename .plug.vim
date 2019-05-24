@@ -1172,7 +1172,7 @@ call plug#end()
       \ 'p'    : ['', 'prettier']            ,
       \ 'q'    : ['', 'save-and-quit']       ,
       \ 'r'    : ['', 'which_key_ignore']    ,
-      \ 'rb'   : ['', 'async-run-buffer']    ,
+      \ 'rr'   : ['', 'async-run-buffer']    ,
       \ 'rf'   : ['', 'references']          ,
       \ 'rn'   : ['', 'rename']              ,
       \ 's'    : ['', 'find-symbol']         ,
