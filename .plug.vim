@@ -997,6 +997,9 @@ call plug#end()
   " do not show ? help & up a dir
   " let NERDTreeMinimalUI = 1
 
+  " file system menu
+  " https://sookocheff.com/post/vim/creating-a-new-file-or-directoryin-vim-using-nerdtree/
+
   " Tree UI
   let g:NERDTreeWinSize = bar_width
   let g:NERDTreeDirArrowExpandable = '▸'
