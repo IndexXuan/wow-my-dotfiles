@@ -8,8 +8,8 @@
 
   PluginCount | StartupTime | File
   ----------- | ----------- |---------
-     36       | 58 ~ 61ms   | empty file
-     36       | 73 ~ 81ms   | 700~ lines *.ts file
+     37       | 58 ~ 61ms   | empty file
+     37       | 73 ~ 81ms   | 700~ lines *.ts file
 
 ## 必要环境
 * Mac OS
@@ -80,11 +80,12 @@ Name           | Description
 [git-messenger](https://github.com/rhysd/git-messenger.vim) | 当前字符 Git 信息展示与历史浏览
 
 
-## 按文件类型加载插件 - 3
+## 按文件类型加载插件 - 4
 Name           | Description
 -------------- | ----------------------
 [typescript.vim](https://github.com/leafgarland/typescript-vim) | TypeScript
 [vim-vue](https://github.com/posva/vim-vue) | Vue
+[vim-jsx-improve](https://github.com/neoclide/vim-jsx-improve) | JSX
 [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown
 
 ## Coc Extensions - 24

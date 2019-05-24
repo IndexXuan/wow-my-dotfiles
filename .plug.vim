@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 36 Plugins
+"                              Plug with 37 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -283,6 +283,10 @@ Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 " https://github.com/posva/vim-vue - 0 - filetype
 " Syntax Highlight for Vue.js components
 Plug 'posva/vim-vue', { 'for' : ['vue'] }
+
+" https://github.com/neoclide/vim-jsx-improve - 3 - filetype
+" Syntax and indent plugin for React jsx.
+Plug 'neoclide/vim-jsx-improve', { 'for': [ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
 
 " https://github.com/iamcco/markdown-preview.nvim - filetype
 " markdown preview plugin for (neo)vim
