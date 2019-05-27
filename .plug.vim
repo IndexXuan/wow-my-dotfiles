@@ -839,7 +839,7 @@ call plug#end()
   endfunction
 
   function! LightLineGit()
-    let branch = trim(get(g:, 'coc_git_status', ''))
+    let branch = get(g:, 'coc_git_status', '')
     let s:threshold = 12
     " show just important info when branch name too long
     let parts = split(branch, '/')

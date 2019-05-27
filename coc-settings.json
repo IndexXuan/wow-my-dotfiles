@@ -2,7 +2,6 @@
   // echo 信息到窗口底部，默认是顶部 preview 窗口，体验不好
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.snippetStatusText": "SNIP",
   "list.previewSplitRight": true,
