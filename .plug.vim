@@ -730,7 +730,7 @@ call plug#end()
         \ 'active': {
         \   'left': [
         \     [ 'mode', 'paste' ],
-        \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
+        \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method', 'blame' ]
         \   ],
         \   'right':[
         \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
@@ -754,6 +754,7 @@ call plug#end()
         \   'git': 'LightLineGit',
         \   'filename': 'LightlineFilename',
         \   'method': 'LightlineMethod',
+        \   'blame': 'LightlineGitBlame',
         \   'coc': 'LightlineCoc',
         \   'filetype': 'LightlineFiletype',
         \   'fileencoding': 'LightlineFileEncoding',
@@ -869,8 +870,14 @@ call plug#end()
 
   " NOTE: 展示 ts version & prettier，没啥意义，暂时注释掉
   function! LightlineCocStatus() abort
+    " let coc_status = get(g:, 'coc_status', '')
     return ''
-    " return get(g:, 'coc_status', '')
+  endfunction
+
+  function! LightlineGitBlame() abort
+    let blame = get(b:, 'coc_git_blame', '')
+    " return blame
+    return winwidth(0) > s:screen_md ? blame : ''
   endfunction
 
   autocmd User CocDiagnosticChange call lightline#update()
@@ -1443,8 +1450,6 @@ call plug#end()
   " fix filetype
   autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-  " use lsp indent
-  let g:typescript_indent_disable = 1
 " }}
 "
 

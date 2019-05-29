@@ -111,7 +111,7 @@ endif
   set background=dark
   " dark theme
   let g:vim_theme_dark = 'gruvbox9'
-  " let g:vim_dark_theme = 'molokai'
+  " let g:vim_theme_dark = 'molokai'
   " light theme
   let g:vim_theme_light = 'solarized8_light'
   " default colorscheme
