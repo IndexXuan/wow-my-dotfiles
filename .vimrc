@@ -371,6 +371,7 @@ endif
   nnoremap <leader>q :x<CR>
   nnoremap <C-x> :bd<CR>
   nnoremap <silent> <leader>w :update<CR>
+  " nnoremap <silent> <leader>w :w<CR>
   " force write to file
   cnoremap w!! w !sudo tee % >/dev/null
   nnoremap <leader>W :<C-u>w !sudo tee % >/dev/null<CR>

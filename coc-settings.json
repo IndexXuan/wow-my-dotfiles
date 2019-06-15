@@ -3,7 +3,6 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
-  "coc.preferences.snippetStatusText": "SNIP",
   "list.previewSplitRight": true,
   "list.normalMappings": {
     "<C-j>": "normal:j",
@@ -16,7 +15,7 @@
   "diagnostic.virtualTextPrefix": " ",
   "diagnostic.virtualText": false,
   "diagnostic.joinMessageLines": false,
-  "codeLens.enable": true,
+  "codeLens.enable": false,
   "codeLens.separator": "‣",
   // make vim select first item on completion
   "suggest.noselect": false,

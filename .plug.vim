@@ -139,7 +139,7 @@ endfunction
 
 " https://github.com/neoclide/coc.nvim - 0 - init - 异步加载会超级慢 - 基础生态插件
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
-Plug 'neoclide/coc.nvim', { 'do': './install.sh nightly' }
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 
 " https://github.com/wakatime/vim-wakatime - 0 - lazy - 基础功能插件
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
@@ -437,6 +437,7 @@ call plug#end()
   nmap <silent> <leader>d  <Plug>(coc-definition)
   nmap <silent> <leader>a  :call <SID>show_documentation()<CR>
   nmap <silent> <leader>ca <Plug>(coc-codeaction)
+  nmap <silent> <leader>cl <Plug>(coc-codelens-action)
   nmap <silent> <leader>rn <Plug>(coc-rename)
   nmap <silent> <leader>rf <Plug>(coc-references)
   nmap <silent> <leader>td <Plug>(coc-type-definition)
@@ -1227,8 +1228,6 @@ call plug#end()
     call which_key#register(g:mapleader, 'g:which_key_map_leader')
     call which_key#register('<Space>', 'g:which_key_map_space')
   endfunction
-  " TODO: 定制 which_key 窗口背景色
-  autocmd FileType which_key highlight WhichKeySeperator guibg=#000 ctermbg=cyan
 " }}
 
 " https://github.com/scrooloose/nerdcommenter {{
