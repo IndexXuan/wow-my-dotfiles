@@ -929,11 +929,8 @@ call plug#end()
   endfunction
 
   function! LightlineMethod()
-    " 必须双引号
-    let f_icon = "\uf794"
     let name = get(b:, 'coc_current_function', '')
-    let _ = name != '' ? f_icon . ' ' . name : ''
-    return winwidth(0) > s:screen_md ? _ : ''
+    return winwidth(0) > s:screen_md ? name : ''
   endfunction
 
   function! LightlineCoc()

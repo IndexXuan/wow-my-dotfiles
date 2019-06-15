@@ -9,7 +9,6 @@
     "<C-k>": "normal:k",
     "<C-t>": "action:tabe"
   },
-  "diagnostic.refreshAfterSave": true,
   "diagnostic.refreshOnInsertMode": false,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualTextPrefix": " ",
