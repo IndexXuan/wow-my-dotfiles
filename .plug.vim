@@ -472,7 +472,7 @@ call plug#end()
 
 " https://github.com/takac/vim-hardtime {{
   " If you want hardtime to run in every buffer, add this to .vimrc
-  let g:hardtime_default_on = 1
+  let g:hardtime_default_on = 0
   " default settings
   let g:list_of_normal_keys = ["h", "j", "k", "l", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
   let g:list_of_visual_keys = ["h", "l", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
@@ -731,10 +731,12 @@ call plug#end()
         \ 'active': {
         \   'left': [
         \     [ 'mode', 'paste' ],
-        \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method', 'blame' ]
+        \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method'],
+        \     [ 'blame' ],
         \   ],
         \   'right':[
-        \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+        \     [ 'lineinfo', 'percent' ],
+        \     [ 'filetype', 'fileencoding' ],
         \     [ 'coc' ]
         \   ],
         \ },
