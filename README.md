@@ -128,19 +128,19 @@ Keys           | Mode   | Description
 -------------- | -------| ----------------
 j + j          | Insert | `<Esc>`
 Q + Q          | Normal | `:q!`
-=              | Visual | indent
--              | Visual | retab
+`=`             | Visual | indent
+`-`            | Visual | retab
 Y              | Normal | y$
 D              | Normal | d$
 `<BackSpace>`  | Visual | d
 j              | Normal | gj
 k              | Normal | gk
-<              | Visual | `<gv`
->              | Visual | `>gv`
+`<`            | Visual | `<gv`
+`>`            | Visual | `>gv`
 y              | Visual | y`]
 p              | Normal | p`]
-(              | Normal | older change position
-)              | Normal | newer change position
+`(`            | Normal | older change position
+`)`            | Normal | newer change position
 
 
 * Emacs-Like Basic Motions ( Insert & Command Mode )
