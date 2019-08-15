@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "
 "                           Plugins and Settings v3.0.0
-"                              Plug with 37 Plugins
+"                              Plug with 36 Plugins
 "
 " ----------------------------------------------------------------------------
 
@@ -189,8 +189,6 @@ Plug 'terryma/vim-expand-region', { 'on': ['<Plug>(expand_region_expand)', '<Plu
 " 🎄 Vim undo tree visualizer
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
-" https://github.com/voldikss/vim-translate-me - 1 - on-demand - 基础功能增强
-Plug 'voldikss/vim-translate-me', { 'on': ['<Plug>TranslateW', '<Plug>TranslateWV'] }
 
 " -------------------------- UI Layout ---------------------------
 
@@ -329,6 +327,7 @@ call plug#end()
         \ 'coc-vimlsp', 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
         \ 'coc-snippets',
+        \ 'coc-todolist', 'coc-translator',
         \ 'https://github.com/xabikos/vscode-javascript',
         \ 'https://github.com/sdras/vue-vscode-snippets',
         \ 'https://github.com/snowffer/Element-UI-Snippets-VSCode',
@@ -356,6 +355,8 @@ call plug#end()
   nnoremap <silent> <space>d  :<C-u>CocList --number-select --auto-preview diagnostics<cr>
   " Manage extensions
   nnoremap <silent> <space>e  :<C-u>CocList --number-select extensions<cr>
+  nnoremap <silent> <space>t  :<C-u>CocList --number-select todolist<cr>
+  nnoremap <silent> <space>tc :<C-u>CocCommand todolist.create<cr>
   " Git status
   " nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
   " Find symbol of current document
@@ -380,6 +381,10 @@ call plug#end()
   " nmap <leader>gch <Plug>(coc-git-chunkinfo)
   " show commit at current position
   nmap <leader>gc <Plug>(coc-git-commit)
+
+  " coc-translator
+  nmap <silent> <leader>tt <Plug>(coc-translator-p)
+
 
   " 4. Buffer 内操作
   " 文本搜索当前词，等同于 / 内置命令，但多了列表聚合展示
@@ -573,16 +578,6 @@ call plug#end()
 " https://github.com/simnalamburt/vim-mundo {{
   let g:mundo_right = 1
   nnoremap <silent> <leader>u :MundoToggle<CR>
-" }}
-
-" https://github.com/voldikss/vim-translate-me {{
-  let g:vtm_default_mapping = 0
-  " 翻译光标下的文本，在命令行回显翻译内容
-  " nmap <silent> <leader>ttt <Plug>Translate
-  " vmap <silent> <leader>ttt <Plug>TranslateV
-  " 翻译光标下的文本，在窗口中显示翻译内容
-  nmap <silent> <leader>tt <Plug>TranslateW
-  vmap <silent> <leader>tt <Plug>TranslateWV
 " }}
 
 
@@ -1218,6 +1213,8 @@ call plug#end()
       \ 'l'    : ['', 'coc-lists']           ,
       \ 'o'    : ['', 'coc-outline']         ,
       \ 'r'    : ['', 'coc-list-resume']     ,
+      \ 't'    : ['', 'coc-todolist']        ,
+      \ 'tc'   : ['', 'coc-todolist-create'] ,
       \ 'y'    : ['', 'coc-yank-list']       ,
       \ }
   nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>

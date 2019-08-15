@@ -125,7 +125,7 @@ alias ovim="/usr/local/bin/vim"
 # NeoVim
 alias nvim="~/nvim-osx64/bin/nvim"
 # Alias Vim as NeoVim
-# alias vim="nvim"
+alias vim="nvim"
 # space-vim
 alias s-vim="vim -u ~/.space-vim/init.vim"
 # SpaceVim

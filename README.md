@@ -72,7 +72,6 @@ Name           | Description
 [open-browser.vim](https://github.com/vim-scripts/open-browser.vim) | 唤起浏览器
 [vim-expand-region](https://github.com/terryma/vim-expand-region) | 可视模式选区优化
 [vim-mundo](https://github.com/simnalamburt/vim-mundo) | UndoTree 插件
-[vim-translate-me](https://github.com/voldikss/vim-translate-me) | 翻译插件
 [goyo.vim](https://github.com/junegunn/goyo.vim) | 写作模式
 [limelight.vim](https://github.com/junegunn/limelight.vim) | 聚光灯插件，配合写作模式
 [indentLine](https://github.com/Yggdroot/indentLine) | 对齐线插件
@@ -88,7 +87,7 @@ Name           | Description
 [vim-jsx-improve](https://github.com/neoclide/vim-jsx-improve) | JSX
 [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown
 
-## Coc Extensions - 24
+## Coc Extensions - 26
 Name           | Description
 -------------- | ----------------------
 [coc-list](https://github.com/neoclide/coc-list)                   | 常用 source list
@@ -111,6 +110,8 @@ Name           | Description
 [coc-stylelint](https://github.com/neoclide/coc-stylelint)         | eslint 插件
 [coc-tslint-plugin](https://github.com/neoclide/coc-tslint-plugin) | eslint 插件
 [coc-snippets](https://github.com/neoclide/coc-snippets)           | 适配 UltiSnips and VSCode Snippets
+[coc-todolist](https://github.com/voldikss/coc-todolist)           | todo 管理插件
+[coc-translator](https://github.com/voldikss/coc-translator)       | 翻译插件
 [vscode-javascript](https://github.com/xabikos/vscode-javascript)  | VSCode JavaScript Snippets
 [vue-vscode-snippets](https://github.com/sdras/vue-vscode-snippets) | VSCode Vue Snippets
 [Element-UI-Snippets-VSCode](https://github.com/snowffer/Element-UI-Snippets-VSCode) | VSCode Element-UI Snippets

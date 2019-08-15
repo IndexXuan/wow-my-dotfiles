@@ -81,5 +81,8 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     }
-  }
+  },
+  "todolist.enable": true,
+  "todolist.monitor": true,
+  "todolist.reminder.notify": "floating"
 }
