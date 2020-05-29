@@ -444,6 +444,8 @@ endif
   " treat tpl, tmpl as html, add in 20160314
   autocmd BufNewFile,BufRead *tpl set filetype=html
   autocmd BufNewFile,BufRead *tmpl set filetype=html
+  autocmd BufNewFile,BufRead *wxss set filetype=css
+  autocmd BufNewFile,BufRead *wxml set filetype=wxml
   " To get correct comment highlight
   autocmd FileType json syntax match Comment +\/\/.\+$+
   " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写，用于代替 vim-stay 插件

@@ -3,6 +3,10 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
+  "coc.preferences.rootPatterns": [
+    "vue.config.js",
+    ".git"
+  ],
   "list.previewSplitRight": true,
   "list.normalMappings": {
     "<C-j>": "normal:j",
@@ -21,7 +25,7 @@
   // when snippet activated and pumvisible, prefer complete completion.
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "suggest.minTriggerInputLength": 2,
-  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.acceptSuggestionOnCommitCharacter": false,
   "suggest.snippetIndicator": "~",
   "suggest.completionItemKindLabels": {
     "color": "",
@@ -66,8 +70,8 @@
   "git.stagedDecorator": "",
   "git.untrackedDecorator": "",
   "git.virtualTextPrefix": "     ",
-  "git.addGlameToVirtualText": true,
-  "git.addGlameToBufferVar": true,
+  "git.addGBlameToVirtualText": true,
+  "git.addGBlameToBufferVar": true,
   // coc-emmet
   "emmet.includeLanguages": {
     "vue-html": "html",
@@ -84,5 +88,6 @@
   },
   "todolist.enable": true,
   "todolist.monitor": true,
-  "todolist.reminder.notify": "floating"
+  "vetur.useWorkspaceDependencies": true,
+  "vetur.experimental.templateInterpolationService": false
 }

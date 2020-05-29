@@ -142,6 +142,8 @@ alias vim-debug="vim --startuptime ~/.vim/debug/startuptime.log"
 alias gitlog="git log --graph --oneline --all --decorate --color"
 alias git-soft-remove-last-commit="git reset --soft HEAD^"
 alias github-remove-last-commit="git push -f origin HEAD^:master && git reset --soft HEAD^"
+alias gitlist="git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+alias branchlist="git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
 alias gcg="git checkout gh-pages"
 alias gitreset="git reset --hard HEAD"
 
@@ -174,6 +176,11 @@ alias chmodfile="find ./ -type f -exec chmod 644 {} \;"
 alias chmodall="chmoddir && chmodfile"
 
 # ----- Apps ----- #
+alias mnpm="npm --registry=http://r.npm.sankuai.com \
+--cache=$HOME/.cache/mnpm \
+--disturl=http://npm.sankuai.com/mirrors/node \
+--userconfig=$HOME/.npmrc"
+
 alias x="proxychains4"
 alias chrome="google chrome"
 

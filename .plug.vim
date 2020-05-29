@@ -330,7 +330,6 @@ call plug#end()
         \ 'coc-todolist', 'coc-translator',
         \ 'https://github.com/xabikos/vscode-javascript',
         \ 'https://github.com/sdras/vue-vscode-snippets',
-        \ 'https://github.com/snowffer/Element-UI-Snippets-VSCode',
         \ 'https://github.com/xabikos/vscode-react',
         \]
 
@@ -816,8 +815,12 @@ call plug#end()
     let fname = expand('#' . bufnr . ':t')
     let _ = fname =~ 'NERD_tree' ? 'NERDTree' :
            \ ('' != fname ? fname : '[No Name]')
-    " use file.filename as file.${ext} to show active and inactive icons
-    return LightlineTabNum(a:n) . _ . ' ' . WebDevIconsGetFileTypeSymbol('file'.fname) . ' ' . modified
+    let full = expand('#' . bufnr . ':b')
+    let parts = _ != '[No Name]' ? split(full, '/') : []
+    " when hello-world/index.vue => show hello-world instead of index.vue
+    let __ = _ == 'index.vue' ? (len(parts) - 2 >= 0 ? parts[len(parts) - 2] : _) : _
+    " use file.filename as file.${ext} to show active and inactive icons 
+    return LightlineTabNum(a:n) . __ . ' ' . WebDevIconsGetFileTypeSymbol('file'.fname) . ' ' . modified
   endfunction
 
   " like /etc/hosts readonly file
