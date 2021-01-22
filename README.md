@@ -8,18 +8,20 @@
 
   PluginCount | StartupTime | File
   ----------- | ----------- |---------
-     37       | 58 ~ 61ms   | empty file
-     37       | 73 ~ 81ms   | 700~ lines *.ts file
+     36       | 58 ~ 61ms   | empty file
+     36       | 73 ~ 81ms   | 700~ lines *.ts file
 
 ## 必要环境
 * Mac OS
 * neovim >= 0.4.0 ( floatwindow feature )
 * python3 support for neovim
+
 ```bash
 pip3 install --user pynvim
 ```
 * [Node](https://github.com/nvm-sh/nvm) and Yarn(https://yarnpkg.com/zh-Hant/)
 * [NerdFont](https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts)
+
 ```bash
 brew tap homebrew/cask-fonts
 brew cask install font-hack-nerd-font
@@ -28,6 +30,7 @@ brew cask install font-hack-nerd-font
 ### 必要工具
 - rg (Ripgrep): [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep) | CtrlP & CtrlSF & fzf 等插件的底层搜索能力
 - Universal ctags: [ctags.io](https://ctags.io/)，比如 coc outline 为 markdown 生成大纲，算是一种兜底
+- code-minimap: [minimap](https://github.com/wfxr/code-minimap)，Rust 写得，用于渲染右侧代码缩略图
 
 ## 结构
 - [.vimrc](https://github.com/IndexXuan/IndexVim/blob/master/.vimrc) 基础配置，可开关是否加载插件 ( 基础配置已调优，足够在无插件情况下使用 )
@@ -39,7 +42,7 @@ Name           | Description
 -------------- | ----------------------
 [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim) | 基础插件，包含补全，LSP 等强大特性
 
-## 延时加载插件 - 21
+## 延时加载插件 - 20
 Name           | Description
 -------------- | ----------------------
 [vim-wakatime](https://github.com/wakatime/vim-wakatime) | Wakatime 插件
@@ -51,7 +54,6 @@ Name           | Description
 [nerdcommenter](https://github.com/scrooloose/nerdcommenter) | 注释切换功能
 [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors) | 多光标支持
 [MatchTagAlways](https://github.com/Valloric/MatchTagAlways) | 类 xml tag 配置高亮，依赖 python
-[vim-jsdoc](https://github.com/heavenshell/vim-jsdoc) | JsDoc 支持( js / ts / vue )
 [fzf.vim](https://github.com/junegunn/fzf.vim) | 模糊搜索文件，commits，单词等等
 [vim-startify](https://github.com/mhinz/vim-startify) | 启动屏
 [nerdtree](https://github.com/scrooloose/nerdtree) | 文件树
@@ -87,35 +89,36 @@ Name           | Description
 [vim-jsx-improve](https://github.com/neoclide/vim-jsx-improve) | JSX
 [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown
 
-## Coc Extensions - 26
+## Coc Extensions - 28
 Name           | Description
 -------------- | ----------------------
-[coc-list](https://github.com/neoclide/coc-list)                   | 常用 source list
-[coc-git](https://github.com/neoclide/coc-git)                     | Git 扩展
-[coc-word](https://github.com/neoclide/coc-word)                   | 单词补全扩展
-[coc-emoji](https://github.com/neoclide/coc-emoji)                 | emoji 输入补全扩展
-[coc-highlight](https://github.com/neoclide/coc-highlight)         | 高亮，支持展示 CSS 颜色代码
-[coc-pairs](https://github.com/neoclide/coc-pairs)                 | 成对符号补全
-[coc-yank](https://github.com/neoclide/coc-yank)                   | 复制历史记录列表
-[coc-prettier](https://github.com/neoclide/coc-prettier)           | 格式化
-[coc-vimlsp](https://github.com/iamcco/coc-vimlsp)                 | Vim Language Server
-[coc-tsserver](https://github.com/neoclide/coc-tsserver)           | TypeScript / JavaScript Language Server
-[coc-vetur](https://github.com/neoclide/coc-vetur)                 | Vue Language Server
-[coc-html](https://github.com/neoclide/coc-html)                   | HTML Language Server
-[coc-emmet](https://github.com/neoclide/coc-emmet)                 | emmet 扩展
-[coc-css](https://github.com/neoclide/coc-css)                     | CSS Language Server ( css / scss / less ... )
-[coc-json](https://github.com/neoclide/coc-json)                   | JSON Language Server
-[coc-yaml](https://github.com/neoclide/coc-yaml)                   | YAML Language Server
-[coc-eslint](https://github.com/neoclide/coc-eslint)               | eslint 插件
-[coc-stylelint](https://github.com/neoclide/coc-stylelint)         | eslint 插件
-[coc-tslint-plugin](https://github.com/neoclide/coc-tslint-plugin) | eslint 插件
-[coc-snippets](https://github.com/neoclide/coc-snippets)           | 适配 UltiSnips and VSCode Snippets
-[coc-todolist](https://github.com/voldikss/coc-todolist)           | todo 管理插件
-[coc-translator](https://github.com/voldikss/coc-translator)       | 翻译插件
-[vscode-javascript](https://github.com/xabikos/vscode-javascript)  | VSCode JavaScript Snippets
-[vue-vscode-snippets](https://github.com/sdras/vue-vscode-snippets) | VSCode Vue Snippets
-[Element-UI-Snippets-VSCode](https://github.com/snowffer/Element-UI-Snippets-VSCode) | VSCode Element-UI Snippets
-[vscode-react](https://github.com/xabikos/vscode-react) | VSCode React Snippets
+[coc-git](https://github.com/neoclide/coc-git)                          | Git 扩展
+[coc-list](https://github.com/neoclide/coc-list)                        | 常用 source list
+[coc-word](https://github.com/neoclide/coc-word)                        | 单词补全扩展
+[coc-dictionary](https://github.com/neoclide/coc-sources)               | &directory 补全
+[coc-emoji](https://github.com/neoclide/coc-emoji)                      | emoji 输入补全扩展
+[coc-highlight](https://github.com/neoclide/coc-highlight)              | 高亮，支持展示 CSS 颜色代码
+[coc-pairs](https://github.com/neoclide/coc-pairs)                      | 成对符号补全
+[coc-yank](https://github.com/neoclide/coc-yank)                        | 复制历史记录列表
+[coc-vimlsp](https://github.com/iamcco/coc-vimlsp)                      | Vim Language Server
+[coc-tsserver](https://github.com/neoclide/coc-tsserver)                | TypeScript / JavaScript Language Server
+[coc-vetur](https://github.com/neoclide/coc-vetur)                      | Vue Language Server
+[coc-html](https://github.com/neoclide/coc-html)                        | HTML Language Server
+[coc-css](https://github.com/neoclide/coc-css)                          | CSS Language Server ( css / scss / less ... )
+[coc-json](https://github.com/neoclide/coc-json)                        | JSON Language Server
+[coc-yaml](https://github.com/neoclide/coc-yaml)                        | YAML Language Server
+[coc-prettier](https://github.com/neoclide/coc-prettier)                | 代码格式化
+[coc-jest](https://github.com/neoclide/coc-jest)                        | Jest 插件
+[coc-docthis](https://github.com/fannheyward/coc-docthis)               | JSDoc 插件
+[coc-eslint](https://github.com/neoclide/coc-eslint)                    | eslint 插件
+[coc-stylelint](https://github.com/neoclide/coc-stylelint)              | stylelint 插件
+[coc-tslint-plugin](https://github.com/neoclide/coc-tslint-plugin)      | tslint 插件（tslint 已废弃）
+[coc-snippets](https://github.com/neoclide/coc-snippets)                | 适配 UltiSnips and VSCode Snippets
+[vscode-javascript](https://github.com/xabikos/vscode-javascript)       | VSCode JavaScript Snippets
+[vue-vscode-snippets](https://github.com/IndexXuan/vue-vscode-snippets) | VSCode Vue Snippets
+[coc-todolist](https://github.com/voldikss/coc-todolist)                | Todo 管理插件
+[coc-translator](https://github.com/voldikss/coc-translator)            | 翻译插件
+[coc-floatinput](https://github.com/weirongxu/coc-floatinput)           | 就近编辑浮窗（实验性）
 
 ## 键位操作
 - 默认 `<leader>` 为 `;` 可根据你的习惯修改

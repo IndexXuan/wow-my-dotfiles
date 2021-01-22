@@ -162,6 +162,7 @@ alias tt="tree -L 3 ./"
 alias t3="tree -L 3 ./"
 
 # code count
+alias cloc="scc --not-match='__' --exclude-dir=node_modules,public,build,tests,coverage,bin,.rome,.best,.doctor,.vscode"
 alias jscode="find . ! -path './node_modules/*' -name '*.js' | xargs cat | grep -v ^$ | wc -l"
 alias tscode="find . ! -path './node_modules/*' -name '*.ts' | xargs cat | grep -v ^$ | wc -l"
 alias jsxcode="find . ! -path './node_modules/*' -name '*.jsx' | xargs cat | grep -v ^$ | wc -l"
@@ -169,6 +170,10 @@ alias tsxcode="find . ! -path './node_modules/*' -name '*.tsx' | xargs cat | gre
 alias vuecode="find . ! -path './node_modules/*' -name '*.vue' | xargs cat | grep -v ^$ | wc -l"
 alias scsscode="find . ! -path './node_modules/*' -name '*.scss' | xargs cat | grep -v ^$ | wc -l"
 alias htmlcode="find . ! -path './node_modules/*' -name '*.html' | xargs cat | grep -v ^$ | wc -l"
+
+# vue
+# alias vue-typecheck="npx @vuedx/typecheck"
+alias vue-typecheck="npx vti diagnostics"
 
 # normalize dir & file
 alias chmoddir="find ./ -type d -exec chmod 755 {} \;"
@@ -183,6 +188,8 @@ alias mnpm="npm --registry=http://r.npm.sankuai.com \
 
 alias x="proxychains4"
 alias chrome="google chrome"
+
+alias create-zone-app="vue create --preset direct:ssh://git@git.sankuai.com/nibfe/vue-cli-preset-zone.git --clone my-zone-app"
 
 alias shici="fortune-zh"
 alias sc="fortune-zh"

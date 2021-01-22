@@ -114,8 +114,11 @@ function! Handler(_)
   " 5. after load
   call plug#load(
     \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'comfortable-motion.vim', 'vim-surround', 'vim-repeat',
-    \ 'nerdcommenter', 'vim-multiple-cursors', 'MatchTagAlways', 'vim-jsdoc', 'fzf', 'fzf.vim',
+    \ 'nerdcommenter', 'vim-multiple-cursors', 'MatchTagAlways', 'fzf', 'fzf.vim', 'minimap.vim'
     \ )
+
+  "6. Open Minimap
+  " execute("Minimap")
 endfunction
 
 " Order is important
@@ -144,6 +147,10 @@ Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-loc
 " https://github.com/wakatime/vim-wakatime - 0 - lazy - 基础功能插件
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime', { 'on': [] }
+
+" https://github.com/wfxr/minimap.vim
+" 📡 Blazing fast minimap for vim, powered by code-minimap written in Rust.
+Plug 'wfxr/minimap.vim', { 'on': [] }
 
 " https://github.com/takac/vim-hardtime - lazy - 基础插件，Vim 特色
 " Plugin to help you stop repeating the basic movement keys
@@ -308,10 +315,6 @@ Plug 'honza/vim-snippets', { 'on': [] }
 " A Vim plugin that always highlights the enclosing html / xml tags
 Plug 'Valloric/MatchTagAlways', { 'on': [] }
 
-" https://github.com/heavenshell/vim-jsdoc - 2 - lazy - hack 支持了 vue 文件
-" Generate JSDoc to your JavaScript code.
-Plug 'heavenshell/vim-jsdoc', { 'on': [] }
-
 " Add plugins to &runtimepath
 call plug#end()
 
@@ -321,17 +324,57 @@ call plug#end()
 " https://github.com/neoclide/coc.nvim {{
   " NOTE: @Install - https://github.com/universal-ctags/ctags
   " brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+  " 0. disabled warning
+  let g:coc_disable_startup_warning = 1
   " 1. global installed extensions
   let g:coc_global_extensions = [
-        \ 'coc-lists', 'coc-git', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
-        \ 'coc-vimlsp', 'coc-prettier', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-emmet', 'coc-css', 'coc-json', 'coc-yaml',
-        \ 'coc-eslint', 'coc-stylelint', 'coc-tslint-plugin',
+        \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
+        \ 'coc-vimlsp', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
+        \ 'coc-prettier', 'coc-jest', 'coc-docthis',
+        \ 'coc-eslint', 'coc-stylelintplus', 'coc-tslint-plugin', 'coc-tailwindcss',
         \ 'coc-snippets',
-        \ 'coc-todolist', 'coc-translator',
         \ 'https://github.com/xabikos/vscode-javascript',
-        \ 'https://github.com/sdras/vue-vscode-snippets',
-        \ 'https://github.com/xabikos/vscode-react',
+        \ 'https://github.com/IndexXuan/vue-vscode-snippets',
+        \ 'coc-todolist', 'coc-translator',
         \]
+
+  " multiple cursors
+  " nmap <expr> <silent> <C-d> <SID>select_current_word()
+  " function! s:select_current_word()
+  "   if !get(g:, 'coc_cursors_activated', 0)
+  "     return "\<Plug>(coc-cursors-word)"
+  "   endif
+  "   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+  " endfunc
+
+  " " Map function and class text objects
+  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+  " xmap if <Plug>(coc-funcobj-i)
+  " omap if <Plug>(coc-funcobj-i)
+  " xmap af <Plug>(coc-funcobj-a)
+  " omap af <Plug>(coc-funcobj-a)
+  " xmap ic <Plug>(coc-classobj-i)
+  " omap ic <Plug>(coc-classobj-i)
+  " xmap ac <Plug>(coc-classobj-a)
+  " omap ac <Plug>(coc-classobj-a)
+
+  " Apply AutoFix to problem on the current line.
+  " nmap <leader>qf  <Plug>(coc-fix-current)
+
+  " Run jest for current project
+  command! -nargs=0 JestProject :call  CocAction('runCommand', 'jest.projectTest')
+
+  " Run jest for current file
+  command! -nargs=0 JestFile :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+
+  " Run jest for current test
+  command! -nargs=0 Jest :call CocAction('runCommand', 'jest.singleTest')<CR>
+
+  " Init jest in current cwd, require global jest command exists
+  command! JestInit :call CocAction('runCommand', 'jest.init')
+
+  " Run jest for current test
+  nnoremap <leader>dd :call CocAction('runCommand', 'docthis.documentThis')<CR>
 
   " 2. Misc
   " Use <c-space> for trigger completion.
@@ -787,6 +830,7 @@ call plug#end()
     let fname = expand('%:t')
     return fname =~ 'NERD_tree' ? 'NERD' :
           \ fname == 'ControlP' ? 'CtrlP' :
+          \ &filetype == 'minimap' ? 'CodeMap' :
           \ &filetype == 'ctrlsf' ? 'CtrlSF' :
           \ &filetype == 'quickmenu' ? 'Menu' :
           \ &filetype == 'startify' ? 'Startify' :
@@ -1457,9 +1501,16 @@ call plug#end()
   cnoremap <silent>vuecolor :syntax sync fromstart<CR>
 " }}
 
+
 " https://github.com/iamcco/markdown-preview.nvim {{
   nnoremap <leader>m :MarkdownPreview<CR>
   nnoremap <leader>M :MarkdownPreviewStop<CR>
+" }}
+
+" https://github.com/wfxr/minimap.vim {{
+  let g:minimap_auto_start = 0
+  " 同时展示 lightline mode & percent 的最小宽度是 20
+  let g:minimap_width = 20
 " }}
 
 
@@ -1473,84 +1524,5 @@ call plug#end()
         \ 'typescript' : 1,
         \ 'tsx' : 1,
         \ 'vue' : 1,
-        \}
-" }}
-
-
-" https://github.com/heavenshell/vim-jsdoc {{
-  nmap <silent> <leader>dd :call GenJsDoc()<CR>
-  function! GenJsDoc()
-    try
-      let ft = &filetype
-      " patch for vue
-      if ft == 'vue'
-        " works but not perfect ...
-        " autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript.html
-        execute('setlocal filetype=javascript.html')
-        execute('JsDoc')
-        execute('setlocal filetype=vue')
-        return
-      endif
-      execute('JsDoc')
-    catch
-      " catch and do nothing for not supported filetype
-    endtry
-  endfunction
-
-  let g:jsdoc_allow_input_prompt = 0
-  let g:jsdoc_enable_es6 = 1
-  let g:jsdoc_access_descriptions = 2
-  let g:jsdoc_underscore_private = 1
-  let g:jsdoc_custom_args_regex_only = 1
-  let g:jsdoc_custom_args_hook = {
-        \ '^\(callback\|cb\)$': {
-        \   'type': ' {Function} ',
-        \   'description': 'Callback function'
-        \ },
-        \ '\(err\|error\)$': {
-        \   'type': '{Error}'
-        \ },
-        \ '^\(opt\|options\)$': {
-        \   'type': '{Object}'
-        \ },
-        \ 'handler$': {
-        \   'type': '{Function}'
-        \ },
-        \ '^\(n\|i\)$': {
-        \   'type': ' {Number} '
-        \ },
-        \ '^i$': {
-        \   'type': ' {Number} '
-        \ },
-        \ '^num': {
-        \   'type': ' {Number} '
-        \ },
-        \ '^_\?\(is\|has\)': {
-        \   'type': ' {Boolean} '
-        \ },
-        \ '^arr$': {
-        \   'type': ' {Array} '
-        \ },
-        \ '^str$': {
-        \   'type': ' {String} '
-        \ },
-        \ '^e$': {
-        \   'type': ' {Event} '
-        \ },
-        \ 'el$': {
-        \   'type': ' {Element} '
-        \ },
-        \ '^node$': {
-        \   'type': ' {Element} '
-        \ },
-        \ '^o$': {
-        \   'type': ' {Object} '
-        \ },
-        \ '^obj$': {
-        \   'type': ' {Object} '
-        \ },
-        \ '^fn$': {
-        \   'type': ' {Function} '
-        \ },
         \}
 " }}

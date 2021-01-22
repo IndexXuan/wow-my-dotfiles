@@ -17,7 +17,6 @@
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualTextPrefix": " ",
   "diagnostic.virtualText": false,
-  "diagnostic.joinMessageLines": false,
   "codeLens.enable": false,
   "codeLens.separator": "‣",
   // make vim select first item on completion
@@ -58,7 +57,7 @@
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
   },
   // coc-eslint
-  "eslint.filetypes": ["javascript", "javascriptreact", "html", "vue", "jsx", "tsx"],
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "html", "vue", "jsx", "tsx"],
   // coc-prettier
   "prettier.eslintIntegration": true,
   "prettier.tslintIntegration": true,
@@ -72,11 +71,6 @@
   "git.virtualTextPrefix": "     ",
   "git.addGBlameToVirtualText": true,
   "git.addGBlameToBufferVar": true,
-  // coc-emmet
-  "emmet.includeLanguages": {
-    "vue-html": "html",
-    "javascript": "javascriptreact"
-  },
   // languageserver
   "languageserver": {
     "bash": {
@@ -89,5 +83,6 @@
   "todolist.enable": true,
   "todolist.monitor": true,
   "vetur.useWorkspaceDependencies": true,
-  "vetur.experimental.templateInterpolationService": false
+  "vetur.validation.template": false,
+  "vetur.experimental.templateInterpolationService": true
 }
