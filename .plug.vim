@@ -1318,6 +1318,7 @@ call plug#end()
   nnoremap <silent> <C-p> :CtrlP<CR>
   " search in Files, Buffers and MRU files at the same time.
   let g:ctrlp_cmd = 'CtrlPMixed'
+  let g:ctrlp_root_markers = ['vue.config.js', '.git']
   " the nearest ancestor of the current file that contains one of these directories or files: .git .hg .svn .bzr _darcs
   let g:ctrlp_working_path_mode = 'r'
 
@@ -1353,7 +1354,7 @@ call plug#end()
         \ "compact": 0
         \}
   " cwd | project
-  let g:ctrlsf_default_root = 'project'
+  let g:ctrlsf_default_root = 'cwd'
   " normal | compact
   let g:ctrlsf_default_view_mode = 'normal'
   let g:ctrlsf_search_mode = 'async'

@@ -1,5 +1,7 @@
 # [IndexVim](https://github.com/IndexXuan/IndexVim)
 
+[![time tracker](https://wakatime.com/badge/github/IndexXuan/wow-my-dotfiles.svg)](https://wakatime.com/badge/github/IndexXuan/wow-my-dotfiles)
+
 ## 特性
 - 基于 [coc.nvim](https://github.com/neoclide/coc.nvim) 强大特性，完整 LSP 支持，异步无阻塞代码补全
 - 专注前端以及 Node.js 开发，精选 Vim 插件以及 coc.nvim 扩展
