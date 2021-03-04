@@ -13,6 +13,7 @@
     "<C-k>": "normal:k",
     "<C-t>": "action:tabe"
   },
+  "javascript.suggestionActions.enabled": false,
   "diagnostic.refreshOnInsertMode": false,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualTextPrefix": " ",
@@ -57,7 +58,7 @@
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
   },
   // coc-eslint
-  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "html", "vue", "jsx", "tsx"],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "html", "vue", "jsx", "tsx"],
   // coc-prettier
   "prettier.eslintIntegration": true,
   "prettier.tslintIntegration": true,
@@ -71,6 +72,13 @@
   "git.virtualTextPrefix": "     ",
   "git.addGBlameToVirtualText": true,
   "git.addGBlameToBufferVar": true,
+  // todo
+  "todolist.monitor": true,
+  // vetur
+  "vetur.useWorkspaceDependencies": true,
+  "vetur.validation.template": false,
+  "vetur.experimental.templateInterpolationService": true,
+  "tsserver.trace.server": "verbose",
   // languageserver
   "languageserver": {
     "bash": {
@@ -79,10 +87,5 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     }
-  },
-  "todolist.enable": true,
-  "todolist.monitor": true,
-  "vetur.useWorkspaceDependencies": true,
-  "vetur.validation.template": false,
-  "vetur.experimental.templateInterpolationService": true
+  }
 }

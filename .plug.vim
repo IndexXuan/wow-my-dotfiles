@@ -117,8 +117,8 @@ function! Handler(_)
     \ 'nerdcommenter', 'vim-multiple-cursors', 'MatchTagAlways', 'fzf', 'fzf.vim', 'minimap.vim'
     \ )
 
-  "6. Open Minimap
-  " execute("Minimap")
+  "6. lightline init
+  call s:lightline_update()
 endfunction
 
 " Order is important
@@ -154,7 +154,7 @@ Plug 'wfxr/minimap.vim', { 'on': [] }
 
 " https://github.com/takac/vim-hardtime - lazy - 基础插件，Vim 特色
 " Plugin to help you stop repeating the basic movement keys
-Plug 'takac/vim-hardtime', { 'on': []}
+Plug 'takac/vim-hardtime', { 'on': [] }
 
 " https://github.com/easymotion/vim-easymotion - 0 - on-demand - 基础插件，Vim 特色
 " Vim motions on speed!
@@ -330,7 +330,7 @@ call plug#end()
   let g:coc_global_extensions = [
         \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
         \ 'coc-vimlsp', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
-        \ 'coc-prettier', 'coc-jest', 'coc-docthis',
+        \ 'coc-prettier', 'coc-jest',
         \ 'coc-eslint', 'coc-stylelintplus', 'coc-tslint-plugin', 'coc-tailwindcss',
         \ 'coc-snippets',
         \ 'https://github.com/xabikos/vscode-javascript',
@@ -721,10 +721,10 @@ call plug#end()
 
   " NOTE: only work once right now ... not support toggle
   " change lightline colorscheme on the fly
-  augroup LightLineColorscheme
-    autocmd!
-    autocmd ColorScheme * call s:lightline_update()
-  augroup END
+  " augroup LightLineColorscheme
+  "   autocmd!
+  "   autocmd ColorScheme * call s:lightline_update()
+  " augroup END
   function! s:lightline_update()
     if !exists('g:loaded_lightline')
       return
