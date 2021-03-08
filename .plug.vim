@@ -1,7 +1,6 @@
 " ----------------------------------------------------------------------------
 "
-"                           Plugins and Settings v3.0.0
-"                              Plug with 36 Plugins
+"                           Plugins and Settings - v4.0.0(2021.03.05)
 "
 " ----------------------------------------------------------------------------
 
@@ -70,7 +69,7 @@ function! Handler(_)
   " do nothing right now
 
   " 1. load plugins
-  call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'ctrlp.vim', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'lightline.vim', 'vim-snippets', 'vim-fugitive')
+  call plug#load('vim-startify', 'vim-nerdtree-syntax-highlight', 'vim-devicons', 'nerdtree-git-plugin', 'nerdtree', 'lightline.vim', 'vim-snippets', 'vim-fugitive')
 
   " 2. handle vim [empty] - 顺序不能变，精心调试出来的
   if !argc()
@@ -113,8 +112,8 @@ function! Handler(_)
 
   " 5. after load
   call plug#load(
-    \ 'vim-wakatime', 'vim-editorconfig', 'vim-hardtime', 'comfortable-motion.vim', 'vim-surround', 'vim-repeat',
-    \ 'nerdcommenter', 'vim-multiple-cursors', 'MatchTagAlways', 'fzf', 'fzf.vim', 'minimap.vim'
+    \ 'vim-wakatime', 'vim-editorconfig', 'comfortable-motion.vim',
+    \ 'nerdcommenter', 'MatchTagAlways',
     \ )
 
   "6. lightline init
@@ -136,10 +135,6 @@ endfunction
 
 " -------------------------- Base ---------------------------
 
-" https://github.com/neoclide/coc-imselect
-" Input method enhance for iTerm2 on mac.
- " Plug 'neoclide/coc-imselect'
-
 " https://github.com/neoclide/coc.nvim - 0 - init - 异步加载会超级慢 - 基础生态插件
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
@@ -147,24 +142,6 @@ Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-loc
 " https://github.com/wakatime/vim-wakatime - 0 - lazy - 基础功能插件
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime', { 'on': [] }
-
-" https://github.com/wfxr/minimap.vim
-" 📡 Blazing fast minimap for vim, powered by code-minimap written in Rust.
-Plug 'wfxr/minimap.vim', { 'on': [] }
-
-" https://github.com/takac/vim-hardtime - lazy - 基础插件，Vim 特色
-" Plugin to help you stop repeating the basic movement keys
-Plug 'takac/vim-hardtime', { 'on': [] }
-
-" https://github.com/easymotion/vim-easymotion - 0 - on-demand - 基础插件，Vim 特色
-" Vim motions on speed!
-Plug 'easymotion/vim-easymotion', { 'on': [
-      \ '<Plug>(easymotion-overwin-f2)',
-      \ '<Plug>(easymotion-j)',
-      \ '<Plug>(easymotion-k)',
-      \ '<Plug>(easymotion-lineforward)',
-      \ '<Plug>(easymotion-linebackward)',
-      \ ]}
 
 " https://github.com/yuttie/comfortable-motion.vim - 0 - lazy - 基础功能插件 - better than vim-smooth-scroll
 " Brings physics-based smooth scrolling to the Vim world!
@@ -174,27 +151,9 @@ Plug 'yuttie/comfortable-motion.vim', { 'on': [] }
 " Yet another EditorConfig (http://editorconfig.org) plugin for vim written in vimscript only
 Plug 'sgur/vim-editorconfig', { 'on': [] }
 
-" https://github.com/tpope/vim-surround - 1 - lazy - 基础插件，Vim 特色
-" surround.vim: quoting/parenthesizing made simple
-Plug 'tpope/vim-surround', { 'on': [] }
-
-" https://github.com/tpope/vim-repeat - 1 - lazy - 基础插件，Vim 特色
-" repeat.vim: enable repeating supported plugin maps with "."
-Plug 'tpope/vim-repeat', { 'on': [] }
-
 " https://github.com/vim-scripts/open-browser.vim - 2 - on-demand - 基础功能插件
 " Open URI with your favorite browser from your favorite editor
 Plug 'tyru/open-browser.vim', { 'on': ['<Plug>(openbrowser-smart-search)', 'OpenBrowser'] }
-
-" https://github.com/terryma/vim-multiple-cursors - 2 - lazy - 编辑能力增强
-Plug 'terryma/vim-multiple-cursors', { 'on': [] }
-
-" https://github.com/terryma/vim-expand-region - 2 - on-demand - 选择能力增强，Vim 特色
-Plug 'terryma/vim-expand-region', { 'on': ['<Plug>(expand_region_expand)', '<Plug>(expand_region_shrink)'] }
-
-" https://github.com/simnalamburt/vim-mundo - 2 - on-demand - undotree
-" 🎄 Vim undo tree visualizer
-Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
 
 " -------------------------- UI Layout ---------------------------
@@ -202,14 +161,6 @@ Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 " https://github.com/mhinz/vim-startify - 1 - lazy
 " 🔗 The fancy start screen for Vim.
 Plug 'mhinz/vim-startify', { 'on': [] }
-
-" https://github.com/junegunn/goyo.vim - on-demand - UI
-" 🌷 Distraction-free writing in Vim
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-
-" https://github.com/junegunn/limelight.vim - on-demand - UI
-" 🔦 All the world's indeed a stage and we are merely players
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight'}
 
 " https://github.com/ryanoasis/vim-devicons - 2 - lazy - 但也要尽快加载，否则很多地方出不来
 " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
@@ -227,9 +178,6 @@ Plug 'scrooloose/nerdtree', { 'on': [] }
 " Extra syntax and highlight for nerdtree files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': [] }
 
-" https://github.com/Xuyuanp/nerdtree-git-plugin
-" A plugin of NERDTree showing git status
-" Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': [] }
 " https://github.com/tsony-tsonev/nerdtree-git-plugin - 0 - lazy - fork 上面的，并做了 UI 颜色区分与增强
 " A plugin of NERDTree showing git status
 Plug 'tsony-tsonev/nerdtree-git-plugin', { 'on': [] }
@@ -237,10 +185,6 @@ Plug 'tsony-tsonev/nerdtree-git-plugin', { 'on': [] }
 " https://github.com/skywind3000/quickmenu.vim - 0 - lazy - UI 右侧栏
 " A nice customizable popup menu for vim
 Plug 'skywind3000/quickmenu.vim', { 'on': [] }
-
-" https://github.com/Yggdroot/indentLine - 1 - on-demand - UI 增强
-" A vim plugin to display the indention levels with thin vertical lines
-Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
 
 " https://github.com/liuchengxu/vim-which-key - 1 - on-demand - 快捷键提示与导航
 " 🌷 Vim plugin that shows keybindings in popup
@@ -252,25 +196,17 @@ Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdcommenter', { 'on': [] }
 
-" TODO:
 " https://github.com/ctrlpvim/ctrlp.vim - 1 - lazy - must before devicon plugin
 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-" Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
-Plug 'ctrlpvim/ctrlp.vim', { 'on': [] }
+Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU'] }
+" Plug 'ctrlpvim/ctrlp.vim', { 'on': [] }
 
 " https://github.com/dyng/ctrlsf.vim - 0 - on-demand
 " An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 
-" https://github.com/junegunn/fzf#using-the-finder - 1 - lazy - 强大搜索功能
-" 🌸 A command-line fuzzy finder
-" NOTE: If installed using Homebrew
-Plug '/usr/local/opt/fzf', { 'on': [] }
-Plug 'junegunn/fzf.vim', { 'on': [] }
-
 " -------------------------- Working with Git --------------------------------
 
-" TODO: replace by coc-git
 " https://github.com/tpope/vim-fugitive - 1 - lazy
 " fugitive.vim: A Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-fugitive', { 'on': [] }
@@ -285,25 +221,20 @@ Plug 'rhysd/git-messenger.vim', { 'on': ['<Plug>(git-messenger)'] }
 " Typescript syntax files for Vim
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
+" https://github.com/pangloss/vim-javascript
+" Vastly improved Javascript indentation and syntax support in Vim.
+" Plug 'pangloss/vim-javascript'
+
 " https://github.com/posva/vim-vue - 0 - filetype
 " Syntax Highlight for Vue.js components
-Plug 'posva/vim-vue', { 'for' : ['vue'] }
-
-" https://github.com/neoclide/vim-jsx-improve - 3 - filetype
-" Syntax and indent plugin for React jsx.
-Plug 'neoclide/vim-jsx-improve', { 'for': [ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
+" Plug 'posva/vim-vue', { 'for' : ['vue'] }
+" https://github.com/leafOfTree/vim-vue-plugin
+" Vim syntax and indent plugin for vue files
+Plug 'leafOfTree/vim-vue-plugin', { 'for': ['vue'] }
 
 " https://github.com/iamcco/markdown-preview.nvim - filetype
 " markdown preview plugin for (neo)vim
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': [ 'markdown', 'md'] }
-
-" https://github.com/Quramy/vim-js-pretty-template
-" highlights JavaScript's Template Strings in other FileType syntax rule
-" Plug 'Quramy/vim-js-pretty-template'
-
-" https://github.com/maxmellon/vim-jsx-pretty
-" 🔦 [Vim script] JSX syntax pretty highlighting for vim.
-" Plug 'maxmellon/vim-jsx-pretty', { 'for': ['typescript.tsx', 'javascript.jsx'] }
 
 " --------------------- Extras / Advanced ----------------------
 
@@ -331,35 +262,12 @@ call plug#end()
         \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
         \ 'coc-vimlsp', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-prettier', 'coc-jest',
-        \ 'coc-eslint', 'coc-stylelintplus', 'coc-tslint-plugin', 'coc-tailwindcss',
+        \ 'coc-eslint', 'coc-stylelintplus',
         \ 'coc-snippets',
         \ 'https://github.com/xabikos/vscode-javascript',
         \ 'https://github.com/IndexXuan/vue-vscode-snippets',
-        \ 'coc-todolist', 'coc-translator',
+        \ 'coc-translator',
         \]
-
-  " multiple cursors
-  " nmap <expr> <silent> <C-d> <SID>select_current_word()
-  " function! s:select_current_word()
-  "   if !get(g:, 'coc_cursors_activated', 0)
-  "     return "\<Plug>(coc-cursors-word)"
-  "   endif
-  "   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-  " endfunc
-
-  " " Map function and class text objects
-  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-  " xmap if <Plug>(coc-funcobj-i)
-  " omap if <Plug>(coc-funcobj-i)
-  " xmap af <Plug>(coc-funcobj-a)
-  " omap af <Plug>(coc-funcobj-a)
-  " xmap ic <Plug>(coc-classobj-i)
-  " omap ic <Plug>(coc-classobj-i)
-  " xmap ac <Plug>(coc-classobj-a)
-  " omap ac <Plug>(coc-classobj-a)
-
-  " Apply AutoFix to problem on the current line.
-  " nmap <leader>qf  <Plug>(coc-fix-current)
 
   " Run jest for current project
   command! -nargs=0 JestProject :call  CocAction('runCommand', 'jest.projectTest')
@@ -397,8 +305,8 @@ call plug#end()
   nnoremap <silent> <space>d  :<C-u>CocList --number-select --auto-preview diagnostics<cr>
   " Manage extensions
   nnoremap <silent> <space>e  :<C-u>CocList --number-select extensions<cr>
-  nnoremap <silent> <space>t  :<C-u>CocList --number-select todolist<cr>
-  nnoremap <silent> <space>tc :<C-u>CocCommand todolist.create<cr>
+  " nnoremap <silent> <space>t  :<C-u>CocList --number-select todolist<cr>
+  " nnoremap <silent> <space>tc :<C-u>CocCommand todolist.create<cr>
   " Git status
   " nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
   " Find symbol of current document
@@ -428,16 +336,7 @@ call plug#end()
   nmap <silent> <leader>tt <Plug>(coc-translator-p)
 
 
-  " 4. Buffer 内操作
-  " 文本搜索当前词，等同于 / 内置命令，但多了列表聚合展示
-  " nnoremap <silent> <leader>f :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
-  " 文本模糊搜索，等同于 fuzzy-search 插件
-
-  " 5. 全局操作
-  " 模糊搜索文件 - CocList files - 代替 CtrlP - 暂未发现优势
-  " 模糊搜索文本 - 暂无 - 代替 CtrlSF - 暂未发现优势
-
-  " 6. 补全配置
+  " 4. 补全配置
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
   inoremap <silent><expr> <TAB>
@@ -477,7 +376,7 @@ call plug#end()
   " highlight text color, default #000000
   autocmd ColorScheme * highlight! CocHighlightText guibg=#909399 ctermbg=023
 
-  " 7. 跳转配置
+  " 5. 跳转配置
   " core typings keymap
   " nmap <silent> <leader>pp <Plug>(coc-diagnostic-prev)
   " nmap <silent> <leader>nn <Plug>(coc-diagnostic-next)
@@ -498,7 +397,7 @@ call plug#end()
     endif
   endfunction
 
-  " 8. 自定义命令
+  " 6. 自定义命令
   function! SetupCommandAbbrs(from, to)
     exec 'cnoreabbrev <expr> '.a:from
           \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
@@ -517,69 +416,6 @@ call plug#end()
   vmap <leader>p <Plug>(coc-format-selected)
 " }}
 
-" https://github.com/takac/vim-hardtime {{
-  " If you want hardtime to run in every buffer, add this to .vimrc
-  let g:hardtime_default_on = 0
-  " default settings
-  let g:list_of_normal_keys = ["h", "j", "k", "l", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-  let g:list_of_visual_keys = ["h", "l", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-  let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-  let g:list_of_disabled_keys = []
-  " To enable the notification about HardTime being enabled set
-  let g:hardtime_showmsg = 1
-  " Setting this value to 2 will allow a user to press jj but not jjj.
-  let g:hardtime_maxcount = 5
-  " To enable hardtime to ignore certain buffer patterns set
-  let g:hardtime_ignore_buffer_patterns = [ "quickmenu", "NERD.*", "ctrlsf" ]
-" }}
-
-" https://github.com/easymotion/vim-easymotion {{
-  let g:EasyMotion_do_mapping = 0 " Disable default mappings
-  " map <leader><leader> <Plug>(easymotion-prefix)
-  " Default Mapping      | Details
-  "   ---------------------|----------------------------------------------
-  "   <Leader>f{char}      | Find {char} to the right. See |f|.
-  "   <Leader>F{char}      | Find {char} to the left. See |F|.
-  "   <Leader>t{char}      | Till before the {char} to the right. See |t|.
-  "   <Leader>T{char}      | Till after the {char} to the left. See |T|.
-  "   <Leader>w            | Beginning of word forward. See |w|.
-  "   <Leader>W            | Beginning of WORD forward. See |W|.
-  "   <Leader>b            | Beginning of word backward. See |b|.
-  "   <Leader>B            | Beginning of WORD backward. See |B|.
-  "   <Leader>e            | End of word forward. See |e|.
-  "   <Leader>E            | End of WORD forward. See |E|.
-  "   <Leader>ge           | End of word backward. See |ge|.
-  "   <Leader>gE           | End of WORD backward. See |gE|.
-  "   <Leader>j            | Line downward. See |j|.
-  "   <Leader>k            | Line upward. See |k|.
-  "   <Leader>n            | Jump to latest "/" or "?" forward. See |n|.
-  "   <Leader>N            | Jump to latest "/" or "?" backward. See |N|.
-  "   <Leader>s            | Find(Search) {char} forward and backward.
-  "                        | See |f| and |F|.
-
-  " Turn on case-insensitive feature
-  let g:EasyMotion_smartcase = 1
-  " keep cursor column when JK motion
-  let g:EasyMotion_startofline = 0
-
-  " `s{char}{char}{label}`
-  " Need one more keystroke, but on average, it may be more comfortable.
-  nmap s <Plug>(easymotion-overwin-f2)
-  map <leader>j <Plug>(easymotion-j)
-  map <leader>k <Plug>(easymotion-k)
-  map <leader>l <Plug>(easymotion-lineforward)
-  map <leader>h <Plug>(easymotion-linebackward)
-" }}
-
-" https://github.com/terryma/vim-smooth-scroll {{
-  " Distance: This is the total number of lines you want to scroll
-  " Duration: This is how long you want each frame of the scrolling animation to last in milliseconds. Each frame will take at least this amount of time. It could take more if Vim's scrolling itself is slow
-  " Speed: This is how many lines to scroll during each frame of the scrolling animation
-  " noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 16, 2)<CR>
-  " noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 16, 2)<CR>
-  " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 16, 4)<CR>
-  " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 16, 4)<CR>
-" }}
 
 " https://github.com/yuttie/comfortable-motion.vim {{
   let g:comfortable_motion_no_default_key_mappings = 1
@@ -597,32 +433,6 @@ call plug#end()
 " }}
 
 
-" https://github.com/terryma/vim-multiple-cursors {{
-  let g:multi_cursor_use_default_mapping=0
-
-  " Default mapping
-  let g:multi_cursor_start_word_key      = '<C-n>'
-  let g:multi_cursor_select_all_word_key = '<A-n>'
-  let g:multi_cursor_start_key           = 'g<C-n>'
-  let g:multi_cursor_select_all_key      = 'g<A-n>'
-  let g:multi_cursor_next_key            = '<C-n>'
-  let g:multi_cursor_prev_key            = '<C-p>'
-  let g:multi_cursor_skip_key            = '<C-x>'
-  let g:multi_cursor_quit_key            = '<Esc>'
-" }}
-
-
-" https://github.com/terryma/vim-expand-region {{
-  map K <Plug>(expand_region_expand)
-  map J <Plug>(expand_region_shrink)
-" }}
-
-" https://github.com/simnalamburt/vim-mundo {{
-  let g:mundo_right = 1
-  nnoremap <silent> <leader>u :MundoToggle<CR>
-" }}
-
-
 " https://github.com/mhinz/vim-startify {{
   let g:startify_files_number        = 10
   let g:startify_bookmarks = [
@@ -637,55 +447,6 @@ call plug#end()
   let g:startify_session_autoload    = 1
 " }}
 
-" https://github.com/junegunn/goyo.vim {{
-  let g:goyo_width = 120
-  let g:goyo_height = '80%'
-  let g:goyo_linenr = 0
-  noremap <leader>e :Goyo<CR>
-  function! s:goyo_enter()
-    set noshowcmd
-    set scrolloff=999
-    if g:hardtime_default_on == 1
-      exec "HardTimeOff"
-    endif
-    Limelight
-    " colorscheme solarized8_light
-    echo "加油! Deadline 是第一生产力 ..."
-
-    let b:quitting = 0
-    let b:quitting_bang = 0
-    autocmd QuitPre <buffer> let b:quitting = 1
-    cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-  endfunction
-
-  function! s:goyo_leave()
-    set showcmd
-    set scrolloff=5
-    if g:hardtime_default_on == 1
-      exec "HardTimeOn"
-    endif
-    Limelight!
-    " colorscheme molokai
-
-    " Quit Vim if this is the only remaining buffer
-    if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-      if b:quitting_bang
-        qa!
-      else
-        qa
-      endif
-    endif
-  endfunction
-
-  autocmd! User GoyoEnter nested call <SID>goyo_enter()
-  autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" }}
-
-" https://github.com/junegunn/limelight.vim {{
-  " Default: 0.5
-  let g:limelight_default_coefficient = 0.6
-  nnoremap <leader>v :Limelight!! 0.6<CR>
-" }}
 
 " https://github.com/ryanoasis/vim-devicons {{
   " useful ?
@@ -830,7 +591,6 @@ call plug#end()
     let fname = expand('%:t')
     return fname =~ 'NERD_tree' ? 'NERD' :
           \ fname == 'ControlP' ? 'CtrlP' :
-          \ &filetype == 'minimap' ? 'CodeMap' :
           \ &filetype == 'ctrlsf' ? 'CtrlSF' :
           \ &filetype == 'quickmenu' ? 'Menu' :
           \ &filetype == 'startify' ? 'Startify' :
@@ -1145,8 +905,6 @@ call plug#end()
 
     " new section
     call quickmenu#append("# Misc", '')
-    call quickmenu#append("Color Schema Light", "call ColorschemeChange('light')", "turn on light colorscheme")
-    call quickmenu#append("Color Schema Dark" , "call ColorschemeChange('dark')", "turn on dark colorscheme")
     call quickmenu#append("Wakatime Dashboard", "OpenBrowser https://wakatime.com/dashboard", "go to wakatime")
     call quickmenu#append("Code Outline List" , "CocList --number-select --auto-preview outline", "show code outline")
     " Open it
@@ -1164,21 +922,14 @@ call plug#end()
     endif
     " not works perfect
     " patch vim-vue syntax highlight - @see https://github.com/posva/vim-vue#my-syntax-highlighting-stops-working-randomly
-    if &filetype == 'vue'
-      syntax sync fromstart
-    endif
+    " if &filetype == 'vue'
+    "   syntax sync fromstart
+    " endif
   endfunction
   " quit when only quickmenu tab left
   autocmd bufenter * if (winnr("$") == 1 && (&filetype == 'quickmenu')) | q | end
 " }}
 
-" https://github.com/Yggdroot/indentLine {{
-  let g:indentLine_enabled = 0
-  let g:indentLine_char = '┆'
-  let g:indentLine_fileTypeExclude = ['startify', 'json']
-  let g:indentLine_concealcursor = 'niv'
-  nnoremap <leader>i :IndentLinesToggle<CR>
-" }}
 
 " https://github.com/liuchengxu/vim-which-key {{
   let g:which_key_map_leader = {
@@ -1200,16 +951,8 @@ call plug#end()
       \ 'c'    : ['', 'toggle-commenter']    ,
       \ 'ca'   : ['', 'codeaction']          ,
       \ 'd'    : ['', 'definition']          ,
-      \ 'dd'   : ['', 'jsdoc']               ,
       \ 'e'    : ['', 'toggle-editmode']     ,
       \ 'f'    : {
-      \ 'name' : '+fzf'                      ,
-      \ 'c'    : ['', 'commits']             ,
-      \ 'cb'   : ['', 'buffer-commits']      ,
-      \ 'f'    : ['', 'files']               ,
-      \ 'm'    : ['', 'maps']                ,
-      \ 'r'    : ['', 'rg-search']           ,
-      \ 'w'    : ['', 'rg-search-cword']     ,
       \ }                                    ,
       \ 'g'    : {
       \ 'name' : '+git'                      ,
@@ -1260,8 +1003,6 @@ call plug#end()
       \ 'l'    : ['', 'coc-lists']           ,
       \ 'o'    : ['', 'coc-outline']         ,
       \ 'r'    : ['', 'coc-list-resume']     ,
-      \ 't'    : ['', 'coc-todolist']        ,
-      \ 'tc'   : ['', 'coc-todolist-create'] ,
       \ 'y'    : ['', 'coc-yank-list']       ,
       \ }
   nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
@@ -1323,7 +1064,7 @@ call plug#end()
   let g:ctrlp_working_path_mode = 'r'
 
   " MacOSX / Linux
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+  set wildignore+=*/node_modules/*,*.zip
   let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
   let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -1369,109 +1110,6 @@ call plug#end()
 " }}
 
 
-" https://github.com/junegunn/fzf.vim {{
-  " nnoremap <silent> <leader>fb :Buffers<CR>
-  " nnoremap <silent> <leader>fc :Colors<CR>
-  " nnoremap <silent> <leader>fc :Commands<CR>
-  nnoremap <silent> <leader>fc :Commits<CR>
-  nnoremap <silent> <leader>fcb :BCommits<CR>
-  nnoremap <silent> <leader>ff :call FzfFiles()<CR>
-  nnoremap <silent> <leader>fm :Maps<CR>
-  nnoremap <silent> <leader>fr :Rg<CR>
-  nnoremap <silent> <leader>fw :Rg <C-R><C-W><CR>
-
-  " Customize fzf colors to match your color scheme
-  let g:fzf_colors =
-  \ { 'fg':      ['fg', 'Normal'],
-    \ 'bg':      ['bg', '#5f5f87'],
-    \ 'hl':      ['fg', 'Comment'],
-    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-    \ 'hl+':     ['fg', 'Statement'],
-    \ 'info':    ['fg', 'PreProc'],
-    \ 'border':  ['fg', 'Ignore'],
-    \ 'prompt':  ['fg', 'Conditional'],
-    \ 'pointer': ['fg', 'Exception'],
-    \ 'marker':  ['fg', 'Keyword'],
-    \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Comment'] }
-
-  let g:fzf_commits_log_options = '--graph --color=always
-    \ --format="%C(yellow)%h%C(red)%d%C(reset)
-    \ - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
-
-  "let $FZF_DEFAULT_COMMAND = 'ag --hidden -l -g ""'
-  " ripgrep
-  if executable('rg')
-    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-    set grepprg=rg\ --vimgrep
-    command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-  endif
-
-  let $FZF_DEFAULT_OPTS='--layout=reverse'
-  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-  function! FloatingFZF()
-    if ! has('nvim')
-      return
-    endif
-    let buf = nvim_create_buf(v:false, v:true)
-    call setbufvar(buf, 'number', 'no')
-
-    let height = float2nr(&lines/2)
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    "let width = &columns
-    let row = float2nr(&lines / 3)
-    let col = float2nr((&columns - width) / 3)
-
-    let opts = {
-          \ 'relative': 'editor',
-          \ 'row': row,
-          \ 'col': col,
-          \ 'width': width,
-          \ 'height':height,
-          \ }
-    let win =  nvim_open_win(buf, v:true, opts)
-    call setwinvar(win, '&number', 0)
-    call setwinvar(win, '&relativenumber', 0)
-  endfunction
-
-  " Files + devicons
-  function! FzfFiles()
-    let l:fzf_files_options = ' --preview "rougify {2..-1} | head -'.&lines.'"'
-
-    function! s:files()
-      let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
-      return s:prepend_icon(l:files)
-    endfunction
-
-    function! s:prepend_icon(candidates)
-      let l:result = []
-      for l:candidate in a:candidates
-        let l:filename = fnamemodify(l:candidate, ':p:t')
-        let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
-        call add(l:result, printf('%s %s', l:icon, l:candidate))
-      endfor
-
-      return l:result
-    endfunction
-
-    function! s:edit_file(item)
-      let l:pos = stridx(a:item, ' ')
-      let l:file_path = a:item[pos+1:-1]
-      execute('silent e'. l:file_path)
-    endfunction
-
-    call fzf#run({
-          \ 'source': <sid>files(),
-          \ 'sink':   function('s:edit_file'),
-          \ 'options': '-m ' . l:fzf_files_options,
-          \ 'down':    '40%' ,
-          \ 'window': 'call FloatingFZF()'})
-  endfunction
-" }}
-
-
 " https://github.com/rhysd/git-messenger.vim {{
   let g:git_messenger_no_default_mappings = v:true
   " none | current
@@ -1497,21 +1135,38 @@ call plug#end()
 "
 
 " https://github.com/posva/vim-vue {{
-  let g:vue_disable_pre_processors = 1
+  " let g:vue_disable_pre_processors = 1
+  "
+  " cnoremap <silent>vuecolor :syntax sync fromstart<CR>
+" }}
 
-  cnoremap <silent>vuecolor :syntax sync fromstart<CR>
+" https://github.com/leafOfTree/vim-vue-plugin {{
+ let g:vim_vue_plugin_load_full_syntax = 0
+ let g:vim_vue_plugin_use_typescript = 1
+ let g:vim_vue_plugin_use_scss = 1
+ let g:vim_vue_plugin_highlight_vue_attr = 1
+ let g:vim_vue_plugin_highlight_vue_keyword = 1
+ let g:vim_vue_plugin_debug = 0
+
+ " Set local options based on subtype
+ function! OnChangeVueSubtype(subtype)
+   " echom 'subtype is '.a:subtype
+   if a:subtype == 'html'
+     setlocal commentstring=<!--%s-->
+     setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+   elseif a:subtype =~ 'css'
+     setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
+   else
+     setlocal commentstring=//%s
+     setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+   endif
+ endfunction
 " }}
 
 
 " https://github.com/iamcco/markdown-preview.nvim {{
   nnoremap <leader>m :MarkdownPreview<CR>
   nnoremap <leader>M :MarkdownPreviewStop<CR>
-" }}
-
-" https://github.com/wfxr/minimap.vim {{
-  let g:minimap_auto_start = 0
-  " 同时展示 lightline mode & percent 的最小宽度是 20
-  let g:minimap_width = 20
 " }}
 
 
