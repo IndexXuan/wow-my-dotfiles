@@ -236,6 +236,13 @@ Plug 'leafOfTree/vim-vue-plugin', { 'for': ['vue'] }
 " markdown preview plugin for (neo)vim
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': [ 'markdown', 'md'] }
 
+" https://github.com/heavenshell/vim-jsdoc
+" Generate JSDoc to your JavaScript code.
+Plug 'heavenshell/vim-jsdoc', {
+  \ 'for': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'],
+  \ 'do': 'make install'
+\}
+
 " --------------------- Extras / Advanced ----------------------
 
 " https://github.com/honza/vim-snippets - 1 - lazy
@@ -280,9 +287,6 @@ call plug#end()
 
   " Init jest in current cwd, require global jest command exists
   command! JestInit :call CocAction('runCommand', 'jest.init')
-
-  " Run jest for current test
-  nnoremap <leader>dd :call CocAction('runCommand', 'docthis.documentThis')<CR>
 
   " 2. Misc
   " Use <c-space> for trigger completion.
@@ -1167,6 +1171,12 @@ call plug#end()
 " https://github.com/iamcco/markdown-preview.nvim {{
   nnoremap <leader>m :MarkdownPreview<CR>
   nnoremap <leader>M :MarkdownPreviewStop<CR>
+" }}
+
+" https://github.com/heavenshell/vim-jsdoc {{
+  let g:jsdoc_formatter = 'tsdoc'
+  nmap <silent> <leader>dd <Plug>(jsdoc)
+  nmap <silent> <leader>dd ?function<cr>:noh<cr><Plug>(jsdoc)
 " }}
 
 
