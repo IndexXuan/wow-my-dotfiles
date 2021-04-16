@@ -4,6 +4,7 @@
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.rootPatterns": [
+    "vite.config.ts",
     "vue.config.js",
     ".git"
   ],
@@ -61,6 +62,7 @@
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
   },
+  "tsserver.log": "off",
   // coc-eslint
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "html", "vue", "jsx", "tsx"],
   // coc-prettier
@@ -77,6 +79,9 @@
   "git.addGBlameToVirtualText": true,
   "git.addGBlameToBufferVar": true,
   // vetur
+  "vetur.grammar.customBlocks": {
+    "route": "json5"
+  },
   "vetur.useWorkspaceDependencies": true,
   "vetur.validation.template": false,
   "vetur.experimental.templateInterpolationService": true,

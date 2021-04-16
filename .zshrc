@@ -171,10 +171,6 @@ alias vuecode="find . ! -path './node_modules/*' -name '*.vue' | xargs cat | gre
 alias scsscode="find . ! -path './node_modules/*' -name '*.scss' | xargs cat | grep -v ^$ | wc -l"
 alias htmlcode="find . ! -path './node_modules/*' -name '*.html' | xargs cat | grep -v ^$ | wc -l"
 
-# vue
-# alias vue-typecheck="npx @vuedx/typecheck"
-alias vue-typecheck="npx vti diagnostics"
-
 # normalize dir & file
 alias chmoddir="find ./ -type d -exec chmod 755 {} \;"
 alias chmodfile="find ./ -type f -exec chmod 644 {} \;"
@@ -201,6 +197,12 @@ alias zhuangbi="cmatrix"
 alias zb="cmatrix"
 
 alias can="caniuse"
+
+# alias vue-typecheck="npx @vuedx/typecheck"
+alias vue-typecheck="npx vti diagnostics"
+alias cpd="curl https://awp-assets.sankuai.com/hfe/talos-plugins/services/jscpd/index.js | node -"
+alias vti="cd ${projectRoot:-.} && curl https://awp-assets.sankuai.com/hfe/talos-plugins/services/vue-typecheck-staging/index.js | node -"
+alias cc="conard cc"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

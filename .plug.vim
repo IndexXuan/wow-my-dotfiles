@@ -221,6 +221,10 @@ Plug 'rhysd/git-messenger.vim', { 'on': ['<Plug>(git-messenger)'] }
 " Typescript syntax files for Vim
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
+" https://github.com/gutenye/json5.vim
+" Syntax highlighting for JSON5 in Vim
+Plug 'GutenYe/json5.vim'
+
 " https://github.com/pangloss/vim-javascript
 " Vastly improved Javascript indentation and syntax support in Vim.
 " Plug 'pangloss/vim-javascript'
@@ -231,6 +235,9 @@ Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 " https://github.com/leafOfTree/vim-vue-plugin
 " Vim syntax and indent plugin for vue files
 Plug 'leafOfTree/vim-vue-plugin', { 'for': ['vue'] }
+
+" https://github.com/leafOfTree/vim-svelte-plugin
+Plug 'leafOfTree/vim-svelte-plugin', { 'for': ['svelte'] }
 
 " https://github.com/iamcco/markdown-preview.nvim - filetype
 " markdown preview plugin for (neo)vim
@@ -267,9 +274,9 @@ call plug#end()
   " 1. global installed extensions
   let g:coc_global_extensions = [
         \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
-        \ 'coc-vimlsp', 'coc-tsserver', 'coc-vetur', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
+        \ 'coc-vimlsp', 'coc-tsserver', 'coc-vetur', 'coc-svelte', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-prettier', 'coc-jest',
-        \ 'coc-eslint', 'coc-stylelintplus',
+        \ 'coc-eslint', 'coc-stylelint',
         \ 'coc-snippets',
         \ 'https://github.com/xabikos/vscode-javascript',
         \ 'https://github.com/IndexXuan/vue-vscode-snippets',
@@ -1151,6 +1158,11 @@ call plug#end()
  let g:vim_vue_plugin_highlight_vue_attr = 1
  let g:vim_vue_plugin_highlight_vue_keyword = 1
  let g:vim_vue_plugin_debug = 0
+
+ let g:vim_vue_plugin_custom_blocks = {
+      \'route': ['json5', 'json'],
+      \'i18n': ['json5', 'yaml', 'json'],
+      \}
 
  " Set local options based on subtype
  function! OnChangeVueSubtype(subtype)
