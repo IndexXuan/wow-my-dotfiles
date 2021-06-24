@@ -6,12 +6,13 @@
 - 基于 [coc.nvim](https://github.com/neoclide/coc.nvim) 强大特性，完整 LSP 支持，异步无阻塞代码补全
 - 专注前端以及 Node.js 开发，精选 Vim 插件以及 coc.nvim 扩展
 - 极速启动，延时加载 & 按需加载几乎全部插件（基于 Timer 特性）
-* 启动时间`nvim --startuptime ~/vimstart.log`:
+* 启动时间 `nvim --startuptime ~/vimstart.log`:
 
   PluginCount | StartupTime | File
   ----------- | ----------- |---------
      26+24    | 77 ~ 86ms   | empty (2021.03.05)
      26+24    | 86 ~ 100ms  | 700~ lines *.ts file (2021.03.05)
+     26+24    | 103 ~ 111ms  | 1800~ lines *.ts file (2021.06.24)
 
 ## 必要环境
 * Mac OS
