@@ -10,8 +10,8 @@
 
   PluginCount | StartupTime | File
   ----------- | ----------- |---------
-     24+23    | 77 ~ 86ms   | empty (2021.03.05)
-     24+23    | 86 ~ 100ms  | 700~ lines *.ts file (2021.03.05)
+     26+24    | 77 ~ 86ms   | empty (2021.03.05)
+     26+24    | 86 ~ 100ms  | 700~ lines *.ts file (2021.03.05)
 
 ## 必要环境
 * Mac OS
@@ -32,7 +32,6 @@ brew cask install font-hack-nerd-font
 ### 必要工具
 - rg (Ripgrep): [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep) | CtrlP & CtrlSF
 - Universal ctags: [ctags.io](https://ctags.io/)，比如 coc outline 为 markdown 生成大纲，算是一种兜底
-- code-minimap: [minimap](https://github.com/wfxr/code-minimap)，Rust 写得，用于渲染右侧代码缩略图
 
 ## 结构
 - [.vimrc](https://github.com/IndexXuan/IndexVim/blob/master/.vimrc) 基础配置，可开关是否加载插件 ( 基础配置已调优，足够在无插件情况下使用 )
@@ -71,14 +70,17 @@ Name           | Description
 [03. ctrlsf.vim](https://github.com/dyng/ctrlsf.vim) | 全局字符搜索
 [04. git-messenger](https://github.com/rhysd/git-messenger.vim) | 当前字符 Git 信息展示与历史浏览
 
-## 按文件类型加载插件 - 3
+## 按文件类型加载插件 - 6
 Name           | Description
 -------------- | ----------------------
 [01. typescript.vim](https://github.com/leafgarland/typescript-vim) | TypeScript
-[02. vim-vue](https://github.com/posva/vim-vue) | Vue
-[03. markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown
+[02. vim-vue-plugin](https://github.com/leafOfTree/vim-vue-plugin) | Vue
+[03. vim-svelte-plugin](https://github.com/leafOfTree/vim-svelte-plugin) | svelte
+[04. json5](https://github.com/gutenye/json5.vim) | json
+[05. markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown
+[06. vim-jsdoc](https://github.com/heavenshell/vim-jsdoc) | JS+
 
-## Coc Extensions - 23
+## Coc Extensions - 24
 Name           | Description
 -------------- | ----------------------
 [01. coc-git](https://github.com/neoclide/coc-git)                          | Git 扩展
@@ -99,11 +101,12 @@ Name           | Description
 [16. coc-prettier](https://github.com/neoclide/coc-prettier)                | 代码格式化
 [17. coc-jest](https://github.com/neoclide/coc-jest)                        | Jest 插件
 [18. coc-eslint](https://github.com/neoclide/coc-eslint)                    | eslint 插件
-[19. coc-stylelintplus](https://github.com/bmatcuk/coc-stylelintplus)       | stylelint 插件
+[19. coc-stylelint](https://github.com/neoclide/coc-stylelint)              | stylelint 插件
 [20. coc-snippets](https://github.com/neoclide/coc-snippets)                | 适配 UltiSnips and VSCode Snippets
 [21. vscode-javascript](https://github.com/xabikos/vscode-javascript)       | VSCode JavaScript Snippets
 [22. vue-vscode-snippets](https://github.com/IndexXuan/vue-vscode-snippets) | VSCode Vue Snippets
-[23. coc-translator](https://github.com/voldikss/coc-translator)            | 翻译插件
+[23. vscode-javascript](https://github.com/xabikos/vscode-javascript)       | VSCode JavaScript Snippets
+[24. coc-translator](https://github.com/voldikss/coc-translator)            | 翻译插件
 
 ## 键位操作
 - 默认 `<leader>` 为 `;` 可根据你的习惯修改
@@ -265,4 +268,3 @@ yss[]          | Normal | 快速为整句添加成对符号
 * [coc.nvim](https://github.com/neoclide/coc.nvim) by [@chemzqm](https://github.com/chemzqm)
 * [k-vim](https://github.com/wklken/k-vim)
 * [ThinkVim](https://github.com/taigacute/ThinkVim)
-

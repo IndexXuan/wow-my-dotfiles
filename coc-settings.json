@@ -1,5 +1,5 @@
 {
-  "coc.preferences.hoverTarget": "float",
+  "hover.target": "float",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
@@ -62,7 +62,6 @@
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
   },
-  "tsserver.log": "off",
   // coc-eslint
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "html", "vue", "jsx", "tsx"],
   // coc-prettier
@@ -79,12 +78,13 @@
   "git.addGBlameToVirtualText": true,
   "git.addGBlameToBufferVar": true,
   // vetur
-  "vetur.grammar.customBlocks": {
-    "route": "json5"
-  },
   "vetur.useWorkspaceDependencies": true,
   "vetur.validation.template": false,
+  "vetur.validation.interpolation": true,
+  "vetur.validation.templateProps": true,
   "vetur.experimental.templateInterpolationService": true,
+  // not working
+  "vetur.underline.refValue": true,
   // languageserver
   "languageserver": {
     "bash": {

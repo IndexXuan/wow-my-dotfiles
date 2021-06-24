@@ -221,9 +221,9 @@ Plug 'rhysd/git-messenger.vim', { 'on': ['<Plug>(git-messenger)'] }
 " Typescript syntax files for Vim
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
-" https://github.com/gutenye/json5.vim
+" https://github.com/gutenye/json5.vim - 0 -filetype(not working)
 " Syntax highlighting for JSON5 in Vim
-Plug 'GutenYe/json5.vim'
+Plug 'GutenYe/json5.vim', { 'for': ['json'] }
 
 " https://github.com/pangloss/vim-javascript
 " Vastly improved Javascript indentation and syntax support in Vim.
@@ -1152,31 +1152,34 @@ call plug#end()
 " }}
 
 " https://github.com/leafOfTree/vim-vue-plugin {{
- let g:vim_vue_plugin_load_full_syntax = 0
- let g:vim_vue_plugin_use_typescript = 1
- let g:vim_vue_plugin_use_scss = 1
- let g:vim_vue_plugin_highlight_vue_attr = 1
- let g:vim_vue_plugin_highlight_vue_keyword = 1
- let g:vim_vue_plugin_debug = 0
-
- let g:vim_vue_plugin_custom_blocks = {
-      \'route': ['json5', 'json'],
-      \'i18n': ['json5', 'yaml', 'json'],
+let g:vim_vue_plugin_config = { 
+      \'syntax': {
+      \   'template': ['html'],
+      \   'script': ['typescript', 'javascript'],
+      \   'style': ['css', 'scss', 'less'],
+      \   'route': ['json5'],
+      \},
+      \'full_syntax': ['typescript', 'html', 'scss', 'json'],
+      \'initial_indent': [],
+      \'attribute': 0,
+      \'keyword': 0,
+      \'foldexpr': 0,
+      \'debug': 0,
       \}
 
- " Set local options based on subtype
- function! OnChangeVueSubtype(subtype)
-   " echom 'subtype is '.a:subtype
-   if a:subtype == 'html'
-     setlocal commentstring=<!--%s-->
-     setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
-   elseif a:subtype =~ 'css'
-     setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
-   else
-     setlocal commentstring=//%s
-     setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
-   endif
- endfunction
+" Example: set local options based on syntax
+function! OnChangeVueSyntax(syntax)
+  echom 'Syntax is '.a:syntax
+  if a:syntax == 'html'
+    setlocal commentstring=<!--%s-->
+    setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+  elseif a:syntax =~ 'css'
+    setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
+  else
+    setlocal commentstring=//%s
+    setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+  endif
+endfunction
 " }}
 
 

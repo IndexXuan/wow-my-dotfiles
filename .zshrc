@@ -162,7 +162,7 @@ alias tt="tree -L 3 ./"
 alias t3="tree -L 3 ./"
 
 # code count
-alias cloc="scc --not-match='__' --exclude-dir=node_modules,public,build,tests,coverage,bin,.rome,.best,.doctor,.vscode"
+alias cloc="scc --not-match='__' --exclude-dir=node_modules,public,build,tests,coverage,bin,.rome,.best,.doctor,.vscode,doc,docs"
 alias jscode="find . ! -path './node_modules/*' -name '*.js' | xargs cat | grep -v ^$ | wc -l"
 alias tscode="find . ! -path './node_modules/*' -name '*.ts' | xargs cat | grep -v ^$ | wc -l"
 alias jsxcode="find . ! -path './node_modules/*' -name '*.jsx' | xargs cat | grep -v ^$ | wc -l"
