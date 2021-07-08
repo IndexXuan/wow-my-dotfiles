@@ -863,8 +863,8 @@ call plug#end()
 
 
 " https://github.com/tsony-tsonev/nerdtree-git-plugin {{
-  " a heavy feature may cost much more time
-  let g:NERDTreeShowIgnoredStatus = 1
+  " a heavy feature may cost much more time, so set to 0
+  let g:NERDTreeShowIgnoredStatus = 0
 
   " use color for stutus
   let g:NERDTreeGitStatusWithFlags = 1
@@ -1169,7 +1169,7 @@ let g:vim_vue_plugin_config = {
 
 " Example: set local options based on syntax
 function! OnChangeVueSyntax(syntax)
-  echom 'Syntax is '.a:syntax
+  " echom 'Syntax is '.a:syntax
   if a:syntax == 'html'
     setlocal commentstring=<!--%s-->
     setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
