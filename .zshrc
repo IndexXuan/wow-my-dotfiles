@@ -74,10 +74,7 @@ plugins=(
   zsh-syntax-highlighting
   git
   autojump
-  npm
   sudo
-  cp
-  web-search
 )
 
 source $ZSH/oh-my-zsh.sh
