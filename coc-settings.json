@@ -77,6 +77,7 @@
   "git.addGBlameToVirtualText": true,
   "git.addGBlameToBufferVar": true,
   // vetur
+  "vetur.enable": false,
   "vetur.ignoreProjectWarning": true,
   "vetur.useWorkspaceDependencies": true,
   "vetur.validation.template": false,
@@ -85,6 +86,13 @@
   "vetur.experimental.templateInterpolationService": true,
   // not working
   "vetur.underline.refValue": true,
+  // volar
+  "volar.enable": true,
+  "volar.useWorkspaceTsdk": true,
+  "volar.tagNameCase": "kebab",
+  "volar.attrNameCase": "kebab",
+  "volar.codeLens.references": true,
+  "volar.codeLens.scriptSetupTools": true,
   // languageserver
   "languageserver": {
     "bash": {

@@ -274,7 +274,7 @@ call plug#end()
   " 1. global installed extensions
   let g:coc_global_extensions = [
         \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
-        \ 'coc-vimlsp', 'coc-tsserver', 'coc-vetur', 'coc-svelte', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
+        \ 'coc-vimlsp', 'coc-tsserver', '@yaegassy/coc-volar', 'coc-vetur', 'coc-svelte', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-prettier', 'coc-jest',
         \ 'coc-eslint', 'coc-stylelint',
         \ 'coc-snippets',
