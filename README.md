@@ -19,18 +19,23 @@
 * neovim >= 0.4.0 ( floatwindow feature )
 * python3 support for neovim
 
+### 必要工具
+- python
+
 ```bash
 pip3 install --user pynvim
 ```
+
+- fonts
 * [Node](https://github.com/nvm-sh/nvm) and Yarn(https://yarnpkg.com/zh-Hant/)
 * [NerdFont](https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts)
+* 安装完毕记得 Iterm2 里的 profile -> text 选择导入和使用新字体
 
 ```bash
 brew tap homebrew/cask-fonts
-brew cask install font-hack-nerd-font
+brew install --cast font-hack-nerd-font
 ```
 
-### 必要工具
 - rg (Ripgrep): [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep) | CtrlP & CtrlSF
 - Universal ctags: [ctags.io](https://ctags.io/)，比如 coc outline 为 markdown 生成大纲，算是一种兜底
 

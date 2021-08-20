@@ -22,7 +22,7 @@ echo
 # cause zsh load theme from this variable instead of
 # looking in ~/.oh-my-zsh/themes/
 # An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+ZSH_THEME_RANDOM_CANDIDATES=( "re5et" "tjkirch_mod" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -120,15 +120,12 @@ alias ll="ls -al"
 alias lll="ls -al"
 
 # Vim
-alias ovim="/usr/local/bin/vim"
+# alias ovim="/usr/local/bin/vim"
 # NeoVim
-alias nvim="~/nvim-osx64/bin/nvim"
+# alias nvim="~/nvim-osx64/bin/nvim"
 # Alias Vim as NeoVim
 alias vim="nvim"
-# space-vim
-alias s-vim="vim -u ~/.space-vim/init.vim"
-# SpaceVim
-alias svim="vim -u ~/.SpaceVim/vimrc"
+
 # 急速 Vim
 alias v="vim -u NONE"
 # 基础 Vim
@@ -213,3 +210,5 @@ export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890

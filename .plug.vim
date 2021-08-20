@@ -6,14 +6,14 @@
 
 " setup
 " NOTE: @Install
-" " enable python if $PATH has python3 >= 3.4
-" " pip3 install --user --upgrade pynvim
+" enable python if $PATH has python3 >= 3.4
+" pip3 install --user --upgrade pynvim
 
 if has('nvim')
   let g:python_host_skip_check = 1
-  let g:python_host_prog = '/usr/local/bin/python3'
+  let g:python_host_prog = '/usr/local/bin/python'
   let g:python3_host_skip_check = 1
-  let g:python3_host_prog = '/usr/local/bin/python3'
+  let g:python3_host_prog = '/opt/homebrew/bin/python3'
 endif
 
 call plug#begin('$HOME/.vim/plugged')
@@ -137,7 +137,7 @@ endfunction
 
 " https://github.com/neoclide/coc.nvim - 0 - init - 异步加载会超级慢 - 基础生态插件
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
-Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " https://github.com/wakatime/vim-wakatime - 0 - lazy - 基础功能插件
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
@@ -1098,7 +1098,7 @@ call plug#end()
 " https://github.com/dyng/ctrlsf.vim {{
   " NOTE: @Install - Use RG for CtrlSF - https://github.com/BurntSushi/ripgrep
   " brew install ripgrep
-  let g:ctrlsf_ackprg = '/usr/local/bin/rg'
+  let g:ctrlsf_ackprg = '/opt/homebrew/bin/rg'
   nnoremap <leader>sf :CtrlSF<Space><Right>''<Right><Left>
   let g:ctrlsf_confirm_save = 1
   let g:ctrlsf_auto_close = {
@@ -1161,8 +1161,8 @@ let g:vim_vue_plugin_config = {
       \},
       \'full_syntax': ['typescript', 'html', 'scss', 'json'],
       \'initial_indent': [],
-      \'attribute': 0,
-      \'keyword': 0,
+      \'attribute': 1,
+      \'keyword': 1,
       \'foldexpr': 0,
       \'debug': 0,
       \}
