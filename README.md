@@ -12,7 +12,8 @@
   ----------- | ----------- |---------
      26+24    | 77 ~ 86ms   | empty (2021.03.05)
      26+24    | 86 ~ 100ms  | 700~ lines *.ts file (2021.03.05)
-     26+24    | 103 ~ 111ms  | 1800~ lines *.ts file (2021.06.24)
+     26+24    | 103 ~ 111ms | 1800~ lines *.ts file (2021.06.24)
+     26+24    | 55ms        | 100~ lines *.vue file (2021.08.20 MacBookAir M1)
 
 ## 必要环境
 * Mac OS
@@ -27,9 +28,9 @@ pip3 install --user pynvim
 ```
 
 - fonts
-* [Node](https://github.com/nvm-sh/nvm) and Yarn(https://yarnpkg.com/zh-Hant/)
-* [NerdFont](https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts)
-* 安装完毕记得 Iterm2 里的 profile -> text 选择导入和使用新字体
+  - [Node](https://github.com/nvm-sh/nvm) and Yarn(https://yarnpkg.com/zh-Hant/)
+  - [NerdFont](https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts)
+  - 安装完毕记得 Iterm2 里的 profile -> text 选择导入和使用新字体
 
 ```bash
 brew tap homebrew/cask-fonts
