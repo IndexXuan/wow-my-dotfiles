@@ -8,6 +8,9 @@
     "vue.config.js",
     ".git"
   ],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "dart"
+  ],
   "list.previewSplitRight": true,
   "list.normalMappings": {
     "<C-j>": "normal:j",
@@ -65,7 +68,8 @@
   // coc-eslint
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "html", "vue", "jsx", "tsx"],
   // coc-prettier
-  "prettier.eslintIntegration": true,
+  // TODO: https://github.com/neoclide/coc-prettier/issues/62
+  "prettier.eslintIntegration": false,
   "prettier.stylelintIntegration": true,
   // coc-git  
   "git.branchCharacter": "",
@@ -89,10 +93,15 @@
   // volar
   "volar.enable": true,
   "volar.useWorkspaceTsdk": true,
-  "volar.tagNameCase": "kebab",
+  "volar.tagNameCase": "both",
   "volar.attrNameCase": "kebab",
   "volar.codeLens.references": true,
   "volar.codeLens.scriptSetupTools": true,
+  // flutter
+  "flutter.sdk.flutter-lookup": "asdf which flutter",
+  "flutter.lsp.initialization.closingLabels": true,
+  "flutter.closingLabelPrefix": "/. ",
+  "flutter.provider.enableSnippet": true,
   // languageserver
   "languageserver": {
     "bash": {

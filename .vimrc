@@ -318,6 +318,8 @@ endif
       exec "!node %<"
     elseif &filetype == 'html'
       exec "!open % &"
+    elseif &filetype == 'dart'
+      exec "!dart run %<.dart"
     endif
   endfunction
 " }}

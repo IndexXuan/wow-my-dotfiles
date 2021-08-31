@@ -237,7 +237,11 @@ Plug 'GutenYe/json5.vim', { 'for': ['json'] }
 Plug 'leafOfTree/vim-vue-plugin', { 'for': ['vue'] }
 
 " https://github.com/leafOfTree/vim-svelte-plugin
-Plug 'leafOfTree/vim-svelte-plugin', { 'for': ['svelte'] }
+" Plug 'leafOfTree/vim-svelte-plugin', { 'for': ['svelte'] }
+
+" https://github.com/dart-lang/dart-vim-plugin
+" Syntax highlighting for Dart in Vim
+Plug 'dart-lang/dart-vim-plugin', { 'for': ['dart'] }
 
 " https://github.com/iamcco/markdown-preview.nvim - filetype
 " markdown preview plugin for (neo)vim
@@ -274,7 +278,7 @@ call plug#end()
   " 1. global installed extensions
   let g:coc_global_extensions = [
         \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
-        \ 'coc-vimlsp', 'coc-tsserver', '@yaegassy/coc-volar', 'coc-vetur', 'coc-svelte', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
+        \ 'coc-vimlsp', 'coc-tsserver', '@yaegassy/coc-volar', 'coc-vetur', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-prettier', 'coc-jest',
         \ 'coc-eslint', 'coc-stylelint',
         \ 'coc-snippets',
@@ -1180,6 +1184,13 @@ function! OnChangeVueSyntax(syntax)
     setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
   endif
 endfunction
+" }}
+
+" https://github.com/dart-lang/dart-vim-plugin {{
+let dart_html_in_string=v:true
+" let g:dart_format_on_save = 1
+" let g:dart_style_guide = 2
+nnoremap <silent> <leader>f :<C-u>CocCommand flutter.run<cr>
 " }}
 
 
