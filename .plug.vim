@@ -278,7 +278,7 @@ call plug#end()
   " 1. global installed extensions
   let g:coc_global_extensions = [
         \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
-        \ 'coc-vimlsp', 'coc-tsserver', '@yaegassy/coc-volar', 'coc-vetur', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
+        \ 'coc-vimlsp', 'coc-tsserver', 'coc-flutter', '@yaegassy/coc-volar', 'coc-vetur', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-prettier', 'coc-jest',
         \ 'coc-eslint', 'coc-stylelint',
         \ 'coc-snippets',
@@ -1031,8 +1031,8 @@ call plug#end()
 
 " https://github.com/scrooloose/nerdcommenter {{
   let g:NERDCreateDefaultMappings = 0
-  nnoremap <leader>c :call NERDComment(0, "toggle")<CR>
-  vnoremap <leader>c :call NERDComment(0, "toggle")<CR>
+  nnoremap <silent> <leader>c :call nerdcommenter#Comment(0, "toggle")<CR>
+  vnoremap <silent> <leader>c :call nerdcommenter#Comment(0, "toggle")<CR>
   " Add spaces after comment delimiters by default
   let g:NERDSpaceDelims = 1
   " Use compact syntax for prettified multi-line comments
