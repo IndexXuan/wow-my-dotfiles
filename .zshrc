@@ -120,11 +120,11 @@ alias ll="ls -al"
 alias lll="ls -al"
 
 # Vim
-# alias ovim="/usr/local/bin/vim"
-# NeoVim
-# alias nvim="~/nvim-osx64/bin/nvim"
 # Alias Vim as NeoVim
+# brew install --HEAD neovim 安装命令
+# https://zhuanlan.zhihu.com/p/383707713 国内 homebrew 源可能有坑
 alias vim="nvim"
+alias ovim="/usr/bin/vim"
 
 # 急速 Vim
 alias v="vim -u NONE"
@@ -158,7 +158,7 @@ alias tt="tree -L 3 ./"
 alias t3="tree -L 3 ./"
 
 # code count
-alias cloc="scc --not-match='__' --exclude-dir=node_modules,public,build,tests,coverage,bin,.rome,.best,.doctor,.vscode,doc,docs"
+alias cloc="scc --not-match='__' --exclude-dir=node_modules,public,build,tests,coverage,bin,.rome,.best,.doctor,.vscode,doc,docs,generated"
 alias jscode="find . ! -path './node_modules/*' -name '*.js' | xargs cat | grep -v ^$ | wc -l"
 alias tscode="find . ! -path './node_modules/*' -name '*.ts' | xargs cat | grep -v ^$ | wc -l"
 alias jsxcode="find . ! -path './node_modules/*' -name '*.jsx' | xargs cat | grep -v ^$ | wc -l"
@@ -179,7 +179,6 @@ alias mnpm="npm --registry=http://r.npm.sankuai.com \
 --userconfig=$HOME/.npmrc"
 
 alias x="proxychains4"
-alias chrome="google chrome"
 
 alias create-zone-app="vue create --preset direct:ssh://git@git.sankuai.com/nibfe/vue-cli-preset-zone.git --clone my-zone-app"
 
@@ -200,6 +199,8 @@ alias cpd="curl https://awp-assets.sankuai.com/hfe/talos-plugins/services/jscpd/
 alias vti="cd ${projectRoot:-.} && curl https://awp-assets.sankuai.com/hfe/talos-plugins/services/vue-typecheck-staging/index.js | node -"
 alias cc="conard cc"
 
+alias devtools="flutter pub global run devtools"
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
@@ -217,8 +218,14 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 export PATH=$HOME/flutter/bin:$PATH
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+export PATH="$PATH":"$HOME/.asdf/installs/flutter/2.8.1-stable/.pub-cache/bin"
 
 # asdf
 . ~/.asdf/asdf.sh
 . ~/.asdf/completions/asdf.bash
 
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true

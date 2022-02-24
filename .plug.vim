@@ -139,6 +139,10 @@ endfunction
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
+" https://github.com/github/copilot.vim
+" Neovim plugin for GitHub Copilot
+Plug 'github/copilot.vim'
+
 " https://github.com/wakatime/vim-wakatime - 0 - lazy - 基础功能插件
 " Vim plugin for automatic time tracking and metrics generated from your programming activity
 Plug 'wakatime/vim-wakatime', { 'on': [] }
@@ -277,14 +281,15 @@ call plug#end()
   let g:coc_disable_startup_warning = 1
   " 1. global installed extensions
   let g:coc_global_extensions = [
-        \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank',
-        \ 'coc-vimlsp', 'coc-tsserver', 'coc-flutter', '@yaegassy/coc-volar', 'coc-vetur', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
+        \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank', 'coc-vimlsp',
+        \ 'coc-flutter', '@yaegassy/coc-volar', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
         \ 'coc-prettier', 'coc-jest',
         \ 'coc-eslint', 'coc-stylelint',
         \ 'coc-snippets',
         \ 'https://github.com/xabikos/vscode-javascript',
         \ 'https://github.com/IndexXuan/vue-vscode-snippets',
-        \ 'coc-translator',
+        \ 'https://github.com/IndexXuan/awesome-flutter-snippets',
+        \ 'coc-translator', 'coc-sh',
         \]
 
   " Run jest for current project
@@ -313,23 +318,23 @@ call plug#end()
 
   " 3. Using CocList
   " Show all Lists
-  nnoremap <silent> <space>l  :<C-u>CocList --number-select lists<cr>
+  nnoremap <silent> <space>l  :<C-u>CocList --number-select lists<CR>
   " Show commands
-  nnoremap <silent> <space>c  :<C-u>CocList --number-select commands<cr>
+  nnoremap <silent> <space>c  :<C-u>CocList --number-select commands<CR>
   " Show all diagnostics
-  nnoremap <silent> <space>d  :<C-u>CocList --number-select --auto-preview diagnostics<cr>
+  nnoremap <silent> <space>d  :<C-u>CocList --number-select --auto-preview diagnostics<CR>
   " Manage extensions
-  nnoremap <silent> <space>e  :<C-u>CocList --number-select extensions<cr>
-  " nnoremap <silent> <space>t  :<C-u>CocList --number-select todolist<cr>
-  " nnoremap <silent> <space>tc :<C-u>CocCommand todolist.create<cr>
+  nnoremap <silent> <space>e  :<C-u>CocList --number-select extensions<CR>
+  " nnoremap <silent> <space>t  :<C-u>CocList --number-select todolist<CR>
+  " nnoremap <silent> <space>tc :<C-u>CocCommand todolist.create<CR>
   " Git status
   " nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
   " Find symbol of current document
-  nnoremap <silent> <space>o  :<C-u>CocList --number-select --auto-preview outline<cr>
+  nnoremap <silent> <space>o  :<C-u>CocList --number-select --auto-preview outline<CR>
   " Search workspace symbols
-  " nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<cr>
-  nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<cr>
-  nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+  " nnoremap <silent> <C-p>  :<C-u>CocList --interactive --auto-preview --number-select files<CR>
+  nnoremap <silent> <leader>s  :<C-u>CocList --interactive --number-select symbols<CR>
+  nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<CR>
   " Do default action for next item.
   " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
@@ -901,7 +906,7 @@ call plug#end()
   let g:quickmenu_ft_blacklist = ['netrw', 'nerdtree']
   let g:quickmenu_disable_nofile = 0
   " choose a favorite key to show / hide quickmenu
-  noremap <silent><leader>b :call OpenMenu()<cr>
+  noremap <silent><leader>b :call OpenMenu()<CR>
   " enable cursorline (L) and cmdline help (H)
   let g:quickmenu_options = "L"
   function! OpenMenu()
@@ -1014,6 +1019,7 @@ call plug#end()
       \ 'c'    : ['', 'coc-commands']        ,
       \ 'd'    : ['', 'coc-diagnostics']     ,
       \ 'e'    : ['', 'coc-extensions']      ,
+      \ 'f'    : ['', 'flutter hotReload']      ,
       \ 'g'    : ['', 'coc-git-status']      ,
       \ 'l'    : ['', 'coc-lists']           ,
       \ 'o'    : ['', 'coc-outline']         ,
@@ -1190,7 +1196,9 @@ endfunction
 let dart_html_in_string=v:true
 " let g:dart_format_on_save = 1
 " let g:dart_style_guide = 2
-nnoremap <silent> <leader>f :<C-u>CocCommand flutter.run<cr>
+nnoremap <silent> <leader>f :<C-u>CocCommand flutter.run -d chrome --web-port=3002 --web-renderer html --web-run-headless --target lib/main.dart<CR>
+nnoremap <silent> <leader>fs :<C-u>CocCommand flutter.run -d chrome --web-port=3002 --web-renderer html --web-run-headless --target storybook/storybook.dart<CR>
+nnoremap <silent> <Space>f :<C-u>CocCommand flutter.dev.hotReload<CR>
 " }}
 
 
@@ -1202,7 +1210,7 @@ nnoremap <silent> <leader>f :<C-u>CocCommand flutter.run<cr>
 " https://github.com/heavenshell/vim-jsdoc {{
   let g:jsdoc_formatter = 'tsdoc'
   nmap <silent> <leader>dd <Plug>(jsdoc)
-  nmap <silent> <leader>dd ?function<cr>:noh<cr><Plug>(jsdoc)
+  nmap <silent> <leader>dd ?function<CR>:noh<CR><Plug>(jsdoc)
 " }}
 
 

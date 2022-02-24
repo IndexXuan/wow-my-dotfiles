@@ -3,12 +3,17 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
-  "coc.preferences.rootPatterns": [
-    "vite.config.ts",
-    "vue.config.js",
-    ".git"
-  ],
+  // color highlight by coc-highlight
+  "coc.preferences.colorSupport": true,
+  "coc.preferences.rootPatterns": ["vite.config.ts", "vue.config.js", ".git"],
+  "translator.engines": ["youdao"],
   "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "scss",
+    "vue",
+    "json",
+    "javascript",
+    "typescript",
     "dart"
   ],
   "list.previewSplitRight": true,
@@ -61,7 +66,7 @@
     "variable": "",
     "value": "",
     "default": ""
-	},
+  },
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
   },
@@ -102,13 +107,8 @@
   "flutter.lsp.initialization.closingLabels": true,
   "flutter.closingLabelPrefix": "/. ",
   "flutter.provider.enableSnippet": true,
-  // languageserver
-  "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
-    }
-  }
+  "flutter.runDevToolsAtStartup": true,
+  "flutter.autoOpenDevLog": true,
+  "flutter.autoHideDevLog": true,
+  "flutter.openDevLogSplitCommand": "botright 30vsplit"
 }

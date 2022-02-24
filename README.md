@@ -15,6 +15,12 @@
      26+24    | 103 ~ 111ms | 1800~ lines *.ts file (2021.06.24)
      26+24    | 55ms        | 100~ lines *.vue file (2021.08.20 MacBookAir M1)
 
+## 安装
+- git clone this repo
+- (maybe mkdir ~/.config/nvim)
+  - ln -s ~/wow-my-dotfiles/.vimrc ~/.config/nvim/init.vim
+  - ln -s ~/wow-my-dotfiles/coc-settings.json ~/.config/nvim/coc-settings.json
+
 ## 必要环境
 * Mac OS
 * neovim >= 0.4.0 ( floatwindow feature )
@@ -87,7 +93,7 @@ Name           | Description
 [05. markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown
 [06. vim-jsdoc](https://github.com/heavenshell/vim-jsdoc) | JS+
 
-## Coc Extensions - 24
+## Coc Extensions - 27
 Name           | Description
 -------------- | ----------------------
 [01. coc-git](https://github.com/neoclide/coc-git)                          | Git 扩展
@@ -114,6 +120,9 @@ Name           | Description
 [22. vue-vscode-snippets](https://github.com/IndexXuan/vue-vscode-snippets) | VSCode Vue Snippets
 [23. vscode-javascript](https://github.com/xabikos/vscode-javascript)       | VSCode JavaScript Snippets
 [24. coc-translator](https://github.com/voldikss/coc-translator)            | 翻译插件
+[25. coc-sh]()            | Shell LSP
+[26. coc-volar]()            | New Vue LSP
+[27. coc-flutter]()            | Flutter LSP
 
 ## 键位操作
 - 默认 `<leader>` 为 `;` 可根据你的习惯修改
