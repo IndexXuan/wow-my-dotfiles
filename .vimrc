@@ -67,6 +67,7 @@ endif
 " UI Layout {{
   " Better gui colors
   set termguicolors
+  set pumblend=20
   " Show cursor line
   set cursorline
   " Better display for messages

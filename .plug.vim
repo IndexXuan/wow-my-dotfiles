@@ -64,6 +64,10 @@ augroup loadPlugin
         \ | autocmd! loadPlugin
 augroup END
 
+augroup JsonToJsonc
+    autocmd! FileType json set filetype=jsonc
+augroup END
+
 function! Handler(_)
   " 0. before load
   " do nothing right now
@@ -359,19 +363,19 @@ call plug#end()
   " 4. 补全配置
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  let g:copilot_no_tab_map = v:true
+  " Autocomplete navigation
   inoremap <silent><expr> <TAB>
-        \ pumvisible() ? coc#_select_confirm() :
-        \ coc#expandableOrJumpable() ? coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#pum#visible() ? coc#pum#next(1):
+        \ exists('b:_copilot.suggestions') ? copilot#Accept("\<CR>") :
+        \ CheckBackSpace() ? "\<Tab>" :
         \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-
-  let g:coc_snippet_next = '<tab>'
+  inoremap <silent><expr> <S-TAB>
+        \ coc#pum#visible() ? coc#pum#prev(1):
+        \ exists('b:_copilot.suggestions') ? copilot#Accept("\<CR>") :
+        \ CheckBackSpace() ? "\<Tab>" :
+        \ coc#refresh()
 
   " expand vue snippet - @see https://github.com/iamcco/dotfiles/blob/master/nvim/viml/plugins.config/coc.nvim.vim#L52
   function! s:vue_snippet() abort
@@ -390,6 +394,8 @@ call plug#end()
           endif
       endif
   endfunction
+
+  let g:coc_snippet_next = '<tab>'
 
   " vue
   autocmd CompleteDone *.vue call <SID>vue_snippet()

@@ -3,8 +3,9 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
-  // color highlight by coc-highlight
-  "coc.preferences.colorSupport": true,
+  "colors.filetypes": ["*"],
+  "highlight.colors.enable": true,
+  "highlight.document.enable": true,
   "coc.preferences.rootPatterns": ["vite.config.ts", "vue.config.js", ".git"],
   "translator.engines": ["youdao"],
   "coc.preferences.formatOnSaveFiletypes": [
@@ -72,10 +73,6 @@
   },
   // coc-eslint
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "html", "vue", "jsx", "tsx"],
-  // coc-prettier
-  // TODO: https://github.com/neoclide/coc-prettier/issues/62
-  "prettier.eslintIntegration": false,
-  "prettier.stylelintIntegration": true,
   // coc-git  
   "git.branchCharacter": "",
   "git.changedDecorator": "*",
@@ -85,25 +82,18 @@
   "git.virtualTextPrefix": "     ",
   "git.addGBlameToVirtualText": true,
   "git.addGBlameToBufferVar": true,
-  // vetur
-  "vetur.enable": false,
-  "vetur.ignoreProjectWarning": true,
-  "vetur.useWorkspaceDependencies": true,
-  "vetur.validation.template": false,
-  "vetur.validation.interpolation": true,
-  "vetur.validation.templateProps": true,
-  "vetur.experimental.templateInterpolationService": true,
-  // not working
-  "vetur.underline.refValue": true,
   // volar
   "volar.enable": true,
+  "volar.autoCompleteRefs": true,
+  "volar.autoClosingTags": true,
+  "volar.completion.autoImportComponent": true,
   "volar.useWorkspaceTsdk": true,
-  "volar.tagNameCase": "both",
-  "volar.attrNameCase": "kebab",
+  "volar.completion.tagNameCase": "both",
+  "volar.completion.attrNameCase": "kebab",
   "volar.codeLens.references": true,
   "volar.codeLens.scriptSetupTools": true,
   // flutter
-  "flutter.sdk.flutter-lookup": "asdf which flutter",
+  "flutter.sdk.flutter-lookup": "which flutter",
   "flutter.lsp.initialization.closingLabels": true,
   "flutter.closingLabelPrefix": "/. ",
   "flutter.provider.enableSnippet": true,

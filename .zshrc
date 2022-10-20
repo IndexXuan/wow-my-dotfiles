@@ -136,6 +136,7 @@ alias vi="vim"
 alias vim-debug="vim --startuptime ~/.vim/debug/startuptime.log"
 
 alias gitlog="git log --graph --oneline --all --decorate --color"
+alias gitlist="git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
 alias git-soft-remove-last-commit="git reset --soft HEAD^"
 alias github-remove-last-commit="git push -f origin HEAD^:master && git reset --soft HEAD^"
 alias gitlist="git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
@@ -158,7 +159,7 @@ alias tt="tree -L 3 ./"
 alias t3="tree -L 3 ./"
 
 # code count
-alias cloc="scc --not-match='__' --exclude-dir=node_modules,public,build,tests,coverage,bin,.rome,.best,.doctor,.vscode,doc,docs,generated"
+alias cloc="scc --not-match='__' --exclude-dir=node_modules,public,build,tests,coverage,bin,.rome,.best,.doctor,.vscode,doc,docs,generated,_json.dart,.g.dart,json_diff"
 alias jscode="find . ! -path './node_modules/*' -name '*.js' | xargs cat | grep -v ^$ | wc -l"
 alias tscode="find . ! -path './node_modules/*' -name '*.ts' | xargs cat | grep -v ^$ | wc -l"
 alias jsxcode="find . ! -path './node_modules/*' -name '*.jsx' | xargs cat | grep -v ^$ | wc -l"
@@ -217,13 +218,10 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 # Flutter
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-export PATH=$HOME/flutter/bin:$PATH
+export PATH=$HOME/flutter-sdk/bin:$PATH
 export PATH="$PATH":"$HOME/.pub-cache/bin"
-export PATH="$PATH":"$HOME/.asdf/installs/flutter/2.8.1-stable/.pub-cache/bin"
-
-# asdf
-. ~/.asdf/asdf.sh
-. ~/.asdf/completions/asdf.bash
+export PATH="$PATH":"$HOME/ossutil"
+export PATH="$PATH":"$HOME/chrome-driver"
 
 
 # tabtab source for packages
