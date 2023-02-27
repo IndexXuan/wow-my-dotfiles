@@ -321,6 +321,8 @@ endif
       exec "!open % &"
     elseif &filetype == 'dart'
       exec "!dart run %<.dart"
+    elseif &filetype == 'rust'
+      exec "!cargo run %<.rs"
     endif
   endfunction
 " }}

@@ -286,7 +286,7 @@ call plug#end()
   " 1. global installed extensions
   let g:coc_global_extensions = [
         \ 'coc-git', 'coc-lists', 'coc-word', 'coc-dictionary', 'coc-emoji', 'coc-highlight', 'coc-pairs', 'coc-yank', 'coc-vimlsp',
-        \ 'coc-flutter', '@yaegassy/coc-volar', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml',
+        \ 'coc-flutter', '@yaegassy/coc-volar', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-json', 'coc-yaml', 'coc-rust-analyzer',
         \ 'coc-prettier', 'coc-jest',
         \ 'coc-eslint', 'coc-stylelint',
         \ 'coc-snippets',
@@ -377,6 +377,9 @@ call plug#end()
         \ CheckBackSpace() ? "\<Tab>" :
         \ coc#refresh()
 
+  hi CocSearch ctermfg=12 guifg=#18A3FF
+  hi CocMenuSel ctermbg=109 guibg=#13354A
+
   " expand vue snippet - @see https://github.com/iamcco/dotfiles/blob/master/nvim/viml/plugins.config/coc.nvim.vim#L52
   function! s:vue_snippet() abort
       let l:start_line = line('.')
@@ -418,8 +421,10 @@ call plug#end()
   function! s:show_documentation()
     if &filetype == 'vim'
       execute('h '.expand('<cword>'))
+    elseif CocAction('hasProvider', 'hover')
+      call CocActionAsync('doHover')
     else
-      call CocAction('doHover')
+      call feedkeys('K', 'in')
     endif
   endfunction
 

@@ -15,7 +15,8 @@
     "json",
     "javascript",
     "typescript",
-    "dart"
+    "dart",
+    "rust"
   ],
   "list.previewSplitRight": true,
   "list.normalMappings": {
@@ -100,5 +101,6 @@
   "flutter.runDevToolsAtStartup": true,
   "flutter.autoOpenDevLog": true,
   "flutter.autoHideDevLog": true,
-  "flutter.openDevLogSplitCommand": "botright 30vsplit"
+  "flutter.openDevLogSplitCommand": "botright 30vsplit",
+  "inlayHint.enable": false
 }
