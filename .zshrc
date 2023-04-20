@@ -75,6 +75,7 @@ plugins=(
   git
   autojump
   sudo
+  zsh-better-npm-completion
 )
 
 source $ZSH/oh-my-zsh.sh

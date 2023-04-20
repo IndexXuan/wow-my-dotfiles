@@ -1091,7 +1091,7 @@ call plug#end()
   nnoremap <silent> <C-p> :CtrlP<CR>
   " search in Files, Buffers and MRU files at the same time.
   let g:ctrlp_cmd = 'CtrlPMixed'
-  let g:ctrlp_root_markers = ['vue.config.js', '.git']
+  let g:ctrlp_root_markers = ['vue.config.js', 'vite.config.ts', '.git']
   " the nearest ancestor of the current file that contains one of these directories or files: .git .hg .svn .bzr _darcs
   let g:ctrlp_working_path_mode = 'r'
 
@@ -1173,20 +1173,20 @@ call plug#end()
 " }}
 
 " https://github.com/leafOfTree/vim-vue-plugin {{
-let g:vim_vue_plugin_config = { 
-      \'syntax': {
-      \   'template': ['html'],
-      \   'script': ['typescript', 'javascript'],
-      \   'style': ['css', 'scss', 'less'],
-      \   'route': ['json5'],
-      \},
-      \'full_syntax': ['typescript', 'html', 'scss', 'json'],
-      \'initial_indent': [],
-      \'attribute': 1,
-      \'keyword': 1,
-      \'foldexpr': 0,
-      \'debug': 0,
-      \}
+" let g:vim_vue_plugin_config = {
+"       \'syntax': {
+"       \   'template': ['html'],
+"       \   'script': ['typescript', 'javascript'],
+"       \   'style': ['css', 'scss', 'less'],
+"       \   'route': ['json5'],
+"       \},
+"       \'full_syntax': ['typescript', 'html', 'scss', 'json'],
+"       \'initial_indent': [],
+"       \'attribute': 1,
+"       \'keyword': 1,
+"       \'foldexpr': 0,
+"       \'debug': 0,
+"       \}
 
 " Example: set local options based on syntax
 function! OnChangeVueSyntax(syntax)
