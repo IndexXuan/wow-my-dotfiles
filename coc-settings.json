@@ -1,40 +1,41 @@
 {
+  // ref - https://github.com/neoclide/coc.nvim/blob/master/data/schema.json
+
+  // basic
   "hover.target": "float",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
-  "colors.filetypes": ["*"],
+  "coc.preferences.formatOnType": false,
+  "colors.enable": true,
   "highlight.colors.enable": true,
   "highlight.document.enable": true,
-  "coc.preferences.rootPatterns": ["vite.config.ts", "vue.config.js", ".git"],
-  "translator.engines": ["youdao"],
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "scss",
-    "vue",
-    "json",
-    "javascript",
-    "typescript",
-    "dart",
-    "rust"
-  ],
+  "workspace.rootPatterns": ["vite.config.ts", ".git"],
+
+  // language overrides
+  "[vue][json][javascript][typescript][dart][rust]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "javascript.suggestionActions.enabled": false,
+
+  // list
   "list.previewSplitRight": true,
   "list.normalMappings": {
     "<C-j>": "normal:j",
     "<C-k>": "normal:k",
     "<C-t>": "action:tabe"
   },
-  "javascript.suggestionActions.enabled": false,
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false,
-  "wxss.validate": false,
+
+  // diagnostic
   "diagnostic.refreshOnInsertMode": false,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualTextPrefix": " ",
   "diagnostic.virtualText": false,
+
+  // codeLens
   "codeLens.enable": false,
   "codeLens.separator": "‣",
+
+  // suggest
   // make vim select first item on completion
   "suggest.noselect": false,
   // when snippet activated and pumvisible, prefer complete completion.
@@ -69,11 +70,14 @@
     "value": "",
     "default": ""
   },
+
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css", "scss", "less"]
   },
+
   // coc-eslint
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "html", "vue", "jsx", "tsx"],
+
   // coc-git  
   "git.branchCharacter": "",
   "git.changedDecorator": "*",
@@ -83,16 +87,12 @@
   "git.virtualTextPrefix": "     ",
   "git.addGBlameToVirtualText": true,
   "git.addGBlameToBufferVar": true,
+
   // volar
   "volar.enable": true,
-  "volar.autoCompleteRefs": true,
   "volar.autoClosingTags": true,
-  "volar.completion.autoImportComponent": true,
   "volar.useWorkspaceTsdk": true,
-  "volar.completion.tagNameCase": "both",
-  "volar.completion.attrNameCase": "kebab",
-  "volar.codeLens.references": true,
-  "volar.codeLens.scriptSetupTools": true,
+
   // flutter
   "flutter.sdk.flutter-lookup": "which flutter",
   "flutter.lsp.initialization.closingLabels": true,
@@ -102,5 +102,8 @@
   "flutter.autoOpenDevLog": true,
   "flutter.autoHideDevLog": true,
   "flutter.openDevLogSplitCommand": "botright 30vsplit",
-  "inlayHint.enable": false
+  "inlayHint.enable": false,
+
+  // plugins
+  "translator.engines": ["youdao"]
 }

@@ -442,7 +442,7 @@ call plug#end()
   call SetupCommandAbbrs('gl', '0Glog')
 
   " coc.nvim - prettier
-  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+  command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
   nmap <leader>p :Prettier<CR>
   vmap <leader>p <Plug>(coc-format-selected)
 " }}
