@@ -311,10 +311,12 @@ call plug#end()
   " 2. Misc
   " Use <c-space> for trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
-  "uto coc-pairs 自动加空格，需要配合 coc-settings.json 里的属性
-  inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
+  "auto coc-pairs 自动加空格，需要配合 coc-settings.json 里的属性，有了这个才能光标居中而不是紧贴 `here =>}` 右花括号
+  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
   " NOTE: coc-pairs
   autocmd FileType markdown let b:coc_pairs_disabled = ['`']
+
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
